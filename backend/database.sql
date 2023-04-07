@@ -330,3 +330,6 @@ VALUES (1, 'Brown', 'Mike', 'mike.brown@example.com', '4567890123', '1995-07-15'
 
 INSERT INTO recruteur (Entreprise_id, Nom, Prenom, Email, Telephone, Date_naissance, Mot_de_passe, Adresse_rue, Adresse_ville, Adresse_CP, Valide, Photo)
 VALUES (1, 'Smith', 'Jane', 'jane.smith@example.com', '9876543210', '1985-05-10', '5678', '456 Avenue du Recrutement', 'VilleRecrute', '67890', 0, NULL);
+
+--Permet de mettre une valeur de 0 pour le champ valide, (benjamin 07/04)
+ALTER TABLE recruteur MODIFY valide TINYINT(1) NOT NULL DEFAULT 0;
