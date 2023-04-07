@@ -27,7 +27,24 @@ const read = (req, res) => {
       res.sendStatus(500);
     });
 };
+
+const add = (req, res) => {
+  const item = req.body;
+
+  // TODO validations (length, format...)
+
+  models.recruitment
+    .insert(item)
+    .then(([result]) => {
+      res.location(`/items/${result.insertId}`).sendStatus(201);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
 module.exports = {
   browse,
   read,
+  add,
 };

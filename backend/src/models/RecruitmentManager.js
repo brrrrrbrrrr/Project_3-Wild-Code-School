@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const AbstractManager = require("./AbstractManager");
 
 class RecruitmentManager extends AbstractManager {
@@ -5,11 +6,36 @@ class RecruitmentManager extends AbstractManager {
     super({ table: "recruteur" });
   }
 
-  // insert({ object }) {
-  //   return this.database.query(`insert into ${this.recruteur} (?) values (?)`, [
-  //     recruteur,
-  //   ]);
-  // }
+  insert(recruteur) {
+    return this.database.query(
+      `insert into ${this.table} (Entreprise_id,
+      Nom,
+      Prenom,
+      Email,
+      Telephone,
+      Date_naissance,
+      Mot_de_passe,
+      Adresse_rue,
+      Adresse_ville,
+      Adresse_CP,
+      Valide,
+      Photo) values (?,?,?,?,?,?,?,?,?,?,?,?)`,
+      [
+        recruteur.Entreprise_id,
+        recruteur.Nom,
+        recruteur.Prenom,
+        recruteur.Email,
+        recruteur.Telephone,
+        recruteur.Date_naissance,
+        recruteur.Mot_de_passe,
+        recruteur.Adresse_rue,
+        recruteur.Adresse_ville,
+        recruteur.Adresse_CP,
+        recruteur.Valide,
+        recruteur.Photo,
+      ]
+    );
+  }
 
   update(recruteur) {
     return this.database.query(`update ${this.recruteur} set ? where id = ?`, [
