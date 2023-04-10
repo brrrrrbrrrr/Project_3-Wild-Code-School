@@ -51,14 +51,14 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const item = req.body;
+  const consultant = req.body;
 
   // TODO validations (length, format...)
 
-  models.item
-    .insert(item)
+  models.consultant
+    .insert(consultant)
     .then(([result]) => {
-      res.location(`/items/${result.insertId}`).sendStatus(201);
+      res.location(`/consultants/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
