@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+
 const AbstractManager = require("./AbstractManager");
 
 class RecruitmentManager extends AbstractManager {
@@ -35,6 +36,10 @@ class RecruitmentManager extends AbstractManager {
         recruteur.Photo,
       ]
     );
+  }
+
+  login(login) {
+    return this.database.query("SELECT * FROM user WHERE login=?", [login]);
   }
 
   update(recruteur) {

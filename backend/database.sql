@@ -333,3 +333,14 @@ VALUES (1, 'Smith', 'Jane', 'jane.smith@example.com', '9876543210', '1985-05-10'
 
 --Permet de mettre une valeur de 0 pour le champ valide, (benjamin 07/04)
 ALTER TABLE recruteur MODIFY valide TINYINT(1) NOT NULL DEFAULT 0;
+-- J'ai finalement modifier le "valide" car il me posait probleme (benjamin 11/04)
+ALTER TABLE recruteur MODIFY valide TINYINT(1) NULL;
+
+
+-- Permet de changer le varchar du mott de passe de recruteur, car le hashed password est long et 45 ne suffit pas (benjamin 11/04)
+ALTER TABLE `externatic`.`recruteur`
+MODIFY COLUMN `Mot_de_passe` VARCHAR(200) NOT NULL;
+
+--Permet d'avoir un email unique pour l'inscription/connexion (benjamin 11/04)
+ALTER TABLE recruteur MODIFY Email VARCHAR(45) NOT NULL UNIQUE;
+

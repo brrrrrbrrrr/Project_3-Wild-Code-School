@@ -6,5 +6,5 @@ router.get("/", recruitmentControllers.browse);
 router.get("/:id", recruitmentControllers.read);
 // router.put("//:id", recruitmentControllers.edit);
 router.post("/", recruitmentControllers.add);
-// router.delete("//:id", recruitmentControllers.destroy);
+router.delete("/:id", recruitmentControllers.destroy);
 module.exports = router;
