@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable camelcase */
 /* eslint-disable import/no-extraneous-dependencies */
 const joi = require("joi");
@@ -8,23 +9,24 @@ const validate = (data, forCreation = true) => {
   const presence = forCreation ? "required" : "optional";
   return joi
     .object({
-      Entreprise_id: joi.number().integer().presence(presence),
-      Nom: joi.string().max(45).presence(presence),
-      Prenom: joi.string().max(45).presence(presence),
-      Email: joi.string().email().presence(presence),
-      Telephone: joi.string().max(45).presence(presence),
-      Date_naissance: joi.date().iso().presence(presence),
-      Mot_de_passe: joi.string().max(200).presence(presence),
-      Adresse_rue: joi.string().max(45).presence(presence),
-      Adresse_ville: joi.string().max(45).presence(presence),
-      Adresse_CP: joi.string().max(45).presence(presence),
+      compagny_id: joi.number().integer().presence(presence),
+      name: joi.string().max(45).presence(presence),
+      firstname: joi.string().max(45).presence(presence),
+      mail: joi.string().email().presence(presence),
+      phone: joi.string().max(45).presence(presence),
+      birthday: joi.date().iso().presence(presence),
+      password: joi.string().max(200).presence(presence),
+      street: joi.string().max(45).presence(presence),
+      city: joi.string().max(45).presence(presence),
+      postalCode: joi.string().max(45).presence(presence),
       valide: joi.number().valid(0, 1).presence(presence),
+      // valide: joi.boolean().presence(presence),
     })
     .validate(data, { abortEarly: false }).error;
 };
 
 const browse = (req, res) => {
-  models.recruitment
+  models.recruiter
     .findAll()
     .then(([rows]) => {
       res.send(rows);
@@ -36,7 +38,7 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
-  models.recruitment
+  models.recruiter
     .find(parseInt(req.params.id, 10))
     .then(([rows]) => {
       if (rows[0] == null) {
@@ -61,39 +63,41 @@ const add = async (req, res) => {
   } else {
     // Si les données sont valides, continuer le traitement
     const {
-      Entreprise_id,
-      Nom,
-      Prenom,
-      Email,
-      Telephone,
-      Date_naissance,
-      Mot_de_passe,
-      Adresse_rue,
-      Adresse_ville,
-      Adresse_CP,
+      name,
+      firstname,
+      mail,
+      phone,
+      birthday,
+      password,
+      street,
+      city,
+      postalCode,
+      valide,
+      compagny_id,
     } = req.body;
-    const hashedPassword = await hashPassword(Mot_de_passe);
+    const hashedPassword = await hashPassword(password);
 
-    models.recruitment
+    models.recruiter
       .insert({
-        Entreprise_id,
-        Nom,
-        Prenom,
-        Email,
-        Telephone,
-        Date_naissance,
-        Mot_de_passe: hashedPassword,
-        Adresse_rue,
-        Adresse_ville,
-        Adresse_CP,
+        name,
+        firstname,
+        mail,
+        phone,
+        birthday,
+        password: hashedPassword,
+        street,
+        city,
+        postalCode,
+        valide,
+        compagny_id,
       })
-      .then(([result]) => {
-        res.location(`/items/${result.insertId}`).sendStatus(201);
+      .then((result) => {
+        res.location(`/items/${result.Id}`).sendStatus(201);
       })
       .catch((err) => {
         console.error(err);
         if (err.code === "ER_DUP_ENTRY") {
-          return res.status(409).send("Email already exists"); // Ajouter le mot-clé 'return' avant d'appeler res.status()
+          return res.status(409).send("Mail already exists"); // Ajouter le mot-clé 'return' avant d'appeler res.status()
         }
         return res.sendStatus(500); // Ajouter le mot-clé 'return' avant d'appeler res.sendStatus()
       });
@@ -101,7 +105,7 @@ const add = async (req, res) => {
 };
 
 const destroy = (req, res) => {
-  models.item
+  models.recruiter
     .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
@@ -115,9 +119,23 @@ const destroy = (req, res) => {
       res.sendStatus(500);
     });
 };
+
+const getRecruiterByLoginToNext = async (req, res, next) => {
+  const { mail } = req.body;
+  if (!mail) res.sendStatus(422);
+  const result = await models.recruiter.getRecruiterByLogin(mail);
+  if (result) {
+    if (result[0] != null) {
+      req.recruiter = { ...result[0] };
+      next();
+    } else return res.sendStatus(401);
+  } else return res.sendStatus(500);
+};
+
 module.exports = {
   browse,
   read,
   add,
   destroy,
+  getRecruiterByLoginToNext,
 };

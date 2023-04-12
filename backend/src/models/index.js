@@ -30,11 +30,11 @@ pool.getConnection().catch(() => {
 const models = {};
 
 // const ItemManager = require("./ItemManager");
-const RecruitmentManager = require("./RecruitmentManager");
+const RecruiterManager = require("./RecruiterManager");
 
 // models.item = new ItemManager();
-models.recruitment = new RecruitmentManager();
-models.recruitment.setDatabase(pool);
+models.recruiter = new RecruiterManager();
+models.recruiter.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model

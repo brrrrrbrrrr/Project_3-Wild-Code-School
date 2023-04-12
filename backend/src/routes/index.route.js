@@ -1,7 +1,9 @@
 const router = require("express").Router();
-const recruitment = require("./recruitment.route");
+const recruiter = require("./recruiter.route");
+const loginRecruiter = require("./login.recruiter.route");
 
-router.use("/recruteur", recruitment);
-router.use("/consultant", recruitment);
+router.use("/recruiter", recruiter);
+router.use("/consultant", recruiter);
+router.use("/login-recruiter", loginRecruiter);
 
 module.exports = router;
