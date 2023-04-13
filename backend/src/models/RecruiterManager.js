@@ -54,9 +54,8 @@ class RecruiterManager extends AbstractManager {
         street,
         city,
         postalCode,
-        valide,
         picture,
-        compagny_id) values (?,?,?,?,?,?,?,?,?,?,?,?)`,
+        compagny_id) values (?,?,?,?,?,?,?,?,?,?,?)`,
       [
         recruiter.name,
         recruiter.firstname,
@@ -67,7 +66,6 @@ class RecruiterManager extends AbstractManager {
         recruiter.street,
         recruiter.city,
         recruiter.postalCode,
-        recruiter.valide,
         recruiter.picture,
         recruiter.compagny_id,
       ]

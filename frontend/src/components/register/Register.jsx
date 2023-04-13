@@ -51,7 +51,7 @@ function Register() {
       city,
       postalCode,
       password: password1,
-      compagny,
+      compagny_id: compagny,
     };
     api
       .post("/recruiter", newUser)

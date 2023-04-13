@@ -19,8 +19,7 @@ const validate = (data, forCreation = true) => {
       street: joi.string().max(45).presence(presence),
       city: joi.string().max(45).presence(presence),
       postalCode: joi.string().max(45).presence(presence),
-      valide: joi.number().valid(0, 1).presence(presence),
-      // valide: joi.boolean().presence(presence),
+      valide: joi.number().valid(0, 1).presence("optional"),
     })
     .validate(data, { abortEarly: false }).error;
 };
