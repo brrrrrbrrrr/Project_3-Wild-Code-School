@@ -31,13 +31,16 @@ const verifyPassword = (req, res) => {
     .then((match) => {
       console.warn("match :", match);
       if (match) {
-        const token = jwt.sign(
-          { sub: req.user.id, user_type: "consultant" },
-          process.env.JWT_SECRET,
-          {
-            expiresIn: 3600,
-          }
-        );
+        const payload = {
+          sub: {
+            id: req.user.id,
+            userType: "consultant",
+            isSuperAdmin: req.user.superAdmin,
+          },
+        };
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+          expiresIn: 3600,
+        });
         delete req.user.password;
         res.send({ token, user: req.user });
       } else {
@@ -78,8 +81,30 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+const isConsultantAdmin = (req, res, next) => {
+  try {
+    console.warn(req.payload);
+    if (
+      !req.payload.sub.isSuperAdmin ||
+      req.payload.sub.userType !== "consultant"
+    ) {
+      res
+        .status(401)
+        .send(
+          "You must be a consultant administrator to perform this operation"
+        );
+    } else {
+      next();
+    }
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   hashPassword,
   verifyPassword,
   verifyToken,
+  isConsultantAdmin,
 };
