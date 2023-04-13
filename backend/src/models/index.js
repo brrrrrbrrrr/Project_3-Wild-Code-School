@@ -36,6 +36,11 @@ const RecruiterManager = require("./RecruiterManager");
 models.recruiter = new RecruiterManager();
 models.recruiter.setDatabase(pool);
 
+const CompagnyManager = require("./CompagnyManager");
+
+models.compagny = new CompagnyManager();
+models.compagny.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 

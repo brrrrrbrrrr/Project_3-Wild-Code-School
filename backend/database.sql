@@ -342,3 +342,32 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 --Permet de mettre une valeur a 0 par default, benjamin(13/04)
 ALTER TABLE recruiter MODIFY valide TINYINT NOT NULL DEFAULT 0;
+INSERT INTO
+  compagny (siretNumber, name, mail, phone, password, Valide, logo)
+ VALUES (
+    '123424452',
+    'Ronaldo',
+    'Ronaldo@siuuuuuu.com',
+    '070707070707',
+    'siuuuuu',
+    '0',
+    'cest un logo promis'
+  ),
+(
+    '12342',
+    'Ronldo',
+    'Ronao@siuuuuuu.com',
+    '07077070707',
+    'siuuuu',
+    '0',
+    'ces un loo promis'
+  ),
+  (
+    '124452',
+    'Ronao',
+    'Ronal@siuuuuuu.com',
+    '0707070707',
+    'siuuuu',
+    '0',
+    'cest ulogo promis'
+  );
