@@ -11,23 +11,6 @@ const hashingOptions = {
   parallelism: 1,
 };
 
-// const hashPassword = (req, res, next) => {
-//   argon2
-//     .hash(req.body.password, hashingOptions)
-//     .then((hashedPassword) => {
-//       console.warn(hashedPassword);
-
-//       req.body.password = hashedPassword;
-//       console.log(req.body.password);
-
-//       next();
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.sendStatus(500);
-//     });
-// };
-
 const hashPassword = async (password) => {
   const hashed = await argon2
     .hash(password, hashingOptions)
@@ -42,7 +25,6 @@ const hashPassword = async (password) => {
 };
 
 const verifyPassword = (req, res) => {
-  console.log(req.compagny);
   argon2
     .verify(req.compagny.password, req.body.password)
     .then((isVerified) => {
@@ -54,7 +36,6 @@ const verifyPassword = (req, res) => {
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
-        console.log(token);
         delete req.compagny.password;
         res.send({ token, compagny: req.compagny });
       } else {

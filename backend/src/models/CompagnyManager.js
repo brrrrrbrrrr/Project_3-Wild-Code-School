@@ -5,6 +5,31 @@ class CompagnyManager extends AbstractManager {
     super({ table: "compagny" });
   }
 
+  find(id) {
+    return this.database.query(
+      `select 
+      siretNumber,
+      name,
+      mail,
+      phone,
+      Valide,
+      Logo,
+      id from  ${this.table} where id = ?`,
+      [id]
+    );
+  }
+
+  findAll() {
+    return this.database.query(`select
+    siretNumber,
+    name,
+    mail,
+    phone,
+    Valide,
+    Logo,
+    id from  ${this.table}`);
+  }
+
   insertCompagny(compagny) {
     return this.database.query(
       `insert into ${this.table} (siretNumber, name, mail, phone, password, Valide, logo) values (?, ?, ?, ?, ?, ?, ?)`,

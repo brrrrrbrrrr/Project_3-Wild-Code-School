@@ -31,6 +31,22 @@ const getCompagny = (req, res) => {
     });
 };
 
+const read = (req, res) => {
+  models.compagny
+    .find(parseInt(req.params.id, 10))
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows[0]);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const postCompagny = async (req, res) => {
   // TODO validations (length, format...)
   // Valider les données avec Joi
@@ -119,6 +135,7 @@ const getUserByEmailWithPasswordAndPassToNext = async (req, res, next) => {
 
 module.exports = {
   getCompagny,
+  read,
   postCompagny,
   updateCompagny,
   deleteCompagny,
