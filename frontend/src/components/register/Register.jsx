@@ -17,18 +17,22 @@ function Register() {
   const [validMatch, setValidMatch] = useState(false);
   const [validMail, setValidMail] = useState(false);
 
+  // Regex qui verifie si le password a entre 8 et 24 caractères, a un caractère special, une minuscule et une majuscule
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
+  // Regex qui verifie que c'est un format email
   const MAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+  useEffect(() => {
+    const mailResult = MAIL_REGEX.test(mail);
+    setValidMail(mailResult);
+  }, [mail]);
   useEffect(() => {
     const result = PWD_REGEX.test(password1);
     setValidPwd(result);
-    const mailResult = MAIL_REGEX.test(mail);
-    setValidMail(mailResult);
+
     const match = password1 === password2;
     setValidMatch(match);
-  }, [password1, password2, mail]);
+  }, [password1, password2]);
 
   const handleSubmit = (e) => {
     e.preventDeault();
@@ -150,7 +154,22 @@ function Register() {
           Les mots de passe ne correspondent pas
         </span>
       </label>
-      <button type="button" className="form-signup-btn">
+      <button
+        type="button"
+        className="form-signup-btn"
+        disabled={
+          !validMail ||
+          !validPwd ||
+          !validMatch ||
+          !name ||
+          !firstname ||
+          !phone ||
+          !birthday ||
+          !street ||
+          !city ||
+          !postalCode
+        }
+      >
         Valider
       </button>
     </form>
