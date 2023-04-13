@@ -27,6 +27,7 @@ class CandidateManager extends AbstractManager {
   }
 
   findByMail(mail) {
+    console.warn("coco");
     return this.database.query(
       `select id, name, firstname, password from ${this.table} where mail = ? `,
       [mail]

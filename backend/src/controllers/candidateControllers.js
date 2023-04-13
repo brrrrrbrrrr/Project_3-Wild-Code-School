@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 // eslint-disable-next-line import/no-extraneous-dependencies
 const joi = require("joi");
 const models = require("../models");
@@ -90,7 +91,7 @@ const add = async (req, res) => {
   const errors = validate(candidate);
   if (errors) {
     console.error(errors);
-    return res.status(422);
+    return res.sendStatus(422);
   }
   const hashedPassword = await hashPassword(req.body.password);
   // TODO validations (length, format...)
@@ -129,10 +130,26 @@ const destroy = (req, res) => {
     });
 };
 
+const getCandidateByMailToNext = async (req, res, next) => {
+  const { mail } = req.body;
+  if (!mail) {
+    return res.sendStatus(422);
+  }
+  const [result] = await models.candidate.findByMail(mail);
+  if (result) {
+    if (result[0] != null) {
+      // eslint-disable-next-line prefer-destructuring
+      req.candidate = result[0];
+      next();
+    } else return res.sendStatus(401);
+  } else return res.sendStatus(500);
+};
+
 module.exports = {
   browse,
   read,
   edit,
   add,
   destroy,
+  getCandidateByMailToNext,
 };
