@@ -1,4 +1,10 @@
 const models = require("../models");
+// const Joi = require("joi");
+
+// const validate = (data, forCreation = true) => {
+//   const presence = forCreation ? "required" : "optional";
+//   return Joi.object;
+// };
 
 const browse = (req, res) => {
   models.item
@@ -50,6 +56,30 @@ const edit = (req, res) => {
     });
 };
 
+const login = (req, res, next) => {
+  const { mail } = req.body;
+  console.warn("Info authentif : ", mail);
+  // TODO validations (length, format...)
+
+  models.consultant
+    .getUserWithPassword(mail)
+    .then(([result]) => {
+      console.warn("Resultat req : ", result, result.length);
+      if (result.length === 0) {
+        console.warn("Login not found");
+        res.sendStatus(404);
+      } else {
+        console.warn("Info trouvée en base : ", result[0]);
+        [req.user] = result;
+        next();
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const add = (req, res) => {
   const consultant = req.body;
 
@@ -88,4 +118,5 @@ module.exports = {
   edit,
   add,
   destroy,
+  login,
 };

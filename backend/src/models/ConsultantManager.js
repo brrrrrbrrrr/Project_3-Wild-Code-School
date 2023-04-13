@@ -7,19 +7,19 @@ class ConsultantManager extends AbstractManager {
 
   insert(consultant) {
     return this.database.query(
-      `insert into ${this.table} (Nom, Prenom, Email, Telephone, Date_naissance, Mot_de_passe, Adresse_rue, Adresse_ville, Adresse_CP, Photo, Super_Admin) values (?,?,?,?,?,?,?,?,?,?,?)`,
+      `insert into ${this.table} (name, firstname, mail, phone, birthday, password, street, city, postalCode, picture, superAdmin) values (?,?,?,?,?,?,?,?,?,?,?)`,
       [
-        consultant.Nom,
-        consultant.Prenom,
-        consultant.Email,
-        consultant.Telephone,
-        consultant.Date_naissance,
-        consultant.Mot_de_passe,
-        consultant.Adresse_rue,
-        consultant.Adresse_ville,
-        consultant.Adresse_CP,
-        consultant.Photo,
-        consultant.Super_Admin,
+        consultant.name,
+        consultant.firstname,
+        consultant.mail,
+        consultant.phone,
+        consultant.birthday,
+        consultant.hashedPassword,
+        consultant.street,
+        consultant.city,
+        consultant.postalCode,
+        consultant.picture,
+        consultant.superAdmin,
       ]
     );
   }
@@ -28,6 +28,13 @@ class ConsultantManager extends AbstractManager {
     return this.database.query(
       `update ${this.table} set title = ? where id = ?`,
       [item.title, item.id]
+    );
+  }
+
+  getUserWithPassword(mail) {
+    return this.database.query(
+      `select id, password from ${this.table} where mail = ?`,
+      [mail]
     );
   }
 }
