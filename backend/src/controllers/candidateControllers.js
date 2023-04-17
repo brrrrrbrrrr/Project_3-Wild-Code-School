@@ -18,8 +18,8 @@ const validate = (data, forCreation = true) => {
       phone: joi.string().max(45).presence(presence),
       password: joi.string().max(45).presence(presence),
       jobSeeker: joi.boolean().invalid(false).presence(presence),
-      picture: joi.string().presence("optional"),
-      resume: joi.string().presence("optional"),
+      picture: joi.string().allow(null, "").presence("optional"),
+      resume: joi.string().allow(null, "").presence("optional"),
       contactPreference: joi.string().max(45).presence(presence),
     })
     .validate(data, { abortEarly: false }).error;
@@ -92,6 +92,7 @@ const add = async (req, res) => {
   if (errors) {
     console.error(errors);
     return res.sendStatus(422);
+    // res.status(422).json({ error: errors.message });
   }
   const hashedPassword = await hashPassword(req.body.password);
   // TODO validations (length, format...)
