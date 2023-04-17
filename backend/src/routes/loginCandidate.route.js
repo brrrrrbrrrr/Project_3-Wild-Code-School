@@ -1,7 +1,12 @@
+/* eslint-disable prettier/prettier */
 const router = require("express").Router();
 const candidateControllers = require("../controllers/candidateControllers");
-const { verifyPassword } = require("../utils/auth");
+const { verifyPasswordCandidate } = require("../utils/auth");
 
-router.post("/", candidateControllers.getCandidateByMailToNext, verifyPassword);
+router.post(
+  "/",
+  candidateControllers.getCandidateByMailToNext,
+  verifyPasswordCandidate
+);
 
 module.exports = router;

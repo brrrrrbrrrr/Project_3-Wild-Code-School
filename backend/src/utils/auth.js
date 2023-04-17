@@ -22,7 +22,31 @@ const hashPassword = async (password) => {
     });
   return hashed;
 };
-const verifyPassword = (req, res) => {
+
+const verifyPasswordRecruiter = (req, res) => {
+  console.warn(req.candidate, req.body.password);
+  argon2
+    .verify(req.recruiter.password, req.body.password)
+    .then((isVerified) => {
+      if (isVerified) {
+        const payload = {
+          sub: { id: req.recruiter.id, name: req.recruiter.name },
+        };
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+          expiresIn: "2h",
+        });
+        delete req.recruiter.password;
+        res.send({ token, recruiter: req.recruiter });
+      } else {
+        return res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.sendStatus(500);
+    });
+};
+const verifyPasswordCandidate = (req, res) => {
   console.warn(req.candidate, req.body.password);
   argon2
     .verify(req.candidate.password, req.body.password)
@@ -65,6 +89,7 @@ const verifyToken = (req, res, next) => {
 
 module.exports = {
   hashPassword,
-  verifyPassword,
+  verifyPasswordCandidate,
+  verifyPasswordRecruiter,
   verifyToken,
 };

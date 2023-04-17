@@ -29,10 +29,17 @@ pool.getConnection().catch(() => {
 
 const models = {};
 
-const ItemManager = require("./ItemManager");
+// const ItemManager = require("./ItemManager");
+const RecruiterManager = require("./RecruiterManager");
 
-models.item = new ItemManager();
-models.item.setDatabase(pool);
+// models.item = new ItemManager();
+models.recruiter = new RecruiterManager();
+models.recruiter.setDatabase(pool);
+
+const CompagnyManager = require("./CompagnyManager");
+
+models.compagny = new CompagnyManager();
+models.compagny.setDatabase(pool);
 
 const CandidateManager = require("./CandidateManager");
 

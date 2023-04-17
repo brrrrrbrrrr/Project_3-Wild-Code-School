@@ -6,7 +6,7 @@ import useApi from "../../services/useApi";
 
 import "./LoginCandidate.css";
 
-import { useCandidate } from "../../contexts/CandidateContext";
+import { useUser } from "../../contexts/UserRecruiterContext";
 
 const LoginCandidate = () => {
   const [mail, setMail] = useState("");
@@ -16,7 +16,7 @@ const LoginCandidate = () => {
   const MAIL_REDEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
 
   const api = useApi();
-  const { setCandidate } = useCandidate();
+  const { setUser } = useUser();
   const refMail = useRef();
   const refPass = useRef();
 
@@ -49,7 +49,7 @@ const LoginCandidate = () => {
         // eslint-disable-next-line no-shadow
         const { token, candidate } = res.data;
         api.defaults.headers.authorization = `Bearer ${token}`;
-        setCandidate(candidate);
+        setUser(candidate);
       })
       .catch((err) => {
         console.error(err);
@@ -71,11 +71,6 @@ const LoginCandidate = () => {
           return errorMsg;
         }
       });
-
-    // Добавьте код для обработки ввода логина и пароля
-    console.warn("Mail:", mail);
-    console.warn("Password:", password);
-    // Можно отправить данные на сервер или выполнить другую логику здесь
   };
 
   return (
