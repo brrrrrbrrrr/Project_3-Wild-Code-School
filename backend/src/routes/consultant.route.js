@@ -1,7 +1,12 @@
+/* eslint-disable prettier/prettier */
 const router = require("express").Router();
 const consultantControllers = require("../controllers/consultantControllers");
 
-const { hashPassword, verifyToken, isConsultantAdmin } = require("../auth");
+const {
+  hashPassword,
+  verifyToken,
+  isConsultantAdmin,
+} = require("../authConsultant");
 
 router.get("/", consultantControllers.browse);
 
