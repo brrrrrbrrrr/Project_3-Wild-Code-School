@@ -1,13 +1,51 @@
+/* eslint-disable import/no-extraneous-dependencies */
+const Joi = require("joi").extend(require("@joi/date"));
 const models = require("../models");
-// const Joi = require("joi");
 
-// const validate = (data, forCreation = true) => {
-//   const presence = forCreation ? "required" : "optional";
-//   return Joi.object;
-// };
+const validateConsultant = (data, forCreation = true) => {
+  const presence = forCreation ? "required" : "optional";
+  return Joi.object({
+    name: Joi.string().max(45).presence(presence),
+    firstname: Joi.string().max(45).presence(presence),
+    mail: Joi.string().max(45).email().presence(presence),
+    phone: Joi.string().max(45).presence(presence),
+    birthday: Joi.date().format("YYYY-MM-DD").presence(presence),
+    password: Joi.string().max(200).presence(presence),
+    street: Joi.string().max(45).presence(presence),
+    city: Joi.string().max(45).presence(presence),
+    postalCode: Joi.string().max(45).presence(presence),
+    picture: Joi.string().max(45).presence("optional"),
+    superAdmin: Joi.boolean().presence(presence),
+  }).validate(data, { abortEarly: false }).error;
+};
+
+const validateConsultantCreationData = (req, res, next) => {
+  const consultant = req.body;
+  const errors = validateConsultant(consultant, true);
+  if (errors) {
+    console.warn(errors);
+    res.sendStatus(422);
+  } else {
+    next();
+  }
+};
+
+const validateConsultantLoginData = (req, res, next) => {
+  const loginData = req.body;
+  const errors = Joi.object({
+    mail: Joi.string().max(45).email().required(),
+    password: Joi.string().max(200).required(),
+  }).validate(loginData, { abortEarly: false }).error;
+  if (errors) {
+    console.warn(errors);
+    res.sendStatus(422);
+  } else {
+    next();
+  }
+};
 
 const browse = (req, res) => {
-  models.item
+  models.consultant
     .findAll()
     .then(([rows]) => {
       res.send(rows);
@@ -19,7 +57,7 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
-  models.item
+  models.consultant
     .find(parseInt(req.params.id, 10))
     .then(([rows]) => {
       if (rows[0] == null) {
@@ -97,7 +135,7 @@ const add = (req, res) => {
 };
 
 const destroy = (req, res) => {
-  models.item
+  models.consultant
     .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
@@ -119,4 +157,6 @@ module.exports = {
   add,
   destroy,
   login,
+  validateConsultantCreationData,
+  validateConsultantLoginData,
 };
