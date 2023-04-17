@@ -1,12 +1,18 @@
-import Home from "./pages/Home";
+import UserProvider from "./contexts/UserRecruiterContext";
 
 import "./App.css";
+
+import Home from "./pages/Home";
+
+import Register from "./components/register/Register";
 
 function App() {
   return (
     <div className="App">
-      <Home />
-      <p>coucou</p>
+      <UserProvider>
+        <Home />
+        <Register />
+      </UserProvider>
     </div>
   );
 }

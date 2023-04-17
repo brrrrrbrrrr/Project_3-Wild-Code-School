@@ -1,0 +1,24 @@
+.login-container {
+  padding-bottom: 50px;
+  padding-top: 50px;
+  background-color: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-container form {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.register-container label {
+  margin-right: 30px;
+}
+
+.signup-hide {
+  display: none;
+}
+.signup-invalid {
+  display: inline-block;
+}

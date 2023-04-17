@@ -29,17 +29,28 @@ pool.getConnection().catch(() => {
 
 const models = {};
 
-const ItemManager = require("./ItemManager");
 const ConsultantManager = require("./ConsultantManager");
+// const ItemManager = require("./ItemManager");
+const RecruiterManager = require("./RecruiterManager");
 
-models.item = new ItemManager();
-models.item.setDatabase(pool);
+// models.item = new ItemManager();
+models.recruiter = new RecruiterManager();
+models.recruiter.setDatabase(pool);
 
 models.consultant = new ConsultantManager();
 models.consultant.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
+const CompagnyManager = require("./CompagnyManager");
+
+models.compagny = new CompagnyManager();
+models.compagny.setDatabase(pool);
+
+const CandidateManager = require("./CandidateManager");
+
+models.candidate = new CandidateManager();
+models.candidate.setDatabase(pool);
 
 const handler = {
   get(obj, prop) {
