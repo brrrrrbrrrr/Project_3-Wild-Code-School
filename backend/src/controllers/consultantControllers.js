@@ -102,12 +102,9 @@ const login = (req, res, next) => {
   models.consultant
     .getUserWithPassword(mail)
     .then(([result]) => {
-      console.warn("Resultat req : ", result, result.length);
       if (result.length === 0) {
-        console.warn("Login not found");
         res.sendStatus(404);
       } else {
-        console.warn("Info trouvée en base : ", result[0]);
         [req.user] = result;
         next();
       }
