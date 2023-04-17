@@ -7,7 +7,7 @@ const hashingOptions = {
   type: argon2.argon2id,
   memoryCost: 2 ** 16,
   timeCost: 5,
-  parrallelism: 1,
+  parallelism: 1,
 };
 
 const hashPassword = async (password) => {
@@ -22,7 +22,9 @@ const hashPassword = async (password) => {
     });
   return hashed;
 };
-const verifyPassword = (req, res) => {
+
+const verifyPasswordRecruiter = (req, res) => {
+  console.warn(req.candidate, req.body.password);
   argon2
     .verify(req.recruiter.password, req.body.password)
     .then((isVerified) => {
@@ -40,7 +42,30 @@ const verifyPassword = (req, res) => {
       }
     })
     .catch((err) => {
-      console.warn(err);
+      console.error(err);
+      return res.sendStatus(500);
+    });
+};
+const verifyPasswordCandidate = (req, res) => {
+  console.warn(req.candidate, req.body.password);
+  argon2
+    .verify(req.candidate.password, req.body.password)
+    .then((isVerified) => {
+      if (isVerified) {
+        const payload = {
+          sub: { id: req.candidate.id, name: req.candidate.name },
+        };
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+          expiresIn: "6h",
+        });
+        delete req.candidate.password;
+        res.send({ token, candidate: req.candidate });
+      } else {
+        return res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
       return res.sendStatus(500);
     });
 };
@@ -64,6 +89,7 @@ const verifyToken = (req, res, next) => {
 
 module.exports = {
   hashPassword,
-  verifyPassword,
+  verifyPasswordCandidate,
+  verifyPasswordRecruiter,
   verifyToken,
 };

@@ -41,8 +41,10 @@ const CompagnyManager = require("./CompagnyManager");
 models.compagny = new CompagnyManager();
 models.compagny.setDatabase(pool);
 
-// bonus: use a proxy to personalize error message,
-// when asking for a non existing model
+const CandidateManager = require("./CandidateManager");
+
+models.candidate = new CandidateManager();
+models.candidate.setDatabase(pool);
 
 const handler = {
   get(obj, prop) {
