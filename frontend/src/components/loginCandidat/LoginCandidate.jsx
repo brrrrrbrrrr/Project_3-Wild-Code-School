@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable object-shorthand */
 /* eslint-disable react/function-component-definition */
 import React, { useState, useEffect, useRef } from "react";
@@ -67,7 +68,7 @@ const LoginCandidate = () => {
             default:
               errorMsg = "Server Error";
           }
-          alert(errorMsg);
+          return errorMsg;
         }
       });
 
