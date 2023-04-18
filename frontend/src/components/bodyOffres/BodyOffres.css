@@ -1,0 +1,51 @@
+.body-container {
+  width: 100%;
+  height: 100vh;
+  background-color: #f1f1e6;
+}
+
+.body-title {
+  color: #134168;
+}
+.offre-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.offre-container {
+  border-radius: 15%;
+  background-color: #fff;
+  width: 282px;
+  margin-bottom: 75px;
+  margin-left: 30px;
+  margin-right: 30px;
+  align-items: flex-start;
+  line-height: 1.3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  height: 250px;
+  justify-content: space-between;
+}
+.offre-container:hover,
+.offre-container:focus {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
+    1px 4px 6px rgba(0, 0, 0, 0.16);
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.offre-title,
+.offre-city {
+  color: #134168;
+  margin: 0;
+}
+.offre-button_info {
+  border-style: hidden;
+  padding: 10px 15px;
+  background-color: #00b3ff;
+  border-radius: 5px;
+  color: #f1f1e6;
+  cursor: pointer;
+  box-shadow: 2px 2px 7px #00b3ff;
+}
