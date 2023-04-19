@@ -2,7 +2,7 @@
 /* eslint-disable consistent-return */
 const joi = require("joi");
 const models = require("../models");
-const { hashPassword } = require("../auth/compagnyAuth");
+const { hashPassword } = require("../utils/compagnyAuth");
 
 const validate = (data, forCreation = true) => {
   const presence = forCreation ? "required" : "optional";

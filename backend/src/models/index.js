@@ -31,16 +31,14 @@ const models = {};
 
 const ConsultantManager = require("./ConsultantManager");
 
+models.consultant = new ConsultantManager();
+models.consultant.setDatabase(pool);
+
 const RecruiterManager = require("./RecruiterManager");
 
 models.recruiter = new RecruiterManager();
 models.recruiter.setDatabase(pool);
 
-models.consultant = new ConsultantManager();
-models.consultant.setDatabase(pool);
-
-// bonus: use a proxy to personalize error message,
-// when asking for a non existing model
 const CompagnyManager = require("./CompagnyManager");
 
 models.compagny = new CompagnyManager();
@@ -50,6 +48,9 @@ const CandidateManager = require("./CandidateManager");
 
 models.candidate = new CandidateManager();
 models.candidate.setDatabase(pool);
+
+// bonus: use a proxy to personalize error message,
+// when asking for a non existing model
 
 const handler = {
   get(obj, prop) {

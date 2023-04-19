@@ -343,10 +343,9 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
---Permet de mettre une valeur a 0 par default, benjamin(13/04)
+
 ALTER TABLE recruiter MODIFY valide TINYINT NOT NULL DEFAULT 0;
 
--- Kuzkina 13/04 permet de mettre mail en unique
 ALTER TABLE `externatic`.`candidate` 
 ADD UNIQUE INDEX `mail_UNIQUE` (`mail` ASC) VISIBLE;
 INSERT INTO
@@ -378,6 +377,6 @@ INSERT INTO
     '0',
     'cest ulogo promis'
   );
---permet de mettre mail en unique Laurence 13-04-23
+
 ALTER TABLE `externatic`.`consultant` 
 ADD UNIQUE INDEX `mail_UNIQUE` (`mail` ASC) VISIBLE;
