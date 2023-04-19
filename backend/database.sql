@@ -135,7 +135,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `externatic`.`job_title`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `externatic`.`job_title` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
@@ -343,10 +343,10 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
---Permet de mettre une valeur a 0 par default, benjamin(13/04)
+
 ALTER TABLE recruiter MODIFY valide TINYINT NOT NULL DEFAULT 0;
 
--- Kuzkina 13/04 permet de mettre mail en unique
+
 ALTER TABLE `externatic`.`candidate` 
 ADD UNIQUE INDEX `mail_UNIQUE` (`mail` ASC) VISIBLE;
 INSERT INTO
@@ -378,6 +378,34 @@ INSERT INTO
     '0',
     'cest ulogo promis'
   );
---permet de mettre mail en unique Laurence 13-04-23
+
 ALTER TABLE `externatic`.`consultant` 
 ADD UNIQUE INDEX `mail_UNIQUE` (`mail` ASC) VISIBLE;
+
+
+
+  INSERT INTO
+  region(name)VALUES("Île-de-France");
+
+    INSERT INTO
+  city(name, regionId)VALUES("Paris", 1),("Versailles", 1);
+
+ INSERT INTO consultant (name, firstname, mail, phone, birthday, password, street, city, postalCode, picture, superAdmin)
+VALUES ('Dupont', 'Jean', 'jdupont@example.com', '01.23.45.67.89', '1990-01-01', 'monmotdepasse', '123 rue de la Paix', 'Paris', '75001', 'default.jpg', 0);
+
+INSERT INTO recruiter (name, firstname, mail, phone, birthday, password, street, city, postalCode, valide, compagny_id)
+VALUES ('Doe', 'John', 'johndoe@example.com', '0123456789', '1980-01-01', 'mypassword', '5th Avenue', 'New York', '10001', 1, 2);
+
+INSERT INTO contrat (type) VALUES ('fake_type');
+
+INSERT INTO job_title (name) VALUES ('Assistant Manager');
+
+ALTER TABLE offer MODIFY valide TINYINT NOT NULL DEFAULT 0;
+INSERT INTO
+  offer (salary, remoteWork, teamPicture, jobOfferPresentation, desiredProfile, recruitmentProcess, numberOfEmployees, jobTitleDetails, cityId, consultantId, recruiterId, contratId, jobTitleIid)
+ VALUES ("20000", 1, "futur foto", "jobOfferPresentation", "desiredProfile", "recruitmentProcess", "23", "Ingénieur réseaux / H/F – Industrie", 1,1,6,1,1),
+ ("30000", 1, "teamPic.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "50", "Software Engineer", 2, 1, 6, 1, 1),
+ ("40000", 1, "teamPicture.png", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "100", "Senior Data Analyst", 1, 1, 6, 1, 1),
+  ("25000", 1, "team.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "30", "Marketing Coordinator", 2, 1, 6, 1, 1),
+   ("50000", 0, "teamPic.jpeg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "70", "Senior Project Manager", 2, 1, 6, 1, 1);
+
