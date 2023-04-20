@@ -189,7 +189,7 @@ const RegisterCandidate = () => {
               Email invalide
             </span>
             <label htmlFor="pass1" className="form-label">
-              Password:
+              Mot de passe :
               <input
                 type="password"
                 id="pass1"

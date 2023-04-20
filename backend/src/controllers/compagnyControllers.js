@@ -14,7 +14,7 @@ const validate = (data, forCreation = true) => {
       phone: joi.string().max(45).presence(presence),
       password: joi.string().max(200).presence(presence),
       Valide: joi.number().valid(0, 1).presence("optional"),
-      Logo: joi.string().max(200).presence("optional"),
+      Logo: joi.string().allow(null, "").presence("optional"),
     })
     .validate(data, { abortEarly: false }).error;
 };
@@ -60,8 +60,8 @@ const postCompagny = async (req, res) => {
     const { siretNumber, name, mail, phone, password, Valide, Logo } = req.body;
     const hashedPassword = await hashPassword(password);
 
-    models.recruiter
-      .insert({
+    models.compagny
+      .insertCompagny({
         siretNumber,
         name,
         mail,
