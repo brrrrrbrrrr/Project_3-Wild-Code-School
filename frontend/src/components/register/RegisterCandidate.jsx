@@ -2,7 +2,7 @@
 /* eslint-disable react/function-component-definition */
 import React, { useState, useEffect } from "react";
 import useApi from "../../services/useApi";
-import "./RegisterCandidate.css";
+import "./RegisterDefault.css";
 
 const RegisterCandidate = () => {
   const [name, setName] = useState("");
@@ -84,6 +84,7 @@ const RegisterCandidate = () => {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -92,6 +93,7 @@ const RegisterCandidate = () => {
                 type="text"
                 value={firstname}
                 onChange={(e) => setFirstname(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -100,6 +102,7 @@ const RegisterCandidate = () => {
                 type="date"
                 value={birthday}
                 onChange={(e) => setBirthday(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -108,6 +111,7 @@ const RegisterCandidate = () => {
                 type="text"
                 value={street}
                 onChange={(e) => setStreet(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -116,6 +120,7 @@ const RegisterCandidate = () => {
                 type="text"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -124,6 +129,7 @@ const RegisterCandidate = () => {
                 type="text"
                 value={postalAddress}
                 onChange={(e) => setPostalAddress(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -132,6 +138,7 @@ const RegisterCandidate = () => {
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -139,6 +146,7 @@ const RegisterCandidate = () => {
               <select
                 value={jobSeeker}
                 onChange={(e) => setJobSeeker(e.target.value)}
+                className="form-input"
               >
                 <option value={0}>Employé(e)</option>
                 <option value={1}>En recherche d'emploi</option>
@@ -150,6 +158,7 @@ const RegisterCandidate = () => {
                 type="file"
                 value={picture}
                 onChange={(e) => setPicture(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -158,6 +167,7 @@ const RegisterCandidate = () => {
                 type="file"
                 value={resume}
                 onChange={(e) => setResume(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -165,6 +175,7 @@ const RegisterCandidate = () => {
               <select
                 value={contactPreference}
                 onChange={(e) => setContactPreference(e.target.value)}
+                className="form-input"
               >
                 <option value={2}>Email</option>
                 <option value={1}>Télephone</option>
@@ -181,6 +192,7 @@ const RegisterCandidate = () => {
                 aria-describedby="uidnote"
                 value={mail}
                 onChange={(e) => setMail(e.target.value)}
+                className="form-input"
               />
             </label>
             <span
@@ -195,6 +207,7 @@ const RegisterCandidate = () => {
                 id="pass1"
                 value={pass1}
                 onChange={(e) => setPass1(e.target.value)}
+                className="form-input"
               />
               <span
                 className={
@@ -211,6 +224,7 @@ const RegisterCandidate = () => {
                 id="pass2"
                 value={pass2}
                 onChange={(e) => setPass2(e.target.value)}
+                className="form-input"
               />
               <span
                 className={

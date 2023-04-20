@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useApi from "../../services/useApi";
+import "./RegisterDefault.css";
 
 function RegisterCompagny() {
   const [name, setName] = useState("");
@@ -58,7 +59,7 @@ function RegisterCompagny() {
       {success ? (
         <section>Ok, vous pouvez vous connecter</section>
       ) : (
-        <div>
+        <div className="form-container">
           <form onSubmit={handleSubmit} className="form-signup">
             <label className="form-label">
               Nom de l'entreprise :
@@ -66,6 +67,7 @@ function RegisterCompagny() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -74,6 +76,7 @@ function RegisterCompagny() {
                 type="text"
                 value={siretNumber}
                 onChange={(e) => setSiretNumber(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -86,6 +89,7 @@ function RegisterCompagny() {
                 aria-describedby="uidnote"
                 value={mail}
                 onChange={(e) => setMail(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -94,6 +98,7 @@ function RegisterCompagny() {
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -102,6 +107,7 @@ function RegisterCompagny() {
                 type="password"
                 value={pass1}
                 onChange={(e) => setPass1(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -110,6 +116,7 @@ function RegisterCompagny() {
                 type="password"
                 value={pass2}
                 onChange={(e) => setPass2(e.target.value)}
+                className="form-input"
               />
             </label>
             <label className="form-label">
@@ -118,6 +125,7 @@ function RegisterCompagny() {
                 type="file"
                 value={logo}
                 onChange={(e) => setLogo(e.target.value)}
+                className="form-input"
               />
             </label>
             <button

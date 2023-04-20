@@ -1,10 +1,10 @@
-/* variables /
+/* variables / */
 :root {
   --background-color: #f1f1e6;
   --primary-color: #134168;
   --second-color: #00b3ff;
   --extra-color: #dea01e;
-  --alert-color:#AA4269;
+  --alert-color: #aa4269;
   --regular-size: 24px;
   --regular-font: Poppins, 400, sans-serif;
   --second-font: Poppins, 600, sans-serif;
@@ -12,7 +12,7 @@
   --btn-font: Poppins, 500, sans-serif;
 }
 
-/ zeroing */
+/* / zeroing */
 *,
 *::before,
 *::after {
