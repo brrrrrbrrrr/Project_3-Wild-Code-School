@@ -51,6 +51,11 @@ const CandidateManager = require("./CandidateManager");
 models.candidate = new CandidateManager();
 models.candidate.setDatabase(pool);
 
+const OffreManager = require("./OffreManager");
+
+models.offre = new OffreManager();
+models.offre.setDatabase(pool);
+
 const handler = {
   get(obj, prop) {
     if (prop in obj) {

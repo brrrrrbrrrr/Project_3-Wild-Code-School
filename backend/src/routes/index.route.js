@@ -11,6 +11,10 @@ const login = require("./loginCandidate.route");
 router.use("/candidates", candidate);
 router.use("/login/candidates", login);
 
+const offre = require("./offre.rout");
+
+router.use("/offres", offre);
+
 const recruiter = require("./recruiter.route");
 const loginRecruiter = require("./login.recruiter.route");
 
