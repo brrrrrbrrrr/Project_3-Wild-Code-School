@@ -1,6 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 // eslint-disable-next-line import/no-extraneous-dependencies
 const joi = require("joi");
+const path = require("path");
+const fs = require("fs");
 const models = require("../models");
 const { hashPassword } = require("../utils/auth");
 
@@ -17,9 +20,10 @@ const validate = (data, forCreation = true) => {
       mail: joi.string().email().presence(presence),
       phone: joi.string().max(45).presence(presence),
       password: joi.string().max(45).presence(presence),
-      jobSeeker: joi.boolean().invalid(false).presence(presence),
+      // jobSeeker: joi.boolean().invalid(false).presence(presence),
+      jobSeeker: joi.string().max(45).presence("optional"),
       picture: joi.string().allow(null, "").presence("optional"),
-      resume: joi.string().allow(null, "").presence("optional"),
+      // resume: joi.string().allow(null, "").presence("optional"),
       contactPreference: joi.string().max(45).presence(presence),
     })
     .validate(data, { abortEarly: false }).error;
@@ -88,6 +92,26 @@ const edit = async (req, res) => {
 // eslint-disable-next-line consistent-return
 const add = async (req, res) => {
   const candidate = req.body;
+  const { file } = req;
+  if (!file) {
+    return res.sendStatus(500);
+  }
+  console.warn(file);
+  const baseFolderResume = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "uploads"
+  );
+  const originalName = path.join(baseFolderResume, file.originalname);
+  const fileName = path.join(baseFolderResume, file.filename);
+  console.warn("original", originalName);
+  console.warn("dest ", fileName);
+  fs.rename(fileName, originalName, (err) => {
+    if (err) throw err;
+  });
+  const filePath = `uploads/${file.originalname}`;
   const errors = validate(candidate);
   if (errors) {
     console.error(errors);
