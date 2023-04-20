@@ -91,41 +91,88 @@ const edit = async (req, res) => {
 
 // eslint-disable-next-line consistent-return
 const add = async (req, res) => {
-  const candidate = req.body;
-  const { file } = req;
-  if (!file) {
-    return res.sendStatus(500);
-  }
-  console.warn(file);
-  const baseFolderResume = path.join(
+  // Je recupère le req.body sans les fichiers a telecharger
+  const {
+    name,
+    firstname,
+    birthday,
+    street,
+    city,
+    postalAdress,
+    mail,
+    phone,
+    password,
+    jobSeeker,
+    contactPreference,
+  } = req.body;
+  // Je recupere mes fichiers
+
+  const fileResume = req.files.resume;
+  const filePicture = req.files.picture;
+
+  // if (!fileResume) {
+  //   return res.sendStatus(500);
+  // }
+
+  const candidateFolder = path.join(
     __dirname,
     "..",
     "..",
     "public",
-    "uploads"
+    "uploads",
+    "candidate",
+    mail
   );
-  const originalName = path.join(baseFolderResume, file.originalname);
-  const fileName = path.join(baseFolderResume, file.filename);
-  console.warn("original", originalName);
-  console.warn("dest ", fileName);
-  fs.rename(fileName, originalName, (err) => {
-    if (err) throw err;
+
+  const originalNameResume = path.join(
+    candidateFolder,
+    fileResume[0].originalname
+  );
+  const fileNameResume = path.join(candidateFolder, fileResume[0].filename);
+
+  const originalNamePicture = path.join(
+    candidateFolder,
+    filePicture[0].originalname
+  );
+  const fileNamePicture = path.join(candidateFolder, filePicture[0].filename);
+
+  fs.rename(fileNameResume, originalNameResume, (err) => {
+    if (err) {
+      console.warn(err);
+    }
   });
-  const filePath = `uploads/${file.originalname}`;
-  const errors = validate(candidate);
+  fs.rename(fileNamePicture, originalNamePicture, (err) => {
+    if (err) {
+      console.warn(err);
+    }
+  });
+
+  const resume = `${mail}/${fileResume[0].filename}`;
+  const picture = `${mail}/${filePicture[0].filename}`;
+  const errors = validate(req.body);
   if (errors) {
     console.error(errors);
-    return res.sendStatus(422);
-    // res.status(422).json({ error: errors.message });
+
+    res.status(422).json({ error: errors.message });
   }
   const hashedPassword = await hashPassword(req.body.password);
-  // TODO validations (length, format...)
-  candidate.password = hashedPassword;
-  if (!hashedPassword) {
-    return res.sendStatus(500);
-  }
+
   models.candidate
-    .insert(candidate)
+    .insert({
+      name,
+      firstname,
+      birthday,
+      street,
+      city,
+      postalAdress,
+      mail,
+      phone,
+      password: hashedPassword,
+      jobSeeker,
+      picture,
+      resume,
+      contactPreference,
+    })
     .then(([result]) => {
       return res.location(`/candidates/${result.insertId}`).sendStatus(201);
     })
@@ -139,6 +186,81 @@ const add = async (req, res) => {
       }
     });
 };
+// const add = async (req, res) => {
+//   const {
+//     name,
+//     firstname,
+//     birthday,
+//     street,
+//     city,
+//     postalAdress,
+//     mail,
+//     phone,
+//     password,
+//     jobSeeker,
+//     contactPreference,
+//   } = req.body;
+
+//   const fileResume = req.files.resume;
+//   const filePicture = req.files.picture;
+
+//   const candidateFolder = path.join(
+//     __dirname,
+//     "..",
+//     "..",
+//     "public",
+//     "uploads",
+//     "candidate",
+//     name
+//   );
+
+//   // fonction pour renommer un fichier
+//   const renameFile = (file) => {
+//     const originalName = path.join(candidateFolder, file[0].originalname);
+//     const fileName = path.join(candidateFolder, file[0].filename);
+//     fs.rename(fileName, originalName, (err) => {
+//       if (err) throw err;
+//     });
+//     return `${name}/${file[0].filename}`;
+//   };
+
+//   const resume = renameFile(fileResume);
+//   const picture = renameFile(filePicture);
+
+//   const errors = validate(req.body);
+//   if (errors) {
+//     console.error(errors);
+//     res.status(422).json({ error: errors.message });
+//   }
+//   const hashedPassword = await hashPassword(req.body.password);
+
+//   models.candidate
+//     .insert({
+//       name,
+//       firstname,
+//       birthday,
+//       street,
+//       city,
+//       postalAdress,
+//       mail,
+//       phone,
+//       password: hashedPassword,
+//       jobSeeker,
+//       picture,
+//       resume,
+//       contactPreference,
+//     })
+//     .then(([result]) => {
+//       return res.location(`/candidates/${result.insertId}`).sendStatus(201);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       if (err.errno === 1062) {
+//         return res.status(409).send("User already exists");
+//       }
+//       return res.sendStatus(500);
+//     });
+// };
 
 const destroy = (req, res) => {
   models.candidate
