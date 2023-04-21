@@ -12,6 +12,7 @@ const storageCandidate = multer.diskStorage({
     // On crée un dossier avec l'id du candidat pour l'upload du resume et de la picture
     const uploadFolder = path.join(__dirname, "..", "..", "public", "uploads");
     const candidateFolder = path.join(uploadFolder, "candidate", req.body.mail);
+
     if (!fs.existsSync(candidateFolder)) {
       fs.mkdirSync(candidateFolder, { recursive: true });
     }
@@ -22,6 +23,7 @@ const storageCandidate = multer.diskStorage({
     } else {
       cb(new Error("Invalid file field"));
     }
+    req.pathFolder = candidateFolder;
   },
   filename(req, file, cb) {
     // On génère un nom de fichier unique pour chaque fichier uploadé

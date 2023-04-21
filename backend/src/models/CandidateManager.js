@@ -35,7 +35,6 @@ class CandidateManager extends AbstractManager {
 
   update(candidate) {
     return this.database.query(`update ${this.candidate} set ? where id = ?`, [
-      candidate,
       candidate.id,
     ]);
   }

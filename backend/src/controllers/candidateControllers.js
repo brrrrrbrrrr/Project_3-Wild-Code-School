@@ -109,46 +109,25 @@ const add = async (req, res) => {
 
   const fileResume = req.files.resume;
   const filePicture = req.files.picture;
+  console.warn("filePicture : ", req.files);
+  console.warn("req path :", req.pathFolder);
 
   // if (!fileResume) {
   //   return res.sendStatus(500);
   // }
 
-  const candidateFolder = path.join(
+  const candidateFolderDefault = path.join(
     __dirname,
     "..",
     "..",
     "public",
     "uploads",
-    "candidate",
-    mail
+    "candidate"
   );
+  const candidateFolder = req.pathFolder;
 
-  const originalNameResume = path.join(
-    candidateFolder,
-    fileResume[0].originalname
-  );
-  const fileNameResume = path.join(candidateFolder, fileResume[0].filename);
-
-  const originalNamePicture = path.join(
-    candidateFolder,
-    filePicture[0].originalname
-  );
-  const fileNamePicture = path.join(candidateFolder, filePicture[0].filename);
-
-  fs.rename(fileNameResume, originalNameResume, (err) => {
-    if (err) {
-      console.warn(err);
-    }
-  });
-  fs.rename(fileNamePicture, originalNamePicture, (err) => {
-    if (err) {
-      console.warn(err);
-    }
-  });
-
-  const resume = `${mail}/${fileResume[0].filename}`;
-  const picture = `${mail}/${filePicture[0].filename}`;
+  const resume = `candidate/${fileResume[0].filename}`;
+  const picture = `candidate/${filePicture[0].filename}`;
   const errors = validate(req.body);
   if (errors) {
     console.error(errors);
@@ -174,6 +153,43 @@ const add = async (req, res) => {
       contactPreference,
     })
     .then(([result]) => {
+      const idNewUser = result.insertId.toString();
+      const newFolder = path.join(candidateFolderDefault, idNewUser);
+      fs.renameSync(candidateFolder, newFolder, (err) => {
+        console.warn("rename folder :", err);
+      });
+      const originalNameResume = path.join(
+        newFolder,
+        fileResume[0].originalname
+      );
+
+      const fileNameResume = path.join(
+        newFolder,
+
+        fileResume[0].filename
+      );
+
+      const originalNamePicture = path.join(
+        newFolder,
+        filePicture[0].originalname
+      );
+      const fileNamePicture = path.join(newFolder, filePicture[0].filename);
+
+      fs.renameSync(fileNameResume, originalNameResume, (err) => {
+        if (err) {
+          console.warn("erreur CV :", err);
+        }
+      });
+      fs.renameSync(fileNamePicture, originalNamePicture, (err) => {
+        if (err) {
+          console.warn("erreur Picture :", err);
+        }
+      });
+      req.userId = idNewUser;
+      models.candidate.update(
+        { picture: originalNamePicture, resume: originalNameResume },
+        { where: { id: idNewUser } }
+      );
       return res.location(`/candidates/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
@@ -186,81 +202,6 @@ const add = async (req, res) => {
       }
     });
 };
-// const add = async (req, res) => {
-//   const {
-//     name,
-//     firstname,
-//     birthday,
-//     street,
-//     city,
-//     postalAdress,
-//     mail,
-//     phone,
-//     password,
-//     jobSeeker,
-//     contactPreference,
-//   } = req.body;
-
-//   const fileResume = req.files.resume;
-//   const filePicture = req.files.picture;
-
-//   const candidateFolder = path.join(
-//     __dirname,
-//     "..",
-//     "..",
-//     "public",
-//     "uploads",
-//     "candidate",
-//     name
-//   );
-
-//   // fonction pour renommer un fichier
-//   const renameFile = (file) => {
-//     const originalName = path.join(candidateFolder, file[0].originalname);
-//     const fileName = path.join(candidateFolder, file[0].filename);
-//     fs.rename(fileName, originalName, (err) => {
-//       if (err) throw err;
-//     });
-//     return `${name}/${file[0].filename}`;
-//   };
-
-//   const resume = renameFile(fileResume);
-//   const picture = renameFile(filePicture);
-
-//   const errors = validate(req.body);
-//   if (errors) {
-//     console.error(errors);
-//     res.status(422).json({ error: errors.message });
-//   }
-//   const hashedPassword = await hashPassword(req.body.password);
-
-//   models.candidate
-//     .insert({
-//       name,
-//       firstname,
-//       birthday,
-//       street,
-//       city,
-//       postalAdress,
-//       mail,
-//       phone,
-//       password: hashedPassword,
-//       jobSeeker,
-//       picture,
-//       resume,
-//       contactPreference,
-//     })
-//     .then(([result]) => {
-//       return res.location(`/candidates/${result.insertId}`).sendStatus(201);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       if (err.errno === 1062) {
-//         return res.status(409).send("User already exists");
-//       }
-//       return res.sendStatus(500);
-//     });
-// };
 
 const destroy = (req, res) => {
   models.candidate
