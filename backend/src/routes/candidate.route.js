@@ -30,6 +30,7 @@ const storageCandidate = multer.diskStorage({
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
     const extension = file.originalname.split(".").pop();
     const fileName = `${file.fieldname}-${uniqueSuffix}.${extension}`;
+
     cb(null, fileName);
   },
 });

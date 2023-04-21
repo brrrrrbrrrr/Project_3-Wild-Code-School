@@ -109,12 +109,6 @@ const add = async (req, res) => {
 
   const fileResume = req.files.resume;
   const filePicture = req.files.picture;
-  console.warn("filePicture : ", req.files);
-  console.warn("req path :", req.pathFolder);
-
-  // if (!fileResume) {
-  //   return res.sendStatus(500);
-  // }
 
   const candidateFolderDefault = path.join(
     __dirname,
@@ -153,27 +147,35 @@ const add = async (req, res) => {
       contactPreference,
     })
     .then(([result]) => {
+      // Je recupere l'id de mon nouvel utilisateur
       const idNewUser = result.insertId.toString();
       const newFolder = path.join(candidateFolderDefault, idNewUser);
       fs.renameSync(candidateFolder, newFolder, (err) => {
         console.warn("rename folder :", err);
       });
-      const originalNameResume = path.join(
-        newFolder,
-        fileResume[0].originalname
-      );
 
+      // Je recupere le nom des fichiers et j'enleve les caractères spéciaux et je rajoute l'extention
+      let extension = fileResume[0].originalname.split(".").pop();
+      const newOriginalNameResume = `${fileResume[0].originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+      extension = filePicture[0].originalname.split(".").pop();
+      const newOriginalNamePicture = `${filePicture[0].originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+
+      // Je recupere mon ancien et nouveau chemin
+      const originalNameResume = path.join(newFolder, newOriginalNameResume);
       const fileNameResume = path.join(
         newFolder,
 
         fileResume[0].filename
       );
 
-      const originalNamePicture = path.join(
-        newFolder,
-        filePicture[0].originalname
-      );
+      const originalNamePicture = path.join(newFolder, newOriginalNamePicture);
       const fileNamePicture = path.join(newFolder, filePicture[0].filename);
+      const newFileNamePicture = `uploads/candidate/${idNewUser}/${newOriginalNamePicture}`;
+      const newFileNameResume = `uploads/candidate/${idNewUser}/${newOriginalNameResume}`;
 
       fs.renameSync(fileNameResume, originalNameResume, (err) => {
         if (err) {
@@ -185,12 +187,17 @@ const add = async (req, res) => {
           console.warn("erreur Picture :", err);
         }
       });
-      req.userId = idNewUser;
-      models.candidate.update(
-        { picture: originalNamePicture, resume: originalNameResume },
-        { where: { id: idNewUser } }
-      );
-      return res.location(`/candidates/${result.insertId}`).sendStatus(201);
+
+      models.candidate
+        .updateFiles(newFileNameResume, newFileNamePicture, idNewUser)
+        .then(() => {
+          console.warn("Update successful");
+          return res.location(`/candidates/${result.insertId}`).sendStatus(201);
+        })
+        .catch((error) => {
+          console.error(error);
+          return res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
