@@ -19,9 +19,9 @@ const RegisterCandidate = () => {
   const [validMail, setValidMail] = useState(false);
   const [success, setSuccess] = useState(false);
   const [phone, setPhone] = useState("");
-  const [jobSeeker, setJobSeeker] = useState(true);
-  const [picture, setPicture] = useState("");
-  const [resume, setResume] = useState("");
+  const [jobSeeker, setJobSeeker] = useState(1);
+  const [picture, setPicture] = useState(null);
+  const [resume, setResume] = useState(null);
   const [contactPreference, setContactPreference] = useState("1");
 
   const api = useApi();
@@ -43,23 +43,23 @@ const RegisterCandidate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const registrationDataCandidate = {
-      name: name,
-      firstname: firstname,
-      birthday: birthday,
-      street: street,
-      city: city,
-      postalAdress: postalAddress,
-      mail: mail,
-      phone: phone,
-      password: pass1,
-      jobSeeker: jobSeeker,
-      picture: picture,
-      resume: resume,
-      contactPreference: contactPreference,
-    };
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("firstname", firstname);
+    formData.append("birthday", birthday);
+    formData.append("street", street);
+    formData.append("city", city);
+    formData.append("postalAdress", postalAddress);
+    formData.append("mail", mail);
+    formData.append("phone", phone);
+    formData.append("password", pass1);
+    formData.append("jobSeeker", jobSeeker);
+    formData.append("picture", picture);
+    formData.append("resume", resume);
+    formData.append("contactPreference", contactPreference);
     api
-      .post("/candidates", registrationDataCandidate)
+      .post("/candidates", formData)
       .then((res) => {
         console.warn(res);
         setSuccess(true);
@@ -67,7 +67,7 @@ const RegisterCandidate = () => {
       .catch((err) => {
         console.error(err);
       });
-    console.warn("Registraichn Data:", registrationDataCandidate);
+    console.warn("Registraichn Data:", formData);
   };
 
   return (
@@ -156,8 +156,7 @@ const RegisterCandidate = () => {
               Photo :
               <input
                 type="file"
-                value={picture}
-                onChange={(e) => setPicture(e.target.value)}
+                onChange={(e) => setPicture(e.target.files[0])}
                 className="form-input"
               />
             </label>
@@ -165,8 +164,7 @@ const RegisterCandidate = () => {
               CV :
               <input
                 type="file"
-                value={resume}
-                onChange={(e) => setResume(e.target.value)}
+                onChange={(e) => setResume(e.target.files[0])}
                 className="form-input"
               />
             </label>
