@@ -20,11 +20,7 @@ const validate = (data, forCreation = true) => {
       mail: joi.string().email().presence(presence),
       phone: joi.string().max(45).presence(presence),
       password: joi.string().max(45).presence(presence),
-      // jobSeeker: joi.boolean().invalid(false).presence(presence),
       jobSeeker: joi.number().integer().min(0).max(1).presence(presence),
-      // jobSeeker: joi.string().max(45).presence("optional"),
-      // picture: joi.string().allow(null, "").presence("optional"),
-      // resume: joi.string().allow(null, "").presence("optional"),
       contactPreference: joi.string().max(45).presence(presence),
     })
     .validate(data, { abortEarly: false }).error;

@@ -1,6 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable consistent-return */
 const joi = require("joi");
+const path = require("path");
+const fs = require("fs");
 const models = require("../models");
 const { hashPassword } = require("../utils/compagnyAuth");
 
@@ -57,8 +59,19 @@ const postCompagny = async (req, res) => {
     res.status(422).json({ error: validationError.message }); // Utiliser validationError.message pour obtenir le message d'erreur
   } else {
     // Si les données sont valides, continuer le traitement
-    const { siretNumber, name, mail, phone, password, Valide, Logo } = req.body;
+    const { siretNumber, name, mail, phone, password, Valide } = req.body;
     const hashedPassword = await hashPassword(password);
+    const compagnyFolderDefault = path.join(
+      __dirname,
+      "..",
+      "..",
+      "public",
+      "uploads",
+      "compagny"
+    );
+    const compagnyFolder = req.pathFolder;
+    const fileLogo = req.file;
+    const logo = `compagny/${fileLogo.filename}`;
 
     models.compagny
       .insertCompagny({
@@ -68,10 +81,41 @@ const postCompagny = async (req, res) => {
         phone,
         password: hashedPassword,
         Valide,
-        Logo,
+        Logo: logo,
       })
-      .then((result) => {
-        res.location(`/items/${result.Id}`).sendStatus(201);
+      .then(([result]) => {
+        // Je recupere l'id de mon nouvel utilisateur
+        const idNewUser = result.insertId.toString();
+
+        const newFolder = path.join(compagnyFolderDefault, idNewUser);
+        fs.renameSync(compagnyFolder, newFolder, (err) => {
+          console.warn("rename folder :", err);
+        });
+        // Je recupere le nom des fichiers et j'enleve les caractères spéciaux et je rajoute l'extention
+        const extension = fileLogo.originalname.split(".").pop();
+        const newOriginalNameLogo = `${fileLogo.originalname
+          .split(".")[0]
+          .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+        // Je recupere mon ancien et nouveau chemin
+        const originalNameLogo = path.join(newFolder, newOriginalNameLogo);
+        const fileNameLogo = path.join(newFolder, fileLogo.filename);
+        const newFileNameLogo = `uploads/compagny/${idNewUser}/${newOriginalNameLogo}`;
+        fs.renameSync(fileNameLogo, originalNameLogo, (err) => {
+          console.warn("erreur Logo :", err);
+        });
+
+        models.compagny
+          .updateFiles(newFileNameLogo, idNewUser)
+          .then(() => {
+            console.warn("Update succesful");
+            return res
+              .location(`/candidates/${result.insertId}`)
+              .sendStatus(201);
+          })
+          .catch((error) => {
+            console.error(error);
+            return res.sendStatus(500);
+          });
       })
       .catch((err) => {
         console.error(err);

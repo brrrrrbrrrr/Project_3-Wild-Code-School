@@ -61,6 +61,13 @@ class CompagnyManager extends AbstractManager {
     );
   }
 
+  updateFiles(logo, userId) {
+    return this.database.query(
+      `update ${this.table} set Logo = ? where id = ?`,
+      [logo, userId]
+    );
+  }
+
   verifyCompagny(mail) {
     return this.database.query(
       `select * from ${this.table} where mail = ?,`[mail]
