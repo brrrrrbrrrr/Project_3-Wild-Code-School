@@ -23,7 +23,8 @@ const RegisterCandidate = () => {
   const [picture, setPicture] = useState(null);
   const [resume, setResume] = useState(null);
   const [contactPreference, setContactPreference] = useState("1");
-  const [valideFile, setValidFile] = useState(false);
+  const [valideResumeType, setValidResumeType] = useState(false);
+  const [validePictureType, setValidPictureType] = useState(false);
 
   const api = useApi();
 
@@ -36,10 +37,10 @@ const RegisterCandidate = () => {
     // Vérifie que le fichier est un PDF
     if (fileResume && fileResume.type === "application/pdf") {
       setResume(fileResume);
-      setValidFile(true);
+      setValidResumeType(true);
     } else {
       setResume(null);
-      setValidFile(false);
+      setValidResumeType(false);
     }
   }
   function handlePictureSelect(event) {
@@ -51,10 +52,10 @@ const RegisterCandidate = () => {
       filePicture.type === "image/jpg"
     ) {
       setPicture(filePicture);
-      setValidFile(true);
+      setValidPictureType(true);
     } else {
       setPicture(null);
-      setValidFile(false);
+      setValidPictureType(false);
     }
   }
 
@@ -190,7 +191,7 @@ const RegisterCandidate = () => {
               />
               <span
                 className={
-                  resume || valideFile ? "signup-hide" : "signup-invalid"
+                  resume || validePictureType ? "signup-hide" : "signup-invalid"
                 }
               >
                 Merci de choisir un fichier .JPEG/JPG
@@ -205,7 +206,7 @@ const RegisterCandidate = () => {
               />
               <span
                 className={
-                  resume || valideFile ? "signup-hide" : "signup-invalid"
+                  resume || valideResumeType ? "signup-hide" : "signup-invalid"
                 }
               >
                 Merci de choisir un fichier .PDF
@@ -277,7 +278,13 @@ const RegisterCandidate = () => {
             </label>
             <button
               type="submit"
-              disabled={!validMail || !validPwd || !validMatch || !valideFile}
+              disabled={
+                !validMail ||
+                !validPwd ||
+                !validMatch ||
+                !validePictureType ||
+                !valideResumeType
+              }
               value="Reegistraishen"
             >
               Valider

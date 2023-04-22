@@ -103,10 +103,8 @@ const add = async (req, res) => {
     contactPreference,
   } = req.body;
   // Je recupere mes fichiers
-
   const fileResume = req.files.resume;
   const filePicture = req.files.picture;
-
   const candidateFolderDefault = path.join(
     __dirname,
     "..",
@@ -119,6 +117,7 @@ const add = async (req, res) => {
 
   const resume = `candidate/${fileResume[0].filename}`;
   const picture = `candidate/${filePicture[0].filename}`;
+
   const errors = validate(req.body);
   if (errors) {
     console.error(errors);

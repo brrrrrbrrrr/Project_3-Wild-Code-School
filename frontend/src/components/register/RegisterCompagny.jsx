@@ -41,6 +41,7 @@ function RegisterCompagny() {
       password: pass1,
       Logo: logo,
     };
+
     api
       .post("/compagny", registrationDataCompagny)
       .then((res) => {
