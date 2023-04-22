@@ -23,11 +23,40 @@ const RegisterCandidate = () => {
   const [picture, setPicture] = useState(null);
   const [resume, setResume] = useState(null);
   const [contactPreference, setContactPreference] = useState("1");
+  const [valideFile, setValidFile] = useState(false);
 
   const api = useApi();
 
   const PWD_REDEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
   const MAIL_REDEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
+
+  function handleResumeSelect(event) {
+    const fileResume = event.target.files[0];
+
+    // Vérifie que le fichier est un PDF
+    if (fileResume && fileResume.type === "application/pdf") {
+      setResume(fileResume);
+      setValidFile(true);
+    } else {
+      setResume(null);
+      setValidFile(false);
+    }
+  }
+  function handlePictureSelect(event) {
+    const filePicture = event.target.files[0];
+
+    // Vérifie que le fichier est un jpeg ou jpg
+    if (
+      (filePicture && filePicture.type === "image/jpeg") ||
+      filePicture.type === "image/jpg"
+    ) {
+      setPicture(filePicture);
+      setValidFile(true);
+    } else {
+      setPicture(null);
+      setValidFile(false);
+    }
+  }
 
   useEffect(() => {
     const result = MAIL_REDEX.test(mail);
@@ -156,17 +185,31 @@ const RegisterCandidate = () => {
               Photo :
               <input
                 type="file"
-                onChange={(e) => setPicture(e.target.files[0])}
+                onChange={handlePictureSelect}
                 className="form-input"
               />
+              <span
+                className={
+                  resume || valideFile ? "signup-hide" : "signup-invalid"
+                }
+              >
+                Merci de choisir un fichier .JPEG/JPG
+              </span>
             </label>
             <label className="form-label">
               CV :
               <input
                 type="file"
-                onChange={(e) => setResume(e.target.files[0])}
+                onChange={handleResumeSelect}
                 className="form-input"
               />
+              <span
+                className={
+                  resume || valideFile ? "signup-hide" : "signup-invalid"
+                }
+              >
+                Merci de choisir un fichier .PDF
+              </span>
             </label>
             <label className="form-label">
               Préférence de contact:
@@ -234,7 +277,7 @@ const RegisterCandidate = () => {
             </label>
             <button
               type="submit"
-              disabled={!validMail || !validPwd || !validMatch}
+              disabled={!validMail || !validPwd || !validMatch || !valideFile}
               value="Reegistraishen"
             >
               Valider

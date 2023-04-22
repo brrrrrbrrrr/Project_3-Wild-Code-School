@@ -32,8 +32,12 @@
   border-radius: 3px;
 }
 
-.signup-invalide {
+.signup-invalid {
   display: inline-block;
+  color: var(--alert-color);
+  margin-top: 3px;
+  font-size: 0.7rem;
+  text-align: end;
 }
 @media screen and (min-width: 320px) {
   .form-label {
