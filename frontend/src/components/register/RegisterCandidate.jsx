@@ -276,19 +276,21 @@ const RegisterCandidate = () => {
                 Les mots de passe ne correspondent pas
               </span>
             </label>
-            <button
-              type="submit"
-              disabled={
-                !validMail ||
-                !validPwd ||
-                !validMatch ||
-                !validePictureType ||
-                !valideResumeType
-              }
-              value="Reegistraishen"
-            >
-              Valider
-            </button>
+            <div className="form-btn-container">
+              <button
+                type="submit"
+                disabled={
+                  !validMail ||
+                  !validPwd ||
+                  !validMatch ||
+                  !validePictureType ||
+                  !valideResumeType
+                }
+                className="form-btn"
+              >
+                Valider
+              </button>
+            </div>
           </form>
         </div>
       )}

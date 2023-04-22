@@ -14,6 +14,7 @@ function RegisterCompagny() {
   const [validMail, setValidMail] = useState(false);
   const [success, setSuccess] = useState(false);
   const [logo, setLogo] = useState("");
+  const [validLogoType, setValidLogoType] = useState(false);
   const api = useApi();
 
   const PWD_REDEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -30,20 +31,34 @@ function RegisterCompagny() {
     const match = pass1 === pass2;
     setValidMatch(match);
   }, [pass1, pass2]);
+  function handlePictureSelect(event) {
+    const fileLogo = event.target.files[0];
+
+    // Vérifie que le fichier est un jpeg ou jpg
+    if (
+      (fileLogo && fileLogo.type === "image/jpeg") ||
+      fileLogo.type === "image/jpg"
+    ) {
+      setLogo(fileLogo);
+      setValidLogoType(true);
+    } else {
+      setLogo(null);
+      setValidLogoType(false);
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const registrationDataCompagny = {
-      siretNumber,
-      name,
-      mail,
-      phone,
-      password: pass1,
-      Logo: logo,
-    };
 
+    const formData = new FormData();
+    formData.append("siretNumber", siretNumber);
+    formData.append("name", name);
+    formData.append("mail", mail);
+    formData.append("phone", phone);
+    formData.append("password", pass1);
+    formData.append("Logo", logo);
     api
-      .post("/compagny", registrationDataCompagny)
+      .post("/compagny", formData)
       .then((res) => {
         console.warn(res);
         setSuccess(true);
@@ -51,7 +66,7 @@ function RegisterCompagny() {
       .catch((err) => {
         console.error(err);
       });
-    console.warn("Registraichn Data:", registrationDataCompagny);
+    console.warn("Registraichn Data:", formData);
   };
 
   return (
@@ -119,23 +134,40 @@ function RegisterCompagny() {
                 onChange={(e) => setPass2(e.target.value)}
                 className="form-input"
               />
+              <span
+                className={
+                  validMatch || !pass2 ? "signup-hide" : "signup-invalid"
+                }
+              >
+                Les mots de passe ne correspondent pas
+              </span>
             </label>
             <label className="form-label">
               Logo d'entreprise :
               <input
                 type="file"
-                value={logo}
-                onChange={(e) => setLogo(e.target.value)}
+                onChange={handlePictureSelect}
                 className="form-input"
               />
+              <span
+                className={
+                  logo || validLogoType ? "signup-hide" : "signup-invalid"
+                }
+              >
+                Merci de choisir un fichier .JPEG/JPG
+              </span>
             </label>
-            <button
-              type="submit"
-              disabled={!validMail || !validPwd || !validMatch}
-              value="Reegistraishen"
-            >
-              Valider
-            </button>
+            <div className="form-btn-container">
+              <button
+                type="submit"
+                disabled={
+                  !validMail || !validPwd || !validMatch || !validLogoType
+                }
+                className="form-btn"
+              >
+                Valider
+              </button>
+            </div>
           </form>
         </div>
       )}
