@@ -171,7 +171,6 @@ function RegisterCompagny() {
           </form>
         </div>
       )}
-      ;
     </>
   );
 }

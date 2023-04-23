@@ -113,6 +113,7 @@ const add = async (req, res) => {
     "uploads",
     "candidate"
   );
+  console.warn(req);
   const candidateFolder = req.pathFolder;
 
   const resume = `candidate/${fileResume[0].filename}`;

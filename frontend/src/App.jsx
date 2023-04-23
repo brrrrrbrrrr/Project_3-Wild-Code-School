@@ -1,15 +1,14 @@
 import UserProvider from "./contexts/UserRecruiterContext";
 
 import "./App.css";
-import RegisterCandidate from "./components/register/RegisterCandidate";
-import RegisterCompagny from "./components/register/RegisterCompagny";
+
+import PageRegister from "./pages/PageRegister";
 
 function App() {
   return (
     <div className="App">
       <UserProvider>
-        <RegisterCandidate />
-        <RegisterCompagny />
+        <PageRegister />
       </UserProvider>
     </div>
   );

@@ -1,6 +1,7 @@
 .form-container {
   display: flex;
   width: 100%;
+  position: absolute;
 }
 .form-signup {
   width: 100%;
@@ -8,7 +9,8 @@
   flex-direction: column;
   background-color: var(--background-color);
   border-radius: 3px;
-  margin: 5%;
+  /* margin: 5%; */
+  margin: 0 1rem;
   box-shadow: 0px 1px 11px 3px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 0px 1px 11px 3px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 1px 11px 3px rgba(0, 0, 0, 0.75);
