@@ -11,8 +11,8 @@ const BodyOffres = () => {
     api
       .get("/offres")
       .then((response) => {
-        setOffres(response.data);
-        console.warn(response.data);
+        const sortedOffres = response.data.sort((a, b) => b.id - a.id);
+        setOffres(sortedOffres);
       })
       .catch((error) => {
         console.error(error);
