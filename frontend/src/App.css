@@ -59,3 +59,21 @@ main {
 body._lock {
   overflow: hidden;
 }
+
+body {
+  margin: 0;
+  height: 100%;
+  line-height: 1;
+  font-family: Poppins;
+}
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1 1 auto;
+}
+body._lock {
+  overflow: hidden;
+}
