@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import "./RegisterNewRecruiter.css";
 
 import React, { useEffect, useState } from "react";
 import useApi from "../../services/useApi";

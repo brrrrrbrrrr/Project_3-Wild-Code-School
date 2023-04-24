@@ -1,24 +1,19 @@
 .select-form-btn-container {
-  /* border: 1px solid red; */
   display: flex;
   justify-content: center;
   position: relative;
 }
 
 .select-form-btn-column {
-  /* border: 1px solid blue; */
   width: 100%;
   margin: 1rem 1rem;
   height: 2rem;
   display: flex;
   justify-content: flex-end;
-  /* background-color: var(--background-color); */
 }
 
 .select-form-btn {
-  /* margin: 5%; */
   background-color: var(--background-color);
-  /* color: red; */
   margin-left: 10px;
   padding: 0 10px;
   border-radius: 3px;
@@ -33,6 +28,5 @@
 @media screen and (min-width: 768px) {
   .select-form-btn-column {
     width: 50rem;
-    /* border: 1px solid blue; */
   }
 }
