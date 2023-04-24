@@ -1,3 +1,63 @@
+:root {
+  --background-color: #f1f1e6;
+  --primary-color: #134168;
+  --second-color: #00b3ff;
+  --extra-color: #dea01e;
+  --alert-color: #aa4269;
+  --regular-size: 24px;
+  --regular-font: Poppins, 400, sans-serif;
+  --second-font: Poppins, 600, sans-serif;
+  --bold-font: Poppins, 800, sans-serif;
+  --btn-font: Poppins, 500, sans-serif;
+}
+
+zeroing *,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+ul,
+ol,
+li {
+  list-style: none;
+}
+img {
+  vertical-align: top;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+}
+html,
+body {
+  margin: 0;
+  height: 100%;
+  line-height: 1;
+  font-family: Poppins;
+}
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1 1 auto;
+}
+body._lock {
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
