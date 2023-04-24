@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import "./Register.css";
 
 import React, { useEffect, useState } from "react";
 import useApi from "../../services/useApi";

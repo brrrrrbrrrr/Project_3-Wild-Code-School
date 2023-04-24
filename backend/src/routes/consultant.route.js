@@ -6,7 +6,7 @@ const {
   hashPassword,
   verifyToken,
   isConsultantAdmin,
-} = require("../authConsultant");
+} = require("../utils/authConsultant");
 
 router.get("/", consultantControllers.browse);
 

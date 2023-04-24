@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const consultantControllers = require("../controllers/consultantControllers");
 
-const { verifyPassword } = require("../authConsultant");
+const { verifyPassword } = require("../utils/authConsultant");
 
 // ici vos routes
 router.post(
