@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 
 import NavBar from "./components/navBar/NavBar";
 import NotFound from "./components/notfound/NotFound";
+import PageRegister from "./pages/PageRegister";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/propos" element={<NotFound />} />
           <Route path="/connect" element={<NotFound />} />
         </Routes>
+        <PageRegister />
       </UserProvider>
     </div>
   );

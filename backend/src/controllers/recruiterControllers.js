@@ -118,7 +118,27 @@ const destroy = (req, res) => {
       res.sendStatus(500);
     });
 };
+const edit = (req, res) => {
+  const item = req.body;
 
+  // TODO validations (length, format...)
+
+  item.id = parseInt(req.params.id, 10);
+
+  models.recruiter
+    .update(item)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
 const getRecruiterByLoginToNext = async (req, res, next) => {
   const { mail } = req.body;
   if (!mail) res.sendStatus(422);
@@ -137,4 +157,5 @@ module.exports = {
   add,
   destroy,
   getRecruiterByLoginToNext,
+  edit,
 };

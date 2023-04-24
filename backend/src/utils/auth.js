@@ -24,7 +24,7 @@ const hashPassword = async (password) => {
 };
 
 const verifyPasswordRecruiter = (req, res) => {
-  console.warn(req.candidate, req.body.password);
+  console.warn(req.recruiter, req.body.password);
   argon2
     .verify(req.recruiter.password, req.body.password)
     .then((isVerified) => {
@@ -36,6 +36,7 @@ const verifyPasswordRecruiter = (req, res) => {
           expiresIn: "2h",
         });
         delete req.recruiter.password;
+
         res.send({ token, recruiter: req.recruiter });
       } else {
         return res.sendStatus(401);
@@ -46,6 +47,7 @@ const verifyPasswordRecruiter = (req, res) => {
       return res.sendStatus(500);
     });
 };
+
 const verifyPasswordCandidate = (req, res) => {
   console.warn(req.candidate, req.body.password);
   argon2

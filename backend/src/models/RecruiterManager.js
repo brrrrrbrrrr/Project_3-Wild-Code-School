@@ -111,7 +111,7 @@ class RecruiterManager extends AbstractManager {
   }
 
   update(recruiter) {
-    return this.database.query(`update ${this.recruteur} set ? where id = ?`, [
+    return this.database.query(`update ${this.table} set ? where id = ?`, [
       recruiter,
       recruiter.id,
     ]);

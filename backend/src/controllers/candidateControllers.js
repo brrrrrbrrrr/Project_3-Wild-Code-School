@@ -1,6 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 // eslint-disable-next-line import/no-extraneous-dependencies
 const joi = require("joi");
+const path = require("path");
+const fs = require("fs");
 const models = require("../models");
 const { hashPassword } = require("../utils/auth");
 
@@ -17,9 +20,7 @@ const validate = (data, forCreation = true) => {
       mail: joi.string().email().presence(presence),
       phone: joi.string().max(45).presence(presence),
       password: joi.string().max(45).presence(presence),
-      jobSeeker: joi.boolean().invalid(false).presence(presence),
-      picture: joi.string().allow(null, "").presence("optional"),
-      resume: joi.string().allow(null, "").presence("optional"),
+      jobSeeker: joi.number().integer().min(0).max(1).presence(presence),
       contactPreference: joi.string().max(45).presence(presence),
     })
     .validate(data, { abortEarly: false }).error;
@@ -87,23 +88,113 @@ const edit = async (req, res) => {
 
 // eslint-disable-next-line consistent-return
 const add = async (req, res) => {
-  const candidate = req.body;
-  const errors = validate(candidate);
+  // Je recupère le req.body sans les fichiers a telecharger
+  const {
+    name,
+    firstname,
+    birthday,
+    street,
+    city,
+    postalAdress,
+    mail,
+    phone,
+    password,
+    jobSeeker,
+    contactPreference,
+  } = req.body;
+  // Je recupere mes fichiers
+  const fileResume = req.files.resume;
+  const filePicture = req.files.picture;
+  const candidateFolderDefault = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "uploads",
+    "candidate"
+  );
+  console.warn(req);
+  const candidateFolder = req.pathFolder;
+
+  const resume = `candidate/${fileResume[0].filename}`;
+  const picture = `candidate/${filePicture[0].filename}`;
+
+  const errors = validate(req.body);
   if (errors) {
     console.error(errors);
-    return res.sendStatus(422);
-    // res.status(422).json({ error: errors.message });
+
+    res.status(422).json({ error: errors.message });
   }
   const hashedPassword = await hashPassword(req.body.password);
-  // TODO validations (length, format...)
-  candidate.password = hashedPassword;
-  if (!hashedPassword) {
-    return res.sendStatus(500);
-  }
+
   models.candidate
-    .insert(candidate)
+    .insert({
+      name,
+      firstname,
+      birthday,
+      street,
+      city,
+      postalAdress,
+      mail,
+      phone,
+      password: hashedPassword,
+      jobSeeker,
+      picture,
+      resume,
+      contactPreference,
+    })
     .then(([result]) => {
-      return res.location(`/candidates/${result.insertId}`).sendStatus(201);
+      // Je recupere l'id de mon nouvel utilisateur
+      const idNewUser = result.insertId.toString();
+      const newFolder = path.join(candidateFolderDefault, idNewUser);
+      fs.renameSync(candidateFolder, newFolder, (err) => {
+        console.warn("rename folder :", err);
+      });
+
+      // Je recupere le nom des fichiers et j'enleve les caractères spéciaux et je rajoute l'extention
+      let extension = fileResume[0].originalname.split(".").pop();
+      const newOriginalNameResume = `${fileResume[0].originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+      extension = filePicture[0].originalname.split(".").pop();
+      const newOriginalNamePicture = `${filePicture[0].originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+
+      // Je recupere mon ancien et nouveau chemin
+      const originalNameResume = path.join(newFolder, newOriginalNameResume);
+      const fileNameResume = path.join(
+        newFolder,
+
+        fileResume[0].filename
+      );
+
+      const originalNamePicture = path.join(newFolder, newOriginalNamePicture);
+      const fileNamePicture = path.join(newFolder, filePicture[0].filename);
+      const newFileNamePicture = `uploads/candidate/${idNewUser}/${newOriginalNamePicture}`;
+      const newFileNameResume = `uploads/candidate/${idNewUser}/${newOriginalNameResume}`;
+
+      fs.renameSync(fileNameResume, originalNameResume, (err) => {
+        if (err) {
+          console.warn("erreur CV :", err);
+        }
+      });
+      fs.renameSync(fileNamePicture, originalNamePicture, (err) => {
+        if (err) {
+          console.warn("erreur Picture :", err);
+        }
+      });
+
+      models.candidate
+        .updateFiles(newFileNameResume, newFileNamePicture, idNewUser)
+        .then(() => {
+          console.warn("Update successful");
+          return res.location(`/candidates/${result.insertId}`).sendStatus(201);
+        })
+        .catch((error) => {
+          console.error(error);
+          return res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
