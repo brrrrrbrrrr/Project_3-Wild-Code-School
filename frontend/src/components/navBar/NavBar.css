@@ -23,7 +23,7 @@ nav {
 }
 
 .menu li a {
-  font-size: 30px;
+  font-size: 20px;
   transition: 0.5s;
 }
 
@@ -38,8 +38,8 @@ nav {
 
 .burger-container {
   position: absolute;
-  right: 0;
-  top: 10px;
+  right: 20px;
+  top: 20px;
   height: 30px;
   width: 30px;
 }
@@ -50,8 +50,6 @@ nav {
 
 .burger-menu {
   position: relative;
-  right: 20px;
-  top: 20px;
   width: 26px;
   height: 4px;
   background-color: white;
@@ -83,11 +81,11 @@ nav {
 
 .toggle-btn {
   position: absolute;
-  right: 20px;
-  top: 20px;
-  width: 30px;
-  height: 100%;
-  z-index: 3;
+  top: -15px;
+  right: -5px;
+  width: 40px;
+  height: 40px;
+  z-index: 4;
   cursor: pointer;
   opacity: 0;
 }

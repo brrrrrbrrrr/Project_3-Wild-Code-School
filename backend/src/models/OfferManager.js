@@ -1,6 +1,6 @@
 const AbstractManager = require("./AbstractManager");
 
-class OffreManager extends AbstractManager {
+class OfferManager extends AbstractManager {
   constructor() {
     super({ table: "offer" });
   }
@@ -22,4 +22,4 @@ class OffreManager extends AbstractManager {
   }
 }
 
-module.exports = OffreManager;
+module.exports = OfferManager;

@@ -49,7 +49,7 @@ const CandidateManager = require("./CandidateManager");
 models.candidate = new CandidateManager();
 models.candidate.setDatabase(pool);
 
-const OffreManager = require("./OffreManager");
+const OffreManager = require("./OfferManager");
 
 models.offre = new OffreManager();
 models.offre.setDatabase(pool);

@@ -1,18 +1,18 @@
 /* eslint-disable react/function-component-definition */
 import { useEffect, useState } from "react";
 import useApi from "../../services/useApi";
-import "./BodyOffres.css";
+import "./BodyOffers.css";
 
-const BodyOffres = () => {
-  const [offres, setOffres] = useState([]);
+const BodyOffers = () => {
+  const [offers, setOffers] = useState([]);
   const api = useApi();
 
   useEffect(() => {
     api
-      .get("/offres")
+      .get("/offers")
       .then((response) => {
-        const sortedOffres = response.data.sort((a, b) => b.id - a.id);
-        setOffres(sortedOffres);
+        const sortedOffers = response.data.sort((a, b) => b.id - a.id);
+        setOffers(sortedOffers);
       })
       .catch((error) => {
         console.error(error);
@@ -23,11 +23,11 @@ const BodyOffres = () => {
     <div className="body-container">
       <h2 className="body-title">Les dernières offres</h2>
       <div className="offre-wrapper">
-        {offres.slice(0, 4).map((offre) => (
-          <div className="offre-container" key={offre.id}>
-            <h3 className="offre-title">{offre.jobTitleDetails}</h3>
-            <h3 className="offre-city">{offre.city_name}</h3>
-            <h3 className="offre-salary">{offre.salary} euro/day</h3>
+        {offers.slice(0, 4).map((offer) => (
+          <div className="offre-container" key={offer.id}>
+            <h3 className="offre-title">{offer.jobTitleDetails}</h3>
+            <h3 className="offre-city">{offer.city_name}</h3>
+            <h3 className="offre-salary">{offer.salary} euro/day</h3>
             <button type="button" className="offre-button_info">
               Plus d'infos
             </button>
@@ -38,4 +38,4 @@ const BodyOffres = () => {
   );
 };
 
-export default BodyOffres;
+export default BodyOffers;
