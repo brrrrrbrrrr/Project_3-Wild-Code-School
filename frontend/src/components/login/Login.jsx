@@ -10,6 +10,24 @@ function Login() {
   const refMail = useRef();
   const refPass = useRef();
   const [succes, setSucces] = useState(null);
+  const [loginUser, setLoginUser] = useState("");
+  const candidates = "candidates";
+  const compagny = "compagny";
+  const consultants = "consultants";
+
+  const handleClickCandidates = () => {
+    setLoginUser(candidates);
+  };
+
+  const handleClickCompagny = () => {
+    setLoginUser(compagny);
+  };
+
+  const handleClickConsultants = () => {
+    setLoginUser(consultants);
+  };
+  const loginApi = `/login/${loginUser}`;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const mail = refMail.current.value;
@@ -19,7 +37,7 @@ function Login() {
       password,
     };
     api
-      .post("/login-recruiter", userLogin)
+      .post(loginApi, userLogin)
       .then((res) => {
         console.warn(res);
         const { token, user } = res.data;
@@ -44,28 +62,57 @@ function Login() {
         setMsgErr(errorMsg);
       });
   };
+
   return (
     <div>
+      <div className="btn-container">
+        <button
+          type="button"
+          className="btn-choice-user"
+          onClick={handleClickCompagny}
+        >
+          Entreprise
+        </button>
+        <button
+          type="button"
+          className="btn-choice-user"
+          onClick={handleClickCandidates}
+        >
+          Candidat
+        </button>
+        <button
+          type="button"
+          className="btn-choice-user"
+          onClick={handleClickConsultants}
+        >
+          Consultant
+        </button>
+      </div>
       {succes ? (
         "Vous êtes connecté"
       ) : (
         <div className="login-container">
-          <h2>Connexion</h2>
+          <h2 className="connexion-h2">Se connecter</h2>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="form-login">
             <label htmlFor="login" className="login-label">
-              Login :
+              Adresse e-mail
               <input type="text" className="input-login-form" ref={refMail} />
             </label>
             <label htmlFor="password" className="login-label">
-              Mot de passe :
+              Mot de passe
               <input
                 type="password"
                 className="input-login-form"
                 ref={refPass}
               />
             </label>
-            <button type="submit">Connexion</button>
+            <div className="connexion-btn-container">
+              {" "}
+              <button className="connexion-btn" type="submit">
+                Connexion
+              </button>
+            </div>
           </form>
           <div>{!succes ? msgErr : ""}</div>
         </div>

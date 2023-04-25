@@ -1,0 +1,47 @@
+.btn-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.connexion-h2 {
+  text-align: center;
+  margin: 2rem 0rem;
+}
+
+.input-login-form {
+  border: 1px solid black;
+  height: 30px;
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 3px;
+}
+.login-label {
+  margin: 1rem 0;
+}
+
+.form-login {
+  margin: 0 1rem;
+}
+
+.connexion-btn-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+.connexion-btn {
+  font-size: 1rem;
+  padding: 10px 15px;
+  border-radius: 3px;
+  background-color: #134068a2;
+  color: var(--background-color);
+}
+
+.connexion-btn:hover {
+  cursor: pointer;
+  background-color: var(--primary-color);
+}
+
+.login-label {
+  display: flex;
+  flex-direction: column;
+}
