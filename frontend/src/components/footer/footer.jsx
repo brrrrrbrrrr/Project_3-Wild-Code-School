@@ -1,6 +1,6 @@
 import React from "react";
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "./Icon";
-import "./footer.css";
+import "./Footer.css";
 
 function Footer() {
   return (

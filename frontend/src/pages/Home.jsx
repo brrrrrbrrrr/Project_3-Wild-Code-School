@@ -1,12 +1,12 @@
 /* eslint-disable import/no-unresolved */
-import Presentation from "../components/Presentation/Presentation";
-import Footer from "../components/footer/Footer";
+import BodyOffres from "@components/bodyOffres/BodyOffres";
+import Presentation from "../components/presentation/Presentation";
 
 export default function Home() {
   return (
     <div>
       <Presentation />
-      <Footer />
+      <BodyOffres />
     </div>
   );
 }
