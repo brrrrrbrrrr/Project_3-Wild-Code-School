@@ -8,6 +8,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import NavBar from "./components/navBar/NavBar";
 import NotFound from "./components/notfound/NotFound";
+import Footer from "./components/footer/Footer";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/propos" element={<NotFound />} />
           <Route path="/connect" element={<NotFound />} />
         </Routes>
+        <Footer />
       </UserProvider>
     </div>
   );
