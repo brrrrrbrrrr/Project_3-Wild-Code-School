@@ -408,4 +408,13 @@ INSERT INTO
  ("40000", 1, "teamPicture.png", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "100", "Senior Data Analyst", 1, 1, 6, 1, 1),
   ("25000", 1, "team.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "30", "Marketing Coordinator", 2, 1, 6, 1, 1),
    ("50000", 0, "teamPic.jpeg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "70", "Senior Project Manager", 2, 1, 6, 1, 1);
+ VALUES ("20000", 1, "futur foto", "jobOfferPresentation", "desiredProfile", "recruitmentProcess", "23", "Ingénieur réseaux / H/F – Industrie", 1,1,6,1,1);
+
+-- Benjamin(19/04)
+ ALTER TABLE compagny MODIFY Valide TINYINT(1) DEFAULT 0 NULL;
+
+-- Benjamin (19/04)
+ ALTER TABLE compagny MODIFY Logo VARCHAR(45) DEFAULT NULL NULL;
+
+
 

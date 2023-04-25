@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const compagnyControllers = require("../controllers/compagnyControllers");
-const { verifyPassword } = require("../auth/compagnyAuth");
+const { verifyPassword } = require("../utils/compagnyAuth");
 
 router.post(
   "/",
