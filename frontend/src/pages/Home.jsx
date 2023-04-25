@@ -1,11 +1,10 @@
 /* eslint-disable import/no-unresolved */
-
-import LoginCandidat from "../components/loginCandidat/LoginCandidate";
+import BodyOffres from "@components/bodyOffres/BodyOffres";
 
 export default function Home() {
   return (
     <div>
-      <LoginCandidat />
+      <BodyOffres />
     </div>
   );
 }
