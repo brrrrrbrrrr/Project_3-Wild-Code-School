@@ -46,7 +46,7 @@ class ConsultantManager extends AbstractManager {
 
   getUserWithPassword(mail) {
     return this.database.query(
-      `select id, password, superAdmin from ${this.table} where mail = ?`,
+      `SELECT id, name, firstname, password , superAdmin from ${this.table} where mail = ?`,
       [mail]
     );
   }

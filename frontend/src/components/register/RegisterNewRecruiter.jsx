@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import useApi from "../../services/useApi";
 import Login from "../login/Login";
-import { useUser } from "../../contexts/UserRecruiterContext";
+import { useUser } from "../../contexts/UserContext";
 
 function Register() {
   const [compagny, setCompagny] = useState("");

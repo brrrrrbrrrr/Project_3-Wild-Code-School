@@ -117,6 +117,10 @@
   color: var(--alert-color);
 }
 
+.connexion-done {
+  text-align: center;
+  margin-top: 10rem;
+}
 @media screen and (min-width: 768px) {
   .login-column {
     width: 30rem;

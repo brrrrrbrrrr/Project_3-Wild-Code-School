@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useRef, useState } from "react";
 import useApi from "../../services/useApi";
-import { useUser } from "../../contexts/UserRecruiterContext";
+import { useUser } from "../../contexts/UserContext";
 
 function Login() {
   const [msgErr, setMsgErr] = useState("");
@@ -14,12 +14,16 @@ function Login() {
   const refPass = useRef();
   const [succes, setSucces] = useState(null);
   const [loginUser, setLoginUser] = useState(null);
+  const navigate = useNavigate();
 
+  // Je stock mes différentes routes
   const candidates = "candidates";
-  const compagny = "compagny";
+  const compagnys = "compagny";
   const consultants = "consultants";
   const recruiters = "recruiters";
 
+  // Une fonction qui prend en parametre le choix du button, pour l'identifier et n'afficher que celui ci
+  // J'utilise ensuite cette fonction dans les classes de ma liste
   function getMenuItemClassName(choice) {
     let className = "li-choice";
     if (loginUser === choice) {
@@ -29,6 +33,10 @@ function Login() {
     }
     return className;
   }
+
+  // POUR CHAQUE BUTTON  :
+  // J'utilise le meme state pour recuperer une valeur différente, en fonction du button qui est cliqué
+  // Si il a déjà une valeur, je le réinitialise a null (si j'utilisateur souhaite changer par exemple)
 
   const handleClickRecruiter = () => {
     if (loginUser) {
@@ -52,7 +60,7 @@ function Login() {
     if (loginUser) {
       setLoginUser(null);
     } else {
-      setLoginUser(compagny);
+      setLoginUser(compagnys);
     }
     setMsgErr("");
   };
@@ -65,6 +73,8 @@ function Login() {
     }
     setMsgErr("");
   };
+
+  // Je change de manière dynamique ma requette d'API en fonction de du choix de l'utilisateur (candidat/entreprise/etc)
   const loginApi = `/login/${loginUser}`;
 
   const handleSubmit = (e) => {
@@ -78,14 +88,41 @@ function Login() {
     api
       .post(loginApi, userLogin)
       .then((res) => {
-        console.warn(res);
-        const { token, user } = res.data;
-        api.defaults.headers.authorization = `Bearer ${token}`;
-        setUser(user);
+        console.warn("warn : ", res.data);
+        // Je verifie le contenu de res.data
+        let userObject = "";
+        if ("candidate" in res.data) {
+          const { token, candidate } = res.data;
+          api.defaults.headers.authorization = `Bearer ${token}`;
+          userObject = candidate;
+        }
+        if ("compagny" in res.data) {
+          const { token, compagny } = res.data;
+          api.defaults.headers.authorization = `Bearer ${token}`;
+          userObject = compagny;
+        }
+        if ("consultant" in res.data) {
+          const { token, consultant } = res.data;
+          api.defaults.headers.authorization = `Bearer ${token}`;
+          userObject = consultant;
+        }
+        if ("recruiter" in res.data) {
+          const { token, recruiter } = res.data;
+          api.defaults.headers.authorization = `Bearer ${token}`;
+          userObject = recruiter;
+        }
+        // Je met mon object dans mon context user afin de le recuperer partout
+        setUser(userObject);
+        // Si tout est ok, mon state passe a true, j'utilise ce state pour l'affichage ou non de certaines choses
         setSucces(true);
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       })
       .catch((err) => {
         console.warn(err);
+
+        // Je traite et renvoi les erreurs
         let errorMsg = "";
         switch (err.response.status) {
           case 401:
@@ -106,7 +143,7 @@ function Login() {
     <div>
       <div className="btn-container" />
       {succes ? (
-        "Vous êtes connecté"
+        <p className="connexion-done">Vous êtes connecté</p>
       ) : (
         <div className="login-container">
           <div className="login-column">
@@ -126,7 +163,7 @@ function Login() {
                   Candidat
                 </li>
                 <li
-                  className={getMenuItemClassName(compagny)}
+                  className={getMenuItemClassName(compagnys)}
                   onClick={handleClickCompagny}
                 >
                   Entreprise

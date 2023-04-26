@@ -102,7 +102,10 @@ class RecruiterManager extends AbstractManager {
 
   getRecruiterByLogin(login) {
     return this.database
-      .query("SELECT * FROM recruiter WHERE mail=?", [login])
+      .query(
+        `SELECT id, name, firstname, password from ${this.table} WHERE mail = ?`,
+        [login]
+      )
       .then(([result]) => result)
       .catch((err) => {
         console.warn(err);

@@ -20,8 +20,8 @@ const offre = require("./offre.rout");
 
 router.use("/offres", offre);
 
-router.use("/recruiter", recruiter);
-router.use("/consultant", recruiter);
+router.use("/recruiters", recruiter);
+
 router.use("/login/recruiters", loginRecruiter);
 
 router.use("/compagny", compagny);

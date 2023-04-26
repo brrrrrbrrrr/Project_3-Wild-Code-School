@@ -142,7 +142,7 @@ const getRecruiterByLoginToNext = async (req, res, next) => {
   if (!mail) {
     return res.sendStatus(422);
   }
-  const [result] = await models.recruiter.getRecruiterByLogin(mail);
+  const result = await models.recruiter.getRecruiterByLogin(mail);
   if (result) {
     if (result[0] != null) {
       req.recruiter = { ...result[0] };
