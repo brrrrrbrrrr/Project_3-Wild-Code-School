@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import "./Login.css";
 import React, { useRef, useState } from "react";
 import useApi from "../../services/useApi";
@@ -10,21 +12,55 @@ function Login() {
   const refMail = useRef();
   const refPass = useRef();
   const [succes, setSucces] = useState(null);
-  const [loginUser, setLoginUser] = useState("");
+  const [loginUser, setLoginUser] = useState(null);
+
   const candidates = "candidates";
   const compagny = "compagny";
   const consultants = "consultants";
+  const recruiters = "recruiters";
+
+  function getMenuItemClassName(choice) {
+    let className = "li-choice";
+    if (loginUser === choice) {
+      className += " li-choice_active";
+    } else if (loginUser !== null && loginUser !== choice) {
+      className += " li-choice_hidden";
+    }
+    return className;
+  }
+
+  const handleMenu = () => {};
+
+  const handleClickRecruiter = () => {
+    if (loginUser) {
+      setLoginUser(null);
+    } else {
+      setLoginUser(recruiters);
+    }
+  };
 
   const handleClickCandidates = () => {
-    setLoginUser(candidates);
+    if (loginUser) {
+      setLoginUser(null);
+    } else {
+      setLoginUser(candidates);
+    }
   };
 
   const handleClickCompagny = () => {
-    setLoginUser(compagny);
+    if (loginUser) {
+      setLoginUser(null);
+    } else {
+      setLoginUser(compagny);
+    }
   };
 
   const handleClickConsultants = () => {
-    setLoginUser(consultants);
+    if (loginUser) {
+      setLoginUser(null);
+    } else {
+      setLoginUser(consultants);
+    }
   };
   const loginApi = `/login/${loginUser}`;
 
@@ -65,34 +101,42 @@ function Login() {
 
   return (
     <div>
-      <div className="btn-container">
-        <button
-          type="button"
-          className="btn-choice-user"
-          onClick={handleClickCompagny}
-        >
-          Entreprise
-        </button>
-        <button
-          type="button"
-          className="btn-choice-user"
-          onClick={handleClickCandidates}
-        >
-          Candidat
-        </button>
-        <button
-          type="button"
-          className="btn-choice-user"
-          onClick={handleClickConsultants}
-        >
-          Consultant
-        </button>
-      </div>
+      <div className="btn-container" />
       {succes ? (
         "Vous êtes connecté"
       ) : (
         <div className="login-container">
-          <h2 className="connexion-h2">Se connecter</h2>
+          <div className="select-container">
+            <h2 className="connexion-h2" onClick={handleMenu}>
+              Vous êtes :{" "}
+            </h2>
+            <ul className="ul-choice">
+              <li
+                className={getMenuItemClassName(candidates)}
+                onClick={handleClickCandidates}
+              >
+                Candidat
+              </li>
+              <li
+                className={getMenuItemClassName(compagny)}
+                onClick={handleClickCompagny}
+              >
+                Entreprise
+              </li>
+              <li
+                className={getMenuItemClassName(recruiters)}
+                onClick={handleClickRecruiter}
+              >
+                Recruteur
+              </li>
+              <li
+                className={getMenuItemClassName(consultants)}
+                onClick={handleClickConsultants}
+              >
+                Consultant
+              </li>
+            </ul>
+          </div>
 
           <form onSubmit={handleSubmit} className="form-login">
             <label htmlFor="login" className="login-label">

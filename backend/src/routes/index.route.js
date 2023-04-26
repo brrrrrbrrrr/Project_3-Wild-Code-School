@@ -22,7 +22,7 @@ router.use("/offres", offre);
 
 router.use("/recruiter", recruiter);
 router.use("/consultant", recruiter);
-router.use("/login/recruiter", loginRecruiter);
+router.use("/login/recruiters", loginRecruiter);
 
 router.use("/compagny", compagny);
 router.use("/login/compagny", loginCompagny);

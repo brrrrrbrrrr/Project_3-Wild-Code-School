@@ -5,7 +5,7 @@
 
 .connexion-h2 {
   text-align: center;
-  margin: 2rem 0rem;
+  margin: 2rem 2rem;
 }
 
 .input-login-form {
@@ -19,6 +19,27 @@
   margin: 1rem 0;
 }
 
+.select-container {
+  display: flex;
+}
+.ul-choice {
+  margin-top: 2rem;
+  cursor: pointer;
+
+  height: 5rem;
+}
+
+.li-choice:hover {
+  color: var(--primary-color);
+}
+
+.li-choice_active {
+  color: var(--primary-color);
+}
+
+.li-choice_hidden {
+  display: none;
+}
 .form-login {
   margin: 0 1rem;
 }
