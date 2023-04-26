@@ -106,59 +106,66 @@ function Login() {
         "Vous êtes connecté"
       ) : (
         <div className="login-container">
-          <div className="select-container">
-            <h2 className="connexion-h2" onClick={handleMenu}>
-              Vous êtes :{" "}
-            </h2>
-            <ul className="ul-choice">
-              <li
-                className={getMenuItemClassName(candidates)}
-                onClick={handleClickCandidates}
-              >
-                Candidat
-              </li>
-              <li
-                className={getMenuItemClassName(compagny)}
-                onClick={handleClickCompagny}
-              >
-                Entreprise
-              </li>
-              <li
-                className={getMenuItemClassName(recruiters)}
-                onClick={handleClickRecruiter}
-              >
-                Recruteur
-              </li>
-              <li
-                className={getMenuItemClassName(consultants)}
-                onClick={handleClickConsultants}
-              >
-                Consultant
-              </li>
-            </ul>
-          </div>
-
-          <form onSubmit={handleSubmit} className="form-login">
-            <label htmlFor="login" className="login-label">
-              Adresse e-mail
-              <input type="text" className="input-login-form" ref={refMail} />
-            </label>
-            <label htmlFor="password" className="login-label">
-              Mot de passe
-              <input
-                type="password"
-                className="input-login-form"
-                ref={refPass}
-              />
-            </label>
-            <div className="connexion-btn-container">
-              {" "}
-              <button className="connexion-btn" type="submit">
-                Connexion
-              </button>
+          <div className="login-column">
+            <div className="select-container">
+              <h2 className="connexion-h2" onClick={handleMenu}>
+                Vous êtes :{" "}
+              </h2>
+              <ul className="ul-choice">
+                <li
+                  className={getMenuItemClassName(candidates)}
+                  onClick={handleClickCandidates}
+                >
+                  Candidat
+                </li>
+                <li
+                  className={getMenuItemClassName(compagny)}
+                  onClick={handleClickCompagny}
+                >
+                  Entreprise
+                </li>
+                <li
+                  className={getMenuItemClassName(recruiters)}
+                  onClick={handleClickRecruiter}
+                >
+                  Recruteur
+                </li>
+                <li
+                  className={getMenuItemClassName(consultants)}
+                  onClick={handleClickConsultants}
+                >
+                  Consultant
+                </li>
+              </ul>
             </div>
-          </form>
-          <div>{!succes ? msgErr : ""}</div>
+            <div className="form-login_container">
+              <form onSubmit={handleSubmit} className="form-login">
+                <label htmlFor="login" className="login-label">
+                  Adresse e-mail
+                  <input
+                    type="text"
+                    className="input-login-form"
+                    ref={refMail}
+                  />
+                </label>
+                <label htmlFor="password" className="login-label">
+                  Mot de passe
+                  <input
+                    type="password"
+                    className="input-login-form"
+                    ref={refPass}
+                  />
+                </label>
+                <div className="connexion-btn-container">
+                  {" "}
+                  <button className="connexion-btn" type="submit">
+                    Connexion
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div>{!succes ? msgErr : ""}</div>
+          </div>
         </div>
       )}
     </div>
