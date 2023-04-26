@@ -200,7 +200,7 @@ const add = async (req, res) => {
     .catch((err) => {
       console.error(err);
       if (err.errno === 1062) {
-        return res.status(409).send("User already exists");
+        return res.status(409).send("User already exist");
         // eslint-disable-next-line no-else-return
       } else {
         return res.sendStatus(500);
