@@ -23,7 +23,7 @@ const NavBar = () => {
             <div className="burger-menu" />
           </div>
         </div>
-        <ul className={openMenuBurger ? " menuDisplay menu" : "menu"}>
+        <ul className={openMenuBurger ? " menu-display menu" : "menu"}>
           <li>
             <NavLink onClick={toggleMenu} to="/">
               Accueil

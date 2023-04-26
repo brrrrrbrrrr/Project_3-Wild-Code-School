@@ -87,7 +87,7 @@ nav {
   top: 20px;
   width: 30px;
   height: 100%;
-  z-index: 3;
+  z-index: 4;
   cursor: pointer;
   opacity: 0;
 }
@@ -137,9 +137,10 @@ nav {
     height: 100%;
     padding-top: 80px;
     transition: 0.5s;
+    z-index: 1;
   }
 
-  .menuDisplay {
+  .menu-display {
     right: 0;
     width: 100vw;
   }
