@@ -167,7 +167,9 @@ const deleteCompagny = (req, res) => {
 
 const getUserByEmailWithPasswordAndPassToNext = async (req, res, next) => {
   const { mail } = req.body;
-  if (!mail) res.sendStatus(422);
+  if (!mail) {
+    return res.sendStatus(422);
+  }
   const result = await models.compagny.getUserByLogin(mail);
   if (result) {
     if (result[0] != null) {

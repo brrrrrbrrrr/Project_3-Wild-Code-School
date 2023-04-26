@@ -54,53 +54,51 @@ const read = (req, res) => {
 const add = async (req, res) => {
   // TODO validations (length, format...)
   // Valider les données avec Joi
-  const validationError = validate(req.body);
+  // Si les données sont valides, continuer le traitement
+  const {
+    name,
+    firstname,
+    mail,
+    phone,
+    birthday,
+    password,
+    street,
+    city,
+    postalCode,
+    valide,
+    compagny_id,
+  } = req.body;
 
+  const validationError = validate(req.body);
   if (validationError) {
     // Si les données ne sont pas valides, renvoyer une erreur 400
     res.status(422).json({ error: validationError.message }); // Utiliser validationError.message pour obtenir le message d'erreur
-  } else {
-    // Si les données sont valides, continuer le traitement
-    const {
+  }
+  const hashedPassword = await hashPassword(password);
+  models.recruiter
+    .insert({
       name,
       firstname,
       mail,
       phone,
       birthday,
-      password,
+      password: hashedPassword,
       street,
       city,
       postalCode,
       valide,
       compagny_id,
-    } = req.body;
-    const hashedPassword = await hashPassword(password);
-
-    models.recruiter
-      .insert({
-        name,
-        firstname,
-        mail,
-        phone,
-        birthday,
-        password: hashedPassword,
-        street,
-        city,
-        postalCode,
-        valide,
-        compagny_id,
-      })
-      .then((result) => {
-        res.location(`/items/${result.Id}`).sendStatus(201);
-      })
-      .catch((err) => {
-        console.error(err);
-        if (err.code === "ER_DUP_ENTRY") {
-          return res.status(409).send("Mail already exists"); // Ajouter le mot-clé 'return' avant d'appeler res.status()
-        }
-        return res.sendStatus(500); // Ajouter le mot-clé 'return' avant d'appeler res.sendStatus()
-      });
-  }
+    })
+    .then((result) => {
+      res.location(`/items/${result.Id}`).sendStatus(201);
+    })
+    .catch((err) => {
+      console.error(err);
+      if (err.code === "ER_DUP_ENTRY") {
+        return res.status(409).send("Mail already exists"); // Ajouter le mot-clé 'return' avant d'appeler res.status()
+      }
+      return res.sendStatus(500); // Ajouter le mot-clé 'return' avant d'appeler res.sendStatus()
+    });
 };
 
 const destroy = (req, res) => {
@@ -141,8 +139,10 @@ const edit = (req, res) => {
 };
 const getRecruiterByLoginToNext = async (req, res, next) => {
   const { mail } = req.body;
-  if (!mail) res.sendStatus(422);
-  const result = await models.recruiter.getRecruiterByLogin(mail);
+  if (!mail) {
+    return res.sendStatus(422);
+  }
+  const [result] = await models.recruiter.getRecruiterByLogin(mail);
   if (result) {
     if (result[0] != null) {
       req.recruiter = { ...result[0] };

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import "./Login.css";
+import { Link } from "react-router-dom";
 import React, { useRef, useState } from "react";
 import useApi from "../../services/useApi";
 import { useUser } from "../../contexts/UserRecruiterContext";
@@ -29,14 +30,13 @@ function Login() {
     return className;
   }
 
-  const handleMenu = () => {};
-
   const handleClickRecruiter = () => {
     if (loginUser) {
       setLoginUser(null);
     } else {
       setLoginUser(recruiters);
     }
+    setMsgErr("");
   };
 
   const handleClickCandidates = () => {
@@ -45,6 +45,7 @@ function Login() {
     } else {
       setLoginUser(candidates);
     }
+    setMsgErr("");
   };
 
   const handleClickCompagny = () => {
@@ -53,6 +54,7 @@ function Login() {
     } else {
       setLoginUser(compagny);
     }
+    setMsgErr("");
   };
 
   const handleClickConsultants = () => {
@@ -61,6 +63,7 @@ function Login() {
     } else {
       setLoginUser(consultants);
     }
+    setMsgErr("");
   };
   const loginApi = `/login/${loginUser}`;
 
@@ -108,8 +111,12 @@ function Login() {
         <div className="login-container">
           <div className="login-column">
             <div className="select-container">
-              <h2 className="connexion-h2" onClick={handleMenu}>
-                Vous êtes :{" "}
+              <h2
+                className={`connexion-h2 ${
+                  loginUser ? "connexion-h2" : "connexion-h2-unselect"
+                }`}
+              >
+                Vous êtes :
               </h2>
               <ul className="ul-choice">
                 <li
@@ -158,13 +165,27 @@ function Login() {
                 </label>
                 <div className="connexion-btn-container">
                   {" "}
-                  <button className="connexion-btn" type="submit">
+                  <button
+                    disabled={!loginUser}
+                    className={
+                      loginUser ? "connexion-btn" : "connexion-btn-disable"
+                    }
+                    type="submit"
+                  >
                     Connexion
                   </button>
                 </div>
               </form>
             </div>
-            <div>{!succes ? msgErr : ""}</div>
+
+            <div className="form-login_errorMsg">{!succes ? msgErr : ""}</div>
+          </div>
+
+          <div className="form-login_sub-container">
+            <p>Pas de compte ?</p>
+            <Link className="form-login_sub-link" to="/registration">
+              <p>Inscrivez-vous</p>
+            </Link>
           </div>
         </div>
       )}

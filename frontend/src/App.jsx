@@ -10,6 +10,7 @@ import NavBar from "./components/navBar/NavBar";
 import NotFound from "./components/notfound/NotFound";
 import Footer from "./components/footer/Footer";
 import PageLoginRegister from "./pages/PageLoginRegister";
+import PageRegister from "./pages/PageRegister";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/offer" element={<NotFound />} />
           <Route path="/propos" element={<NotFound />} />
           <Route path="/connect" element={<PageLoginRegister />} />
+          <Route path="/registration" element={<PageRegister />} />
         </Routes>
         <Footer />
       </UserProvider>
