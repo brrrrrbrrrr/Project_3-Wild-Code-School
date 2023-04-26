@@ -12,6 +12,7 @@ nav {
 .navlink-container {
   display: flex;
   align-items: center;
+  padding-right: 30px;
 }
 
 .menu {

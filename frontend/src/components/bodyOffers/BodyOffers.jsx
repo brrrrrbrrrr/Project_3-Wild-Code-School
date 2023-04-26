@@ -20,15 +20,15 @@ const BodyOffers = () => {
   }, []);
 
   return (
-    <div className="body-container">
-      <h2 className="body-title">Les dernières offres</h2>
-      <div className="offre-wrapper">
+    <div className="bodyoffers-container">
+      <h2 className="bodyoffers-title">Les dernières offres</h2>
+      <div className="bodyoffers-offer_wrapper">
         {offers.slice(0, 4).map((offer) => (
-          <div className="offre-container" key={offer.id}>
-            <h3 className="offre-title">{offer.jobTitleDetails}</h3>
-            <h3 className="offre-city">{offer.city_name}</h3>
-            <h3 className="offre-salary">{offer.salary} euro/day</h3>
-            <button type="button" className="offre-button_info">
+          <div className="bodyoffers-offer_container" key={offer.id}>
+            <h3 className="bodyoffers-offer_title">{offer.jobTitleDetails}</h3>
+            <h3 className="bodyoffers-offer_city">{offer.city_name}</h3>
+            <h3 className="bodyoffers-offer_salary">{offer.salary} euro/day</h3>
+            <button type="button" className="bodyoffers-offer_button-info">
               Plus d'infos
             </button>
           </div>
