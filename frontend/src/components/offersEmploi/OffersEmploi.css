@@ -14,6 +14,7 @@
   align-items: center;
   padding-bottom: 50px;
   padding-top: 50px;
+  min-height: 1500px;
 }
 @media screen and (min-width: 768px) {
   .offersemploi-offer_wrapper {
@@ -75,6 +76,19 @@
   color: #f1f1e6;
   cursor: pointer;
   box-shadow: 2px 2px 7px #00b3ff;
+}
+
+.offersemploi-fef_div {
+  background-color: var(--background-color);
+  height: 20px;
+  width: 100%;
+}
+
+.offersemploi-all_loaded {
+  font-size: 25px;
+  font-weight: 700;
+  color: var(--primary-color);
+  padding-bottom: 50px;
 }
 
 @media screen and (min-width: 768px) {
