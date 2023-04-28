@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import NavBar from "./components/navBar/NavBar";
 import NotFound from "./components/notfound/NotFound";
 import Footer from "./components/footer/Footer";
+import PageDetailsOffer from "./pages/PageDetailsOffer";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/offer" element={<NotFound />} />
           <Route path="/propos" element={<NotFound />} />
           <Route path="/connect" element={<NotFound />} />
+          <Route path="/offers/:id" element={<PageDetailsOffer />} />
         </Routes>
         <Footer />
       </UserProvider>

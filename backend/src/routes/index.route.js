@@ -19,6 +19,7 @@ router.use("/login/candidates", login);
 const offre = require("./offre.rout");
 
 router.use("/offres", offre);
+router.use("/offres/:id", offre);
 
 router.use("/recruiter", recruiter);
 router.use("/consultant", recruiter);
