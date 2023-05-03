@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import useApi from "../../services/useApi";
 import "./RegisterDefault.css";
 
@@ -15,6 +16,7 @@ function RegisterCompagny() {
   const [success, setSuccess] = useState(false);
   const [logo, setLogo] = useState("");
   const [validLogoType, setValidLogoType] = useState(false);
+  const [error, setError] = useState();
   const api = useApi();
 
   const PWD_REDEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -65,6 +67,9 @@ function RegisterCompagny() {
       })
       .catch((err) => {
         console.error(err);
+        if (err) {
+          setError(err.response.data);
+        }
       });
     console.warn("Registraichn Data:", formData);
   };
@@ -73,7 +78,13 @@ function RegisterCompagny() {
     <>
       {" "}
       {success ? (
-        <section>Ok, vous pouvez vous connecter</section>
+        <section className="registration-succes_msg">
+          Merci, vous pouvez vous{" "}
+          <Link className="registration-succes_msg-connexion" to="/connect">
+            {" "}
+            connecter
+          </Link>
+        </section>
       ) : (
         <div className="form-container">
           <form onSubmit={handleSubmit} className="form-signup">
@@ -167,6 +178,9 @@ function RegisterCompagny() {
               >
                 Valider
               </button>
+              <p className="form-signup_errorMsg">
+                {error ? `${error} (mail)` : ""}
+              </p>
             </div>
           </form>
         </div>

@@ -11,7 +11,7 @@ const candidate = require("./candidate.route");
 const login = require("./loginCandidate.route");
 
 router.use("/consultants", consultant);
-router.use("/consultants-login", loginConsultant);
+router.use("/login/consultants", loginConsultant);
 
 router.use("/candidates", candidate);
 router.use("/login/candidates", login);
@@ -20,9 +20,9 @@ const offer = require("./offer.rout");
 
 router.use("/offers", offer);
 
-router.use("/recruiter", recruiter);
-router.use("/consultant", recruiter);
-router.use("/login-recruiter", loginRecruiter);
+router.use("/recruiters", recruiter);
+
+router.use("/login/recruiters", loginRecruiter);
 
 router.use("/compagny", compagny);
 router.use("/login/compagny", loginCompagny);

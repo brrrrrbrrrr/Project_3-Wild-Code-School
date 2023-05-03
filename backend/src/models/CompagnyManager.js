@@ -76,7 +76,7 @@ class CompagnyManager extends AbstractManager {
 
   getUserByLogin = (login) => {
     return this.database
-      .query(`SELECT * FROM ${this.table} WHERE mail=?`, [login])
+      .query(`SELECT name, password from ${this.table} WHERE mail=?`, [login])
       .then(([result]) => result)
       .catch((err) => {
         console.warn(err);

@@ -25,24 +25,24 @@ const hashPassword = (req, res, next) => {
 };
 
 const verifyPassword = (req, res) => {
-  console.warn("verify, req.user :", req.user);
+  console.warn("verify, req.user :", req.consultant);
   argon2
-    .verify(req.user.password, req.body.password)
+    .verify(req.consultant.password, req.body.password)
     .then((match) => {
       console.warn("match :", match);
       if (match) {
         const payload = {
           sub: {
-            id: req.user.id,
+            id: req.consultant.id,
             userType: "consultant",
-            isSuperAdmin: req.user.superAdmin,
+            isSuperAdmin: req.consultant.superAdmin,
           },
         };
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: 3600,
         });
-        delete req.user.password;
-        res.send({ token, user: req.user });
+        delete req.consultant.password;
+        res.send({ token, consultant: req.consultant });
       } else {
         res.sendStatus(401);
       }
