@@ -1,4 +1,4 @@
-.body-container {
+.bodyoffers-container {
   width: 100%;
   height: 100%;
   background-color: #f1f1e6;
@@ -7,27 +7,28 @@
   text-align: center;
 }
 
-.body-title {
+.bodyoffers-title {
   color: var(--primary-color);
   padding: 15px 0;
   font-weight: 600;
   font-size: 20px;
   opacity: 0.7;
 }
-.offre-wrapper {
+.bodyoffers-offer_wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  padding-bottom: 50px;
 }
 @media screen and (min-width: 768px) {
-  .offre-wrapper {
+  .bodyoffers-offer_wrapper {
     flex-direction: row;
     flex-wrap: wrap;
   }
 }
-.offre-container {
-  border-radius: 15%;
+.bodyoffers-offer_container {
+  border-radius: 25px;
   background-color: #fff;
   width: 200px;
   margin-bottom: 75px;
@@ -42,33 +43,33 @@
   height: 300px;
   justify-content: space-between;
 }
-.offre-container:hover,
-.offre-container:focus {
+.bodyoffers-offer_container:hover,
+.bodyoffers-offer_container:focus {
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
     1px 4px 6px rgba(0, 0, 0, 0.16);
   transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.offre-title,
-.offre-city {
+.bodyoffers-offer_title,
+.bodyoffers-offer_city {
   color: #134168;
   margin: 0;
 }
 
-.offre-title {
+.bodyoffers-offer_title {
   font-size: 16px;
 }
 
-.offre-city {
+.bodyoffers-offer_city {
   font-weight: bold;
   font-size: 25px;
 }
 
-.offre-salary {
+.bodyoffers-offer_salary {
   font-size: 16px;
 }
 
-.offre-button_info {
+.bodyoffers-offer_button-info {
   border-style: hidden;
   padding: 10px 15px;
   background-color: #00b3ff;

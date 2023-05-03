@@ -1,8 +1,10 @@
 const models = require("../models");
 
 const browse = (req, res) => {
-  models.offre
-    .findAll()
+  const { page = 1, limit = 4 } = req.query;
+  const limit2 = parseInt(limit, 10);
+  models.offer
+    .findAll(page, limit2)
     .then(([rows]) => {
       res.send(rows);
     })
