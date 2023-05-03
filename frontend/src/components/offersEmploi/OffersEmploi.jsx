@@ -32,7 +32,6 @@ const OffersEmploi = () => {
         })
         .then((response) => {
           const sortedOffers = response.data.sort((a, b) => b.id - a.id);
-          console.warn(sortedOffers.length);
           setOffers([...offers, ...sortedOffers]);
           if (sortedOffers.length < 2) {
             setIsAllLoaded(true);
@@ -60,7 +59,7 @@ const OffersEmploi = () => {
                   {offer.jobTitleDetails}
                 </h3>
                 <h3 className="offersemploi-offer_salary">
-                  {offer.salary} euro/mois
+                  {offer.salary} euro/an
                 </h3>
               </div>
               <div className="offersemploi-offer_info-contract">

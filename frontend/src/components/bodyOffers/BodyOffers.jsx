@@ -27,7 +27,7 @@ const BodyOffers = () => {
           <div className="bodyoffers-offer_container" key={offer.id}>
             <h3 className="bodyoffers-offer_title">{offer.jobTitleDetails}</h3>
             <h3 className="bodyoffers-offer_city">{offer.city_name}</h3>
-            <h3 className="bodyoffers-offer_salary">{offer.salary} euro/day</h3>
+            <h3 className="bodyoffers-offer_salary">{offer.salary} euro/an</h3>
             <button type="button" className="bodyoffers-offer_button-info">
               Plus d'infos
             </button>
