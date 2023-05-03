@@ -38,17 +38,17 @@ const NavBar = () => {
         </div>
         <ul className={openMenuBurger ? " menuDisplay menu" : "menu"}>
           <li>
-            <NavLink onClick={toggleMenu} to="/">
+            <NavLink className="navlink-menu" onClick={toggleMenu} to="/">
               Accueil
             </NavLink>
           </li>
           <li>
-            <NavLink onClick={toggleMenu} to="/offer">
+            <NavLink className="navlink-menu" onClick={toggleMenu} to="/offer">
               Offres d'emploi
             </NavLink>
           </li>
           <li>
-            <NavLink onClick={toggleMenu} to="/propos">
+            <NavLink className="navlink-menu" onClick={toggleMenu} to="/propos">
               A propos
             </NavLink>
           </li>
@@ -70,7 +70,16 @@ const NavBar = () => {
             onClick={handleClick}
           >
             <Account user={user} />
-            <li>{activeAccountMenu ? <AccountMenu /> : ""}</li>
+            <li>
+              {activeAccountMenu ? (
+                <AccountMenu
+                  openMenuBurger={openMenuBurger}
+                  setOpenMenuBurger={setOpenMenuBurger}
+                />
+              ) : (
+                ""
+              )}
+            </li>
           </ul>
         </ul>
       </div>

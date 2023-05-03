@@ -23,7 +23,7 @@ nav {
   z-index: 1;
 }
 
-.menu li a {
+.navlink-menu {
   font-size: 20px;
   transition: 0.5s;
 }
@@ -32,7 +32,7 @@ nav {
   color: var(--background-color);
 }
 
-.menu li a:hover {
+.navlink-menu:hover {
   color: var(--second-color);
   background-color: var(--menu-color);
 }

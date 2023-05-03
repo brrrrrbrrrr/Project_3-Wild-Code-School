@@ -12,6 +12,7 @@ import Footer from "./components/footer/Footer";
 import PageLoginRegister from "./pages/PageLoginRegister";
 import PageRegister from "./pages/PageRegister";
 import PageOffersEmploi from "./pages/PageOffersEmploi";
+import PageMyAccount from "./pages/PageMyAccount";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/propos" element={<NotFound />} />
           <Route path="/connect" element={<PageLoginRegister />} />
           <Route path="/registration" element={<PageRegister />} />
+          <Route path="/my-account" element={<PageMyAccount />} />
         </Routes>
         <Footer />
       </UserProvider>

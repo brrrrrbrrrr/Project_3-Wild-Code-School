@@ -1,16 +1,48 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import "./AccountMenu.css";
+import { NavLink } from "react-router-dom";
 
-function AccountMenu() {
+function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
+  const toggleMenu = () => {
+    setOpenMenuBurger(!openMenuBurger);
+  };
   return (
     <div className="account-menu_container">
       <ul className="account-menu_ul">
-        <li className="account-menu_li">Notifications</li>
-        <li className="account-menu_li">Mes offres</li>
-        <li className="account-menu_li">Entretiens</li>
-        <li className="account-menu_li">Messagerie</li>
-        <li className="account-menu_li">Mon compte</li>
-        <li className="account-menu_li">Déconnexion</li>
+        <li className="account-menu_li">
+          <NavLink>Notifications</NavLink>
+        </li>
+        <li className="account-menu_li">
+          {" "}
+          <NavLink>Mes offres</NavLink>
+        </li>
+        <li className="account-menu_li">
+          {" "}
+          <NavLink>Entretiens</NavLink>
+        </li>
+        <li className="account-menu_li">
+          {" "}
+          <NavLink>Messagerie</NavLink>
+        </li>
+        <li className="account-menu_li">
+          {" "}
+          <NavLink
+            onClick={toggleMenu}
+            to="/my-account"
+            className={({ isActive }) =>
+              isActive ? "active-menu_account" : ""
+            }
+          >
+            {" "}
+            Mon compte
+          </NavLink>
+        </li>
+        <li className="account-menu_li">
+          {" "}
+          <NavLink>Déconnexion</NavLink>
+        </li>
+        <span className="account-menu-close">X</span>
       </ul>
     </div>
   );

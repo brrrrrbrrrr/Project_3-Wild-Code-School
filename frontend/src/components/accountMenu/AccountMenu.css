@@ -27,13 +27,18 @@
   background-color: var(--second-color);
   color: var(--background-color);
 }
+.active-menu_account {
+  background-color: var(--second-color);
+  padding: 0px 10px;
 
+  border-radius: 2px;
+}
 @media screen and (max-width: 768px) {
   .account-menu_container {
-    top: 0;
+    top: -10%;
     left: 0;
     right: 0;
-    bottom: 50px;
+    bottom: 0;
     background-color: var(--primary-color);
     display: flex;
     justify-content: center;
@@ -46,5 +51,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .active-menu_account {
+    background-color: var(--second-color);
+    padding: 1px 50px;
+    border-radius: 2px;
+  }
+  .account-menu-close {
+    color: var(--background-color);
+    font-size: 2rem;
+    cursor: pointer;
   }
 }
