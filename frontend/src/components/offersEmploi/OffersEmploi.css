@@ -16,10 +16,7 @@
   padding-top: 50px;
   min-height: 1500px;
 }
-@media screen and (min-width: 768px) {
-  .offersemploi-offer_wrapper {
-  }
-}
+
 .offersemploi-offer_container {
   border-radius: 25px;
   background-color: #fff;
@@ -97,7 +94,7 @@
     height: 200px;
     flex-direction: row;
     flex-wrap: wrap;
-    border-radius: 45px;
+    border-radius: 25px;
     justify-content: normal;
   }
   .offersemploi-offer_logo {

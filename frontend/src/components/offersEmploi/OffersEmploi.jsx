@@ -60,14 +60,14 @@ const OffersEmploi = () => {
                   {offer.jobTitleDetails}
                 </h3>
                 <h3 className="offersemploi-offer_salary">
-                  {offer.salary} euro/day
+                  {offer.salary} euro/mois
                 </h3>
               </div>
               <div className="offersemploi-offer_info-contract">
                 <h3 className="offersemploi-offer_type-contract">
-                  type of contract
+                  type de contrat
                 </h3>
-                <h3 className="offersemploi-offer_remote">work: remote</h3>
+                <h3 className="offersemploi-offer_remote">travail: remote</h3>
                 <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
               </div>
             </div>
