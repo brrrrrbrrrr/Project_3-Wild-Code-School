@@ -118,11 +118,11 @@ nav {
   display: none;
 }
 
-.account-link_hide {
+.connexion-hide {
   display: none;
 }
 
-.connexion-hide {
+.menu-account_ul-container-hide {
   display: none;
 }
 @media screen and (max-width: 768px) {
