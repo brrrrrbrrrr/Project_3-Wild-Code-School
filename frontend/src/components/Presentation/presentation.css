@@ -1,12 +1,10 @@
 .container {
   padding: 20px;
   position: relative;
-  z-index: 1;
 }
 
 .container .bg {
   position: absolute;
-  z-index: -1;
   top: 0;
   bottom: 0;
   left: 0;

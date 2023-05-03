@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import NavBar from "./components/navBar/NavBar";
 import NotFound from "./components/notfound/NotFound";
 import Footer from "./components/footer/Footer";
+import PageOffersEmploi from "./pages/PageOffersEmploi";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/offer" element={<NotFound />} />
+          <Route path="/offer" element={<PageOffersEmploi />} />
           <Route path="/propos" element={<NotFound />} />
           <Route path="/connect" element={<NotFound />} />
         </Routes>
