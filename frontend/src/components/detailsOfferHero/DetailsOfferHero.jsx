@@ -1,34 +1,40 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/function-component-definition */
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import useApi from "../../services/useApi";
+import PropTypes from "prop-types";
+import { FiMapPin } from "react-icons/fi";
+import { CgEuro } from "react-icons/cg";
 
-const DetailsOfferHero = () => {
-  const { id } = useParams();
-  const [offre, setOffre] = useState({});
-  const api = useApi();
-
-  useEffect(() => {
-    api
-      .get(`/offres/${id}`)
-      .then((response) => {
-        setOffre(response.data);
-        console.warn(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [api, id]);
+const DetailsOfferHero = (props) => {
+  const { offre } = props;
 
   return (
-    <div>
+    <div className="body-container">
+      <h2>{offre.Logo}</h2>
       <h2>{offre.jobTitleDetails}</h2>
-      <h3>{offre.company}</h3>
-      <p>{offre.jobOfferPresentation}</p>
-      <p>{offre.city_id}</p>
-      <p>{offre.salary} euro/day</p>
+      <p>
+        <FiMapPin /> {offre.cityName} - {offre.recruiterPostalCode}
+      </p>
+      <h3>
+        {offre.contratType}-
+        {offre.remoteWork === 1 ? "Télétravail complet" : ""}
+      </h3>
+      <p>
+        <CgEuro /> {offre.salary} Euro par an
+      </p>
     </div>
   );
+};
+
+DetailsOfferHero.propTypes = {
+  offre: PropTypes.shape({
+    Logo: PropTypes.string.isRequired,
+    jobTitleDetails: PropTypes.string.isRequired,
+    cityName: PropTypes.string.isRequired,
+    recruiterPostalCode: PropTypes.string.isRequired,
+    contratType: PropTypes.string.isRequired,
+    remoteWork: PropTypes.number.isRequired,
+    salary: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default DetailsOfferHero;
