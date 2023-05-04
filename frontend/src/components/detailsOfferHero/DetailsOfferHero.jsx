@@ -3,24 +3,29 @@
 import PropTypes from "prop-types";
 import { FiMapPin } from "react-icons/fi";
 import { CgEuro } from "react-icons/cg";
+// import { SiReacthookform } from "react-icons/si";
+import "./DetailsOfferHero.css";
 
 const DetailsOfferHero = (props) => {
   const { offre } = props;
 
   return (
-    <div className="body-container">
-      <h2>{offre.Logo}</h2>
-      <h2>{offre.jobTitleDetails}</h2>
-      <p>
-        <FiMapPin /> {offre.cityName} - {offre.recruiterPostalCode}
-      </p>
-      <h3>
-        {offre.contratType}-
-        {offre.remoteWork === 1 ? "Télétravail complet" : ""}
-      </h3>
-      <p>
-        <CgEuro /> {offre.salary} Euro par an
-      </p>
+    <div className="detailsOfferHero-container">
+      <h2 className="detailsOfferHero-logo">Logo</h2>
+      <h2 className="detailsOfferHero-title">{offre.jobTitleDetails}</h2>
+      <div className="detailsOfferHero-subtitles">
+        <h3 className="detailsOfferHero-city detailsOfferHero-subtitle_title">
+          <FiMapPin /> {offre.cityName} - {offre.recruiterPostalCode}
+        </h3>
+        <h3 className="detailsOfferHero-contrat detailsOfferHero-subtitle_title">
+          {/* <SiReacthookform /> */}
+          {offre.contratType}{" "}
+          {offre.remoteWork === 1 ? "- Télétravail complet" : ""}
+        </h3>
+        <h3 className="detailsOfferHero-salary detailsOfferHero-subtitle_title">
+          <CgEuro size={30} /> {offre.salary} Euro par an
+        </h3>
+      </div>
     </div>
   );
 };

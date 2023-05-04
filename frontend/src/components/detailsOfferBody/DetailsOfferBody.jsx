@@ -1,15 +1,16 @@
 /* eslint-disable react/function-component-definition */
 import PropTypes from "prop-types";
 import { HiOutlineUserGroup } from "react-icons/hi2";
-import { CgEuro } from "react-icons/cg";
+// import { CgEuro } from "react-icons/cg";
+import "./DetailsOfferBody.css";
 
 const DetailsOfferBody = (props) => {
   const { offre } = props;
 
   return (
-    <div className="body-container">
-      <div className="body-left">
-        <div className="body-left_top">
+    <div className="detailsOfferBody-container">
+      <div className="detailsOfferBody-left">
+        <div className="detailsOfferBody-left_top">
           <h2>{offre.Logo}</h2>
           <p>{offre.desiredProfile}</p>
           <p>
@@ -17,34 +18,36 @@ const DetailsOfferBody = (props) => {
           </p>
         </div>
 
-        <div className="body-left_bottom">
+        <div className="detailsOfferBody-left_bottom">
           <h2>LE POSTE</h2>
           <h3>{offre.jobTitleDetails}</h3>
           <h3>
             {offre.contratType} -
             {offre.remoteWork === 1 ? "Télétravail complet" : ""}
           </h3>
-          <p>
-            <CgEuro /> {offre.salary} Euro par an
-          </p>
+          <p>{/* <CgEuro /> {offre.salary} Euro par an */}</p>
         </div>
       </div>
 
-      <div className="body-right">
-        <div className="body-right_top">
-          <h2>Présentation entreprise/ Info d'offre :</h2>
+      <div className="detailsOfferBody-right">
+        <div className="detailsOfferBody-right_top detailsOfferBody-text">
+          <h2 className="detailsOfferBody-title">
+            Présentation entreprise/ Info d'offre:
+          </h2>
           <p>{offre.jobOfferPresentation}</p>
         </div>
-        <div className="body-right_center">
-          <h2>Le profil que nous recherchons :</h2>
+        <div className="detailsOfferBody-right_center detailsOfferBody-text">
+          <h2 className="detailsOfferBody-title">
+            Le profil que nous recherchons:
+          </h2>
           <p>{offre.desiredProfile}</p>
         </div>
-        <div className="body-right_bottom">
-          <h2>Le process de recrutement :</h2>
+        <div className="detailsOfferBody-right_bottom detailsOfferBody-text">
+          <h2 className="detailsOfferBody-title">Le process de recrutement:</h2>
           <p>{offre.recruitmentProcess}</p>
         </div>
 
-        <button type="button" className="offre-button_candidate">
+        <button type="button" className="detailsOfferBody-button_candidate">
           Je postule
         </button>
       </div>

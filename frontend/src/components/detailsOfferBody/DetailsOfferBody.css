@@ -1,0 +1,45 @@
+.detailsOfferBody-right {
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.detailsOfferBody-text {
+  background-color: var(--background-color);
+  min-height: 200px;
+  min-width: 320px;
+  margin-bottom: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  line-height: 1.5;
+}
+
+.detailsOfferBody-title {
+  padding-bottom: 10px;
+  font-size: 1.3em;
+}
+
+.detailsOfferBody-button_candidate {
+  border-style: hidden;
+  padding: 10px 15px;
+  background-color: #00b3ff;
+  border-radius: 5px;
+  color: #f1f1e6;
+  cursor: pointer;
+  box-shadow: 2px 2px 7px #00b3ff;
+  width: 150px;
+  font-size: 1.2em;
+}
+
+@media screen and (max-width: 768px) {
+  .detailsOfferBody-left {
+    display: none;
+  }
+}
