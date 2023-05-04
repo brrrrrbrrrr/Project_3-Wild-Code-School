@@ -55,18 +55,18 @@ const OffersEmploi = () => {
             <div className="offersemploi-offer_logo">logo</div>
             <div className="offersemploi-offer_info">
               <div className="offersemploi-offer_info-main">
-                <h3 className="offersemploi-offer_title">
-                  {offer.jobTitleDetails}
-                </h3>
+                <h3 className="offersemploi-offer_title">{offer.job_title}</h3>
                 <h3 className="offersemploi-offer_salary">
                   {offer.salary} euro/an
                 </h3>
               </div>
               <div className="offersemploi-offer_info-contract">
                 <h3 className="offersemploi-offer_type-contract">
-                  type de contrat
+                  {offer.contract_type}
                 </h3>
-                <h3 className="offersemploi-offer_remote">travail: remote</h3>
+                <h3 className="offersemploi-offer_remote">
+                  {offer.remote_type}
+                </h3>
                 <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
               </div>
             </div>
