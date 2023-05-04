@@ -43,3 +43,84 @@
     display: none;
   }
 }
+
+@media screen and (min-width: 768px) {
+  .detailsOfferBody-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0 20px;
+    margin-top: 20px;
+  }
+
+  .detailsOfferBody-right {
+    width: 70%;
+  }
+
+  .detailsOfferBody-left {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .detailsOfferBody-textOne {
+    background-color: var(--background-color);
+    height: 300px;
+    width: 300px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    line-height: 1.5;
+  }
+
+  .detailsOfferBody-left_top {
+    border-bottom: 1px solid black;
+    background-color: white;
+  }
+
+  .detailsOfferBody-logo {
+    font-size: 50px;
+    font-weight: 800;
+    color: wheat;
+    padding-bottom: 40px;
+  }
+
+  .detailsOfferBody-desiredProfile,
+  .detailsOfferBody-employee {
+    padding-bottom: 50px;
+    font-size: 1.3em;
+  }
+
+  .detailsOfferBody-left_bottom {
+    background-color: white;
+    padding-top: 100px;
+  }
+}
+
+.detailsOfferBody-poste {
+  font-size: 30px;
+  font-weight: 400;
+  padding-bottom: 40px;
+}
+
+.detailsOfferBody-jobTitle,
+.detailsOfferBody-contrat,
+.detailsOfferBody-salary {
+  padding-bottom: 50px;
+  font-size: 1.3em;
+}
+
+.detailsOfferBody-button_candidate {
+  width: 300px;
+  height: 50px;
+}

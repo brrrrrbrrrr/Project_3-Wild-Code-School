@@ -1,7 +1,8 @@
 /* eslint-disable react/function-component-definition */
 import PropTypes from "prop-types";
 import { HiOutlineUserGroup } from "react-icons/hi2";
-// import { CgEuro } from "react-icons/cg";
+import { CgEuro } from "react-icons/cg";
+import { SiReacthookform } from "react-icons/si";
 import "./DetailsOfferBody.css";
 
 const DetailsOfferBody = (props) => {
@@ -10,22 +11,27 @@ const DetailsOfferBody = (props) => {
   return (
     <div className="detailsOfferBody-container">
       <div className="detailsOfferBody-left">
-        <div className="detailsOfferBody-left_top">
-          <h2>{offre.Logo}</h2>
-          <p>{offre.desiredProfile}</p>
-          <p>
+        <div className="detailsOfferBody-left_top  detailsOfferBody-textOne ">
+          <h2 className="detailsOfferBody-logo"> Logo </h2>
+          <h3 className="detailsOfferBody-desiredProfile">
+            {offre.desiredProfile}
+          </h3>
+          <h3 className="detailsOfferBody-employee">
             <HiOutlineUserGroup /> {offre.numberOfEmployees} employés
-          </p>
+          </h3>
         </div>
 
-        <div className="detailsOfferBody-left_bottom">
-          <h2>LE POSTE</h2>
-          <h3>{offre.jobTitleDetails}</h3>
-          <h3>
-            {offre.contratType} -
-            {offre.remoteWork === 1 ? "Télétravail complet" : ""}
+        <div className="detailsOfferBody-left_bottom  detailsOfferBody-textOne">
+          <h2 className="detailsOfferBody-poste">LE POSTE</h2>
+          <h3 className="detailsOfferBody-jobTitle">{offre.jobTitleDetails}</h3>
+          <h3 className="detailsOfferBody-contrat">
+            <SiReacthookform />
+            {offre.contratType}
+            {offre.remoteWork === 1 ? "- Télétravail complet" : ""}
           </h3>
-          <p>{/* <CgEuro /> {offre.salary} Euro par an */}</p>
+          <h3 className="detailsOfferBody-salary">
+            <CgEuro /> {offre.salary} Eur par an
+          </h3>
         </div>
       </div>
 

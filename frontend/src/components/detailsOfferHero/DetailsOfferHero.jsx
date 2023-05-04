@@ -3,7 +3,7 @@
 import PropTypes from "prop-types";
 import { FiMapPin } from "react-icons/fi";
 import { CgEuro } from "react-icons/cg";
-// import { SiReacthookform } from "react-icons/si";
+import { SiReacthookform } from "react-icons/si";
 import "./DetailsOfferHero.css";
 
 const DetailsOfferHero = (props) => {
@@ -18,12 +18,12 @@ const DetailsOfferHero = (props) => {
           <FiMapPin /> {offre.cityName} - {offre.recruiterPostalCode}
         </h3>
         <h3 className="detailsOfferHero-contrat detailsOfferHero-subtitle_title">
-          {/* <SiReacthookform /> */}
+          <SiReacthookform />
           {offre.contratType}{" "}
           {offre.remoteWork === 1 ? "- Télétravail complet" : ""}
         </h3>
         <h3 className="detailsOfferHero-salary detailsOfferHero-subtitle_title">
-          <CgEuro size={30} /> {offre.salary} Euro par an
+          <CgEuro size={30} /> {offre.salary} Eur par an
         </h3>
       </div>
     </div>
