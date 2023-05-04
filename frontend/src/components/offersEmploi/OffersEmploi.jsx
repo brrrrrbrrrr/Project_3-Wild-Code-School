@@ -2,6 +2,8 @@
 /* eslint-disable react/function-component-definition */
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
+import { HiOutlineStar } from "react-icons/hi";
+import { Button } from "@mui/material";
 import useApi from "../../services/useApi";
 import Loader from "../loader/Loader";
 
@@ -13,6 +15,7 @@ const OffersEmploi = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [isAllLoaded, setIsAllLoaded] = useState(false);
+  const [selected, setSelected] = useState(false);
 
   const api = useApi();
 
@@ -47,6 +50,10 @@ const OffersEmploi = () => {
     }
   }, [inView, isFirstLoad]);
 
+  const handleIconClick = () => {
+    setSelected(!selected);
+  };
+
   return (
     <div className="offersemploi-container">
       <div className="offersemploi-offer_wrapper">
@@ -68,11 +75,25 @@ const OffersEmploi = () => {
                 </h3>
                 <h3 className="offersemploi-offer_remote">travail: remote</h3>
                 <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
+                <div>
+                  <HiOutlineStar
+                    className={
+                      selected
+                        ? "offersemploi-icon_star-selected"
+                        : "offersemploi-icon_star"
+                    }
+                    onClick={handleIconClick}
+                    size={50}
+                  />
+                </div>
               </div>
             </div>
-            <button type="button" className="offersemploi-offer_button-info">
+            <Button id="offersemploi-offer_button-info" variant="contained">
               Plus d'infos
-            </button>
+            </Button>
+            {/* <button type="button" className="offersemploi-offer_button-info">
+              Plus d'infos
+            </button> */}
           </div>
         ))}
         {isLoading && (
