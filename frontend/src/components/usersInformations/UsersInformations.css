@@ -1,0 +1,9 @@
+.users-informations_container {
+  border: 1px solid;
+}
+
+.users-informations_picture {
+  max-width: 50%;
+
+  border-radius: 50%;
+}

@@ -54,6 +54,22 @@ const read = (req, res) => {
       res.sendStatus(500);
     });
 };
+const readFile = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  models.candidate
+    .findFiles(id)
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows[0]);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
 
 // eslint-disable-next-line consistent-return
 const edit = async (req, res) => {
@@ -246,4 +262,5 @@ module.exports = {
   add,
   destroy,
   getCandidateByMailToNext,
+  readFile,
 };

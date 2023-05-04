@@ -52,7 +52,8 @@ const RegisterCandidate = () => {
     // Vérifie que le fichier est un jpeg ou jpg
     if (
       (filePicture && filePicture.type === "image/jpeg") ||
-      filePicture.type === "image/jpg"
+      filePicture.type === "image/jpg" ||
+      filePicture.type === "image/png"
     ) {
       setPicture(filePicture);
       setValidPictureType(true);
@@ -206,7 +207,7 @@ const RegisterCandidate = () => {
                   resume || validePictureType ? "signup-hide" : "signup-invalid"
                 }
               >
-                Merci de choisir un fichier .JPEG/JPG
+                Merci de choisir un fichier .JPEG/JPG/PNG
               </span>
             </label>
             <label className="form-label">

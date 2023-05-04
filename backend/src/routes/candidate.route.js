@@ -36,7 +36,7 @@ const storageCandidate = multer.diskStorage({
 });
 
 const upload = multer({ storage: storageCandidate });
-
+router.get("/files/:id", candidateControllers.readFile);
 router.get("/", candidateControllers.browse);
 router.get("/:id", candidateControllers.read);
 router.post(

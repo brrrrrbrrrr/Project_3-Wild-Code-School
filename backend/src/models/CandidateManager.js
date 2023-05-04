@@ -63,6 +63,13 @@ class CandidateManager extends AbstractManager {
   delete(id) {
     return this.database.query(`delete from ${this.table} where id = ?`, [id]);
   }
+
+  findFiles(id) {
+    return this.database.query(
+      `select id, picture, resume from ${this.table} where id = ?`,
+      [id]
+    );
+  }
 }
 
 module.exports = CandidateManager;
