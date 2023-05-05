@@ -44,8 +44,17 @@ function UsersInformations({ user }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const currentValues = {
+      name: candidateInfos.name,
+      firstname: candidateInfos.firstname,
+      birthday: candidateInfos.birthday,
+      street: candidateInfos.street,
+      city: candidateInfos.city,
+      postalAdress: candidateInfos.postalAdress,
+      mail: candidateInfos.mail,
+    };
 
-    const formData = {
+    const updatedValues = {
       name,
       firstname,
       birthday,
@@ -55,6 +64,13 @@ function UsersInformations({ user }) {
       mail,
     };
 
+    const formData = {};
+
+    Object.keys(updatedValues).forEach((key) => {
+      if (updatedValues[key] !== currentValues[key]) {
+        formData[key] = updatedValues[key];
+      }
+    });
     api
       .put(`/candidates/${userId}`, formData)
 
