@@ -2,10 +2,10 @@
 /* eslint-disable react/function-component-definition */
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { HiOutlineStar } from "react-icons/hi";
-import { Button } from "@mui/material";
+
 import useApi from "../../services/useApi";
 import Loader from "../loader/Loader";
+import OfferEmploi from "./offerEmpoi/OfferEmploi";
 
 import "./OffersEmploi.css";
 
@@ -15,7 +15,9 @@ const OffersEmploi = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [isAllLoaded, setIsAllLoaded] = useState(false);
-  const [selected, setSelected] = useState(false);
+
+  // const [like, setLike] = useState(null);
+  // const [offerId, setOfferId] = useState(props.offerId);
 
   const api = useApi();
 
@@ -50,52 +52,23 @@ const OffersEmploi = () => {
     }
   }, [inView, isFirstLoad]);
 
-  const handleIconClick = () => {
-    setSelected(!selected);
-  };
+  // useEffect(() => {
+  //   api
+  //     .get(`offers/${offerId}/like`)
+  //     .then((response) => {
+  //       console.warn(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, [offerId]);
 
   return (
     <div className="offersemploi-container">
       <div className="offersemploi-offer_wrapper">
-        {offers.map((offer) => (
-          <div className="offersemploi-offer_container" key={offer.id}>
-            <div className="offersemploi-offer_logo">logo</div>
-            <div className="offersemploi-offer_info">
-              <div className="offersemploi-offer_info-main">
-                <h3 className="offersemploi-offer_title">
-                  {offer.jobTitleDetails}
-                </h3>
-                <h3 className="offersemploi-offer_salary">
-                  {offer.salary} euro/an
-                </h3>
-              </div>
-              <div className="offersemploi-offer_info-contract">
-                <h3 className="offersemploi-offer_type-contract">
-                  type de contrat
-                </h3>
-                <h3 className="offersemploi-offer_remote">travail: remote</h3>
-                <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
-                <div>
-                  <HiOutlineStar
-                    className={
-                      selected
-                        ? "offersemploi-icon_star-selected"
-                        : "offersemploi-icon_star"
-                    }
-                    onClick={handleIconClick}
-                    size={50}
-                  />
-                </div>
-              </div>
-            </div>
-            <Button id="offersemploi-offer_button-info" variant="contained">
-              Plus d'infos
-            </Button>
-            {/* <button type="button" className="offersemploi-offer_button-info">
-              Plus d'infos
-            </button> */}
-          </div>
-        ))}
+        {offers.map((offer) => {
+          return <OfferEmploi key={offer.id} results={offer} />;
+        })}
         {isLoading && (
           <div>
             <Loader color="var(--primary-color)" />
