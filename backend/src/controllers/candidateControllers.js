@@ -239,6 +239,50 @@ const getCandidateByMailToNext = async (req, res, next) => {
   } else return res.sendStatus(500);
 };
 
+const likeOffer = (req, res) => {
+  const { candidateId, offerId } = req.body;
+  if (!candidateId || !offerId) {
+    return res.status(400).send("Missing candidateId or offerId");
+  }
+  /* 
+  verifier si candidate deja like un offer
+  suprime le like
+  si il n y a pas like un offer on l'ajoute like
+
+  */
+  models.candidate.findLike(candidateId, offerId).then(([rows]) => {
+    if (rows[0] == null) {
+      models.candidate
+        .likeOffer(candidateId, offerId)
+        .then((result) => {
+          if (result.affectedRows === 0) {
+            return res.sendStatus(404);
+          }
+          return res.sendStatus(204);
+        })
+        .catch((error) => {
+          console.error(error);
+          return res.sendStatus(500);
+        });
+      // add like
+    } else {
+      models.candidate
+        .deleteLike(candidateId, offerId)
+        .then((result) => {
+          if (result.affectedRows === 0) {
+            return res.sendStatus(404);
+          }
+          return res.sendStatus(204);
+        })
+        .catch((error) => {
+          console.error(error);
+          return res.sendStatus(500);
+        });
+      // suprime like
+    }
+  });
+};
+
 module.exports = {
   browse,
   read,
@@ -246,4 +290,5 @@ module.exports = {
   add,
   destroy,
   getCandidateByMailToNext,
+  likeOffer,
 };
