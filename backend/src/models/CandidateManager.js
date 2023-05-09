@@ -1,3 +1,4 @@
+/* eslint-disable lines-between-class-members */
 const AbstractManager = require("./AbstractManager");
 
 class CandidateManager extends AbstractManager {
@@ -82,6 +83,25 @@ class CandidateManager extends AbstractManager {
     return this.database.query(
       `select id, picture, resume from ${this.table} where id = ?`,
       [id]
+    );
+  }
+
+  likeOffer(candidateId, offerId) {
+    return this.database.query(
+      `insert into offer_candidate(candidateId, offerId) values(?,?)`,
+      [candidateId, offerId]
+    );
+  }
+  findLike(candidateId, offerId) {
+    return this.database.query(
+      `select * from offer_candidate where candidateId=? and offerId=?`,
+      [candidateId, offerId]
+    );
+  }
+  deleteLike(candidateId, offerId) {
+    return this.database.query(
+      `delete from offer_candidate where candidateId=? and offerId=?`,
+      [candidateId, offerId]
     );
   }
 }

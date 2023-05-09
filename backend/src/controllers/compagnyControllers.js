@@ -120,7 +120,7 @@ const postCompagny = async (req, res) => {
       .catch((err) => {
         console.error(err);
         if (err.code === "ER_DUP_ENTRY") {
-          return res.status(409).send("Mail already exists"); // Ajouter le mot-clé 'return' avant d'appeler res.status()
+          return res.status(409).send("Mail already exist"); // Ajouter le mot-clé 'return' avant d'appeler res.status()
         }
         return res.sendStatus(500); // Ajouter le mot-clé 'return' avant d'appeler res.sendStatus()
       });

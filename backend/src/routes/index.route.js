@@ -10,13 +10,13 @@ const loginCompagny = require("./login.compagny.route");
 const candidate = require("./candidate.route");
 const login = require("./loginCandidate.route");
 
+const offer = require("./offer.rout");
+
 router.use("/consultants", consultant);
 router.use("/login/consultants", loginConsultant);
 
 router.use("/candidates", candidate);
 router.use("/login/candidates", login);
-
-const offer = require("./offer.rout");
 
 router.use("/offers", offer);
 
