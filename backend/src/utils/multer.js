@@ -41,9 +41,9 @@ const UpdateStorageCandidate = multer.diskStorage({
       req.params.id.toString()
     );
 
-    // if (!fs.existsSync(candidateFolder)) {
-    //   fs.mkdirSync(candidateFolder, { recursive: true });
-    // }
+    if (!fs.existsSync(candidateFolder)) {
+      fs.mkdirSync(candidateFolder, { recursive: true });
+    }
     if (file.fieldname === "resume") {
       cb(null, candidateFolder);
     } else if (file.fieldname === "picture") {

@@ -108,100 +108,81 @@ const edit = async (req, res) => {
   const errors = validate(candidate, false);
   if (errors) {
     console.error(errors);
-    return res.status(422);
+    return res.status(422).send(errors);
   }
+
   if (candidate.password) {
     const hashedPassword = await hashPassword(req.body.password);
     candidate.password = hashedPassword;
   }
+
   candidate.id = parseInt(req.params.id, 10);
-  models.candidate
-    .update(candidate)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        return res.sendStatus(404);
-      }
-      if (req.files.picture) {
-        const filePicture = req.files.picture;
 
-        const extension = filePicture[0].originalname.split(".").pop();
-        const newOriginalNamePicture = `${filePicture[0].originalname
-          .split(".")[0]
-          .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
-        const candidateFolder = req.pathFolder;
-        const newFileNamePicture = `uploads/candidate/${req.params.id}/${newOriginalNamePicture}`;
+  try {
+    const [result] = await models.candidate.update(candidate);
 
-        const originalNamePicture = path.join(
-          candidateFolder,
-          newOriginalNamePicture
-        );
-        const fileNamePicture = path.join(
-          candidateFolder,
-          filePicture[0].filename
-        );
-        fs.renameSync(fileNamePicture, originalNamePicture, (err) => {
-          if (err) {
-            console.warn("erreur Picture :", err);
-          }
-        });
-        models.candidate
-          .updatePicture(newFileNamePicture, candidate.id)
-          .then(([updateResult]) => {
-            if (updateResult.affectedRows === 0) {
-              return res.sendStatus(404);
-            }
-            const response = res.sendStatus(204);
-            return response;
-          })
-          .catch((err) => {
-            console.error(err);
-            return res.sendStatus(500);
-          });
-      } else if (req.files.resume) {
-        const fileResume = req.files.resume;
+    if (result.affectedRows === 0) {
+      return res.sendStatus(404);
+    }
+    if (req.files.picture) {
+      const filePicture = req.files.picture;
 
-        const extension = fileResume[0].originalname.split(".").pop();
-        const newOriginalNameResume = `${fileResume[0].originalname
-          .split(".")[0]
-          .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
-        const candidateFolder = req.pathFolder;
-        const newFileNameResume = `uploads/candidate/${req.params.id}/${newOriginalNameResume}`;
+      const extension = filePicture[0].originalname.split(".").pop();
+      const newOriginalNamePicture = `${filePicture[0].originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+      const candidateFolder = req.pathFolder;
+      const newFileNamePicture = `uploads/candidate/${req.params.id}/${newOriginalNamePicture}`;
 
-        const originalNameResume = path.join(
-          candidateFolder,
-          newOriginalNameResume
-        );
-        const fileNameResume = path.join(
-          candidateFolder,
-          fileResume[0].filename
-        );
-        fs.renameSync(fileNameResume, originalNameResume, (err) => {
-          if (err) {
-            console.warn("erreur Picture :", err);
-          }
-        });
-        models.candidate
-          .updateResume(newFileNameResume, candidate.id)
-          .then(([updateResult]) => {
-            if (updateResult.affectedRows === 0) {
-              return res.sendStatus(404);
-            }
-            const response = res.sendStatus(204);
-            return response;
-          })
-          .catch((err) => {
-            console.error(err);
-            return res.sendStatus(500);
-          });
-      } else {
-        const response = res.sendStatus(204);
-        return response;
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      return res.sendStatus(500);
-    });
+      const originalNamePicture = path.join(
+        candidateFolder,
+        newOriginalNamePicture
+      );
+      const fileNamePicture = path.join(
+        candidateFolder,
+        filePicture[0].filename
+      );
+
+      fs.renameSync(fileNamePicture, originalNamePicture, (err) => {
+        if (err) {
+          console.warn("erreur Picture :", err);
+        }
+      });
+
+      await models.candidate.updatePicture(newFileNamePicture, candidate.id);
+    }
+
+    if (req.files.resume) {
+      const fileResume = req.files.resume;
+      console.warn("fileresume :", fileResume);
+
+      const extension = fileResume[0].originalname.split(".").pop();
+      const newOriginalNameResume = `${fileResume[0].originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+      const candidateFolder = req.pathFolder;
+      const newFileNameResume = `uploads/candidate/${req.params.id}/${newOriginalNameResume}`;
+
+      const originalNameResume = path.join(
+        candidateFolder,
+        newOriginalNameResume
+      );
+      const fileNameResume = path.join(candidateFolder, fileResume[0].filename);
+
+      fs.renameSync(fileNameResume, originalNameResume, (err) => {
+        if (err) {
+          console.warn("erreur Resume:", err);
+        }
+      });
+
+      await models.candidate.updateResume(newFileNameResume, candidate.id);
+    }
+
+    return res.sendStatus(204);
+  } catch (err) {
+    console.error(err);
+    return res.sendStatus(500);
+  }
 };
 
 // TODO validations (length, format...)

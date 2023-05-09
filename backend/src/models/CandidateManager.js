@@ -47,10 +47,10 @@ class CandidateManager extends AbstractManager {
     );
   }
 
-  updateResume(picture, userId) {
+  updateResume(resume, userId) {
     return this.database.query(
-      `update ${this.table} set  picture = ? where id = ?`,
-      [picture, userId]
+      `update ${this.table} set  resume = ? where id = ?`,
+      [resume, userId]
     );
   }
 
