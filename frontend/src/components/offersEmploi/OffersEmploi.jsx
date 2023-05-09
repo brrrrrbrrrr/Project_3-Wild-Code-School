@@ -185,48 +185,31 @@ const OffersEmploi = () => {
         </button>
       </div>
       <div className="offersemploi-offer_wrapper">
-        {offers
-          // .filter(
-          //   (offer) =>
-          //     selectedJobTitle === "" || offer.job_title === selectedJobTitle
-          // )
-          // .filter(
-          //   (offer) =>
-          //     selectedRemoteType === "" ||
-          //     offer.remote_type === selectedRemoteType
-          // )
-          // .filter(
-          //   (offer) =>
-          //     selectedContractType === "" ||
-          //     offer.contract_type === selectedContractType
-          // )
-          .map((offer) => (
-            <div className="offersemploi-offer_container" key={offer.id}>
-              <div className="offersemploi-offer_logo">logo</div>
-              <div className="offersemploi-offer_info">
-                <div className="offersemploi-offer_info-main">
-                  <h3 className="offersemploi-offer_title">
-                    {offer.job_title}
-                  </h3>
-                  <h3 className="offersemploi-offer_salary">
-                    {offer.salary} euro/an
-                  </h3>
-                </div>
-                <div className="offersemploi-offer_info-contract">
-                  <h3 className="offersemploi-offer_type-contract">
-                    {offer.contract_type}
-                  </h3>
-                  <h3 className="offersemploi-offer_remote">
-                    {offer.remote_type}
-                  </h3>
-                  <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
-                </div>
+        {offers.map((offer) => (
+          <div className="offersemploi-offer_container" key={offer.id}>
+            <div className="offersemploi-offer_logo">logo</div>
+            <div className="offersemploi-offer_info">
+              <div className="offersemploi-offer_info-main">
+                <h3 className="offersemploi-offer_title">{offer.job_title}</h3>
+                <h3 className="offersemploi-offer_salary">
+                  {offer.salary} euro/an
+                </h3>
               </div>
-              <button type="button" className="offersemploi-offer_button-info">
-                Plus d'infos
-              </button>
+              <div className="offersemploi-offer_info-contract">
+                <h3 className="offersemploi-offer_type-contract">
+                  {offer.contract_type}
+                </h3>
+                <h3 className="offersemploi-offer_remote">
+                  {offer.remote_type}
+                </h3>
+                <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
+              </div>
             </div>
-          ))}
+            <button type="button" className="offersemploi-offer_button-info">
+              Plus d'infos
+            </button>
+          </div>
+        ))}
         {isLoading && (
           <div>
             <Loader color="var(--primary-color)" />
