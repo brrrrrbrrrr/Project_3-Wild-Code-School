@@ -111,7 +111,7 @@ const OffersEmploi = () => {
       });
   };
 
-  const handleChangeX = (e) => {
+  const handleChangeFilter = (e, typeFilter) => {
     const filter = e.target.value;
     if (filter === "0") {
       setIsLoading(true);
@@ -139,7 +139,7 @@ const OffersEmploi = () => {
         .get("/offers", {
           params: {
             filter,
-            typeFilter: 1,
+            typeFilter,
           },
         })
         .then((response) => {
@@ -161,21 +161,21 @@ const OffersEmploi = () => {
       <div className="offersemploi-filters">
         <select
           value={selectedJobTitle}
-          onChange={(event) => handleChangeX(event)}
+          onChange={(event) => handleChangeFilter(event, 1)}
         >
           <option value="0">Job Title</option>
           {jobTitleOptions}
         </select>
         <select
           value={selectedRemoteType}
-          onChange={(event) => setSelectedRemoteType(event.target.value)}
+          onChange={(event) => handleChangeFilter(event, 2)}
         >
           <option value="0">Remote Type</option>
           {remoteOptions}
         </select>
         <select
           value={selectedContractType}
-          onChange={(event) => setSelectedContractType(event.target.value)}
+          onChange={(event) => handleChangeFilter(event, 3)}
         >
           <option value="0">Contract Type</option>
           {contractOptions}
