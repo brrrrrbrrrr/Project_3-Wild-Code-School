@@ -2,19 +2,35 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/function-component-definition */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HiOutlineStar } from "react-icons/hi";
 import { Button } from "@mui/material";
+import { useUser } from "../../../contexts/UserContext";
+import useApi from "../../../services/useApi";
 
 const OfferEmploi = ({ results }) => {
   const [selected, setSelected] = useState(false);
+  const user = useUser();
+  const api = useApi();
+  console.warn(user);
+
+  useEffect(() => {}, []);
 
   const handleIconClick = () => {
     setSelected(!selected);
+    api
+      .post(`offers/${results.id}/like`, { candidateId: user.user.id })
+      .then((response) => {
+        setSelected(!selected);
+        console.warn(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
-    <div className="offersemploi-offer_container" key={results.id}>
+    <div className="offersemploi-offer_container">
       <div className="offersemploi-offer_logo">logo</div>
       <div className="offersemploi-offer_info">
         <div className="offersemploi-offer_info-main">

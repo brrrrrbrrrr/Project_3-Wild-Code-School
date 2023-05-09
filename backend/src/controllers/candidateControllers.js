@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -240,7 +241,9 @@ const getCandidateByMailToNext = async (req, res, next) => {
 };
 
 const likeOffer = (req, res) => {
-  const { candidateId, offerId } = req.body;
+  const offerId = req.params.offerId;
+  console.warn(req.body);
+  const { candidateId } = req.body;
   if (!candidateId || !offerId) {
     return res.status(400).send("Missing candidateId or offerId");
   }

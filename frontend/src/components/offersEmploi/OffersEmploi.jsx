@@ -16,9 +16,6 @@ const OffersEmploi = () => {
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [isAllLoaded, setIsAllLoaded] = useState(false);
 
-  // const [like, setLike] = useState(null);
-  // const [offerId, setOfferId] = useState(props.offerId);
-
   const api = useApi();
 
   const { ref, inView } = useInView({
@@ -51,17 +48,6 @@ const OffersEmploi = () => {
         });
     }
   }, [inView, isFirstLoad]);
-
-  // useEffect(() => {
-  //   api
-  //     .get(`offers/${offerId}/like`)
-  //     .then((response) => {
-  //       console.warn(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }, [offerId]);
 
   return (
     <div className="offersemploi-container">
