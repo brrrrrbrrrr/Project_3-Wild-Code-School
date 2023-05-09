@@ -25,7 +25,7 @@ function UsersInformations({ user }) {
   const [validePictureType, setValidPictureType] = useState(false);
   const [resume, setResume] = useState(null);
   const [valideResumeType, setValidResumeType] = useState(false);
-  const [reload, setReload] = useState(false);
+  const [reload, setReload] = useState(0);
   const urlFile = import.meta.env.VITE_APP_URL;
   useEffect(() => {
     if (typeof candidateInfos !== "undefined")
@@ -123,7 +123,10 @@ function UsersInformations({ user }) {
 
       .then((res) => {
         console.warn(res);
-        setReload(!reload);
+        setReload(reload + 1);
+        setTimeout(() => {
+          setReload(0);
+        }, 2000);
       })
       .catch((err) => {
         console.error(err);
@@ -133,44 +136,46 @@ function UsersInformations({ user }) {
 
   console.warn("candidate :", candidateInfos);
   console.warn("candidate user :", user.firstname);
-  return (
+  return reload > 0 ? (
+    <p>Mise à jour ...</p>
+  ) : (
     <div className="users-informations_container">
+      <h1>Mes informations</h1>
+      <h2>Photo de profil</h2>
       <div>
-        <h1>Mes informations</h1>
-        <div>
-          <h2>Photo de profil</h2>
+        <div className="rounded-image">
           <img
             className="users-informations_picture"
             src={`${urlFile}${candidateInfos?.picture}`}
             alt=""
           />
-          <label className="form-label">
-            Photo :
-            <input
-              type="file"
-              onChange={handlePictureSelect}
-              className="form-input"
-            />
-            <span
-              className={validePictureType ? "signup-hide" : "signup-invalid"}
-            >
-              Merci de choisir un fichier .JPEG/JPG/PNG
-            </span>
-          </label>
-          <label className="form-label">
-            CV :
-            <input
-              type="file"
-              onChange={handleResumeSelect}
-              className="form-input"
-            />
-            <span
-              className={valideResumeType ? "signup-hide" : "signup-invalid"}
-            >
-              Merci de choisir un fichier .PDF
-            </span>
-          </label>
+          <div className="rounded-border" />
+          <div className="rounded-border2" />
         </div>
+        <label className="form-label">
+          Photo :
+          <input
+            type="file"
+            onChange={handlePictureSelect}
+            className="form-input"
+          />
+          <span
+            className={validePictureType ? "signup-hide" : "signup-invalid"}
+          >
+            Merci de choisir un fichier .JPEG/JPG/PNG
+          </span>
+        </label>
+        <label className="form-label">
+          CV :
+          <input
+            type="file"
+            onChange={handleResumeSelect}
+            className="form-input"
+          />
+          <span className={valideResumeType ? "signup-hide" : "signup-invalid"}>
+            Merci de choisir un fichier .PDF
+          </span>
+        </label>
         <div>
           <h2>Genre</h2>
           <ul>

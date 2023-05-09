@@ -1,9 +1,36 @@
 .users-informations_container {
   border: 1px solid;
 }
+.rounded-image {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 150px; /* ajustez cette valeur à la taille de votre image */
+  height: 150px; /* ajustez cette valeur à la taille de votre image */
+  position: relative;
+}
 
 .users-informations_picture {
-  max-width: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
+.rounded-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 4px solid rgb(255, 255, 255); /* couleur du cadre */
+  border-radius: 50%;
+}
+
+.rounded-border2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid rgb(11, 62, 151); /* couleur du cadre */
   border-radius: 50%;
 }
