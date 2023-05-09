@@ -34,7 +34,7 @@ const browse = (req, res) => {
         break;
       case 2:
         models.offer
-          .findAllRemote(page, limit2, filter)
+          .findAllRemote(filter)
           .then(([rows]) => {
             res.send(rows);
           })
@@ -45,7 +45,7 @@ const browse = (req, res) => {
         break;
       case 3:
         models.offer
-          .findAllContract(page, limit2, filter)
+          .findAllContract(filter)
           .then(([rows]) => {
             res.send(rows);
           })

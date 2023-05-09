@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/function-component-definition */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import useApi from "../../services/useApi";
 import Loader from "../loader/Loader";
@@ -13,13 +13,13 @@ const OffersEmploi = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [isAllLoaded, setIsAllLoaded] = useState(false);
-  const [selectedJobTitle, setSelectedJobTitle] = useState("");
-  const [selectedRemoteType, setSelectedRemoteType] = useState("");
-  const [selectedContractType, setSelectedContractType] = useState("");
   const [jobTitleOptions, setJobTitleOptions] = useState([]);
   const [remoteOptions, setRemoteOptions] = useState([]);
   const [contractOptions, setContractOptions] = useState([]);
 
+  const jobRef = useRef();
+  const remoteRef = useRef();
+  const contractRef = useRef();
   const api = useApi();
 
   const { ref, inView } = useInView({
@@ -54,7 +54,9 @@ const OffersEmploi = () => {
     api.get("/offers/contract").then((response) => {
       setContractOptions(
         response.data.map((contract) => (
-          <option key={contract.type}>{contract.type}</option>
+          <option value={contract.id} key={contract.type}>
+            {contract.type}
+          </option>
         ))
       );
     });
@@ -88,9 +90,9 @@ const OffersEmploi = () => {
   }, [inView, isFirstLoad]);
 
   const resetFilters = () => {
-    setSelectedJobTitle("0");
-    setSelectedRemoteType("0");
-    setSelectedContractType("0");
+    jobRef.current.value = 0;
+    remoteRef.current.value = 0;
+    contractRef.current.value = 0;
     api
       .get("/offers", {
         params: {
@@ -134,7 +136,6 @@ const OffersEmploi = () => {
           setIsLoading(false);
         });
     } else {
-      setSelectedJobTitle(filter);
       api
         .get("/offers", {
           params: {
@@ -160,21 +161,24 @@ const OffersEmploi = () => {
     <div className="offersemploi-container">
       <div className="offersemploi-filters">
         <select
-          value={selectedJobTitle}
+          ref={jobRef}
+          // value={selectedJobTitle}
           onChange={(event) => handleChangeFilter(event, 1)}
         >
           <option value="0">Job Title</option>
           {jobTitleOptions}
         </select>
         <select
-          value={selectedRemoteType}
+          ref={remoteRef}
+          // value={selectedRemoteType}
           onChange={(event) => handleChangeFilter(event, 2)}
         >
           <option value="0">Remote Type</option>
           {remoteOptions}
         </select>
         <select
-          value={selectedContractType}
+          ref={contractRef}
+          // value={selectedContractType}
           onChange={(event) => handleChangeFilter(event, 3)}
         >
           <option value="0">Contract Type</option>
