@@ -88,29 +88,19 @@ const OffersEmploi = () => {
   }, [inView, isFirstLoad]);
 
   const resetFilters = () => {
-    setSelectedJobTitle("");
-    setSelectedRemoteType("");
-    setSelectedContractType("");
-  };
-
-  const handleChangeX = (e) => {
-    const filter = e.target.value;
-    setSelectedJobTitle(filter);
+    setSelectedJobTitle("0");
+    setSelectedRemoteType("0");
+    setSelectedContractType("0");
     api
       .get("/offers", {
         params: {
-          page: 1,
-          limit: 2,
-          filter,
-          typeFilter: 1,
+          allOffers: "marchestp",
         },
       })
       .then((response) => {
         const sortedOffers = response.data.sort((a, b) => b.id - a.id);
-        setOffers([...offers, ...sortedOffers]);
-        if (sortedOffers.length < 2) {
-          setIsAllLoaded(true);
-        }
+        setOffers([...sortedOffers]);
+        setIsAllLoaded(true);
         setPage(page + 1);
         setIsLoading(false);
         setIsFirstLoad(false);
@@ -121,6 +111,51 @@ const OffersEmploi = () => {
       });
   };
 
+  const handleChangeX = (e) => {
+    const filter = e.target.value;
+    if (filter === "0") {
+      setIsLoading(true);
+      api
+        .get("/offers", {
+          params: {
+            allOffers: "marchestp",
+          },
+        })
+        .then((response) => {
+          const sortedOffers = response.data.sort((a, b) => b.id - a.id);
+          setOffers([...sortedOffers]);
+          setIsAllLoaded(true);
+          setPage(page + 1);
+          setIsLoading(false);
+          setIsFirstLoad(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setIsLoading(false);
+        });
+    } else {
+      setSelectedJobTitle(filter);
+      api
+        .get("/offers", {
+          params: {
+            filter,
+            typeFilter: 1,
+          },
+        })
+        .then((response) => {
+          const sortedOffers = response.data.sort((a, b) => b.id - a.id);
+          setOffers([...sortedOffers]);
+          setIsAllLoaded(true);
+          setIsLoading(false);
+          setIsFirstLoad(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setIsLoading(false);
+        });
+    }
+  };
+
   return (
     <div className="offersemploi-container">
       <div className="offersemploi-filters">
@@ -128,21 +163,21 @@ const OffersEmploi = () => {
           value={selectedJobTitle}
           onChange={(event) => handleChangeX(event)}
         >
-          <option value="">Job Title</option>
+          <option value="0">Job Title</option>
           {jobTitleOptions}
         </select>
         <select
           value={selectedRemoteType}
           onChange={(event) => setSelectedRemoteType(event.target.value)}
         >
-          <option value="">Remote Type</option>
+          <option value="0">Remote Type</option>
           {remoteOptions}
         </select>
         <select
           value={selectedContractType}
           onChange={(event) => setSelectedContractType(event.target.value)}
         >
-          <option value="">Contract Type</option>
+          <option value="0">Contract Type</option>
           {contractOptions}
         </select>
         <button type="button" onClick={resetFilters}>
@@ -151,20 +186,20 @@ const OffersEmploi = () => {
       </div>
       <div className="offersemploi-offer_wrapper">
         {offers
-          .filter(
-            (offer) =>
-              selectedJobTitle === "" || offer.job_title === selectedJobTitle
-          )
-          .filter(
-            (offer) =>
-              selectedRemoteType === "" ||
-              offer.remote_type === selectedRemoteType
-          )
-          .filter(
-            (offer) =>
-              selectedContractType === "" ||
-              offer.contract_type === selectedContractType
-          )
+          // .filter(
+          //   (offer) =>
+          //     selectedJobTitle === "" || offer.job_title === selectedJobTitle
+          // )
+          // .filter(
+          //   (offer) =>
+          //     selectedRemoteType === "" ||
+          //     offer.remote_type === selectedRemoteType
+          // )
+          // .filter(
+          //   (offer) =>
+          //     selectedContractType === "" ||
+          //     offer.contract_type === selectedContractType
+          // )
           .map((offer) => (
             <div className="offersemploi-offer_container" key={offer.id}>
               <div className="offersemploi-offer_logo">logo</div>

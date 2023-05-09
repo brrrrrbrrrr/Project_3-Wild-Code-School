@@ -31,9 +31,7 @@ class OfferManager extends AbstractManager {
     );
   }
 
-  findAllJobs(page, limit, filter) {
-    const offset = (page - 1) * limit;
-
+  findAllJobs(filter) {
     return this.database.query(
       `
   SELECT o.id, o.salary, o.teamPicture, o.jobOfferPresentation, o.desiredProfile, o.recruitmentProcess, o.numberOfEmployees, o.jobTitleDetails, c.name AS city_name, co.Logo, ct.type AS contract_type, j.name AS job_title, re.type AS remote_type
@@ -45,16 +43,13 @@ class OfferManager extends AbstractManager {
   JOIN job_title as j ON j.id = o.jobTitleId
   JOIN remote AS re ON re.id = o.remoteId
   WHERE o.jobTitleId = ?
-  LIMIT ? OFFSET ? 
 
 `,
-      [filter, limit, offset]
+      [filter]
     );
   }
 
-  findAllRemote(page, limit, filter) {
-    const offset = (page - 1) * limit;
-
+  findAllRemote(filter) {
     return this.database.query(
       `
   SELECT o.id, o.salary, o.teamPicture, o.jobOfferPresentation, o.desiredProfile, o.recruitmentProcess, o.numberOfEmployees, o.jobTitleDetails, c.name AS city_name, co.Logo, ct.type AS contract_type, j.name AS job_title, re.type AS remote_type
@@ -66,16 +61,13 @@ class OfferManager extends AbstractManager {
   JOIN job_title as j ON j.id = o.jobTitleId
   JOIN remote AS re ON re.id = o.remoteId
   WHERE o.RemoteId = ?
-  LIMIT ? OFFSET ? 
 
 `,
-      [filter, limit, offset]
+      [filter]
     );
   }
 
-  findAllContract(page, limit, filter) {
-    const offset = (page - 1) * limit;
-
+  findAllContract(filter) {
     return this.database.query(
       `
   SELECT o.id, o.salary, o.teamPicture, o.jobOfferPresentation, o.desiredProfile, o.recruitmentProcess, o.numberOfEmployees, o.jobTitleDetails, c.name AS city_name, co.Logo, ct.type AS contract_type, j.name AS job_title, re.type AS remote_type
@@ -87,10 +79,26 @@ class OfferManager extends AbstractManager {
   JOIN job_title as j ON j.id = o.jobTitleId
   JOIN remote AS re ON re.id = o.remoteId
   WHERE o.contratID = ?
-  LIMIT ? OFFSET ? 
+
 
 `,
-      [filter, limit, offset]
+      [filter]
+    );
+  }
+
+  findAllFilter() {
+    return this.database.query(
+      `
+  SELECT o.id, o.salary, o.teamPicture, o.jobOfferPresentation, o.desiredProfile, o.recruitmentProcess, o.numberOfEmployees, o.jobTitleDetails, c.name AS city_name, co.Logo, ct.type AS contract_type, j.name AS job_title, re.type AS remote_type
+  FROM offer AS o
+  JOIN city AS c ON c.id = o.cityId
+  JOIN recruiter AS r ON r.id = o.recruiterId
+  JOIN compagny AS co ON co.id = r.compagny_id
+  JOIN contrat AS ct ON ct.id = o.contratId
+  JOIN job_title as j ON j.id = o.jobTitleId
+  JOIN remote AS re ON re.id = o.remoteId
+
+`
     );
   }
 

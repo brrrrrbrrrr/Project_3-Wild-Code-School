@@ -3,16 +3,27 @@ const models = require("../models");
 const browse = (req, res) => {
   const { page = 1, limit = 4 } = req.query;
   const { filter, typeFilter } = req.query;
+  const { allOffers } = req.query;
   const limit2 = parseInt(limit, 10);
 
-  // est ce que typefilter existe ?
-  // si oui on fait un switch sur type filter
-  // et dans ce switch on appelle le modèle avec la bonne requête
-  if (typeFilter) {
+  if (allOffers) {
+    models.offer
+      .findAllFilter()
+      .then(([rows]) => {
+        return res.send(rows);
+      })
+      .catch((err) => {
+        console.error(err);
+        return res.sendStatus(500);
+      });
+  } else if (typeFilter) {
+    // est ce que typefilter existe ?
+    // si oui on fait un switch sur type filter
+    // et dans ce switch on appelle le modèle avec la bonne requête
     switch (parseInt(typeFilter, 10)) {
       case 1:
         models.offer
-          .findAllJobs(page, limit2, filter)
+          .findAllJobs(filter)
           .then(([rows]) => {
             res.send(rows);
           })
