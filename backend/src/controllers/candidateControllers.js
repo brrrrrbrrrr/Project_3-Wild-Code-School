@@ -72,8 +72,39 @@ const readFile = (req, res) => {
 };
 
 // eslint-disable-next-line consistent-return
+// const edit = async (req, res) => {
+//   const candidate = req.body;
+//   const errors = validate(candidate, false);
+//   if (errors) {
+//     console.error(errors);
+//     return res.status(422);
+//   }
+//   if (candidate.password) {
+//     const hashedPassword = await hashPassword(req.body.password);
+//     candidate.password = hashedPassword;
+//   }
+
+//   // TODO validations (length, format...)
+
+//   candidate.id = parseInt(req.params.id, 10);
+
+//   models.candidate
+//     .update(candidate)
+//     .then(([result]) => {
+//       if (result.affectedRows === 0) {
+//         res.sendStatus(404);
+//       } else {
+//         res.sendStatus(204);
+//       }
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.sendStatus(500);
+//     });
+// };
 const edit = async (req, res) => {
   const candidate = req.body;
+
   const errors = validate(candidate, false);
   if (errors) {
     console.error(errors);
@@ -83,25 +114,97 @@ const edit = async (req, res) => {
     const hashedPassword = await hashPassword(req.body.password);
     candidate.password = hashedPassword;
   }
-
-  // TODO validations (length, format...)
-
   candidate.id = parseInt(req.params.id, 10);
-
   models.candidate
     .update(candidate)
     .then(([result]) => {
       if (result.affectedRows === 0) {
-        res.sendStatus(404);
+        return res.sendStatus(404);
+      }
+      if (req.files.picture) {
+        const filePicture = req.files.picture;
+
+        const extension = filePicture[0].originalname.split(".").pop();
+        const newOriginalNamePicture = `${filePicture[0].originalname
+          .split(".")[0]
+          .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+        const candidateFolder = req.pathFolder;
+        const newFileNamePicture = `uploads/candidate/${req.params.id}/${newOriginalNamePicture}`;
+
+        const originalNamePicture = path.join(
+          candidateFolder,
+          newOriginalNamePicture
+        );
+        const fileNamePicture = path.join(
+          candidateFolder,
+          filePicture[0].filename
+        );
+        fs.renameSync(fileNamePicture, originalNamePicture, (err) => {
+          if (err) {
+            console.warn("erreur Picture :", err);
+          }
+        });
+        models.candidate
+          .updatePicture(newFileNamePicture, candidate.id)
+          .then(([updateResult]) => {
+            if (updateResult.affectedRows === 0) {
+              return res.sendStatus(404);
+            }
+            const response = res.sendStatus(204);
+            return response;
+          })
+          .catch((err) => {
+            console.error(err);
+            return res.sendStatus(500);
+          });
+      } else if (req.files.resume) {
+        const fileResume = req.files.resume;
+
+        const extension = fileResume[0].originalname.split(".").pop();
+        const newOriginalNameResume = `${fileResume[0].originalname
+          .split(".")[0]
+          .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+        const candidateFolder = req.pathFolder;
+        const newFileNameResume = `uploads/candidate/${req.params.id}/${newOriginalNameResume}`;
+
+        const originalNameResume = path.join(
+          candidateFolder,
+          newOriginalNameResume
+        );
+        const fileNameResume = path.join(
+          candidateFolder,
+          fileResume[0].filename
+        );
+        fs.renameSync(fileNameResume, originalNameResume, (err) => {
+          if (err) {
+            console.warn("erreur Picture :", err);
+          }
+        });
+        models.candidate
+          .updateResume(newFileNameResume, candidate.id)
+          .then(([updateResult]) => {
+            if (updateResult.affectedRows === 0) {
+              return res.sendStatus(404);
+            }
+            const response = res.sendStatus(204);
+            return response;
+          })
+          .catch((err) => {
+            console.error(err);
+            return res.sendStatus(500);
+          });
       } else {
-        res.sendStatus(204);
+        const response = res.sendStatus(204);
+        return response;
       }
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      return res.sendStatus(500);
     });
 };
+
+// TODO validations (length, format...)
 
 // eslint-disable-next-line consistent-return
 const add = async (req, res) => {
