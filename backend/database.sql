@@ -308,6 +308,25 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
+-- Table `externatic`.`meeting`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `externatic`.`meeting` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `startTime` DATETIME NOT NULL,
+  `endTime` DATETIME NOT NULL,
+  `participant1` INT NOT NULL,
+  `participant1REF` VARCHAR(45) NOT NULL,
+  `participant2` INT NOT NULL,
+  `participant2REF` VARCHAR(45) NOT NULL,
+  `date` DATE NOT NULL,
+  `accepted` TINYINT NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Table `externatic`.`offer_candidate`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `externatic`.`offer_candidate` (
