@@ -247,9 +247,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `externatic`.`Remote`
+-- Table `externatic`.`remote`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `externatic`.`Remote` (
+CREATE TABLE IF NOT EXISTS `externatic`.`remote` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
@@ -274,14 +274,14 @@ CREATE TABLE IF NOT EXISTS `externatic`.`offer` (
   `recruiterId` INT NOT NULL,
   `contratId` INT NOT NULL,
   `jobTitleId` INT NOT NULL,
-  `RemoteId` INT NOT NULL,
-  PRIMARY KEY (`id`, `cityId`, `consultantId`, `recruiterId`, `contratId`, `jobTitleId`, `RemoteId`),
+  `remoteId` INT NOT NULL,
+  PRIMARY KEY (`id`, `cityId`, `consultantId`, `recruiterId`, `contratId`, `jobTitleId`, `remoteId`),
   INDEX `fk_offer_city1_idx` (`cityId` ASC) VISIBLE,
   INDEX `fk_offer_consultant1_idx` (`consultantId` ASC) VISIBLE,
   INDEX `fk_offer_recruiter1_idx` (`recruiterId` ASC) VISIBLE,
   INDEX `fk_offer_contrat1_idx` (`contratId` ASC) VISIBLE,
   INDEX `fk_offer_job_title1_idx` (`jobTitleId` ASC) VISIBLE,
-  INDEX `fk_offer_Remote1_idx` (`RemoteId` ASC) VISIBLE,
+  INDEX `fk_offer_remote1_idx` (`remoteId` ASC) VISIBLE,
   CONSTRAINT `fk_offer_city1`
     FOREIGN KEY (`cityId`)
     REFERENCES `externatic`.`city` (`id`),
@@ -297,9 +297,9 @@ CREATE TABLE IF NOT EXISTS `externatic`.`offer` (
   CONSTRAINT `fk_offer_recruiter1`
     FOREIGN KEY (`recruiterId`)
     REFERENCES `externatic`.`recruiter` (`id`),
-  CONSTRAINT `fk_offer_Remote1`
-    FOREIGN KEY (`RemoteId`)
-    REFERENCES `externatic`.`Remote` (`id`)
+  CONSTRAINT `fk_offer_remote1`
+    FOREIGN KEY (`remoteId`)
+    REFERENCES `externatic`.`remote` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -396,10 +396,22 @@ INSERT INTO contrat (type) VALUES ('CDI'), ('CDD'), ('Stage'), ('Alternance');
 
 INSERT INTO job_title (name) VALUES ('Assistant Manager'), ('Développeur Web'), ('Développeur App'), ('Développeur Jeux Videos'), ('Game Developper');
 
-INSERT INTO Remote (type) VALUES ('Présentiel'), ('Présentiel/Télétravail'), ('Télétravail');
+INSERT INTO remote (type) VALUES ('Présentiel'), ('Présentiel/Télétravail'), ('Télétravail');
 
-INSERT INTO
-  offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredProfile, recruitmentProcess, numberOfEmployees, jobTitleDetails, cityId, consultantId, recruiterId, contratId, jobTitleId)
+
+-- Benjamin(19/04)
+ ALTER TABLE compagny MODIFY Valide TINYINT(1) DEFAULT 0 NULL;
+
+-- Benjamin (19/04)
+ ALTER TABLE compagny MODIFY Logo VARCHAR(45) DEFAULT NULL NULL;
+
+ ALTER TABLE  candidate
+MODIFY COLUMN resume VARCHAR(150) NULL DEFAULT NULL,
+MODIFY COLUMN picture VARCHAR(150) NULL DEFAULT NULL;
+
+
+
+INSERT INTO offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredProfile, recruitmentProcess, numberOfEmployees, jobTitleDetails, cityId, consultantId, recruiterId, contratId, jobTitleId)
  VALUES ("20000", 1, "futur foto", "jobOfferPresentation", "desiredProfile", "Recruitment Process", "23", "Ingénieur réseaux / H/F – Industrie", 1,1,1,2,1),
  ("30000", 2, "teamPic.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "50", "Software Engineer", 2, 1, 1, 3, 2),
  ("40000", 1, "teamPicture.png", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "100", "Senior Data Analyst", 3, 1, 1, 1, 3),

@@ -2,8 +2,10 @@
 /* eslint-disable react/function-component-definition */
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
+
 import useApi from "../../services/useApi";
 import Loader from "../loader/Loader";
+import OfferEmploi from "./offerEmpoi/OfferEmploi";
 
 import "./OffersEmploi.css";
 
@@ -189,31 +191,9 @@ const OffersEmploi = () => {
         </button>
       </div>
       <div className="offersemploi-offer_wrapper">
-        {offers.map((offer) => (
-          <div className="offersemploi-offer_container" key={offer.id}>
-            <div className="offersemploi-offer_logo">logo</div>
-            <div className="offersemploi-offer_info">
-              <div className="offersemploi-offer_info-main">
-                <h3 className="offersemploi-offer_title">{offer.job_title}</h3>
-                <h3 className="offersemploi-offer_salary">
-                  {offer.salary} euro/an
-                </h3>
-              </div>
-              <div className="offersemploi-offer_info-contract">
-                <h3 className="offersemploi-offer_type-contract">
-                  {offer.contract_type}
-                </h3>
-                <h3 className="offersemploi-offer_remote">
-                  {offer.remote_type}
-                </h3>
-                <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
-              </div>
-            </div>
-            <button type="button" className="offersemploi-offer_button-info">
-              Plus d'infos
-            </button>
-          </div>
-        ))}
+        {offers.map((offer) => {
+          return <OfferEmploi key={offer.id} offer={offer} />;
+        })}
         {isLoading && (
           <div>
             <Loader color="var(--primary-color)" />
