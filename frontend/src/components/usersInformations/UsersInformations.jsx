@@ -16,12 +16,15 @@ function UsersInformations({ user }) {
   // Je formate ma date ISO 8601 en date classique
   const dateBirthDay = new Date(birthday);
   const formattedBirthday = dateBirthDay.toLocaleDateString("fr-FR");
+  //
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [postalAddress, setPostalAddress] = useState("");
   const [mail, setMail] = useState("");
   const [picture, setPicture] = useState(null);
   const [validePictureType, setValidPictureType] = useState(false);
+  const [resume, setResume] = useState(null);
+  const [valideResumeType, setValidResumeType] = useState(false);
   const [reload, setReload] = useState(false);
   const urlFile = import.meta.env.VITE_APP_URL;
   useEffect(() => {
@@ -60,6 +63,19 @@ function UsersInformations({ user }) {
     }
   }
 
+  function handleResumeSelect(event) {
+    const fileResume = event.target.files[0];
+
+    // Vérifie que le fichier est un PDF
+    if (fileResume && fileResume.type === "application/pdf") {
+      setResume(fileResume);
+      setValidResumeType(true);
+    } else {
+      setResume(null);
+      setValidResumeType(false);
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const currentValues = {
@@ -71,6 +87,7 @@ function UsersInformations({ user }) {
       postalAdress: candidateInfos.postalAdress,
       mail: candidateInfos.mail,
       picture: candidateInfos.picture,
+      resume: candidateInfos.resume,
     };
 
     const updatedValues = {
@@ -82,11 +99,21 @@ function UsersInformations({ user }) {
       postalAdress: postalAddress,
       mail,
       picture,
+      resume,
     };
 
     const formData = new FormData();
 
     Object.keys(updatedValues).forEach((key) => {
+      if (key === "picture" && !updatedValues[key]) {
+        // Si le champ picture a été laissé vide, on ne l'ajoute pas à FormData
+        return;
+      }
+      if (key === "resume" && !updatedValues[key]) {
+        // Si le champ picture a été laissé vide, on ne l'ajoute pas à FormData
+        return;
+      }
+
       if (updatedValues[key] !== currentValues[key]) {
         formData.append(key, updatedValues[key]);
       }
@@ -128,6 +155,19 @@ function UsersInformations({ user }) {
               className={validePictureType ? "signup-hide" : "signup-invalid"}
             >
               Merci de choisir un fichier .JPEG/JPG/PNG
+            </span>
+          </label>
+          <label className="form-label">
+            CV :
+            <input
+              type="file"
+              onChange={handleResumeSelect}
+              className="form-input"
+            />
+            <span
+              className={valideResumeType ? "signup-hide" : "signup-invalid"}
+            >
+              Merci de choisir un fichier .PDF
             </span>
           </label>
         </div>
