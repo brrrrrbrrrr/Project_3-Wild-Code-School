@@ -20,6 +20,8 @@ function UsersInformations({ user }) {
   const [city, setCity] = useState("");
   const [postalAddress, setPostalAddress] = useState("");
   const [mail, setMail] = useState("");
+  const [picture, setPicture] = useState(null);
+  const [validePictureType, setValidPictureType] = useState(false);
   const [reload, setReload] = useState(false);
   const urlFile = import.meta.env.VITE_APP_URL;
   useEffect(() => {
@@ -41,6 +43,22 @@ function UsersInformations({ user }) {
           console.error(err);
         });
   }, [reload]);
+  function handlePictureSelect(event) {
+    const filePicture = event.target.files[0];
+
+    // Vérifie que le fichier est un jpeg ou jpg
+    if (
+      (filePicture && filePicture.type === "image/jpeg") ||
+      filePicture.type === "image/jpg" ||
+      filePicture.type === "image/png"
+    ) {
+      setPicture(filePicture);
+      setValidPictureType(true);
+    } else {
+      setPicture(null);
+      setValidPictureType(false);
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,6 +70,7 @@ function UsersInformations({ user }) {
       city: candidateInfos.city,
       postalAdress: candidateInfos.postalAdress,
       mail: candidateInfos.mail,
+      picture: candidateInfos.picture,
     };
 
     const updatedValues = {
@@ -62,13 +81,14 @@ function UsersInformations({ user }) {
       city,
       postalAdress: postalAddress,
       mail,
+      picture,
     };
 
-    const formData = {};
+    const formData = new FormData();
 
     Object.keys(updatedValues).forEach((key) => {
       if (updatedValues[key] !== currentValues[key]) {
-        formData[key] = updatedValues[key];
+        formData.append(key, updatedValues[key]);
       }
     });
     api
@@ -97,6 +117,19 @@ function UsersInformations({ user }) {
             src={`${urlFile}${candidateInfos?.picture}`}
             alt=""
           />
+          <label className="form-label">
+            Photo :
+            <input
+              type="file"
+              onChange={handlePictureSelect}
+              className="form-input"
+            />
+            <span
+              className={validePictureType ? "signup-hide" : "signup-invalid"}
+            >
+              Merci de choisir un fichier .JPEG/JPG/PNG
+            </span>
+          </label>
         </div>
         <div>
           <h2>Genre</h2>
