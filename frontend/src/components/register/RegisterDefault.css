@@ -2,6 +2,7 @@
   display: flex;
   width: 100%;
   position: absolute;
+  margin-top: 1rem;
 }
 .form-signup {
   width: 100%;
@@ -57,6 +58,19 @@ button:disabled {
   color: white;
   border-radius: 3px;
   margin-bottom: 10px;
+}
+
+.form-signup_errorMsg {
+  margin-bottom: 1.5rem;
+  color: var(--alert-color);
+}
+
+.registration-succes_msg {
+  text-align: center;
+  margin-top: 10rem;
+}
+.registration-succes_msg-connexion {
+  color: var(--primary-color);
 }
 @media screen and (min-width: 320px) {
   .form-label {

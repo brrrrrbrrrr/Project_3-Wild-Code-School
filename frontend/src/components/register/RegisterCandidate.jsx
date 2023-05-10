@@ -1,8 +1,10 @@
+/* eslint-disable import/order */
 /* eslint-disable object-shorthand */
 /* eslint-disable react/function-component-definition */
 import React, { useState, useEffect } from "react";
 import useApi from "../../services/useApi";
 import "./RegisterDefault.css";
+import { Link } from "react-router-dom";
 
 const RegisterCandidate = () => {
   const [name, setName] = useState("");
@@ -25,6 +27,7 @@ const RegisterCandidate = () => {
   const [contactPreference, setContactPreference] = useState("1");
   const [valideResumeType, setValidResumeType] = useState(false);
   const [validePictureType, setValidPictureType] = useState(false);
+  const [error, setError] = useState();
 
   const api = useApi();
 
@@ -96,6 +99,9 @@ const RegisterCandidate = () => {
       })
       .catch((err) => {
         console.error(err);
+        if (err) {
+          setError(err.response.data);
+        }
       });
     console.warn("Registraichn Data:", formData);
   };
@@ -104,7 +110,13 @@ const RegisterCandidate = () => {
     <>
       {" "}
       {success ? (
-        <section>Ok, vous pouvez vous connecter</section>
+        <section className="registration-succes_msg">
+          Merci, vous pouvez vous{" "}
+          <Link className="registration-succes_msg-connexion" to="/connect">
+            {" "}
+            connecter
+          </Link>
+        </section>
       ) : (
         <div className="form-container">
           <form onSubmit={handleSubmit} className="form-signup">
@@ -290,6 +302,9 @@ const RegisterCandidate = () => {
               >
                 Valider
               </button>
+              <p className="form-signup_errorMsg">
+                {error ? `${error} (mail)` : ""}
+              </p>
             </div>
           </form>
         </div>

@@ -120,7 +120,7 @@ const postCompagny = async (req, res) => {
       .catch((err) => {
         console.error(err);
         if (err.code === "ER_DUP_ENTRY") {
-          return res.status(409).send("Mail already exists"); // Ajouter le mot-clé 'return' avant d'appeler res.status()
+          return res.status(409).send("Mail already exist"); // Ajouter le mot-clé 'return' avant d'appeler res.status()
         }
         return res.sendStatus(500); // Ajouter le mot-clé 'return' avant d'appeler res.sendStatus()
       });
@@ -167,7 +167,9 @@ const deleteCompagny = (req, res) => {
 
 const getUserByEmailWithPasswordAndPassToNext = async (req, res, next) => {
   const { mail } = req.body;
-  if (!mail) res.sendStatus(422);
+  if (!mail) {
+    return res.sendStatus(422);
+  }
   const result = await models.compagny.getUserByLogin(mail);
   if (result) {
     if (result[0] != null) {

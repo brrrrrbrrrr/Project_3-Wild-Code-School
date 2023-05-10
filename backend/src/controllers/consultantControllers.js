@@ -105,7 +105,7 @@ const login = (req, res, next) => {
       if (result.length === 0) {
         res.sendStatus(404);
       } else {
-        [req.user] = result;
+        [req.consultant] = result;
         next();
       }
     })
@@ -127,7 +127,7 @@ const add = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      return res.sendStatus(500);
     });
 };
 
