@@ -4,7 +4,7 @@ import "./DetailsOfferConsultant.css";
 import PictureConsultant from "../../assets/picture-consultantbis.jpg";
 
 const DetailsOfferConsultant = (props) => {
-  const { offre } = props;
+  const { offer } = props;
 
   return (
     <div className="detailsOfferConsultant-container">
@@ -19,10 +19,10 @@ const DetailsOfferConsultant = (props) => {
         />
         <div className="detailsOfferConsultant-contact">
           <h2 className="detailsOfferConsultant-identity">
-            {offre.consultantFirstname} {offre.consultantName}
+            {offer.consultantFirstname} {offer.consultantName}
           </h2>
           <h2 className="detailsOfferConsultant-city">
-            Consultant recrutement IT à {offre.cityName}
+            Consultant recrutement IT à {offer.cityName}
           </h2>
         </div>
       </div>
@@ -31,7 +31,7 @@ const DetailsOfferConsultant = (props) => {
 };
 
 DetailsOfferConsultant.propTypes = {
-  offre: PropTypes.shape({
+  offer: PropTypes.shape({
     consultantPicture: PropTypes.string,
     consultantFirstname: PropTypes.string,
     consultantName: PropTypes.string,

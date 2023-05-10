@@ -9,7 +9,7 @@ import Logo from "../../assets/logo.png";
 import Bgemployees from "../../assets/bg_employeesbis.jpg";
 
 const DetailsOfferHero = (props) => {
-  const { offre } = props;
+  const { offer } = props;
 
   return (
     <div className="detailsOfferHero-container">
@@ -23,20 +23,20 @@ const DetailsOfferHero = (props) => {
           className="detailsOfferHero-logo"
         />
 
-        <h2 className="detailsOfferHero-title">{offre.jobTitleDetails}</h2>
+        <h2 className="detailsOfferHero-title">{offer.jobTitleDetails}</h2>
         <div className="detailsOfferHero-subtitles">
           <h3 className="detailsOfferHero-city detailsOfferHero-subtitle_title">
-            <FiMapPin className="detailsOfferHero-icon" /> {offre.cityName} -{" "}
-            {offre.cityPostalCode}
+            <FiMapPin className="detailsOfferHero-icon" /> {offer.cityName} -
+            {offer.cityPostalCode}
           </h3>
           <h3 className="detailsOfferHero-contrat detailsOfferHero-subtitle_title">
             <SiReacthookform className="detailsOfferHero-icon" />
-            {offre.contratType}
-            {offre.remoteWork === 1 ? " -Télétravail complet" : ""}
+            {offer.contratType}
+            {offer.remoteWork === 1 ? " -Télétravail complet" : ""}
           </h3>
           <h3 className="detailsOfferHero-salary detailsOfferHero-subtitle_title">
             <CgEuro size={30} className="detailsOfferHero-icon" />
-            {offre.salary} Eur par an
+            {offer.salary} Eur par an
           </h3>
         </div>
       </div>
@@ -45,7 +45,7 @@ const DetailsOfferHero = (props) => {
 };
 
 DetailsOfferHero.propTypes = {
-  offre: PropTypes.shape({
+  offer: PropTypes.shape({
     Logo: PropTypes.string.isRequired,
     jobTitleDetails: PropTypes.string.isRequired,
     cityName: PropTypes.string.isRequired,

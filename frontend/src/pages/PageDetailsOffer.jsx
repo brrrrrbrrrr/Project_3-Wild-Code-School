@@ -8,14 +8,14 @@ import DetailsOfferConsultant from "../components/detailsOfferConsultant/Details
 
 export default function PageDetailsOffer() {
   const { id } = useParams();
-  const [offre, setOffre] = useState({});
+  const [offer, setOffer] = useState({});
   const api = useApi();
 
   useEffect(() => {
     api
-      .get(`/offres/${id}`)
+      .get(`/offers/${id}`)
       .then((response) => {
-        setOffre(response.data);
+        setOffer(response.data);
         console.warn(response.data);
       })
       .catch((error) => {
@@ -25,9 +25,9 @@ export default function PageDetailsOffer() {
 
   return (
     <div>
-      <DetailsOfferHero offre={offre} />
-      <DetailsOfferBody offre={offre} />
-      <DetailsOfferConsultant offre={offre} />
+      <DetailsOfferHero offer={offer} />
+      <DetailsOfferBody offer={offer} />
+      <DetailsOfferConsultant offer={setOffer} />
     </div>
   );
 }
