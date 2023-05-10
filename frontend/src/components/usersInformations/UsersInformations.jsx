@@ -2,6 +2,8 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState, useRef } from "react";
 import "./UsersInformations.css";
+
+import bencv from "../../assets/BenjaminCHAILLANCV.pdf";
 import useApi from "../../services/useApi";
 
 function UsersInformations({ user }) {
@@ -24,6 +26,7 @@ function UsersInformations({ user }) {
   const [picture, setPicture] = useState(null);
   const [validePictureType, setValidPictureType] = useState(false);
   const [resume, setResume] = useState(null);
+  const [showResume, setShowResume] = useState("");
   const [valideResumeType, setValidResumeType] = useState(false);
   const [reload, setReload] = useState(0);
   const [gender, setGender] = useState("");
@@ -44,6 +47,7 @@ function UsersInformations({ user }) {
           setMail(res.data.mail);
           setPhone(res.data.phone);
           setGender(res.data.gender);
+          setResume(res.data.resume);
         })
         .catch((err) => {
           console.error(err);
@@ -142,189 +146,219 @@ function UsersInformations({ user }) {
   console.warn("candidate :", candidateInfos);
   console.warn("candidate user :", user.firstname);
   return reload > 0 ? (
-    <p>Mise à jour ...</p>
+    <p className="update-succes_p">Mise à jour ...</p>
   ) : (
     <div className="users-informations_container">
-      <h1>Mes informations</h1>
-      <h2>Photo de profil</h2>
-      <div>
-        <div className="rounded-image">
-          <img
-            className="users-informations_picture"
-            src={`${urlFile}${candidateInfos?.picture}`}
-            alt=""
-          />
-          <div className="rounded-border" />
-          <div className="rounded-border2" />
-        </div>
-        <label className="form-label">
-          Photo :
-          <input
-            type="file"
-            onChange={handlePictureSelect}
-            className="form-input"
-          />
-          <span
-            className={validePictureType ? "signup-hide" : "signup-invalid"}
-          >
-            Merci de choisir un fichier .JPEG/JPG/PNG
-          </span>
-        </label>
-        <label className="form-label">
-          CV :
-          <input
-            type="file"
-            onChange={handleResumeSelect}
-            className="form-input"
-          />
-          <span className={valideResumeType ? "signup-hide" : "signup-invalid"}>
-            Merci de choisir un fichier .PDF
-          </span>
-        </label>
-        <div />
-        <div>
-          <div>
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label>
-                  <input
-                    type="radio"
-                    value="male"
-                    name="gender"
-                    onChange={(e) => setGender(e.target.value)}
-                    checked={gender === "male"}
-                  />
-                  Homme
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    value="female"
-                    name="gender"
-                    onChange={(e) => setGender(e.target.value)}
-                    checked={gender === "female"}
-                  />
-                  Femme
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    value="non-binary"
-                    name="gender"
-                    onChange={(e) => setGender(e.target.value)}
-                    checked={gender === "non-binary"}
-                  />
-                  Non-binaire
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    value={
-                      gender !== "male" &&
-                      gender !== "female" &&
-                      gender !== "non-binary"
-                        ? gender
-                        : ""
-                    }
-                    checked={
-                      gender !== "male" &&
-                      gender !== "female" &&
-                      gender !== "non-binary"
-                    }
-                    name="gender"
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                  Autre
-                </label>
-                {gender !== "male" &&
-                  gender !== "female" &&
-                  gender !== "non-binary" && (
-                    <label>
-                      <input
-                        type="text"
-                        value={gender}
-                        onChange={(e) => setGender(e.target.value)}
-                        placeholder="Je suis ..."
-                      />
-                    </label>
-                  )}
-              </div>
-
-              <label className="form-label">
-                Prénom :
-                <input
-                  type="text"
-                  value={firstname}
-                  onChange={(e) => setFirstname(e.target.value)}
-                  className="form-input"
-                />
-              </label>
-              <label className="form-label">
-                Nom :
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="form-input"
-                />
-              </label>
-              <label className="form-label">
-                Email :
-                <input
-                  type="text"
-                  value={mail}
-                  onChange={(e) => setMail(e.target.value)}
-                  className="form-input"
-                />
-              </label>
-              <label className="form-label">
-                Téléphone :
-                <input
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="form-input"
-                />
-              </label>
-              <label className="form-label">
-                Date de naissance : {formattedBirthday}
-                <input
-                  type="date"
-                  value={birthday}
-                  onChange={(e) => setBirthday(e.target.value)}
-                  className="form-input"
-                />
-              </label>
-              <label className="form-label">
-                Code Postal :
-                <input
-                  type="text"
-                  value={postalAddress}
-                  onChange={(e) => setPostalAddress(e.target.value)}
-                  className="form-input"
-                />
-              </label>
-              <label className="form-label">
-                Ville :
-                <input
-                  type="text"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  className="form-input"
-                />
-              </label>
-              <label className="form-label">
-                Rue :
-                <input
-                  type="text"
-                  value={street}
-                  onChange={(e) => setStreet(e.target.value)}
-                  className="form-input"
-                />
-              </label>
-              <button type="submit">Valider</button>
-            </form>
+      <div className="users-informations_column">
+        <h1 className="users-informations_h1">Mes informations</h1>
+        <h2 className="users-informations_picture-h2">Photo de profil</h2>
+        <div className="rounded-img_container">
+          <div className="rounded-image">
+            <img
+              className="users-informations_picture"
+              src={`${urlFile}${candidateInfos?.picture}`}
+              alt=""
+            />
+            <div className="rounded-border" />
+            <div className="rounded-border2" />
           </div>
+          <form onSubmit={handleSubmit} className="form-edit">
+            <div className="users-informations_files-container">
+              <label className="form-label">
+                Photo :
+                <input
+                  type="file"
+                  onChange={handlePictureSelect}
+                  className="form-input"
+                />
+                <span
+                  className={
+                    validePictureType ? "signup-hide" : "signup-invalid"
+                  }
+                >
+                  Merci de choisir un fichier .JPEG/JPG/PNG
+                </span>
+              </label>
+              <div className="form-label_container">
+                <label className="form-label_resume">
+                  CV :
+                  <input
+                    type="file"
+                    onChange={handleResumeSelect}
+                    className="form-input"
+                  />{" "}
+                  <a
+                    href={urlFile + resume}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="resume-download"
+                  >
+                    (Télécharger)
+                  </a>
+                  <span
+                    className={
+                      valideResumeType ? "signup-hide" : "signup-invalid"
+                    }
+                  >
+                    Merci de choisir un fichier .PDF
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div />
+            <div>
+              <div className="form-infos_container">
+                <div className="form-label_gender-container">
+                  <label className="form-label_gender">
+                    <input
+                      type="radio"
+                      value="male"
+                      name="gender"
+                      onChange={(e) => setGender(e.target.value)}
+                      checked={gender === "male"}
+                      className="form-input_gender"
+                    />
+                    Homme
+                  </label>
+                  <label className="form-label_gender">
+                    <input
+                      type="radio"
+                      value="female"
+                      name="gender"
+                      onChange={(e) => setGender(e.target.value)}
+                      checked={gender === "female"}
+                      className="form-input_gender"
+                    />
+                    Femme
+                  </label>
+                  <label className="form-label_gender">
+                    <input
+                      type="radio"
+                      value="non-binary"
+                      name="gender"
+                      onChange={(e) => setGender(e.target.value)}
+                      checked={gender === "non-binary"}
+                      className="form-input_gender"
+                    />
+                    Non-binaire
+                  </label>
+                  <label className="form-label_gender">
+                    <input
+                      type="radio"
+                      value={
+                        gender !== "male" &&
+                        gender !== "female" &&
+                        gender !== "non-binary"
+                          ? gender
+                          : ""
+                      }
+                      checked={
+                        gender !== "male" &&
+                        gender !== "female" &&
+                        gender !== "non-binary"
+                      }
+                      name="gender"
+                      onChange={(e) => setGender(e.target.value)}
+                      className="form-input_gender"
+                    />
+                    Autre
+                  </label>
+                  {gender !== "male" &&
+                    gender !== "female" &&
+                    gender !== "non-binary" && (
+                      <label className="form-label_gender">
+                        <input
+                          type="text"
+                          value={gender}
+                          onChange={(e) => setGender(e.target.value)}
+                          placeholder="Je suis ..."
+                          className="form-input_gender-other"
+                        />
+                      </label>
+                    )}
+                </div>
+
+                <label className="form-label">
+                  Prénom :
+                  <input
+                    type="text"
+                    value={firstname}
+                    onChange={(e) => setFirstname(e.target.value)}
+                    className="form-input"
+                  />
+                </label>
+                <label className="form-label">
+                  Nom :
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="form-input"
+                  />
+                </label>
+                <label className="form-label">
+                  Email :
+                  <input
+                    type="text"
+                    value={mail}
+                    onChange={(e) => setMail(e.target.value)}
+                    className="form-input"
+                  />
+                </label>
+                <label className="form-label">
+                  Téléphone :
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="form-input"
+                  />
+                </label>
+                <label className="form-label">
+                  Date de naissance :{" "}
+                  <input
+                    type="date"
+                    value={birthday}
+                    onChange={(e) => setBirthday(e.target.value)}
+                    className="form-input"
+                  />
+                  <span className="span-birthday">{formattedBirthday}</span>
+                </label>
+                <label className="form-label">
+                  Code Postal :
+                  <input
+                    type="text"
+                    value={postalAddress}
+                    onChange={(e) => setPostalAddress(e.target.value)}
+                    className="form-input"
+                  />
+                </label>
+                <label className="form-label">
+                  Ville :
+                  <input
+                    type="text"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    className="form-input"
+                  />
+                </label>
+                <label className="form-label">
+                  Rue :
+                  <input
+                    type="text"
+                    value={street}
+                    onChange={(e) => setStreet(e.target.value)}
+                    className="form-input"
+                  />
+                </label>
+                <div className="form-btn-container">
+                  <button type="submit" className="form-btn">
+                    Valider
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

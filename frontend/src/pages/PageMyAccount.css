@@ -1,0 +1,11 @@
+.pagemyaccount-container {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.pagemyaccount-btn {
+  padding: 5px 10px;
+  border-radius: 3px;
+}
