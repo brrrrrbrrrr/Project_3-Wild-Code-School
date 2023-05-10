@@ -8,5 +8,6 @@ router.post("/:offerId/like", candidateControllers.likeOffer);
 router.get("/job_title", offerControllers.getjobtitle);
 router.get("/remote", offerControllers.remotefilter);
 router.get("/contract", offerControllers.contractfilter);
+router.get("/:id", offerControllers.read);
 
 module.exports = router;
