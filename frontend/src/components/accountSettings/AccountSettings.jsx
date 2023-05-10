@@ -1,0 +1,72 @@
+import React, { useState, useEffect } from "react";
+
+function AccountSettings() {
+  const [passInit, setPassInit] = useState("");
+  const [pass1, setPass1] = useState("");
+  const [pass2, setPass2] = useState("");
+  const [validPwd, setValidPwd] = useState(false);
+  const [validMatch, setValidMatch] = useState(false);
+
+  const PWD_REDEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+
+  useEffect(() => {
+    const result = PWD_REDEX.test(pass1);
+    setValidPwd(result);
+    const match = pass1 === pass2;
+    setValidMatch(match);
+  }, [pass1, pass2]);
+
+  return (
+    <div>
+      <form>
+        <label htmlFor="passInit" className="form-label">
+          Mot de passe actuelle :
+          <input
+            type="password"
+            id="passInit"
+            value={passInit}
+            onChange={(e) => setPassInit(e.target.value)}
+            className="form-input"
+          />
+          <span
+            className={validPwd || !pass1 ? "signup-hide" : "signup-invalid"}
+          >
+            Mot de passe invalide
+          </span>
+        </label>
+        <label htmlFor="pass1" className="form-label">
+          Nouveau mot de passe :
+          <input
+            type="password"
+            id="pass1"
+            value={pass1}
+            onChange={(e) => setPass1(e.target.value)}
+            className="form-input"
+          />
+          <span
+            className={validPwd || !pass1 ? "signup-hide" : "signup-invalid"}
+          >
+            Mot de passe invalide
+          </span>
+        </label>
+        <label htmlFor="pass2" className="form-label">
+          Confirmer le mot nouveau de passe :
+          <input
+            type="password"
+            id="pass2"
+            value={pass2}
+            onChange={(e) => setPass2(e.target.value)}
+            className="form-input"
+          />
+          <span
+            className={validMatch || !pass2 ? "signup-hide" : "signup-invalid"}
+          >
+            Les mots de passe ne correspondent pas
+          </span>
+        </label>
+      </form>
+    </div>
+  );
+}
+
+export default AccountSettings;

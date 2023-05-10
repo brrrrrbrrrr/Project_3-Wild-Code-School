@@ -7,6 +7,7 @@ const UserContext = createContext(null);
 // Création du provider
 function UserProvider({ children }) {
   const [user, setUser] = useState(null);
+
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}
