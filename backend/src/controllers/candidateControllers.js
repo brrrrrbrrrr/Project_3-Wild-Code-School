@@ -23,6 +23,7 @@ const validate = (data, forCreation = true) => {
       password: joi.string().max(45).presence(presence),
       jobSeeker: joi.number().integer().min(0).max(1).presence(presence),
       contactPreference: joi.string().max(45).presence(presence),
+      gender: joi.string().max(45).presence(presence),
     })
     .validate(data, { abortEarly: false }).error;
 };
@@ -72,37 +73,6 @@ const readFile = (req, res) => {
     });
 };
 
-// eslint-disable-next-line consistent-return
-// const edit = async (req, res) => {
-//   const candidate = req.body;
-//   const errors = validate(candidate, false);
-//   if (errors) {
-//     console.error(errors);
-//     return res.status(422);
-//   }
-//   if (candidate.password) {
-//     const hashedPassword = await hashPassword(req.body.password);
-//     candidate.password = hashedPassword;
-//   }
-
-//   // TODO validations (length, format...)
-
-//   candidate.id = parseInt(req.params.id, 10);
-
-//   models.candidate
-//     .update(candidate)
-//     .then(([result]) => {
-//       if (result.affectedRows === 0) {
-//         res.sendStatus(404);
-//       } else {
-//         res.sendStatus(204);
-//       }
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.sendStatus(500);
-//     });
-// };
 const edit = async (req, res) => {
   const candidate = req.body;
 

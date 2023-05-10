@@ -64,14 +64,14 @@ class CandidateManager extends AbstractManager {
 
   find(id) {
     return this.database.query(
-      `select id, name, firstname, birthday, street, city, postalAdress, mail, phone, jobSeeker, picture, resume, contactPreference  from  ${this.table} where id = ?`,
+      `select id, name, firstname, birthday, street, city, postalAdress, mail, phone, jobSeeker, picture, resume, contactPreference,gender  from  ${this.table} where id = ?`,
       [id]
     );
   }
 
   findAll() {
     return this.database.query(
-      `select id, name, firstname, birthday, street, city, postalAdress, mail, phone, jobSeeker, picture, resume, contactPreference from  ${this.table}`
+      `select id, name, firstname, birthday, street, city, postalAdress, mail, phone, jobSeeker, picture, resume, contactPreference,gender from  ${this.table}`
     );
   }
 

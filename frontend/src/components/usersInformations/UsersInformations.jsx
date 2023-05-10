@@ -26,6 +26,8 @@ function UsersInformations({ user }) {
   const [resume, setResume] = useState(null);
   const [valideResumeType, setValidResumeType] = useState(false);
   const [reload, setReload] = useState(0);
+  const [gender, setGender] = useState("");
+
   const urlFile = import.meta.env.VITE_APP_URL;
   useEffect(() => {
     if (typeof candidateInfos !== "undefined")
@@ -41,6 +43,7 @@ function UsersInformations({ user }) {
           setPostalAddress(res.data.postalAdress);
           setMail(res.data.mail);
           setPhone(res.data.phone);
+          setGender(res.data.gender);
         })
         .catch((err) => {
           console.error(err);
@@ -88,6 +91,7 @@ function UsersInformations({ user }) {
       mail: candidateInfos.mail,
       picture: candidateInfos.picture,
       resume: candidateInfos.resume,
+      gender: candidateInfos.gender,
     };
 
     const updatedValues = {
@@ -100,6 +104,7 @@ function UsersInformations({ user }) {
       mail,
       picture,
       resume,
+      gender,
     };
 
     const formData = new FormData();
@@ -176,17 +181,75 @@ function UsersInformations({ user }) {
             Merci de choisir un fichier .PDF
           </span>
         </label>
-        <div>
-          <h2>Genre</h2>
-          <ul>
-            <li>Homme</li>
-            <li>Femme</li>
-            <li>Autres</li>
-          </ul>
-        </div>
+        <div />
         <div>
           <div>
             <form onSubmit={handleSubmit}>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    value="male"
+                    name="gender"
+                    onChange={(e) => setGender(e.target.value)}
+                    checked={gender === "male"}
+                  />
+                  Homme
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    value="female"
+                    name="gender"
+                    onChange={(e) => setGender(e.target.value)}
+                    checked={gender === "female"}
+                  />
+                  Femme
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    value="non-binary"
+                    name="gender"
+                    onChange={(e) => setGender(e.target.value)}
+                    checked={gender === "non-binary"}
+                  />
+                  Non-binaire
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    value={
+                      gender !== "male" &&
+                      gender !== "female" &&
+                      gender !== "non-binary"
+                        ? gender
+                        : ""
+                    }
+                    checked={
+                      gender !== "male" &&
+                      gender !== "female" &&
+                      gender !== "non-binary"
+                    }
+                    name="gender"
+                    onChange={(e) => setGender(e.target.value)}
+                  />
+                  Autre
+                </label>
+                {gender !== "male" &&
+                  gender !== "female" &&
+                  gender !== "non-binary" && (
+                    <label>
+                      <input
+                        type="text"
+                        value={gender}
+                        onChange={(e) => setGender(e.target.value)}
+                        placeholder="Je suis ..."
+                      />
+                    </label>
+                  )}
+              </div>
+
               <label className="form-label">
                 Prénom :
                 <input
