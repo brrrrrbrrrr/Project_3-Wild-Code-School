@@ -13,7 +13,6 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
-  console.warn("offre : ", req.params);
   models.offre
     .find(parseInt(req.params.id, 10))
     .then(([rows]) => {

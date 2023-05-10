@@ -22,8 +22,13 @@
 }
 
 .detailsOfferBody-title {
+  font-size: 25px;
+  font-weight: 500;
   padding-bottom: 10px;
-  font-size: 1.3em;
+}
+
+.detailsOfferBody-paragraph {
+  text-align: justify;
 }
 
 .detailsOfferBody-button_candidate {
@@ -56,11 +61,11 @@
   }
 
   .detailsOfferBody-right {
-    width: 70%;
+    width: 65%;
   }
 
   .detailsOfferBody-left {
-    width: 30%;
+    width: 33%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -95,6 +100,10 @@
     padding-bottom: 40px;
   }
 
+  .detailsOfferBody-icon {
+    padding-right: 5px;
+  }
+
   .detailsOfferBody-desiredProfile,
   .detailsOfferBody-employee {
     padding-bottom: 50px;
@@ -118,6 +127,15 @@
 .detailsOfferBody-salary {
   padding-bottom: 50px;
   font-size: 1.3em;
+}
+
+.detailsOfferBody-subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  justify-content: left;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .detailsOfferBody-button_candidate {

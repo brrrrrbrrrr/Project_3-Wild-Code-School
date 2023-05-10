@@ -4,6 +4,7 @@ import { HiOutlineUserGroup } from "react-icons/hi2";
 import { CgEuro } from "react-icons/cg";
 import { SiReacthookform } from "react-icons/si";
 import "./DetailsOfferBody.css";
+import Logo from "../../assets/logo.png";
 
 const DetailsOfferBody = (props) => {
   const { offre } = props;
@@ -12,25 +13,27 @@ const DetailsOfferBody = (props) => {
     <div className="detailsOfferBody-container">
       <div className="detailsOfferBody-left">
         <div className="detailsOfferBody-left_top  detailsOfferBody-textOne ">
-          <h2 className="detailsOfferBody-logo"> Logo </h2>
-          <h3 className="detailsOfferBody-desiredProfile">
-            {offre.desiredProfile}
-          </h3>
-          <h3 className="detailsOfferBody-employee">
-            <HiOutlineUserGroup /> {offre.numberOfEmployees} employés
+          <img
+            src={Logo}
+            alt="Logo de l'entreprise"
+            className="detailsOfferBody-logo"
+          />
+          <h3 className="detailsOfferBody-employee  detailsOfferBody-subtitle">
+            <HiOutlineUserGroup size={30} className="detailsOfferBody-icon" />
+            {offre.numberOfEmployees} employés
           </h3>
         </div>
 
         <div className="detailsOfferBody-left_bottom  detailsOfferBody-textOne">
           <h2 className="detailsOfferBody-poste">LE POSTE</h2>
           <h3 className="detailsOfferBody-jobTitle">{offre.jobTitleDetails}</h3>
-          <h3 className="detailsOfferBody-contrat">
-            <SiReacthookform />
+          <h3 className="detailsOfferBody-contrat detailsOfferBody-subtitle  ">
+            <SiReacthookform className="detailsOfferBody-icon" />
             {offre.contratType}
-            {offre.remoteWork === 1 ? "- Télétravail complet" : ""}
+            {offre.remoteWork === 1 ? " -Télétravail complet" : ""}
           </h3>
-          <h3 className="detailsOfferBody-salary">
-            <CgEuro /> {offre.salary} Eur par an
+          <h3 className="detailsOfferBody-salary detailsOfferBody-subtitle">
+            <CgEuro size={30} /> {offre.salary} Eur par an
           </h3>
         </div>
       </div>
@@ -40,17 +43,21 @@ const DetailsOfferBody = (props) => {
           <h2 className="detailsOfferBody-title">
             Présentation entreprise/ Info d'offre:
           </h2>
-          <p>{offre.jobOfferPresentation}</p>
+          <p className="detailsOfferBody-paragraph">
+            {offre.jobOfferPresentation}
+          </p>
         </div>
         <div className="detailsOfferBody-right_center detailsOfferBody-text">
           <h2 className="detailsOfferBody-title">
             Le profil que nous recherchons:
           </h2>
-          <p>{offre.desiredProfile}</p>
+          <p className="detailsOfferBody-paragraph">{offre.desiredProfile}</p>
         </div>
         <div className="detailsOfferBody-right_bottom detailsOfferBody-text">
           <h2 className="detailsOfferBody-title">Le process de recrutement:</h2>
-          <p>{offre.recruitmentProcess}</p>
+          <p className="detailsOfferBody-paragraph">
+            {offre.recruitmentProcess}
+          </p>
         </div>
 
         <button type="button" className="detailsOfferBody-button_candidate">
