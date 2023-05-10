@@ -71,6 +71,7 @@ class CandidateManager extends AbstractManager {
       [candidateId, offerId]
     );
   }
+
   findLike(candidateId, offerId) {
     return this.database.query(
       `select * from offer_candidate where candidateId=? and offerId=?`,

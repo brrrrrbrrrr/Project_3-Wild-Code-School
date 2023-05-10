@@ -2,6 +2,7 @@
 /* eslint-disable react/function-component-definition */
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
+import { useUser } from "../../contexts/UserContext";
 
 import useApi from "../../services/useApi";
 import Loader from "../loader/Loader";
@@ -23,6 +24,7 @@ const OffersEmploi = () => {
   const remoteRef = useRef();
   const contractRef = useRef();
   const api = useApi();
+  const user = useUser();
 
   const { ref, inView } = useInView({
     threshold: 1,
@@ -127,6 +129,7 @@ const OffersEmploi = () => {
         })
         .then((response) => {
           const sortedOffers = response.data.sort((a, b) => b.id - a.id);
+          console.warn(response.data);
           setOffers([...sortedOffers]);
           setIsAllLoaded(true);
           setPage(page + 1);
@@ -192,7 +195,9 @@ const OffersEmploi = () => {
       </div>
       <div className="offersemploi-offer_wrapper">
         {offers.map((offer) => {
-          return <OfferEmploi key={offer.id} offer={offer} />;
+          return (
+            <OfferEmploi key={offer.id} offer={offer} userId={user?.user?.id} />
+          );
         })}
         {isLoading && (
           <div>
