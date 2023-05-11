@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import useApi from "../../services/useApi";
+import useApi from "../../services/useApi";
 import { useUser } from "../../contexts/UserContext";
 
 function AccountSettings() {
@@ -8,11 +8,12 @@ function AccountSettings() {
   const [pass2, setPass2] = useState("");
   const [validPwd, setValidPwd] = useState(false);
   const [validMatch, setValidMatch] = useState(false);
-  // const api = useApi();
+
+  const api = useApi();
   const { user } = useUser();
   const userInfo = user;
   const PWD_REDEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-  console.warn("userinfos :", userInfo);
+  console.warn("userinfos :", userInfo.id);
   useEffect(() => {
     const result = PWD_REDEX.test(pass1);
     setValidPwd(result);
@@ -21,7 +22,19 @@ function AccountSettings() {
   }, [pass1, pass2]);
 
   const handleSubmit = (e) => {
+    const verifyPasswordApi = `login/candidates/${userInfo.id}/verifypassword`;
+    const password = {
+      password: passInit,
+    };
     e.preventDefault();
+    api
+      .post(verifyPasswordApi, password)
+      .then((res) => {
+        console.warn(res);
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
   };
 
   return (
@@ -42,8 +55,8 @@ function AccountSettings() {
             Mot de passe invalide
           </span>
         </label>
+        <button type="submit">Valider</button>
       </form>
-      <button type="submit">Valider</button>
 
       <label htmlFor="pass1" className="form-label">
         Nouveau mot de passe :

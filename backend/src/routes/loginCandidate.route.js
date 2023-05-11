@@ -13,9 +13,10 @@ router.post(
   verifyPasswordCandidate
 );
 router.post(
-  "/:id/changepassword",
+  "/:id/verifypassword",
   verifyToken,
   candidateControllers.getCandidateByIdToNext,
   verifyPasswordCandidateWithoutToken
 );
+
 module.exports = router;

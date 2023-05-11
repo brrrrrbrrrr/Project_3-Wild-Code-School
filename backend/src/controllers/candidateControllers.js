@@ -156,6 +156,26 @@ const edit = async (req, res) => {
   }
 };
 
+const editPassword = async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const password = req.body.password;
+  const errors = validate(password, false);
+  const hashedPassword = await hashPassword(password);
+  if (errors) {
+    console.error(errors);
+    return res.status(422).send(errors);
+  }
+  try {
+    const [result] = await models.candidate.updatePassword(hashedPassword, id);
+    if (result.affectedRows === 0) {
+      return res.sendStatus(404);
+    }
+  } catch (err) {
+    console.error(err);
+    return res.sendStatus(500);
+  }
+};
+
 // TODO validations (length, format...)
 
 // eslint-disable-next-line consistent-return
@@ -383,4 +403,5 @@ module.exports = {
   readFile,
   likeOffer,
   getCandidateByIdToNext,
+  editPassword,
 };

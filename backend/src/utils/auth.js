@@ -71,13 +71,14 @@ const verifyPasswordCandidate = (req, res) => {
       return res.sendStatus(500);
     });
 };
-const verifyPasswordCandidateWithoutToken = (req, res) => {
+const verifyPasswordCandidateWithoutToken = (req, res, next) => {
   argon2
     .verify(req.candidate.password, req.body.password)
     .then((isVerified) => {
       if (isVerified) {
         delete req.candidate.password;
         res.sendStatus(200);
+        next();
       } else {
         return res.sendStatus(401);
       }

@@ -47,6 +47,12 @@ class CandidateManager extends AbstractManager {
       candidate.id,
     ]);
   }
+  updatePassword(password, userId) {
+    return this.database.query(
+      `update ${this.table} set password = ? where id = ?`,
+      [password, userId]
+    );
+  }
 
   updatePicture(picture, userId) {
     return this.database.query(
