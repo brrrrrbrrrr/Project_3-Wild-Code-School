@@ -18,9 +18,8 @@ const OfferEmploi = ({ offer, userId }) => {
     api
       .post(`offers/${offer.id}/like`, { candidateId: user.user.id })
 
-      .then((response) => {
+      .then(() => {
         setSelected(!selected);
-        console.warn(response);
       })
       .catch((error) => {
         console.error(error);
