@@ -12,11 +12,18 @@ router.post(
   candidateControllers.getCandidateByMailToNext,
   verifyPasswordCandidate
 );
-router.post(
-  "/:id/verifypassword",
+router.put(
+  "/:id/changepassword",
   verifyToken,
   candidateControllers.getCandidateByIdToNext,
-  verifyPasswordCandidateWithoutToken
+  verifyPasswordCandidateWithoutToken,
+  candidateControllers.editPassword
 );
 
+// router.put(
+//   "/:id/changepassword",
+//   verifyToken,
+
+//   candidateControllers.editPassword
+// );
 module.exports = router;

@@ -21,6 +21,7 @@ const validate = (data, forCreation = true) => {
       mail: joi.string().email().presence(presence),
       phone: joi.string().max(45).presence(presence),
       password: joi.string().max(45).presence(presence),
+      newPassword: joi.string().max(45).presence("optional"),
       jobSeeker: joi.number().integer().min(0).max(1).presence(presence),
       contactPreference: joi.string().max(45).presence(presence),
       gender: joi.string().max(45).presence(presence),
@@ -150,26 +151,6 @@ const edit = async (req, res) => {
     }
 
     return res.sendStatus(204);
-  } catch (err) {
-    console.error(err);
-    return res.sendStatus(500);
-  }
-};
-
-const editPassword = async (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  const password = req.body.password;
-  const errors = validate(password, false);
-  const hashedPassword = await hashPassword(password);
-  if (errors) {
-    console.error(errors);
-    return res.status(422).send(errors);
-  }
-  try {
-    const [result] = await models.candidate.updatePassword(hashedPassword, id);
-    if (result.affectedRows === 0) {
-      return res.sendStatus(404);
-    }
   } catch (err) {
     console.error(err);
     return res.sendStatus(500);
@@ -345,6 +326,32 @@ const getCandidateByIdToNext = async (req, res, next) => {
       next();
     } else return res.sendStatus(401);
   } else return res.sendStatus(500);
+};
+
+const editPassword = async (req, res) => {
+  const { newPassword } = req.body;
+  const id = parseInt(req.params.id, 10);
+  const errors = validate({ newPassword }, false);
+
+  const hashedPassword = await hashPassword(newPassword);
+  if (errors) {
+    console.error(errors);
+    return res.status(422).send(errors);
+  }
+
+  models.candidate
+    .updatePassword(hashedPassword, id)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
 };
 
 const likeOffer = (req, res) => {

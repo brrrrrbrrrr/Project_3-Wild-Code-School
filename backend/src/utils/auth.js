@@ -76,8 +76,6 @@ const verifyPasswordCandidateWithoutToken = (req, res, next) => {
     .verify(req.candidate.password, req.body.password)
     .then((isVerified) => {
       if (isVerified) {
-        delete req.candidate.password;
-        res.sendStatus(200);
         next();
       } else {
         return res.sendStatus(401);
