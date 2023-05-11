@@ -22,13 +22,16 @@ function AccountSettings() {
   }, [pass1, pass2]);
 
   const handleSubmit = (e) => {
-    const verifyPasswordApi = `login/candidates/${userInfo.id}/verifypassword`;
-    const password = {
-      password: passInit,
-    };
+    const verifyPasswordApi = `login/candidates/${userInfo.id}/changepassword`;
+
     e.preventDefault();
+
+    const dataPassword = {
+      password: passInit,
+      newPassword: pass1,
+    };
     api
-      .post(verifyPasswordApi, password)
+      .put(verifyPasswordApi, dataPassword)
       .then((res) => {
         console.warn(res);
       })
@@ -49,44 +52,45 @@ function AccountSettings() {
             onChange={(e) => setPassInit(e.target.value)}
             className="form-input"
           />
+          {/* <span
+            className={validPwd || !pass1 ? "signup-hide" : "signup-invalid"}
+          >
+            Mot de passe invalide
+          </span> */}
+        </label>
+
+        <label htmlFor="pass1" className="form-label">
+          Nouveau mot de passe :
+          <input
+            type="password"
+            id="pass1"
+            value={pass1}
+            onChange={(e) => setPass1(e.target.value)}
+            className="form-input"
+          />
           <span
             className={validPwd || !pass1 ? "signup-hide" : "signup-invalid"}
           >
             Mot de passe invalide
           </span>
         </label>
+        <label htmlFor="pass2" className="form-label">
+          Confirmer le mot nouveau de passe :
+          <input
+            type="password"
+            id="pass2"
+            value={pass2}
+            onChange={(e) => setPass2(e.target.value)}
+            className="form-input"
+          />
+          <span
+            className={validMatch || !pass2 ? "signup-hide" : "signup-invalid"}
+          >
+            Les mots de passe ne correspondent pas
+          </span>
+        </label>
         <button type="submit">Valider</button>
       </form>
-
-      <label htmlFor="pass1" className="form-label">
-        Nouveau mot de passe :
-        <input
-          type="password"
-          id="pass1"
-          value={pass1}
-          onChange={(e) => setPass1(e.target.value)}
-          className="form-input"
-        />
-        <span className={validPwd || !pass1 ? "signup-hide" : "signup-invalid"}>
-          Mot de passe invalide
-        </span>
-      </label>
-      <label htmlFor="pass2" className="form-label">
-        Confirmer le mot nouveau de passe :
-        <input
-          type="password"
-          id="pass2"
-          value={pass2}
-          onChange={(e) => setPass2(e.target.value)}
-          className="form-input"
-        />
-        <span
-          className={validMatch || !pass2 ? "signup-hide" : "signup-invalid"}
-        >
-          Les mots de passe ne correspondent pas
-        </span>
-      </label>
-      {/* </form> */}
     </div>
   );
 }

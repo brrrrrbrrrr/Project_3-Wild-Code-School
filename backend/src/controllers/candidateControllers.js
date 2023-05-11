@@ -315,7 +315,8 @@ const getCandidateByMailToNext = async (req, res, next) => {
 
 const getCandidateByIdToNext = async (req, res, next) => {
   const id = parseInt(req.params.id, 10);
-  if (!id) {
+  const idPayload = req.payload.sub.id;
+  if (id !== idPayload) {
     return res.sendStatus(422);
   }
   const [result] = await models.candidate.findById(id);
