@@ -26,8 +26,7 @@ const DetailsOfferHero = (props) => {
         <h2 className="detailsOfferHero-title">{offer.jobTitleDetails}</h2>
         <div className="detailsOfferHero-subtitles">
           <h3 className="detailsOfferHero-city detailsOfferHero-subtitle_title">
-            <FiMapPin className="detailsOfferHero-icon" /> {offer.cityName} -
-            {offer.cityPostalCode}
+            <FiMapPin className="detailsOfferHero-icon" /> {offer.cityName}
           </h3>
           <h3 className="detailsOfferHero-contrat detailsOfferHero-subtitle_title">
             <SiReacthookform className="detailsOfferHero-icon" />

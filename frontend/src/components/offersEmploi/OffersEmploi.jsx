@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
+import { useUser } from "../../contexts/UserContext";
+
 import useApi from "../../services/useApi";
 import Loader from "../loader/Loader";
 import OfferEmploi from "./offerEmpoi/OfferEmploi";
@@ -23,6 +25,7 @@ const OffersEmploi = () => {
   const remoteRef = useRef();
   const contractRef = useRef();
   const api = useApi();
+  const user = useUser();
 
   const { ref, inView } = useInView({
     threshold: 1,
@@ -192,7 +195,9 @@ const OffersEmploi = () => {
       </div>
       <div className="offersemploi-offer_wrapper">
         {offers.map((offer) => {
-          return <OfferEmploi key={offer.id} offer={offer} />;
+          return (
+            <OfferEmploi key={offer.id} offer={offer} userId={user?.user?.id} />
+          );
         })}
         {isLoading && (
           <div>

@@ -1,28 +1,25 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/function-component-definition */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { HiOutlineStar } from "react-icons/hi";
 import { Button } from "@mui/material";
+import PropTypes from "prop-types";
 import { useUser } from "../../../contexts/UserContext";
 import useApi from "../../../services/useApi";
 
-const OfferEmploi = ({ offer }) => {
-  const [selected, setSelected] = useState(false);
+const OfferEmploi = ({ offer, userId }) => {
+  const [selected, setSelected] = useState(offer.candidateId === userId);
   const user = useUser();
   const api = useApi();
-  console.warn(user);
-
-  useEffect(() => {}, []);
 
   const handleIconClick = () => {
     setSelected(!selected);
     api
       .post(`offers/${offer.id}/like`, { candidateId: user.user.id })
-      .then((response) => {
+
+      .then(() => {
         setSelected(!selected);
-        console.warn(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -44,15 +41,19 @@ const OfferEmploi = ({ offer }) => {
           <h3 className="offersemploi-offer_remote">{offer.remote_type}</h3>
           <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
           <div>
-            <HiOutlineStar
-              className={
-                selected
-                  ? "offersemploi-icon_star-selected"
-                  : "offersemploi-icon_star"
-              }
-              onClick={handleIconClick}
-              size={50}
-            />
+            {user.user === null ? (
+              ""
+            ) : (
+              <HiOutlineStar
+                className={
+                  selected
+                    ? "offersemploi-icon_star-selected"
+                    : "offersemploi-icon_star"
+                }
+                onClick={handleIconClick}
+                size={50}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -61,6 +62,23 @@ const OfferEmploi = ({ offer }) => {
       </Button>
     </div>
   );
+};
+
+OfferEmploi.propTypes = {
+  userId: PropTypes.number,
+  offer: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    candidateId: PropTypes.number,
+    job_title: PropTypes.string.isRequired,
+    salary: PropTypes.string.isRequired,
+    contract_type: PropTypes.string.isRequired,
+    city_name: PropTypes.string.isRequired,
+    remote_type: PropTypes.string.isRequired,
+    numberOfEmployees: PropTypes.string.isRequired,
+  }).isRequired,
+};
+OfferEmploi.defaultProps = {
+  userId: null,
 };
 
 export default OfferEmploi;

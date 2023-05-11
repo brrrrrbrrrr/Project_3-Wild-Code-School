@@ -16,7 +16,6 @@ export default function PageDetailsOffer() {
       .get(`/offers/${id}`)
       .then((response) => {
         setOffer(response.data);
-        console.warn(response.data);
       })
       .catch((error) => {
         console.error(error);

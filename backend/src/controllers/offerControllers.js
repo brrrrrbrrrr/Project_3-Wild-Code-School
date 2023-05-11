@@ -109,7 +109,7 @@ const contractfilter = (req, res) => {
 };
 
 const read = (req, res) => {
-  models.offre
+  models.offer
     .find(parseInt(req.params.id, 10))
     .then(([rows]) => {
       if (rows[0] == null) {
