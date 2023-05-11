@@ -33,6 +33,12 @@ class CandidateManager extends AbstractManager {
       [mail]
     );
   }
+  findById(id) {
+    return this.database.query(
+      `select id, name, firstname, password from ${this.table} where id = ? `,
+      [id]
+    );
+  }
 
   update(candidate) {
     return this.database.query(`update ${this.table} set ? where id = ?`, [

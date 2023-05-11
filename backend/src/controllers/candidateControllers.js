@@ -310,6 +310,21 @@ const getCandidateByMailToNext = async (req, res, next) => {
   } else return res.sendStatus(500);
 };
 
+const getCandidateByIdToNext = async (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
+  if (!id) {
+    return res.sendStatus(422);
+  }
+  const [result] = await models.candidate.findById(id);
+  if (result) {
+    if (result[0] != null) {
+      // eslint-disable-next-line prefer-destructuring
+      req.candidate = result[0];
+      next();
+    } else return res.sendStatus(401);
+  } else return res.sendStatus(500);
+};
+
 const likeOffer = (req, res) => {
   const offerId = req.params.offerId;
   console.warn(req.body);
@@ -365,4 +380,5 @@ module.exports = {
   getCandidateByMailToNext,
   readFile,
   likeOffer,
+  getCandidateByIdToNext,
 };

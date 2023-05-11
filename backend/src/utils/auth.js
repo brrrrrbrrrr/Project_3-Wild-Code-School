@@ -71,6 +71,23 @@ const verifyPasswordCandidate = (req, res) => {
       return res.sendStatus(500);
     });
 };
+const verifyPasswordCandidateWithoutToken = (req, res) => {
+  argon2
+    .verify(req.candidate.password, req.body.password)
+    .then((isVerified) => {
+      if (isVerified) {
+        delete req.candidate.password;
+        res.sendStatus(200);
+      } else {
+        return res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.sendStatus(500);
+    });
+};
+
 const verifyToken = (req, res, next) => {
   try {
     const authorizationHeader = req.get("Authorization");
@@ -94,4 +111,5 @@ module.exports = {
   verifyPasswordCandidate,
   verifyPasswordRecruiter,
   verifyToken,
+  verifyPasswordCandidateWithoutToken,
 };
