@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import useApi from "../../services/useApi";
 import { useUser } from "../../contexts/UserContext";
 
@@ -7,7 +8,9 @@ function AccountSettings() {
   const [pass1, setPass1] = useState("");
   const [pass2, setPass2] = useState("");
   const [validPwd, setValidPwd] = useState(false);
-  const [validMatch, setValidMatch] = useState(false);
+  const [validMatch, setValidMatch] = useState(true);
+  const [reload, setReload] = useState(0);
+  const [success, setSuccess] = useState(true);
 
   const api = useApi();
   const { user } = useUser();
@@ -34,13 +37,21 @@ function AccountSettings() {
       .put(verifyPasswordApi, dataPassword)
       .then((res) => {
         console.warn(res);
+        setSuccess(true);
+        setReload(reload + 1);
+        setTimeout(() => {
+          setReload(0);
+        }, 2000);
       })
       .catch((err) => {
+        setSuccess(false);
         console.warn(err);
       });
   };
 
-  return (
+  return reload > 0 ? (
+    <p className="update-succes_p">Mise à jour ...</p>
+  ) : (
     <div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="passInit" className="form-label">
@@ -52,11 +63,10 @@ function AccountSettings() {
             onChange={(e) => setPassInit(e.target.value)}
             className="form-input"
           />
-          {/* <span
-            className={validPwd || !pass1 ? "signup-hide" : "signup-invalid"}
-          >
-            Mot de passe invalide
-          </span> */}
+          <span className={success ? "signup-hide" : "signup-invalid"}>
+            {" "}
+            Mauvais mot de passe
+          </span>
         </label>
 
         <label htmlFor="pass1" className="form-label">
@@ -89,7 +99,9 @@ function AccountSettings() {
             Les mots de passe ne correspondent pas
           </span>
         </label>
-        <button type="submit">Valider</button>
+        <button type="submit" className="form-btn">
+          Valider
+        </button>
       </form>
     </div>
   );
