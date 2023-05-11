@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from "react";
 import useApi from "../../services/useApi";
 import "./RegisterDefault.css";
+import "../usersInformations/UsersInformations.css";
 import { Link } from "react-router-dom";
 
 const RegisterCandidate = () => {
@@ -25,6 +26,7 @@ const RegisterCandidate = () => {
   const [picture, setPicture] = useState(null);
   const [resume, setResume] = useState(null);
   const [contactPreference, setContactPreference] = useState("1");
+  const [gender, setGender] = useState("");
   const [valideResumeType, setValidResumeType] = useState(false);
   const [validePictureType, setValidPictureType] = useState(false);
   const [error, setError] = useState();
@@ -92,6 +94,7 @@ const RegisterCandidate = () => {
     formData.append("picture", picture);
     formData.append("resume", resume);
     formData.append("contactPreference", contactPreference);
+    formData.append("gender", gender);
     api
       .post("/candidates", formData)
       .then((res) => {
@@ -121,6 +124,73 @@ const RegisterCandidate = () => {
       ) : (
         <div className="form-container">
           <form onSubmit={handleSubmit} className="form-signup">
+            <label className="form-label_gender">
+              <input
+                type="radio"
+                value="male"
+                name="gender"
+                onChange={(e) => setGender(e.target.value)}
+                checked={gender === "male"}
+                className="form-input_gender"
+              />
+              Homme
+            </label>
+            <label className="form-label_gender">
+              <input
+                type="radio"
+                value="female"
+                name="gender"
+                onChange={(e) => setGender(e.target.value)}
+                checked={gender === "female"}
+                className="form-input_gender"
+              />
+              Femme
+            </label>
+            <label className="form-label_gender">
+              <input
+                type="radio"
+                value="non-binary"
+                name="gender"
+                onChange={(e) => setGender(e.target.value)}
+                checked={gender === "non-binary"}
+                className="form-input_gender"
+              />
+              Non-binaire
+            </label>
+            <label className="form-label_gender">
+              <input
+                type="radio"
+                value={
+                  gender !== "male" &&
+                  gender !== "female" &&
+                  gender !== "non-binary"
+                    ? gender
+                    : ""
+                }
+                checked={
+                  gender !== "male" &&
+                  gender !== "female" &&
+                  gender !== "non-binary"
+                }
+                name="gender"
+                onChange={(e) => setGender(e.target.value)}
+                className="form-input_gender"
+              />
+              Autre
+            </label>
+            {gender !== "male" &&
+              gender !== "female" &&
+              gender !== "non-binary" && (
+                <label className="form-label_gender">
+                  <input
+                    type="text"
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                    placeholder="Je suis ..."
+                    className="form-input_gender-other"
+                  />
+                </label>
+              )}
             <label className="form-label">
               Nom :
               <input
@@ -139,6 +209,7 @@ const RegisterCandidate = () => {
                 className="form-input"
               />
             </label>
+
             <label className="form-label">
               Date de naissance :
               <input
