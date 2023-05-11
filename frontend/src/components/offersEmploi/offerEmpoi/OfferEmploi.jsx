@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/function-component-definition */
 import { useState } from "react";
 import { HiOutlineStar } from "react-icons/hi";
 import { Button } from "@mui/material";
+import PropTypes from "prop-types";
 import { useUser } from "../../../contexts/UserContext";
 import useApi from "../../../services/useApi";
 
@@ -63,6 +63,23 @@ const OfferEmploi = ({ offer, userId }) => {
       </Button>
     </div>
   );
+};
+
+OfferEmploi.propTypes = {
+  userId: PropTypes.number,
+  offer: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    candidateId: PropTypes.number,
+    job_title: PropTypes.string.isRequired,
+    salary: PropTypes.string.isRequired,
+    contract_type: PropTypes.string.isRequired,
+    city_name: PropTypes.string.isRequired,
+    remote_type: PropTypes.string.isRequired,
+    numberOfEmployees: PropTypes.string.isRequired,
+  }).isRequired,
+};
+OfferEmploi.defaultProps = {
+  userId: null,
 };
 
 export default OfferEmploi;

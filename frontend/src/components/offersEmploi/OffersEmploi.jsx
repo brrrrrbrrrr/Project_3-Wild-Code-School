@@ -2,6 +2,7 @@
 /* eslint-disable react/function-component-definition */
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
+
 import { useUser } from "../../contexts/UserContext";
 
 import useApi from "../../services/useApi";
@@ -129,7 +130,6 @@ const OffersEmploi = () => {
         })
         .then((response) => {
           const sortedOffers = response.data.sort((a, b) => b.id - a.id);
-          console.warn(response.data);
           setOffers([...sortedOffers]);
           setIsAllLoaded(true);
           setPage(page + 1);
