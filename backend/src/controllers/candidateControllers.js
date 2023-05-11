@@ -173,6 +173,7 @@ const add = async (req, res) => {
     password,
     jobSeeker,
     contactPreference,
+    gender,
   } = req.body;
   // Je recupere mes fichiers
   const fileResume = req.files.resume;
@@ -214,6 +215,7 @@ const add = async (req, res) => {
       picture,
       resume,
       contactPreference,
+      gender,
     })
     .then(([result]) => {
       // Je recupere l'id de mon nouvel utilisateur

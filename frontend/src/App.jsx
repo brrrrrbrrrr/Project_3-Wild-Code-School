@@ -8,11 +8,10 @@ import "./App.css";
 import Home from "./pages/Home";
 import NavBar from "./components/navBar/NavBar";
 import NotFound from "./components/notfound/NotFound";
-import Footer from "./components/footer/Footer";
+// import Footer from "./components/footer/Footer";
 import PageLoginRegister from "./pages/PageLoginRegister";
 import PageRegister from "./pages/PageRegister";
 import PageOffersEmploi from "./pages/PageOffersEmploi";
-import PageMyAccount from "./pages/PageMyAccount";
 
 function App() {
   return (
@@ -25,9 +24,8 @@ function App() {
           <Route path="/propos" element={<NotFound />} />
           <Route path="/connect" element={<PageLoginRegister />} />
           <Route path="/registration" element={<PageRegister />} />
-          <Route path="/my-account" element={<PageMyAccount />} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </UserProvider>
     </div>
   );
