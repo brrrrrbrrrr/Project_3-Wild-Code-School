@@ -7,6 +7,19 @@
   text-align: center;
 }
 
+.offersemploi-filters {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.offersemploi-select {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 2rem 2rem 0 2rem;
+}
+
 .offersemploi-offer_wrapper {
   display: flex;
   flex-direction: column;
@@ -95,6 +108,16 @@
 .offersemploi-icon_star-selected {
   fill: var(--extra-color);
   color: var(--extra-color);
+}
+
+#offersemploi-offer_button-info-filter {
+  border-style: hidden;
+  padding: 10px 15px;
+  background-color: #00b3ff !important;
+  border-radius: 5px;
+  color: #f1f1e6;
+  cursor: pointer;
+  box-shadow: 2px 2px 7px #00b3ff;
 }
 
 @media screen and (min-width: 768px) {

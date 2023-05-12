@@ -26,7 +26,7 @@ export default function PageDetailsOffer() {
     <div>
       <DetailsOfferHero offer={offer} />
       <DetailsOfferBody offer={offer} />
-      <DetailsOfferConsultant offer={setOffer} />
+      <DetailsOfferConsultant offer={offer} />
     </div>
   );
 }

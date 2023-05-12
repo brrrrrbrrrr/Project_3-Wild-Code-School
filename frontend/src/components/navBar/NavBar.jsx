@@ -52,7 +52,7 @@ const NavBar = () => {
               Se connecter
             </NavLink>
             <NavLink
-              to="/admin"
+              // to="/admin"
               className={user ? "account-link" : "account-link_hide"}
             >
               {user && (user.firstname ? `${user.firstname}` : `${user.name}`)}
