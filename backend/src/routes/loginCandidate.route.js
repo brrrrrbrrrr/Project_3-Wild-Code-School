@@ -20,10 +20,4 @@ router.put(
   candidateControllers.editPassword
 );
 
-// router.put(
-//   "/:id/changepassword",
-//   verifyToken,
-
-//   candidateControllers.editPassword
-// );
 module.exports = router;

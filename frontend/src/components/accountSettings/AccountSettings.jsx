@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./AccountSettings.css";
 
 import useApi from "../../services/useApi";
 import { useUser } from "../../contexts/UserContext";
@@ -11,18 +13,48 @@ function AccountSettings() {
   const [validMatch, setValidMatch] = useState(true);
   const [reload, setReload] = useState(0);
   const [success, setSuccess] = useState(true);
+  const [deleteSucces, setDeleteSucces] = useState(false);
+  const [modal, setModal] = useState(false);
+  const navigate = useNavigate();
 
   const api = useApi();
   const { user } = useUser();
   const userInfo = user;
   const PWD_REDEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-  console.warn("userinfos :", userInfo.id);
+
   useEffect(() => {
     const result = PWD_REDEX.test(pass1);
     setValidPwd(result);
     const match = pass1 === pass2;
     setValidMatch(match);
   }, [pass1, pass2]);
+
+  const handleDelete = () => {
+    const deleteAccountApi = `candidates/${userInfo.id}`;
+    api
+      .delete(deleteAccountApi)
+      .then(() => {
+        setDeleteSucces(true);
+
+        setTimeout(() => {
+          navigate("/");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }, 2000);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const handleModal = () => {
+    setModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setModal(false);
+  };
 
   const handleSubmit = (e) => {
     const verifyPasswordApi = `login/candidates/${userInfo.id}/changepassword`;
@@ -99,10 +131,53 @@ function AccountSettings() {
             Les mots de passe ne correspondent pas
           </span>
         </label>
-        <button type="submit" className="form-btn">
-          Valider
-        </button>
+        <div className="form-btn-container">
+          <button disabled={!validMatch} type="submit" className="form-btn">
+            Valider
+          </button>
+        </div>
       </form>
+      <div className="btn-delete_container">
+        <h2 className="btn-delete_h2">Compte : </h2>
+        <button className="btn-delete" type="button" onClick={handleModal}>
+          Supprimer mon compte
+        </button>
+      </div>
+
+      {modal ? (
+        <div className="delete-modal_container">
+          <div className="delete-modal_column">
+            <h2 className="delete-modal_h2">
+              Voulez vous vraiment supprimer votre compte ?
+            </h2>
+            <button
+              className="delete-modal_btn btn-yes"
+              type="button"
+              onClick={handleDelete}
+            >
+              Oui
+            </button>
+            <button
+              className="delete-modal_btn btn-no"
+              type="button"
+              onClick={handleCloseModal}
+            >
+              Non
+            </button>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+      {deleteSucces ? (
+        <div className="delete-succes_modal-container">
+          <h2 className="delete-succes_modal-h2">
+            Compte supprimé avec succès
+          </h2>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

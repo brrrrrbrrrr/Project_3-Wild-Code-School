@@ -38,7 +38,7 @@ function PageMyAccount() {
           type="button"
           onClick={handleParam}
         >
-          Paramètre
+          Paramètres
         </button>
       </div>
       {selectForm === "myAccount" ? (

@@ -41,6 +41,11 @@ router.put(
   ]),
   candidateControllers.edit
 );
-router.delete("/:id", verifyToken, candidateControllers.destroy);
+router.delete(
+  "/:id",
+  verifyToken,
+  candidateControllers.getCandidateByIdToNext,
+  candidateControllers.destroy
+);
 
 module.exports = router;
