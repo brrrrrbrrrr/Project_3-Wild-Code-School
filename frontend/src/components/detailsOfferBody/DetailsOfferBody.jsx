@@ -8,7 +8,6 @@ import Logo from "../../assets/logo.png";
 
 const DetailsOfferBody = (props) => {
   const { offer } = props;
-
   return (
     <div className="detailsOfferBody-container">
       <div className="detailsOfferBody-left">

@@ -26,7 +26,8 @@ const DetailsOfferHero = (props) => {
         <h2 className="detailsOfferHero-title">{offer.jobTitleDetails}</h2>
         <div className="detailsOfferHero-subtitles">
           <h3 className="detailsOfferHero-city detailsOfferHero-subtitle_title">
-            <FiMapPin className="detailsOfferHero-icon" /> {offer.cityName}
+            <FiMapPin className="detailsOfferHero-icon" /> {offer.cityName} -
+            {offer.postalCode}
           </h3>
           <h3 className="detailsOfferHero-contrat detailsOfferHero-subtitle_title">
             <SiReacthookform className="detailsOfferHero-icon" />
@@ -48,7 +49,7 @@ DetailsOfferHero.propTypes = {
     Logo: PropTypes.string.isRequired,
     jobTitleDetails: PropTypes.string.isRequired,
     cityName: PropTypes.string.isRequired,
-    cityPostalCode: PropTypes.string.isRequired,
+    postalCode: PropTypes.string.isRequired,
     recruiterPostalCode: PropTypes.string.isRequired,
     contratType: PropTypes.string.isRequired,
     remoteWork: PropTypes.number.isRequired,
