@@ -124,6 +124,9 @@ const RegisterCandidate = () => {
       ) : (
         <div className="form-container">
           <form onSubmit={handleSubmit} className="form-signup">
+            <div className="form-label_gender-h2_container">
+              <h2 className="form-label_gender-h2"> Genre :</h2>
+            </div>
             <label className="form-label_gender">
               <input
                 type="radio"

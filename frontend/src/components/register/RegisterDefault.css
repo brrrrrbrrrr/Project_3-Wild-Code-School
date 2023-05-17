@@ -74,6 +74,23 @@ button:disabled {
 .registration-succes_msg-connexion {
   color: var(--primary-color);
 }
+.form-label_gender-h2 {
+  width: 80%;
+  margin: 10px 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-label_gender-h2_container {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 @media screen and (min-width: 320px) {
   .form-label {
     width: 15rem;
