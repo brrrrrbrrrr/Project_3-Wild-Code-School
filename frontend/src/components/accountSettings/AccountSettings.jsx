@@ -20,6 +20,7 @@ function AccountSettings() {
   const api = useApi();
   const { user } = useUser();
   const userInfo = user;
+
   const PWD_REDEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
   useEffect(() => {
@@ -35,7 +36,6 @@ function AccountSettings() {
       .delete(deleteAccountApi)
       .then(() => {
         setDeleteSucces(true);
-
         setTimeout(() => {
           navigate("/");
           setTimeout(() => {

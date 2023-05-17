@@ -7,6 +7,7 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
   const toggleMenu = () => {
     setOpenMenuBurger(!openMenuBurger);
   };
+
   return (
     <div className="account-menu_container">
       <ul className="account-menu_ul">

@@ -38,7 +38,6 @@ const RegisterCandidate = () => {
 
   function handleResumeSelect(event) {
     const fileResume = event.target.files[0];
-
     // Vérifie que le fichier est un PDF
     if (fileResume && fileResume.type === "application/pdf") {
       setResume(fileResume);
@@ -48,9 +47,9 @@ const RegisterCandidate = () => {
       setValidResumeType(false);
     }
   }
+
   function handlePictureSelect(event) {
     const filePicture = event.target.files[0];
-
     // Vérifie que le fichier est un jpeg ou jpg
     if (
       (filePicture && filePicture.type === "image/jpeg") ||
