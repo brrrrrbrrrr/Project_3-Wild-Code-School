@@ -307,7 +307,8 @@ const getCandidateByMailToNext = async (req, res, next) => {
   if (result) {
     if (result[0] != null) {
       // eslint-disable-next-line prefer-destructuring
-      req.candidate = result[0];
+      const userType = "candidate";
+      req.candidate = { ...result[0], userType };
       next();
     } else return res.sendStatus(401);
   } else return res.sendStatus(500);

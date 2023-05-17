@@ -2,8 +2,12 @@
 import React from "react";
 import "./AccountMenu.css";
 import { NavLink } from "react-router-dom";
+import { useUser } from "../../contexts/UserContext";
 
 function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
+  const { user } = useUser();
+  const userInfo = user;
+
   const toggleMenu = () => {
     setOpenMenuBurger(!openMenuBurger);
   };
@@ -15,8 +19,12 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
           <NavLink>Notifications</NavLink>
         </li>
         <li className="account-menu_li">
-          {" "}
-          <NavLink>Mes offres</NavLink>
+          {userInfo.userType === "candidate" && <NavLink>Mes offres</NavLink>}
+          {userInfo.userType === "compagny" && (
+            <NavLink onClick={toggleMenu} to="my-recruiters">
+              Mes recruteurs
+            </NavLink>
+          )}
         </li>
         <li className="account-menu_li">
           {" "}

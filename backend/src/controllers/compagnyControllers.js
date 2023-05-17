@@ -173,7 +173,8 @@ const getUserByEmailWithPasswordAndPassToNext = async (req, res, next) => {
   const result = await models.compagny.getUserByLogin(mail);
   if (result) {
     if (result[0] != null) {
-      req.compagny = { ...result[0] };
+      const userType = "compagny";
+      req.compagny = { ...result[0], userType };
       next();
     } else return res.sendStatus(401);
   } else return res.sendStatus(500);
