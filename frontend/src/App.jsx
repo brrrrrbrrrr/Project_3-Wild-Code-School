@@ -8,7 +8,8 @@ import "./App.css";
 import Home from "./pages/Home";
 import NavBar from "./components/navBar/NavBar";
 import NotFound from "./components/notfound/NotFound";
-// import Footer from "./components/footer/Footer";
+import Footer from "./components/footer/Footer";
+import PageDetailsOffer from "./pages/PageDetailsOffer";
 import PageLoginRegister from "./pages/PageLoginRegister";
 import PageRegister from "./pages/PageRegister";
 import PageOffersEmploi from "./pages/PageOffersEmploi";
@@ -23,11 +24,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/offer" element={<PageOffersEmploi />} />
           <Route path="/propos" element={<NotFound />} />
+          <Route path="/offers/:id" element={<PageDetailsOffer />} />
           <Route path="/connect" element={<PageLoginRegister />} />
           <Route path="/registration" element={<PageRegister />} />
           <Route path="/my-account" element={<PageMyAccount />} />
         </Routes>
-        {/* <Footer /> */}
+        <Footer />
       </UserProvider>
     </div>
   );

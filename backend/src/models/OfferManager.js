@@ -6,9 +6,18 @@ class OfferManager extends AbstractManager {
   }
 
   find(id) {
-    return this.database.query(`select *  from  ${this.table} where id = ?`, [
-      id,
-    ]);
+    return this.database.query(
+      `select offer.*, city.name as cityName, contrat.type as contratType, compagny.Logo, recruiter.postalCode as recruiterPostalCode,
+       consultant.picture as consultantPicture, consultant.firstname as consultantFirstname, consultant.name as consultantName
+      from  ${this.table} 
+      join city on city.id=offer.cityId 
+      join contrat on contrat.id=offer.contratId 
+      join recruiter on recruiter.id=offer.recruiterId
+      join compagny on compagny.id =recruiter.compagny_id
+      join consultant on consultant.id=offer.consultantId 
+      where offer.id = ?`,
+      [id]
+    );
   }
 
   findAll(page, limit) {
@@ -16,7 +25,7 @@ class OfferManager extends AbstractManager {
 
     return this.database.query(
       `
-  SELECT o.id, o.salary, o.teamPicture, o.jobOfferPresentation, o.desiredProfile, o.recruitmentProcess, o.numberOfEmployees, o.jobTitleDetails, c.name AS city_name, co.Logo, ct.type AS contract_type, j.name AS job_title, re.type AS remote_type
+  SELECT o.id, o.salary, o.teamPicture, o.jobOfferPresentation, o.desiredProfile, o.recruitmentProcess, o.numberOfEmployees, o.jobTitleDetails, c.name AS city_name, co.Logo, ct.type AS contract_type, j.name AS job_title, re.type AS remote_type, offer_candidate.candidateId
   FROM offer AS o
   JOIN city AS c ON c.id = o.cityId
   JOIN recruiter AS r ON r.id = o.recruiterId
@@ -24,6 +33,7 @@ class OfferManager extends AbstractManager {
   JOIN contrat AS ct ON ct.id = o.contratId
   JOIN job_title as j ON j.id = o.jobTitleId
   JOIN remote AS re ON re.id = o.remoteId
+  LEFT JOIN offer_candidate ON o.id = offer_candidate.offerId
   LIMIT ? OFFSET ? 
 
 `,

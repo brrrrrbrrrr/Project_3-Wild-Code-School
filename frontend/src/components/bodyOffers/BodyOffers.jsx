@@ -1,5 +1,6 @@
 /* eslint-disable react/function-component-definition */
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import useApi from "../../services/useApi";
 import "./BodyOffers.css";
 
@@ -28,9 +29,11 @@ const BodyOffers = () => {
             <h3 className="bodyoffers-offer_title">{offer.jobTitleDetails}</h3>
             <h3 className="bodyoffers-offer_city">{offer.city_name}</h3>
             <h3 className="bodyoffers-offer_salary">{offer.salary} euro/an</h3>
-            <button type="button" className="bodyoffers-offer_button-info">
-              Plus d'infos
-            </button>
+            <Link to={`/offers/${offer.id}`}>
+              <button type="button" className="bodyoffers-offer_button-info">
+                Plus d'infos
+              </button>
+            </Link>
           </div>
         ))}
       </div>

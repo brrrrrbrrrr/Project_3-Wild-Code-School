@@ -1,0 +1,100 @@
+.detailsOfferConsultant-container {
+  min-height: 300px;
+  width: 100%;
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  padding-bottom: 40px;
+}
+
+.detailsOfferConsultant-title {
+  font-size: 25px;
+  font-weight: 800;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.detailsOfferConsultant-subtitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detailsOfferConsultant-picture {
+  border-radius: 50%;
+  height: 190px;
+  width: 190px;
+  background-color: gray;
+}
+
+.detailsOfferConsultant-identity {
+  font-size: 20px;
+  font-weight: 400;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+
+.detailsOfferConsultant-city {
+  font-size: 20px;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-top: 10px;
+  padding-bottom: 150px;
+  line-height: 1.5;
+}
+
+@media screen and (min-width: 768px) {
+  .detailsOfferConsultant-container {
+    align-items: flex-start;
+    background-color: white;
+    padding-left: 200px;
+    padding-bottom: 60px;
+  }
+
+  .detailsOfferConsultant-subtitle {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .detailsOfferConsultant-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detailsOfferConsultant-title {
+    font-size: 25px;
+    font-weight: 500;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .detailsOfferConsultant-picture {
+    border-radius: 50%;
+    background-color: gray;
+  }
+
+  .detailsOfferConsultant-identity {
+    font-size: 20px;
+    font-weight: 400;
+    padding-bottom: 15px;
+    padding-left: 30px;
+  }
+
+  .detailsOfferConsultant-city {
+    font-size: 20px;
+    font-weight: 400;
+    padding-bottom: 150px;
+    padding-left: 15px;
+  }
+}
