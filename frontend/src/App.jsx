@@ -14,6 +14,8 @@ import PageLoginRegister from "./pages/PageLoginRegister";
 import PageRegister from "./pages/PageRegister";
 import PageOffersEmploi from "./pages/PageOffersEmploi";
 import PageMyAccount from "./pages/PageMyAccount";
+import PageMyRecruiters from "./pages/PageMyRecruiters";
+import RegisterNewRecruiter from "./components/register/RegisterNewRecruiter";
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
           <Route path="/connect" element={<PageLoginRegister />} />
           <Route path="/registration" element={<PageRegister />} />
           <Route path="/my-account" element={<PageMyAccount />} />
+          <Route path="/my-recruiters" element={<PageMyRecruiters />} />
+          <Route path="/add-recruiter" element={<RegisterNewRecruiter />} />
         </Routes>
         <Footer />
       </UserProvider>

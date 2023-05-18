@@ -412,6 +412,9 @@ MODIFY COLUMN picture VARCHAR(150) NULL DEFAULT NULL;
 -- Benjamin (10/05)
 ALTER TABLE candidate ADD COLUMN gender VARCHAR(45) NOT NULL;
 
+-- Benjamin(18/05)
+ALTER TABLE recruiter ADD COLUMN gender VARCHAR(45) NOT NULL;
+
 
 
 INSERT INTO offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredProfile, recruitmentProcess, numberOfEmployees, jobTitleDetails, cityId, consultantId, recruiterId, contratId, jobTitleId)
