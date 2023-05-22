@@ -1,7 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const router = require("express").Router();
 const multer = require("multer");
-const { storageCandidate, UpdateStorageCandidate } = require("../utils/multer");
+const {
+  storageCandidate,
+  UpdateStorageCandidate,
+} = require("../utils/multerCandidate");
 
 const candidateControllers = require("../controllers/candidateControllers");
 const { verifyToken } = require("../utils/auth");

@@ -187,7 +187,7 @@ const add = async (req, res) => {
     "uploads",
     "candidate"
   );
-  console.warn(req);
+
   const candidateFolder = req.pathFolder;
 
   const resume = `candidate/${fileResume[0].filename}`;
@@ -220,6 +220,7 @@ const add = async (req, res) => {
     })
     .then(([result]) => {
       // Je recupere l'id de mon nouvel utilisateur
+
       const idNewUser = result.insertId.toString();
       const newFolder = path.join(candidateFolderDefault, idNewUser);
       fs.renameSync(candidateFolder, newFolder, (err) => {

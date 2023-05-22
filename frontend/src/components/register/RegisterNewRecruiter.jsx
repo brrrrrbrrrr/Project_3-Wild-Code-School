@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import useApi from "../../services/useApi";
 import "./RegisterDefault.css";
 import "../usersInformations/UsersInformations.css";
+import { useUser } from "../../contexts/UserContext";
 
 const RegisterCandidate = () => {
   const [name, setName] = useState("");
@@ -12,7 +13,7 @@ const RegisterCandidate = () => {
   const [birthday, setBirthday] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
-  const [postalAddress, setPostalAddress] = useState("");
+  const [postalCode, setPostalCode] = useState("");
   const [mail, setMail] = useState("");
   const [pass1, setPass1] = useState("");
   const [pass2, setPass2] = useState("");
@@ -21,10 +22,11 @@ const RegisterCandidate = () => {
   const [validMail, setValidMail] = useState(false);
   const [success, setSuccess] = useState(false);
   const [phone, setPhone] = useState("");
-  const [jobSeeker, setJobSeeker] = useState(1);
+  const valide = "0";
+  const { user } = useUser();
+
   const [picture, setPicture] = useState(null);
 
-  const [contactPreference, setContactPreference] = useState("1");
   const [gender, setGender] = useState("");
 
   const [validePictureType, setValidPictureType] = useState(false);
@@ -72,13 +74,14 @@ const RegisterCandidate = () => {
     formData.append("birthday", birthday);
     formData.append("street", street);
     formData.append("city", city);
-    formData.append("postalAdress", postalAddress);
+    formData.append("postalCode", postalCode);
     formData.append("mail", mail);
     formData.append("phone", phone);
     formData.append("password", pass1);
-    formData.append("jobSeeker", jobSeeker);
+    formData.append("valide", valide);
     formData.append("picture", picture);
-    formData.append("contactPreference", contactPreference);
+    formData.append("compagny_id", user.id);
+
     formData.append("gender", gender);
     api
       .post("/recruiters", formData)
@@ -225,8 +228,8 @@ const RegisterCandidate = () => {
               Code Postal :
               <input
                 type="text"
-                value={postalAddress}
-                onChange={(e) => setPostalAddress(e.target.value)}
+                value={postalCode}
+                onChange={(e) => setPostalCode(e.target.value)}
                 className="form-input"
               />
             </label>
@@ -239,17 +242,7 @@ const RegisterCandidate = () => {
                 className="form-input"
               />
             </label>
-            <label className="form-label">
-              Actuellement :
-              <select
-                value={jobSeeker}
-                onChange={(e) => setJobSeeker(e.target.value)}
-                className="form-input"
-              >
-                <option value={0}>Employé(e)</option>
-                <option value={1}>En recherche d'emploi</option>
-              </select>
-            </label>
+
             <label className="form-label">
               Photo :
               <input
@@ -259,18 +252,6 @@ const RegisterCandidate = () => {
               />
             </label>
 
-            <label className="form-label">
-              Préférence de contact:
-              <select
-                value={contactPreference}
-                onChange={(e) => setContactPreference(e.target.value)}
-                className="form-input"
-              >
-                <option value={2}>Email</option>
-                <option value={1}>Télephone</option>
-                <option value={0}>SMS</option>
-              </select>
-            </label>
             <label className="form-label">
               Email :
               <input

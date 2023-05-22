@@ -2,6 +2,8 @@
 /* eslint-disable camelcase */
 /* eslint-disable import/no-extraneous-dependencies */
 const joi = require("joi");
+const path = require("path");
+const fs = require("fs");
 const models = require("../models");
 const { hashPassword } = require("../utils/auth");
 
@@ -20,6 +22,7 @@ const validate = (data, forCreation = true) => {
       city: joi.string().max(45).presence(presence),
       postalCode: joi.string().max(45).presence(presence),
       valide: joi.number().valid(0, 1).presence("optional"),
+      gender: joi.string().max(45).presence(presence),
     })
     .validate(data, { abortEarly: false }).error;
 };
@@ -67,8 +70,20 @@ const add = async (req, res) => {
     postalCode,
     valide,
     compagny_id,
+    gender,
   } = req.body;
+  const filePicture = req.file;
 
+  const recruiterFolderDefault = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "uploads",
+    "recruiter"
+  );
+  const recruiterFolder = req.pathFolder;
+  const picture = `recruiter/${filePicture.filname}`;
   const validationError = validate(req.body);
   if (validationError) {
     // Si les données ne sont pas valides, renvoyer une erreur 400
@@ -80,6 +95,7 @@ const add = async (req, res) => {
       name,
       firstname,
       mail,
+      picture,
       phone,
       birthday,
       password: hashedPassword,
@@ -88,9 +104,40 @@ const add = async (req, res) => {
       postalCode,
       valide,
       compagny_id,
+      gender,
     })
-    .then((result) => {
-      res.location(`/items/${result.Id}`).sendStatus(201);
+    .then(([result]) => {
+      // Je recupere l'id de mon nouvel utilisateur
+      const idNewUser = result.insertId.toString();
+      // console.log("result :", result);
+      const newFolder = path.join(recruiterFolderDefault, idNewUser);
+      fs.renameSync(recruiterFolder, newFolder, (err) => {
+        console.warn("rename folder :", err);
+      });
+      // Je recupere le nom des fichiers et j'enleve les caractères spéciaux et je rajoute l'extention
+
+      const extension = filePicture.originalname.split(".").pop();
+      const newOriginalNamePicture = `${filePicture.originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+      const originalNamePicture = path.join(newFolder, newOriginalNamePicture);
+      const fileNamePicture = path.join(newFolder, filePicture.filename);
+      const newFileNamePicture = `uploads/recruiter/${idNewUser}/${newOriginalNamePicture}`;
+      fs.renameSync(fileNamePicture, originalNamePicture, (err) => {
+        if (err) {
+          console.warn("erreur Picture :", err);
+        }
+      });
+      models.recruiter
+        .updatePicture(newFileNamePicture, idNewUser)
+        .then(() => {
+          console.warn("Update successful");
+          return res.location(`/recruiter/${result.insertId}`).sendStatus(201);
+        })
+        .catch((error) => {
+          console.error(error);
+          return res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);

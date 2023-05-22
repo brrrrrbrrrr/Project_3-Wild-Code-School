@@ -1,0 +1,138 @@
+.recruiterinfos_img-container {
+  /* border: 1px solid blue; */
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.recruiterinfos_img {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 70px;
+  height: 70px;
+  position: relative;
+  margin-top: 10px;
+}
+
+.recruiterinfos_picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rounded-bord {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 3px solid white; /* couleur du cadre */
+  border-radius: 50%;
+}
+
+.rounded-bord2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid var(--primary-color); /* couleur du cadre */
+  border-radius: 50%;
+}
+
+.recruiterinfos_container {
+  background-color: var(--background-color);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.recruiterinfos_column {
+  background-color: white;
+  /* border: 1px solid red; */
+  width: 200px;
+  height: 310px;
+  margin-bottom: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 25px;
+}
+
+.recruiterinfos_infos-container {
+  /* border: 3px solid black; */
+  width: 100%;
+
+  height: 100%;
+}
+
+.recruiterinfos_infos-column {
+  /* border: 1px solid green; */
+  height: 70%;
+  margin: 10px 10px;
+  margin-bottom: 0;
+}
+
+.recruiterinfos_infos {
+  /* border: 1px solid violet; */
+  display: flex;
+  margin-top: 30px;
+  justify-content: space-around;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.recruiterinfos_infos-city {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-style: italic;
+  color: var(--primary-color);
+}
+
+.recruiterinfos_btn-container {
+  /* border: 1px solid brown; */
+  display: flex;
+  justify-content: space-around;
+  margin: 0px 10px;
+}
+
+.recruiterinfos_btn {
+  padding: 5px 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .recruiterinfos_column {
+    width: 650px;
+    height: 200px;
+    flex-direction: row;
+  }
+  .recruiterinfos_img-container {
+    width: 30%;
+    height: 100%;
+    align-items: center;
+  }
+
+  .recruiterinfos_img {
+    width: 120px;
+    height: 120px;
+    margin-top: 0;
+  }
+  .recruiterinfos_infos {
+    font-size: 20px;
+  }
+
+  .recruiterinfos_infos-column {
+    height: 60%;
+  }
+  .recruiterinfos_btn-container {
+    height: 20%;
+    align-items: center;
+    justify-content: space-around;
+  }
+}

@@ -42,8 +42,8 @@ class RecruiterManager extends AbstractManager {
     id from  ${this.table}`);
   }
 
-  async insert(recruiter) {
-    const recruitment = await this.database.query(
+  insert(recruiter) {
+    return this.database.query(
       `insert into ${this.table} (
         name,
         firstname,
@@ -55,7 +55,8 @@ class RecruiterManager extends AbstractManager {
         city,
         postalCode,
         picture,
-        compagny_id) values (?,?,?,?,?,?,?,?,?,?,?)`,
+        compagny_id,
+        gender) values (?,?,?,?,?,?,?,?,?,?,?,?)`,
       [
         recruiter.name,
         recruiter.firstname,
@@ -68,36 +69,16 @@ class RecruiterManager extends AbstractManager {
         recruiter.postalCode,
         recruiter.picture,
         recruiter.compagny_id,
+        recruiter.gender,
       ]
     );
-    const {
-      name,
-      firstname,
-      mail,
-      phone,
-      birthday,
-      street,
-      city,
-      postalCode,
-      valide,
-      picture,
-      compagny_id,
-    } = recruitment;
-    const recruitmentInfos = {
-      name,
-      firstname,
-      mail,
-      phone,
-      birthday,
-      street,
-      city,
-      postalCode,
-      valide,
-      picture,
-      compagny_id,
-      id: recruitment.insertId,
-    };
-    return recruitmentInfos;
+  }
+
+  updatePicture(picture, userId) {
+    return this.database.query(
+      `update ${this.table} set  picture = ? where id = ?`,
+      [picture, userId]
+    );
   }
 
   getRecruiterByLogin(login) {
