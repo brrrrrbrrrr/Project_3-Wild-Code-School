@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `externatic`.`city` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `regionId` INT NOT NULL,
+  `postalCode` VARCHAR(5) NULL,
   PRIMARY KEY (`id`, `regionId`),
   INDEX `fk_city_region1_idx` (`regionId` ASC) VISIBLE,
   CONSTRAINT `fk_city_region1`
@@ -73,7 +74,6 @@ CREATE TABLE IF NOT EXISTS `externatic`.`city` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
 
 -- -----------------------------------------------------
 -- Table `externatic`.`contrat`
@@ -384,7 +384,7 @@ INSERT INTO
   region(name)VALUES("Île-de-France"), ("Rhône-Alpes");
   
   INSERT INTO
-  city(name, regionId)VALUES("Paris", 1),("Versailles", 1), ("Lyon", 2);
+  city(name, regionId, postalCode)VALUES("Paris", 1,"75000"),("Versailles", 1,"78000"), ("Lyon", 2,"69000");
   
 INSERT INTO consultant (name, firstname, mail, phone, birthday, password, street, city, postalCode, picture, superAdmin)
 VALUES ('Dupont', 'Jean', 'jdupont@example.com', '01.23.45.67.89', '1990-01-01', 'monmotdepasse', '123 rue de la Paix', 'Paris', '75001', 'default.jpg', 0);
@@ -417,3 +417,9 @@ INSERT INTO offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredP
  ("40000", 1, "teamPicture.png", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "100", "Senior Data Analyst", 3, 1, 1, 1, 3),
  ("25000", 3, "team.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "30", "Marketing Coordinator", 1, 1, 1, 2, 4),
  ("50000", 2, "teamPic.jpeg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "70", "Senior Project Manager", 3, 1, 1, 1, 5);
+
+-- Laurence (22/05)
+ ALTER TABLE city ADD postalCode VARCHAR(5) DEFAULT NULL NULL;
+
+  INSERT INTO
+  city(name, regionId, postalCode)VALUES("Paris", 1,"75000"),("Versailles", 1,"78000"), ("Lyon", 2,"69000");

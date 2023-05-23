@@ -127,6 +127,14 @@ class OfferManager extends AbstractManager {
   getcontract() {
     return this.database.query(`SELECT * FROM contrat`);
   }
+
+  findLikedCandidateOffers(candidateId) {
+    return this.database.query(
+      `select offer.* from externatic.offer 
+      join externatic.offer_candidate on offer.Id=offer_candidate.offerId where candidateId=?`,
+      [candidateId]
+    );
+  }
 }
 
 module.exports = OfferManager;

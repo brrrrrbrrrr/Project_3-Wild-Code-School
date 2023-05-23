@@ -124,10 +124,29 @@ const read = (req, res) => {
     });
 };
 
+const getLikedOffers = (req, res) => {
+  console.warn("getLikedOffers - candidat : ", req.query.candidateId);
+
+  models.offer
+    .findLikedCandidateOffers(parseInt(req.query.candidateId, 10))
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   getjobtitle,
   remotefilter,
   contractfilter,
   read,
+  getLikedOffers,
 };
