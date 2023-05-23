@@ -94,11 +94,25 @@ class RecruiterManager extends AbstractManager {
       });
   }
 
+  findById(id) {
+    return this.database.query(
+      `select id, name, firstname, password from ${this.table} where id = ? `,
+      [id]
+    );
+  }
+
   update(recruiter) {
     return this.database.query(`update ${this.table} set ? where id = ?`, [
       recruiter,
       recruiter.id,
     ]);
+  }
+
+  updatePassword(password, userId) {
+    return this.database.query(
+      `update ${this.table} set password = ? where id = ?`,
+      [password, userId]
+    );
   }
 }
 

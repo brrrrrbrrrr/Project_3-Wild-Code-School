@@ -19,7 +19,7 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
           <NavLink>Notifications</NavLink>
         </li>
         <li className="account-menu_li">
-          {userInfo.userType === "candidate" && <NavLink>Mes offres</NavLink>}
+          {userInfo.userType === "candidates" && <NavLink>Mes offres</NavLink>}
           {userInfo.userType === "compagny" && (
             <NavLink onClick={toggleMenu} to="my-recruiters">
               Mes recruteurs

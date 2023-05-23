@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AccountSettings.css";
+import PropTypes from "prop-types";
 
 import useApi from "../../services/useApi";
-import { useUser } from "../../contexts/UserContext";
 
-function AccountSettings() {
+function AccountSettings({ user }) {
   const [passInit, setPassInit] = useState("");
   const [pass1, setPass1] = useState("");
   const [pass2, setPass2] = useState("");
@@ -16,10 +16,13 @@ function AccountSettings() {
   const [deleteSucces, setDeleteSucces] = useState(false);
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
-
   const api = useApi();
-  const { user } = useUser();
-  const userInfo = user;
+  const userId = user?.id;
+  let userType = user?.userType;
+
+  if (userType === "company") {
+    userType = "recruiters";
+  }
 
   const PWD_REDEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
@@ -31,7 +34,7 @@ function AccountSettings() {
   }, [pass1, pass2]);
 
   const handleDelete = () => {
-    const deleteAccountApi = `candidates/${userInfo.id}`;
+    const deleteAccountApi = `${userType}/${userId}`;
     api
       .delete(deleteAccountApi)
       .then(() => {
@@ -57,7 +60,7 @@ function AccountSettings() {
   };
 
   const handleSubmit = (e) => {
-    const verifyPasswordApi = `login/candidates/${userInfo.id}/changepassword`;
+    const verifyPasswordApi = `login/${userType}/${userId}/changepassword`;
 
     e.preventDefault();
 
@@ -181,5 +184,12 @@ function AccountSettings() {
     </div>
   );
 }
+
+AccountSettings.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    userType: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default AccountSettings;

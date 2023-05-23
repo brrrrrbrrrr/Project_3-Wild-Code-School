@@ -18,6 +18,7 @@ const validate = (data, forCreation = true) => {
       phone: joi.string().max(45).presence(presence),
       birthday: joi.date().iso().presence(presence),
       password: joi.string().max(200).presence(presence),
+      newPassword: joi.string().max(45).presence("optional"),
       street: joi.string().max(45).presence(presence),
       city: joi.string().max(45).presence(presence),
       postalCode: joi.string().max(45).presence(presence),
@@ -31,7 +32,11 @@ const browse = (req, res) => {
   models.recruiter
     .findAll()
     .then(([rows]) => {
-      res.send(rows);
+      const recruiters = rows.map((recruiter) => ({
+        ...recruiter,
+        userType: "recruiters",
+      }));
+      res.send(recruiters);
     })
     .catch((err) => {
       console.error(err);
@@ -46,7 +51,8 @@ const read = (req, res) => {
       if (rows[0] == null) {
         res.sendStatus(404);
       } else {
-        res.send(rows[0]);
+        const recruiter = { ...rows[0], userType: "recruiters" };
+        res.send(recruiter);
       }
     })
     .catch((err) => {
@@ -163,15 +169,87 @@ const destroy = (req, res) => {
       res.sendStatus(500);
     });
 };
-const edit = (req, res) => {
-  const item = req.body;
 
-  // TODO validations (length, format...)
+const getCandidateByIdToNext = async (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
+  // const idPayload = req.payload.sub.id;
+  // if (id !== idPayload) {
+  //   return res.sendStatus(422);
+  // }
+  const [result] = await models.recruiter.findById(id);
+  if (result) {
+    if (result[0] != null) {
+      // eslint-disable-next-line prefer-destructuring
+      req.recruiter = result[0];
+      next();
+    } else return res.sendStatus(401);
+  } else return res.sendStatus(500);
+};
 
-  item.id = parseInt(req.params.id, 10);
+const edit = async (req, res) => {
+  const recruiter = req.body;
+  const errors = validate(recruiter, false);
+  if (errors) {
+    console.error(errors);
+    return res.status(422).send(errors);
+  }
+
+  if (recruiter.password) {
+    const hashedPassword = await hashPassword(req.body.password);
+    recruiter.password = hashedPassword;
+  }
+
+  recruiter.id = parseInt(req.params.id, 10);
+
+  try {
+    const [result] = await models.recruiter.update(recruiter);
+
+    if (result.affectedRows === 0) {
+      return res.sendStatus(404);
+    }
+    if (req.file) {
+      const filePicture = req.file;
+
+      const extension = filePicture.originalname.split(".").pop();
+      const newOriginalNamePicture = `${filePicture.originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+      const recruiterFolder = req.pathFolder;
+      const newFileNamePicture = `uploads/recruiter/${req.params.id}/${newOriginalNamePicture}`;
+
+      const originalNamePicture = path.join(
+        recruiterFolder,
+        newOriginalNamePicture
+      );
+      const fileNamePicture = path.join(recruiterFolder, filePicture.filename);
+
+      fs.renameSync(fileNamePicture, originalNamePicture, (err) => {
+        if (err) {
+          console.warn("erreur Picture :", err);
+        }
+      });
+      await models.recruiter.updatePicture(newFileNamePicture, recruiter.id);
+    }
+    return res.sendStatus(204);
+  } catch (err) {
+    console.error(err);
+    return res.sendStatus(500);
+  }
+};
+
+const editPassword = async (req, res) => {
+  const { newPassword } = req.body;
+  const id = parseInt(req.params.id, 10);
+  const errors = validate({ newPassword }, false);
+
+  const hashedPassword = await hashPassword(newPassword);
+  if (errors) {
+    console.error(errors);
+    return res.status(422).send(errors);
+  }
 
   models.recruiter
-    .update(item)
+    .updatePassword(hashedPassword, id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -184,6 +262,7 @@ const edit = (req, res) => {
       res.sendStatus(500);
     });
 };
+
 const getRecruiterByLoginToNext = async (req, res, next) => {
   const { mail } = req.body;
   if (!mail) {
@@ -205,4 +284,6 @@ module.exports = {
   destroy,
   getRecruiterByLoginToNext,
   edit,
+  getCandidateByIdToNext,
+  editPassword,
 };

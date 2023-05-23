@@ -71,9 +71,26 @@ const verifyPasswordCandidate = (req, res) => {
       return res.sendStatus(500);
     });
 };
+
 const verifyPasswordCandidateWithoutToken = (req, res, next) => {
   argon2
     .verify(req.candidate.password, req.body.password)
+    .then((isVerified) => {
+      if (isVerified) {
+        next();
+      } else {
+        return res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.sendStatus(500);
+    });
+};
+
+const verifyPasswordRecruiterWithoutToken = (req, res, next) => {
+  argon2
+    .verify(req.recruiter.password, req.body.password)
     .then((isVerified) => {
       if (isVerified) {
         next();
@@ -111,4 +128,5 @@ module.exports = {
   verifyPasswordRecruiter,
   verifyToken,
   verifyPasswordCandidateWithoutToken,
+  verifyPasswordRecruiterWithoutToken,
 };

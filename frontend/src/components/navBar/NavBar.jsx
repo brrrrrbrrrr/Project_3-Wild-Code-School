@@ -22,7 +22,7 @@ const NavBar = () => {
   };
 
   const { user } = useUser();
-  // console.warn("user navbar :", { user });
+
   return (
     <nav>
       <div className="navlink-container">

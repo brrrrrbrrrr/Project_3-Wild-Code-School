@@ -7,9 +7,12 @@ const UserContext = createContext(null);
 // Création du provider
 function UserProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [myRecruiter, setMyRecruiter] = useState(null);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider
+      value={{ user, setUser, myRecruiter, setMyRecruiter }}
+    >
       {children}
     </UserContext.Provider>
   );

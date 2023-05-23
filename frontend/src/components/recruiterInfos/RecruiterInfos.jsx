@@ -1,10 +1,18 @@
 import React from "react";
 import "./RecruiterInfos.css";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { useUser } from "../../contexts/UserContext";
 
 const urlFile = import.meta.env.VITE_APP_URL;
 
 function RecruiterInfos({ recruiter }) {
+  const { setMyRecruiter } = useUser();
+
+  const handleClick = () => {
+    setMyRecruiter(recruiter);
+  };
+
   return (
     <div className="recruiterinfos_container">
       <div className="recruiterinfos_column">
@@ -34,9 +42,15 @@ function RecruiterInfos({ recruiter }) {
             <button type="button" className="recruiterinfos_btn">
               Offres
             </button>
-            <button type="button" className="recruiterinfos_btn">
-              Modifier
-            </button>
+            <Link to="/my-account">
+              <button
+                type="button"
+                className="recruiterinfos_btn"
+                onClick={() => handleClick()}
+              >
+                Modifier
+              </button>
+            </Link>
           </div>
         </div>
       </div>

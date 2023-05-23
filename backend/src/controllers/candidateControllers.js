@@ -49,7 +49,8 @@ const read = (req, res) => {
       if (rows[0] == null) {
         res.sendStatus(404);
       } else {
-        res.send(rows[0]);
+        const candidate = { ...rows[0], userType: "candidates" };
+        res.send(candidate);
       }
     })
     .catch((err) => {
@@ -308,7 +309,7 @@ const getCandidateByMailToNext = async (req, res, next) => {
   if (result) {
     if (result[0] != null) {
       // eslint-disable-next-line prefer-destructuring
-      const userType = "candidate";
+      const userType = "candidates";
       req.candidate = { ...result[0], userType };
       next();
     } else return res.sendStatus(401);

@@ -1,15 +1,16 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
+
 import React, { useEffect, useState, useRef } from "react";
+import PropTypes from "prop-types";
 import "./UsersInformations.css";
 
-import bencv from "../../assets/BenjaminCHAILLANCV.pdf";
 import useApi from "../../services/useApi";
 
 function UsersInformations({ user }) {
   const api = useApi();
   const userId = user?.id;
-  const [candidateInfos, setCandidateInfos] = useState({});
+
+  const [userInfos, setUserInfos] = useState({});
   const [firstname, setFirstname] = useState("");
   const [name, setName] = useState("");
 
@@ -21,7 +22,7 @@ function UsersInformations({ user }) {
   //
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
-  const [postalAddress, setPostalAddress] = useState("");
+  const [postalCode, setPostalCode] = useState("");
   const [mail, setMail] = useState("");
   const [picture, setPicture] = useState(null);
   const [validePictureType, setValidPictureType] = useState(false);
@@ -30,29 +31,36 @@ function UsersInformations({ user }) {
   const [valideResumeType, setValidResumeType] = useState(false);
   const [reload, setReload] = useState(0);
   const [gender, setGender] = useState("");
+  let userType = user?.userType;
+
+  if (userType === "company") {
+    userType = "recruiters";
+  }
 
   const urlFile = import.meta.env.VITE_APP_URL;
+
   useEffect(() => {
-    if (typeof candidateInfos !== "undefined")
-      api
-        .get(`/candidates/${userId}`)
-        .then((res) => {
-          setCandidateInfos(res.data);
-          setFirstname(res.data.firstname);
-          setName(res.data.name);
-          setBirthday(res.data.birthday);
-          setStreet(res.data.street);
-          setCity(res.data.city);
-          setPostalAddress(res.data.postalAdress);
-          setMail(res.data.mail);
-          setPhone(res.data.phone);
-          setGender(res.data.gender);
-          setResume(res.data.resume);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+    api
+
+      .get(`/${userType}/${userId}`)
+      .then((res) => {
+        setUserInfos(res.data);
+        setFirstname(res.data.firstname);
+        setName(res.data.name);
+        setBirthday(res.data.birthday);
+        setStreet(res.data.street);
+        setCity(res.data.city);
+        setPostalCode(res.data.postalCode);
+        setMail(res.data.mail);
+        setPhone(res.data.phone);
+        setGender(res.data.gender);
+        setResume(res.data.resume);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, [reload]);
+
   function handlePictureSelect(event) {
     const filePicture = event.target.files[0];
 
@@ -86,16 +94,16 @@ function UsersInformations({ user }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const currentValues = {
-      name: candidateInfos.name,
-      firstname: candidateInfos.firstname,
-      birthday: candidateInfos.birthday,
-      street: candidateInfos.street,
-      city: candidateInfos.city,
-      postalAdress: candidateInfos.postalAdress,
-      mail: candidateInfos.mail,
-      picture: candidateInfos.picture,
-      resume: candidateInfos.resume,
-      gender: candidateInfos.gender,
+      name: userInfos.name,
+      firstname: userInfos.firstname,
+      birthday: userInfos.birthday,
+      street: userInfos.street,
+      city: userInfos.city,
+      postalCode: userInfos.postalCode,
+      mail: userInfos.mail,
+      picture: userInfos.picture,
+      resume: userInfos.resume,
+      gender: userInfos.gender,
     };
 
     const updatedValues = {
@@ -104,7 +112,7 @@ function UsersInformations({ user }) {
       birthday,
       street,
       city,
-      postalAdress: postalAddress,
+      postalCode,
       mail,
       picture,
       resume,
@@ -128,10 +136,9 @@ function UsersInformations({ user }) {
       }
     });
     api
-      .put(`/candidates/${userId}`, formData)
+      .put(`/${userType}/${userId}`, formData)
 
       .then((res) => {
-        console.warn(res);
         setReload(reload + 1);
         setTimeout(() => {
           setReload(0);
@@ -140,11 +147,9 @@ function UsersInformations({ user }) {
       .catch((err) => {
         console.error(err);
       });
-    console.warn("Registraichn Data:", formData);
+    console.warn("data", formData);
   };
 
-  console.warn("candidate :", candidateInfos);
-  console.warn("candidate user :", user.firstname);
   return reload > 0 ? (
     <p className="update-succes_p">Mise à jour ...</p>
   ) : (
@@ -156,7 +161,7 @@ function UsersInformations({ user }) {
           <div className="rounded-image">
             <img
               className="users-informations_picture"
-              src={`${urlFile}${candidateInfos?.picture}`}
+              src={`${urlFile}${userInfos?.picture}`}
               alt=""
             />
             <div className="rounded-border" />
@@ -328,8 +333,8 @@ function UsersInformations({ user }) {
                   Code Postal :
                   <input
                     type="text"
-                    value={postalAddress}
-                    onChange={(e) => setPostalAddress(e.target.value)}
+                    value={postalCode}
+                    onChange={(e) => setPostalCode(e.target.value)}
                     className="form-input"
                   />
                 </label>
@@ -364,5 +369,11 @@ function UsersInformations({ user }) {
     </div>
   );
 }
+UsersInformations.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    userType: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default UsersInformations;

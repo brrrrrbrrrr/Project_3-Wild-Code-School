@@ -8,14 +8,14 @@ class CandidateManager extends AbstractManager {
 
   insert(candidate) {
     return this.database.query(
-      `insert into ${this.table} (name, firstname, birthday, street, city, postalAdress, mail, phone, password, jobSeeker, picture, resume, contactPreference, gender) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+      `insert into ${this.table} (name, firstname, birthday, street, city, postalCode, mail, phone, password, jobSeeker, picture, resume, contactPreference, gender) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
       [
         candidate.name,
         candidate.firstname,
         candidate.birthday,
         candidate.street,
         candidate.city,
-        candidate.postalAdress,
+        candidate.postalCode,
         candidate.mail,
         candidate.phone,
         candidate.password,
@@ -34,6 +34,7 @@ class CandidateManager extends AbstractManager {
       [mail]
     );
   }
+
   findById(id) {
     return this.database.query(
       `select id, name, firstname, password from ${this.table} where id = ? `,
@@ -77,7 +78,7 @@ class CandidateManager extends AbstractManager {
 
   find(id) {
     return this.database.query(
-      `select id, name, firstname, birthday, street, city, postalAdress, mail, phone, jobSeeker, picture, resume, contactPreference,gender  from  ${this.table} where id = ?`,
+      `select id, name, firstname, birthday, street, city, postalCode, mail, phone, jobSeeker, picture, resume, contactPreference,gender  from  ${this.table} where id = ?`,
       [id]
     );
   }
