@@ -409,7 +409,8 @@ INSERT INTO remote (type) VALUES ('Présentiel'), ('Présentiel/Télétravail'),
 MODIFY COLUMN resume VARCHAR(150) NULL DEFAULT NULL,
 MODIFY COLUMN picture VARCHAR(150) NULL DEFAULT NULL;
 
-
+ALTER TABLE `externatic`.`city` 
+ADD COLUMN `postalCode` VARCHAR(45) NULL AFTER `regionId`; 
 
 INSERT INTO offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredProfile, recruitmentProcess, numberOfEmployees, jobTitleDetails, cityId, consultantId, recruiterId, contratId, jobTitleId)
  VALUES ("20000", 1, "futur foto", "jobOfferPresentation", "desiredProfile", "Recruitment Process", "23", "Ingénieur réseaux / H/F – Industrie", 1,1,1,2,1),

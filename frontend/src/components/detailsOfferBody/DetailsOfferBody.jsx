@@ -30,7 +30,7 @@ const DetailsOfferBody = (props) => {
           <h3 className="detailsOfferBody-contrat detailsOfferBody-subtitle  ">
             <SiReacthookform className="detailsOfferBody-icon" />
             {offer.contratType}
-            {offer.remoteWork === 1 ? " -Télétravail complet" : ""}
+            {offer.remote === 1 ? " -Télétravail complet" : ""}
           </h3>
           <h3 className="detailsOfferBody-salary detailsOfferBody-subtitle">
             <CgEuro size={30} /> {offer.salary} Eur par an
@@ -73,7 +73,7 @@ DetailsOfferBody.propTypes = {
     Logo: PropTypes.string.isRequired,
     jobTitleDetails: PropTypes.string.isRequired,
     contratType: PropTypes.string.isRequired,
-    remoteWork: PropTypes.number.isRequired,
+    remote: PropTypes.number.isRequired,
     numberOfEmployees: PropTypes.string.isRequired,
     salary: PropTypes.number.isRequired,
     jobOfferPresentation: PropTypes.string.isRequired,
