@@ -85,7 +85,7 @@ class CandidateManager extends AbstractManager {
 
   findAll() {
     return this.database.query(
-      `select id, name, firstname, birthday, street, city, postalAdress, mail, phone, jobSeeker, picture, resume, contactPreference, gender from  ${this.table}`
+      `select id, name, firstname, birthday, street, city, postalCode, mail, phone, jobSeeker, picture, resume, contactPreference, gender from  ${this.table}`
     );
   }
 

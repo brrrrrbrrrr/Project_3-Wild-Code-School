@@ -36,7 +36,7 @@ const browse = (req, res) => {
         ...recruiter,
         userType: "recruiters",
       }));
-      res.send(recruiters);
+      res.send(recruiters); // Inclure la propriété userType dans la réponse
     })
     .catch((err) => {
       console.error(err);
@@ -172,10 +172,10 @@ const destroy = (req, res) => {
 
 const getCandidateByIdToNext = async (req, res, next) => {
   const id = parseInt(req.params.id, 10);
-  // const idPayload = req.payload.sub.id;
-  // if (id !== idPayload) {
-  //   return res.sendStatus(422);
-  // }
+  const idPayload = req.payload.sub.id;
+  if (id !== idPayload) {
+    return res.sendStatus(422);
+  }
   const [result] = await models.recruiter.findById(id);
   if (result) {
     if (result[0] != null) {
@@ -271,7 +271,8 @@ const getRecruiterByLoginToNext = async (req, res, next) => {
   const result = await models.recruiter.getRecruiterByLogin(mail);
   if (result) {
     if (result[0] != null) {
-      req.recruiter = { ...result[0] };
+      const userType = "recruiters";
+      req.recruiters = { ...result[0], userType };
       next();
     } else return res.sendStatus(401);
   } else return res.sendStatus(500);

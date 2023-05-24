@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 import useApi from "../../services/useApi";
 
-function AccountSettings({ user }) {
+function AccountSettings({ user, userParam }) {
   const [passInit, setPassInit] = useState("");
   const [pass1, setPass1] = useState("");
   const [pass2, setPass2] = useState("");
@@ -17,11 +17,19 @@ function AccountSettings({ user }) {
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
   const api = useApi();
-  const userId = user?.id;
-  let userType = user?.userType;
+  let userType = "";
+  let userId = "";
 
-  if (userType === "company") {
-    userType = "recruiters";
+  if (user.userType === "compagny" && userParam.userType === "recruiters") {
+    userType = userParam.userType;
+  } else {
+    userType = user.userType;
+  }
+
+  if (user.userType === "compagny" && userParam.userType === "recruiters") {
+    userId = userParam.id;
+  } else {
+    userId = user.id;
   }
 
   const PWD_REDEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -190,6 +198,14 @@ AccountSettings.propTypes = {
     id: PropTypes.number.isRequired,
     userType: PropTypes.string.isRequired,
   }).isRequired,
+  userParam: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    userType: PropTypes.string.isRequired,
+  }),
+};
+
+AccountSettings.defaultProps = {
+  userParam: null,
 };
 
 export default AccountSettings;

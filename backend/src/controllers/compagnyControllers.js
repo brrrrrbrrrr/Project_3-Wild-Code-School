@@ -33,6 +33,29 @@ const getCompagny = (req, res) => {
     });
 };
 
+const getMyRecruiters = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const idPayload = req.payload.sub.id;
+
+  if (id === idPayload) {
+    models.compagny
+      .findMyRecruiter(id)
+      .then(([rows]) => {
+        const recruiters = rows.map((recruiter) => ({
+          ...recruiter,
+          userType: "recruiters",
+        }));
+        res.send(recruiters);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
+  } else {
+    res.sendStatus(422);
+  }
+};
+
 const read = (req, res) => {
   models.compagny
     .find(parseInt(req.params.id, 10))
@@ -187,4 +210,5 @@ module.exports = {
   updateCompagny,
   deleteCompagny,
   getUserByEmailWithPasswordAndPassToNext,
+  getMyRecruiters,
 };

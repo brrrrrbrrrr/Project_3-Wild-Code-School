@@ -3,6 +3,7 @@ const fs = require("fs");
 const multer = require("multer");
 const path = require("path");
 const compagnyControllers = require("../controllers/compagnyControllers");
+const { verifyToken } = require("../utils/auth");
 
 const storageCompagny = multer.diskStorage({
   destination(req, file, cb) {
@@ -35,5 +36,10 @@ router.get("/:id", compagnyControllers.read);
 router.post("/", upload.single("Logo"), compagnyControllers.postCompagny);
 router.put("/:id", compagnyControllers.updateCompagny);
 router.delete("/:id", compagnyControllers.deleteCompagny);
+router.get(
+  "/:id/my-recruiters",
+  verifyToken,
+  compagnyControllers.getMyRecruiters
+);
 
 module.exports = router;

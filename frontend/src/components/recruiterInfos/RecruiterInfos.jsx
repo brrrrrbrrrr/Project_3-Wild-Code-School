@@ -7,10 +7,10 @@ import { useUser } from "../../contexts/UserContext";
 const urlFile = import.meta.env.VITE_APP_URL;
 
 function RecruiterInfos({ recruiter }) {
-  const { setMyRecruiter } = useUser();
+  const { setUserParam } = useUser();
 
   const handleClick = () => {
-    setMyRecruiter(recruiter);
+    setUserParam(recruiter);
   };
 
   return (

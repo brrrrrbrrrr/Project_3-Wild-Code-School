@@ -21,6 +21,7 @@ class RecruiterManager extends AbstractManager {
       valide,
       picture,
       compagny_id,
+      gender,
       id from  ${this.table} where id = ?`,
       [id]
     );

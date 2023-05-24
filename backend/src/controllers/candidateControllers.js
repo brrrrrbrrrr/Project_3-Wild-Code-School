@@ -43,6 +43,7 @@ const browse = (req, res) => {
 
 const read = (req, res) => {
   const id = parseInt(req.params.id, 10);
+
   models.candidate
     .find(id)
     .then(([rows]) => {

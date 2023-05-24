@@ -9,7 +9,7 @@ function PageMyAccount() {
   const [myAccount, setMyAccount] = useState(true);
   const [myParam, setMyParam] = useState(false);
   const [selectForm, setSelectForm] = useState("myAccount");
-  const { user, myRecruiter } = useUser();
+  const { user, userParam } = useUser();
 
   const handleMyAccount = () => {
     setSelectForm("myAccount");
@@ -42,9 +42,9 @@ function PageMyAccount() {
         </button>
       </div>
       {selectForm === "myAccount" ? (
-        <UsersInformations user={myRecruiter || user} />
+        <UsersInformations user={user} userParam={userParam} />
       ) : selectForm === "myParam" ? (
-        <AccountSettings user={myRecruiter || user} />
+        <AccountSettings user={user} userParam={userParam} />
       ) : (
         ""
       )}

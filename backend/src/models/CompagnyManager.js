@@ -30,6 +30,15 @@ class CompagnyManager extends AbstractManager {
     id from  ${this.table}`);
   }
 
+  findMyRecruiter(id) {
+    return this.database.query(
+      `SELECT name, firstname, mail, phone, birthday, street, city, postalCode, valide, picture, compagny_id, gender, id
+    FROM recruiter
+    WHERE compagny_id = ?`,
+      [id]
+    );
+  }
+
   insertCompagny(compagny) {
     return this.database.query(
       `insert into ${this.table} (siretNumber, name, mail, phone, password, Valide, logo) values (?, ?, ?, ?, ?, ?, ?)`,

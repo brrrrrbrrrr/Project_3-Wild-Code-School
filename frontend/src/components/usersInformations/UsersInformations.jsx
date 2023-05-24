@@ -1,14 +1,13 @@
 /* eslint-disable no-unused-vars */
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "./UsersInformations.css";
 
 import useApi from "../../services/useApi";
 
-function UsersInformations({ user }) {
+function UsersInformations({ user, userParam }) {
   const api = useApi();
-  const userId = user?.id;
 
   const [userInfos, setUserInfos] = useState({});
   const [firstname, setFirstname] = useState("");
@@ -31,10 +30,19 @@ function UsersInformations({ user }) {
   const [valideResumeType, setValidResumeType] = useState(false);
   const [reload, setReload] = useState(0);
   const [gender, setGender] = useState("");
-  let userType = user?.userType;
+  let userType = "";
+  let userId = "";
 
-  if (userType === "company") {
-    userType = "recruiters";
+  if (user.userType === "compagny" && userParam.userType === "recruiters") {
+    userType = userParam.userType;
+  } else {
+    userType = user.userType;
+  }
+
+  if (user.userType === "compagny" && userParam.userType === "recruiters") {
+    userId = userParam.id;
+  } else {
+    userId = user.id;
   }
 
   const urlFile = import.meta.env.VITE_APP_URL;
@@ -185,29 +193,33 @@ function UsersInformations({ user }) {
                 </span>
               </label>
               <div className="form-label_container">
-                <label className="form-label_resume">
-                  CV :
-                  <input
-                    type="file"
-                    onChange={handleResumeSelect}
-                    className="form-input"
-                  />{" "}
-                  <a
-                    href={urlFile + resume}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="resume-download"
-                  >
-                    (Télécharger)
-                  </a>
-                  <span
-                    className={
-                      valideResumeType ? "signup-hide" : "signup-invalid"
-                    }
-                  >
-                    Merci de choisir un fichier .PDF
-                  </span>
-                </label>
+                {userType === "candidates" ? (
+                  <label className="form-label_resume">
+                    CV :
+                    <input
+                      type="file"
+                      onChange={handleResumeSelect}
+                      className="form-input"
+                    />{" "}
+                    <a
+                      href={urlFile + resume}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="resume-download"
+                    >
+                      (Télécharger)
+                    </a>
+                    <span
+                      className={
+                        valideResumeType ? "signup-hide" : "signup-invalid"
+                      }
+                    >
+                      Merci de choisir un fichier .PDF
+                    </span>
+                  </label>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div />
@@ -374,6 +386,14 @@ UsersInformations.propTypes = {
     id: PropTypes.number.isRequired,
     userType: PropTypes.string.isRequired,
   }).isRequired,
+  userParam: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    userType: PropTypes.string.isRequired,
+  }),
+};
+
+UsersInformations.defaultProps = {
+  userParam: null,
 };
 
 export default UsersInformations;
