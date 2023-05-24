@@ -42,16 +42,27 @@ function AccountSettings({ user, userParam }) {
   }, [pass1, pass2]);
 
   const handleDelete = () => {
-    const deleteAccountApi = `${userType}/${userId}`;
+    let refresh = null;
+    let deleteAccountApi = "";
+    if (user.userType === "compagny" && userParam.userType === "recruiters") {
+      deleteAccountApi = `${user.userType}/${user.id}/my-recruiters/${userParam.id}`;
+      refresh = 0;
+    } else {
+      deleteAccountApi = `${userType}/${userId}`;
+      refresh = 1;
+    }
+
     api
       .delete(deleteAccountApi)
       .then(() => {
         setDeleteSucces(true);
         setTimeout(() => {
           navigate("/");
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+          if (refresh === 1) {
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          }
         }, 2000);
       })
       .catch((err) => {

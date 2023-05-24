@@ -39,7 +39,7 @@ const getMyRecruiters = (req, res) => {
 
   if (id === idPayload) {
     models.compagny
-      .findMyRecruiter(id)
+      .findMyRecruiters(id)
       .then(([rows]) => {
         const recruiters = rows.map((recruiter) => ({
           ...recruiter,
@@ -54,6 +54,58 @@ const getMyRecruiters = (req, res) => {
   } else {
     res.sendStatus(422);
   }
+};
+
+const getRecruiter = (req, res) => {
+  const idRecruiter = parseInt(req.params.id, 10);
+  const idCompagny = req.payload.sub.id;
+  models.compagny
+    .findRecruiter(idRecruiter, idCompagny)
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows[0]);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const GetForDeleteRecruiter = (req, res, next) => {
+  const idRecruiter = parseInt(req.params.id, 10);
+  const idCompagny = req.payload.sub.id;
+  models.compagny
+    .findRecruiter(idRecruiter, idCompagny)
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        next();
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const deleteRecruiter = (req, res) => {
+  models.compagny
+    .deleteRcruiter(req.params.id)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
 };
 
 const read = (req, res) => {
@@ -211,4 +263,7 @@ module.exports = {
   deleteCompagny,
   getUserByEmailWithPasswordAndPassToNext,
   getMyRecruiters,
+  getRecruiter,
+  GetForDeleteRecruiter,
+  deleteRecruiter,
 };

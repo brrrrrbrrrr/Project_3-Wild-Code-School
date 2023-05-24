@@ -30,6 +30,9 @@ function UsersInformations({ user, userParam }) {
   const [valideResumeType, setValidResumeType] = useState(false);
   const [reload, setReload] = useState(0);
   const [gender, setGender] = useState("");
+
+  console.warn("USER : ", user);
+  console.warn("USER PARAM : ", userParam);
   let userType = "";
   let userId = "";
 

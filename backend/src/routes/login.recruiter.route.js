@@ -14,7 +14,7 @@ router.post(
 router.put(
   "/:id/changepassword",
   verifyToken,
-  recruiterControllers.getCandidateByIdToNext,
+  recruiterControllers.getRecruiterByIdToNext,
   verifyPasswordRecruiterWithoutToken,
   recruiterControllers.editPassword
 );

@@ -17,5 +17,10 @@ router.get("/:id", recruiterControllers.read);
 // Route protégé
 router.put("/:id", edit.single("picture"), recruiterControllers.edit);
 router.post("/", upload.single("picture"), recruiterControllers.add);
-router.delete("/:id", verifyToken, recruiterControllers.destroy);
+router.delete(
+  "/:id",
+  verifyToken,
+  recruiterControllers.getRecruiterByIdToNext,
+  recruiterControllers.destroy
+);
 module.exports = router;

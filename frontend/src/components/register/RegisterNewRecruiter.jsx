@@ -6,8 +6,10 @@ import useApi from "../../services/useApi";
 import "./RegisterDefault.css";
 import "../usersInformations/UsersInformations.css";
 import { useUser } from "../../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
-const RegisterCandidate = () => {
+const RegisterRecruiter = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [firstname, setFirstname] = useState("");
   const [birthday, setBirthday] = useState("");
@@ -23,6 +25,7 @@ const RegisterCandidate = () => {
   const [success, setSuccess] = useState(false);
   const [phone, setPhone] = useState("");
   const valide = "0";
+
   const { user } = useUser();
 
   const [picture, setPicture] = useState(null);
@@ -88,6 +91,9 @@ const RegisterCandidate = () => {
       .then((res) => {
         console.warn(res);
         setSuccess(true);
+        setTimeout(() => {
+          navigate("/my-recruiters");
+        }, 2000);
       })
       .catch((err) => {
         console.error(err);
@@ -325,4 +331,4 @@ const RegisterCandidate = () => {
   );
 };
 
-export default RegisterCandidate;
+export default RegisterRecruiter;

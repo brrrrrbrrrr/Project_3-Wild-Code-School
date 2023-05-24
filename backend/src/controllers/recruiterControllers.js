@@ -170,11 +170,11 @@ const destroy = (req, res) => {
     });
 };
 
-const getCandidateByIdToNext = async (req, res, next) => {
+const getRecruiterByIdToNext = async (req, res, next) => {
   const id = parseInt(req.params.id, 10);
   const idPayload = req.payload.sub.id;
   if (id !== idPayload) {
-    return res.sendStatus(422);
+    return res.sendStatus(401);
   }
   const [result] = await models.recruiter.findById(id);
   if (result) {
@@ -272,7 +272,7 @@ const getRecruiterByLoginToNext = async (req, res, next) => {
   if (result) {
     if (result[0] != null) {
       const userType = "recruiters";
-      req.recruiters = { ...result[0], userType };
+      req.recruiter = { ...result[0], userType };
       next();
     } else return res.sendStatus(401);
   } else return res.sendStatus(500);
@@ -285,6 +285,6 @@ module.exports = {
   destroy,
   getRecruiterByLoginToNext,
   edit,
-  getCandidateByIdToNext,
+  getRecruiterByIdToNext,
   editPassword,
 };

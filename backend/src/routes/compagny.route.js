@@ -36,10 +36,22 @@ router.get("/:id", compagnyControllers.read);
 router.post("/", upload.single("Logo"), compagnyControllers.postCompagny);
 router.put("/:id", compagnyControllers.updateCompagny);
 router.delete("/:id", compagnyControllers.deleteCompagny);
+
 router.get(
   "/:id/my-recruiters",
   verifyToken,
   compagnyControllers.getMyRecruiters
+);
+router.get(
+  "/:id/my-recruiters/:id",
+  verifyToken,
+  compagnyControllers.getRecruiter
+);
+router.delete(
+  "/:id/my-recruiters/:id",
+  verifyToken,
+  compagnyControllers.GetForDeleteRecruiter,
+  compagnyControllers.deleteRecruiter
 );
 
 module.exports = router;

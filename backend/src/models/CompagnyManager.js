@@ -30,12 +30,34 @@ class CompagnyManager extends AbstractManager {
     id from  ${this.table}`);
   }
 
-  findMyRecruiter(id) {
+  deleteRcruiter(id) {
+    return this.database.query(`delete from recruiter where id = ?`, [id]);
+  }
+
+  findMyRecruiters(id) {
     return this.database.query(
       `SELECT name, firstname, mail, phone, birthday, street, city, postalCode, valide, picture, compagny_id, gender, id
-    FROM recruiter
-    WHERE compagny_id = ?`,
+      FROM recruiter
+      WHERE compagny_id = ?`,
       [id]
+    );
+  }
+
+  findRecruiter(idRec, idComp) {
+    return this.database.query(
+      `SELECT name, firstname, mail, phone, birthday, street, city, postalCode, valide, picture, compagny_id, gender, id
+      FROM recruiter
+      WHERE id = ? AND compagny_id = ?`,
+      [idRec, idComp]
+    );
+  }
+
+  deleteRecruiter(idRec, idComp) {
+    return this.database.query(
+      `SELECT name, firstname, mail, phone, birthday, street, city, postalCode, valide, picture, compagny_id, gender, id
+      FROM recruiter
+      WHERE id = ? AND compagny_id = ?`,
+      [idRec, idComp]
     );
   }
 
