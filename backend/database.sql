@@ -415,6 +415,8 @@ ALTER TABLE candidate ADD COLUMN gender VARCHAR(45) NOT NULL;
 -- Benjamin(18/05)
 ALTER TABLE recruiter ADD COLUMN gender VARCHAR(45) NOT NULL;
 
+-- Benjamin (24/05)
+ALTER TABLE candidate CHANGE COLUMN postalAdress postalCode varchar(45) NOT NULL;
 
 
 INSERT INTO offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredProfile, recruitmentProcess, numberOfEmployees, jobTitleDetails, cityId, consultantId, recruiterId, contratId, jobTitleId)

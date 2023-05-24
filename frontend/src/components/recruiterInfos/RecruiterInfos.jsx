@@ -16,6 +16,9 @@ function RecruiterInfos({ recruiter }) {
   return (
     <div className="recruiterinfos_container">
       <div className="recruiterinfos_column">
+        <div className="recruiterinfos_phone">
+          <h3>{recruiter.phone}</h3>
+        </div>
         <div className="recruiterinfos_img-container">
           <div className="recruiterinfos_img">
             {" "}
@@ -34,10 +37,12 @@ function RecruiterInfos({ recruiter }) {
               <h2>{recruiter.name}</h2>
               <h2>{recruiter.firstname}</h2>
             </div>
+
             <div className="recruiterinfos_infos-city">
               <h2>Secteur : {recruiter.city}</h2>
             </div>
           </div>
+
           <div className="recruiterinfos_btn-container">
             <button type="button" className="recruiterinfos_btn">
               Offres
@@ -63,6 +68,7 @@ RecruiterInfos.propTypes = {
     name: PropTypes.string.isRequired,
     firstname: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
   }).isRequired,
 };
 
