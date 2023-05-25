@@ -18,7 +18,7 @@ function UsersInformations({ user, userParam }) {
   // Je formate ma date ISO 8601 en date classique
   const dateBirthDay = new Date(birthday);
   const formattedBirthday = dateBirthDay.toLocaleDateString("fr-FR");
-  //
+
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [postalCode, setPostalCode] = useState("");
@@ -29,6 +29,8 @@ function UsersInformations({ user, userParam }) {
   const [valideResumeType, setValidResumeType] = useState(false);
   const [reload, setReload] = useState(0);
   const [gender, setGender] = useState("");
+  const [contactPreference, setContactPreference] = useState("");
+  const [jobSeeker, setJobSeeker] = useState("");
 
   let userType = "";
   let userId = "";
@@ -63,6 +65,8 @@ function UsersInformations({ user, userParam }) {
         setPhone(res.data.phone);
         setGender(res.data.gender);
         setResume(res.data.resume);
+        setContactPreference(res.data.contactPreference);
+        setJobSeeker(res.data.jobSeeker);
       })
       .catch((err) => {
         console.error(err);
@@ -112,6 +116,8 @@ function UsersInformations({ user, userParam }) {
       picture: userInfos.picture,
       resume: userInfos.resume,
       gender: userInfos.gender,
+      contactPreference: userInfos.contactPreference,
+      jobSeeker: userInfos.jobSeeker,
     };
 
     const updatedValues = {
@@ -125,6 +131,8 @@ function UsersInformations({ user, userParam }) {
       picture,
       resume,
       gender,
+      contactPreference,
+      jobSeeker,
     };
 
     const formData = new FormData();
@@ -297,6 +305,33 @@ function UsersInformations({ user, userParam }) {
                       </label>
                     )}
                 </div>
+                {userType === "candidates" && (
+                  <label className="form-label">
+                    Préférence de contact:
+                    <select
+                      value={contactPreference}
+                      onChange={(e) => setContactPreference(e.target.value)}
+                      className="form-input"
+                    >
+                      <option value={2}>Email</option>
+                      <option value={1}>Télephone</option>
+                      <option value={0}>SMS</option>
+                    </select>
+                  </label>
+                )}
+                {userType === "candidates" && (
+                  <label className="form-label">
+                    Actuellement :
+                    <select
+                      value={jobSeeker}
+                      onChange={(e) => setJobSeeker(e.target.value)}
+                      className="form-input"
+                    >
+                      <option value={0}>Employé(e)</option>
+                      <option value={1}>En recherche d'emploi</option>
+                    </select>
+                  </label>
+                )}
 
                 <label className="form-label">
                   Prénom :
@@ -316,6 +351,7 @@ function UsersInformations({ user, userParam }) {
                     className="form-input"
                   />
                 </label>
+
                 <label className="form-label">
                   Email :
                   <input

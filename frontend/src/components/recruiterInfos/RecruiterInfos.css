@@ -1,5 +1,4 @@
 .recruiterinfos_img-container {
-  /* border: 1px solid blue; */
   display: flex;
   width: 100%;
   justify-content: center;
@@ -51,7 +50,6 @@
 
 .recruiterinfos_column {
   background-color: white;
-  /* border: 1px solid red; */
   width: 200px;
   height: 310px;
   margin-bottom: 75px;
@@ -70,21 +68,17 @@
 }
 
 .recruiterinfos_infos-container {
-  /* border: 3px solid black; */
   width: 100%;
-
   height: 100%;
 }
 
 .recruiterinfos_infos-column {
-  /* border: 1px solid green; */
   height: 70%;
   margin: 10px 10px;
   margin-bottom: 0;
 }
 
 .recruiterinfos_infos {
-  /* border: 1px solid violet; */
   display: flex;
   margin-top: 30px;
   justify-content: space-around;
@@ -106,7 +100,6 @@
 }
 
 .recruiterinfos_btn-container {
-  /* border: 1px solid brown; */
   display: flex;
   justify-content: space-around;
   margin: 0px 10px;
@@ -140,6 +133,7 @@
     height: 200px;
     flex-direction: row;
   }
+
   .recruiterinfos_img-container {
     width: 30%;
     height: 100%;

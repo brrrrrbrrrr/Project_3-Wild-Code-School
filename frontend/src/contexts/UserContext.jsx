@@ -8,9 +8,19 @@ const UserContext = createContext(null);
 function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [userParam, setUserParam] = useState(null);
+  const [selectForm, setSelectForm] = useState(null);
 
   return (
-    <UserContext.Provider value={{ user, setUser, userParam, setUserParam }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        userParam,
+        setUserParam,
+        selectForm,
+        setSelectForm,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

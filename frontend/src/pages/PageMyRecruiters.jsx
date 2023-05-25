@@ -7,13 +7,22 @@ import { useUser } from "../contexts/UserContext";
 import NotFound from "../components/notfound/NotFound";
 
 function PageMyRecruiters() {
-  const { user } = useUser();
+  const { user, setSelectForm } = useUser();
+  const userType = "recruiters";
+  const handleClick = () => {
+    setSelectForm(userType);
+  };
+
   return user ? (
     <div className="PageMyRecruiters-container">
       <InfosCompany />
       <div className="PageMyRecruiters-btn_container">
-        <Link to="/add-recruiter">
-          <button className="PageMyRecruiters-btn" type="button">
+        <Link to="/registration">
+          <button
+            className="PageMyRecruiters-btn"
+            type="button"
+            onClick={handleClick}
+          >
             Ajouter un recruteur
           </button>
         </Link>

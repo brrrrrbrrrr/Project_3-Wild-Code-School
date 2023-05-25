@@ -19,12 +19,7 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
           <NavLink>Notifications</NavLink>
         </li>
         <li className="account-menu_li">
-          {userInfo.userType === "candidates" && <NavLink>Mes offres</NavLink>}
-          {userInfo.userType === "compagny" && (
-            <NavLink onClick={toggleMenu} to="my-recruiters">
-              Mes recruteurs
-            </NavLink>
-          )}
+          <NavLink>Mes offres</NavLink>
         </li>
         <li className="account-menu_li">
           {" "}
@@ -47,6 +42,19 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
             Mon compte
           </NavLink>
         </li>
+        {userInfo.userType === "compagny" && (
+          <li className="account-menu_li">
+            <NavLink
+              onClick={toggleMenu}
+              to="my-recruiters"
+              className={({ isActive }) =>
+                isActive ? "active-menu_account" : ""
+              }
+            >
+              Mes recruteurs
+            </NavLink>
+          </li>
+        )}
         <li className="account-menu_li">
           {" "}
           <NavLink>Déconnexion</NavLink>

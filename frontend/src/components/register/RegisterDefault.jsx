@@ -1,15 +1,12 @@
-/* eslint-disable import/order */
-/* eslint-disable object-shorthand */
-/* eslint-disable react/function-component-definition */
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 import useApi from "../../services/useApi";
 import "./RegisterDefault.css";
 import "../usersInformations/UsersInformations.css";
-import { useUser } from "../../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
-import NotFound from "../notfound/NotFound";
+import Success from "../success/Success";
 
-const RegisterRecruiter = () => {
+function RegisterDefault({ selectForm, user }) {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -23,16 +20,14 @@ const RegisterRecruiter = () => {
   const [validPwd, setValidPwd] = useState(false);
   const [validMatch, setValidMatch] = useState(false);
   const [validMail, setValidMail] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState("");
   const [phone, setPhone] = useState("");
-  const valide = "0";
-
-  const { user } = useUser();
-
+  const [jobSeeker, setJobSeeker] = useState(1);
   const [picture, setPicture] = useState(null);
-
+  const [resume, setResume] = useState(null);
+  const [contactPreference, setContactPreference] = useState("1");
   const [gender, setGender] = useState("");
-
+  const [valideResumeType, setValidResumeType] = useState(false);
   const [validePictureType, setValidPictureType] = useState(false);
   const [error, setError] = useState();
 
@@ -40,6 +35,18 @@ const RegisterRecruiter = () => {
 
   const PWD_REDEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
   const MAIL_REDEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
+
+  function handleResumeSelect(event) {
+    const fileResume = event.target.files[0];
+    // Vérifie que le fichier est un PDF
+    if (fileResume && fileResume.type === "application/pdf") {
+      setResume(fileResume);
+      setValidResumeType(true);
+    } else {
+      setResume(null);
+      setValidResumeType(false);
+    }
+  }
 
   function handlePictureSelect(event) {
     const filePicture = event.target.files[0];
@@ -82,19 +89,30 @@ const RegisterRecruiter = () => {
     formData.append("mail", mail);
     formData.append("phone", phone);
     formData.append("password", pass1);
-    formData.append("valide", valide);
-    formData.append("picture", picture);
-    formData.append("compagny_id", user.id);
+    if (selectForm === "recruiters") {
+      formData.append("compagny_id", user?.id);
+    }
 
+    formData.append("picture", picture);
     formData.append("gender", gender);
+
+    if (selectForm === "candidates") {
+      formData.append("resume", resume);
+      formData.append("jobSeeker", jobSeeker);
+      formData.append("contactPreference", contactPreference);
+    }
+
     api
-      .post("/recruiters", formData)
+
+      .post(`/${selectForm}`, formData)
       .then((res) => {
         console.warn(res);
-        setSuccess(true);
-        setTimeout(() => {
-          navigate("/my-recruiters");
-        }, 2000);
+        setSuccess(selectForm);
+        if (selectForm === "recruiters") {
+          setTimeout(() => {
+            navigate("/my-recruiters");
+          }, 2000);
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -105,86 +123,87 @@ const RegisterRecruiter = () => {
     console.warn("Registraichn Data:", formData);
   };
 
-  return user ? (
+  return (
     <>
       {" "}
       {success ? (
-        <section className="registration-succes_msg">
-          Recruteur ajouté !{" "}
-        </section>
+        <Success success={success} />
       ) : (
         <div className="form-container">
           <form onSubmit={handleSubmit} className="form-signup">
-            <div className="form-label_gender-h2_container">
-              <h2 className="form-label_gender-h2"> Genre :</h2>
+            <div className="full">
+              <div className="form-label_gender-h2_container">
+                <h2 className="form-label_gender-h2"> Genre :</h2>
+              </div>
+
+              <label className="form-label_gender">
+                Homme
+                <input
+                  type="radio"
+                  value="male"
+                  name="gender"
+                  onChange={(e) => setGender(e.target.value)}
+                  checked={gender === "male"}
+                  className="form-input_gender"
+                />
+              </label>
+              <label className="form-label_gender">
+                Femme
+                <input
+                  type="radio"
+                  value="female"
+                  name="gender"
+                  onChange={(e) => setGender(e.target.value)}
+                  checked={gender === "female"}
+                  className="form-input_gender"
+                />
+              </label>
+              <label className="form-label_gender">
+                Non-binaire
+                <input
+                  type="radio"
+                  value="non-binary"
+                  name="gender"
+                  onChange={(e) => setGender(e.target.value)}
+                  checked={gender === "non-binary"}
+                  className="form-input_gender"
+                />
+              </label>
+              <label className="form-label_gender">
+                Autre
+                <input
+                  type="radio"
+                  value={
+                    gender !== "male" &&
+                    gender !== "female" &&
+                    gender !== "non-binary"
+                      ? gender
+                      : ""
+                  }
+                  checked={
+                    gender !== "male" &&
+                    gender !== "female" &&
+                    gender !== "non-binary"
+                  }
+                  name="gender"
+                  onChange={(e) => setGender(e.target.value)}
+                  className="form-input_gender"
+                />
+              </label>
+              {gender !== "male" &&
+                gender !== "female" &&
+                gender !== "non-binary" && (
+                  <label className="form-label_gender">
+                    <input
+                      type="text"
+                      value={gender}
+                      onChange={(e) => setGender(e.target.value)}
+                      placeholder="Je suis ..."
+                      className="form-input_gender-other"
+                    />
+                  </label>
+                )}
             </div>
-            <label className="form-label_gender">
-              <input
-                type="radio"
-                value="male"
-                name="gender"
-                onChange={(e) => setGender(e.target.value)}
-                checked={gender === "male"}
-                className="form-input_gender"
-              />
-              Homme
-            </label>
-            <label className="form-label_gender">
-              <input
-                type="radio"
-                value="female"
-                name="gender"
-                onChange={(e) => setGender(e.target.value)}
-                checked={gender === "female"}
-                className="form-input_gender"
-              />
-              Femme
-            </label>
-            <label className="form-label_gender">
-              <input
-                type="radio"
-                value="non-binary"
-                name="gender"
-                onChange={(e) => setGender(e.target.value)}
-                checked={gender === "non-binary"}
-                className="form-input_gender"
-              />
-              Non-binaire
-            </label>
-            <label className="form-label_gender">
-              <input
-                type="radio"
-                value={
-                  gender !== "male" &&
-                  gender !== "female" &&
-                  gender !== "non-binary"
-                    ? gender
-                    : ""
-                }
-                checked={
-                  gender !== "male" &&
-                  gender !== "female" &&
-                  gender !== "non-binary"
-                }
-                name="gender"
-                onChange={(e) => setGender(e.target.value)}
-                className="form-input_gender"
-              />
-              Autre
-            </label>
-            {gender !== "male" &&
-              gender !== "female" &&
-              gender !== "non-binary" && (
-                <label className="form-label_gender">
-                  <input
-                    type="text"
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    placeholder=" Je suis ..."
-                    className="form-input_gender-other"
-                  />
-                </label>
-              )}
             <label className="form-label">
               Nom :
               <input
@@ -249,7 +268,19 @@ const RegisterRecruiter = () => {
                 className="form-input"
               />
             </label>
-
+            {selectForm === "candidates" && (
+              <label className="form-label">
+                Actuellement :
+                <select
+                  value={jobSeeker}
+                  onChange={(e) => setJobSeeker(e.target.value)}
+                  className="form-input"
+                >
+                  <option value={0}>Employé(e)</option>
+                  <option value={1}>En recherche d'emploi</option>
+                </select>
+              </label>
+            )}
             <label className="form-label">
               Photo :
               <input
@@ -258,11 +289,46 @@ const RegisterRecruiter = () => {
                 className="form-input"
               />
               <span
-                className={validePictureType ? "signup-hide" : "signup-invalid"}
+                className={
+                  resume || validePictureType ? "signup-hide" : "signup-invalid"
+                }
               >
                 Merci de choisir un fichier .JPEG/JPG/PNG
               </span>
             </label>
+            {selectForm === "candidates" && (
+              <label className="form-label">
+                CV :
+                <input
+                  type="file"
+                  onChange={handleResumeSelect}
+                  className="form-input"
+                />
+                <span
+                  className={
+                    resume || valideResumeType
+                      ? "signup-hide"
+                      : "signup-invalid"
+                  }
+                >
+                  Merci de choisir un fichier .PDF
+                </span>
+              </label>
+            )}
+            {selectForm === "candidates" && (
+              <label className="form-label">
+                Préférence de contact:
+                <select
+                  value={contactPreference}
+                  onChange={(e) => setContactPreference(e.target.value)}
+                  className="form-input"
+                >
+                  <option value={2}>Email</option>
+                  <option value={1}>Télephone</option>
+                  <option value={0}>SMS</option>
+                </select>
+              </label>
+            )}
 
             <label className="form-label">
               Email :
@@ -317,15 +383,32 @@ const RegisterRecruiter = () => {
               </span>
             </label>
             <div className="form-btn-container">
-              <button
-                type="submit"
-                disabled={
-                  !validMail || !validPwd || !validMatch || !validePictureType
-                }
-                className="form-btn"
-              >
-                Valider
-              </button>
+              {selectForm === "candidates" ? (
+                <button
+                  type="submit"
+                  disabled={
+                    !validMail ||
+                    !validPwd ||
+                    !validMatch ||
+                    !validePictureType ||
+                    !valideResumeType
+                  }
+                  className="form-btn"
+                >
+                  Valider
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  disabled={
+                    !validMail || !validPwd || !validMatch || !validePictureType
+                  }
+                  className="form-btn"
+                >
+                  Valider
+                </button>
+              )}
+
               <p className="form-signup_errorMsg">
                 {error ? `${error} (mail)` : ""}
               </p>
@@ -334,9 +417,19 @@ const RegisterRecruiter = () => {
         </div>
       )}
     </>
-  ) : (
-    <NotFound />
   );
+}
+RegisterDefault.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    userType: PropTypes.string,
+  }),
+  selectForm: PropTypes.string,
 };
 
-export default RegisterRecruiter;
+RegisterDefault.defaultProps = {
+  user: null, // Modifier la valeur par défaut de "user" en null
+  selectForm: null,
+};
+
+export default RegisterDefault;

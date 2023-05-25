@@ -6,7 +6,6 @@
 }
 
 .users-informations_column {
-  /* border: 1px solid blue; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,6 +34,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .rounded-image {
   border-radius: 50%;
   overflow: hidden;
@@ -69,37 +69,35 @@
   border-radius: 50%;
 }
 .form-edit {
-  /* border: 3px solid rgb(46, 130, 66); */
   width: 100%;
 }
+
 .users-informations_files-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 1px solid red; */
   margin-top: 10px;
 }
 
 .form-label_container {
-  /* border: 1px solid rgb(0, 0, 255); */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
 .form-label_resume {
   display: flex;
   flex-direction: column;
 }
 
 .form-label_gender-container {
-  /* border: 1px solid salmon; */
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
 }
+
 .form-label_gender {
-  /* border: 1px solid brown; */
   width: 150px;
   padding: 5px 10px;
   font-size: 0.7rem;
@@ -108,12 +106,10 @@
 }
 
 .form-input_gender {
-  /* border: 5px solid black; */
   margin: 0 5px;
 }
 
 .span-birthday {
-  /* border: 1px solid palevioletred; */
   font-style: italic;
   font-size: 0.8rem;
   display: flex;
@@ -122,7 +118,6 @@
 }
 
 .form-infos_container {
-  /* border: 5px solid rgb(116, 113, 201); */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -142,7 +137,6 @@
   .users-informations_files-container {
     flex-direction: row;
     flex-wrap: wrap;
-    /* background-color: aqua; */
     justify-content: space-evenly;
   }
   .form-infos_container {
