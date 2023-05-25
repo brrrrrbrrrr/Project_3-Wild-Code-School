@@ -123,76 +123,78 @@ const RegisterCandidate = () => {
       ) : (
         <div className="form-container">
           <form onSubmit={handleSubmit} className="form-signup">
-            <div className="form-label_gender-h2_container">
-              <h2 className="form-label_gender-h2"> Genre :</h2>
+            <div className="full">
+              <div className="form-label_gender-h2_container">
+                <h2 className="form-label_gender-h2"> Genre :</h2>
+              </div>
+              <label className="form-label_gender">
+                Homme
+                <input
+                  type="radio"
+                  value="male"
+                  name="gender"
+                  onChange={(e) => setGender(e.target.value)}
+                  checked={gender === "male"}
+                  className="form-input_gender"
+                />
+              </label>
+              <label className="form-label_gender">
+                Femme
+                <input
+                  type="radio"
+                  value="female"
+                  name="gender"
+                  onChange={(e) => setGender(e.target.value)}
+                  checked={gender === "female"}
+                  className="form-input_gender"
+                />
+              </label>
+              <label className="form-label_gender">
+                Non-binaire
+                <input
+                  type="radio"
+                  value="non-binary"
+                  name="gender"
+                  onChange={(e) => setGender(e.target.value)}
+                  checked={gender === "non-binary"}
+                  className="form-input_gender"
+                />
+              </label>
+              <label className="form-label_gender">
+                Autre
+                <input
+                  type="radio"
+                  value={
+                    gender !== "male" &&
+                    gender !== "female" &&
+                    gender !== "non-binary"
+                      ? gender
+                      : ""
+                  }
+                  checked={
+                    gender !== "male" &&
+                    gender !== "female" &&
+                    gender !== "non-binary"
+                  }
+                  name="gender"
+                  onChange={(e) => setGender(e.target.value)}
+                  className="form-input_gender"
+                />
+              </label>
+              {gender !== "male" &&
+                gender !== "female" &&
+                gender !== "non-binary" && (
+                  <label className="form-label_gender">
+                    <input
+                      type="text"
+                      value={gender}
+                      onChange={(e) => setGender(e.target.value)}
+                      placeholder="Je suis ..."
+                      className="form-input_gender-other"
+                    />
+                  </label>
+                )}
             </div>
-            <label className="form-label_gender">
-              <input
-                type="radio"
-                value="male"
-                name="gender"
-                onChange={(e) => setGender(e.target.value)}
-                checked={gender === "male"}
-                className="form-input_gender"
-              />
-              Homme
-            </label>
-            <label className="form-label_gender">
-              <input
-                type="radio"
-                value="female"
-                name="gender"
-                onChange={(e) => setGender(e.target.value)}
-                checked={gender === "female"}
-                className="form-input_gender"
-              />
-              Femme
-            </label>
-            <label className="form-label_gender">
-              <input
-                type="radio"
-                value="non-binary"
-                name="gender"
-                onChange={(e) => setGender(e.target.value)}
-                checked={gender === "non-binary"}
-                className="form-input_gender"
-              />
-              Non-binaire
-            </label>
-            <label className="form-label_gender">
-              <input
-                type="radio"
-                value={
-                  gender !== "male" &&
-                  gender !== "female" &&
-                  gender !== "non-binary"
-                    ? gender
-                    : ""
-                }
-                checked={
-                  gender !== "male" &&
-                  gender !== "female" &&
-                  gender !== "non-binary"
-                }
-                name="gender"
-                onChange={(e) => setGender(e.target.value)}
-                className="form-input_gender"
-              />
-              Autre
-            </label>
-            {gender !== "male" &&
-              gender !== "female" &&
-              gender !== "non-binary" && (
-                <label className="form-label_gender">
-                  <input
-                    type="text"
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    placeholder="Je suis ..."
-                    className="form-input_gender-other"
-                  />
-                </label>
-              )}
             <label className="form-label">
               Nom :
               <input

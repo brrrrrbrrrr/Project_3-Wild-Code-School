@@ -11,7 +11,7 @@ function InfosCompany() {
   const urlFile = import.meta.env.VITE_APP_URL;
 
   useEffect(() => {
-    const urlUserData = `${user.userType}/${user.id}`;
+    const urlUserData = `${user?.userType}/${user?.id}`;
     api.get(urlUserData).then((res) => {
       setUserData(res.data);
     });
@@ -21,11 +21,13 @@ function InfosCompany() {
     <div className="infos-compagny_container">
       <div className="infos-compagny_column">
         <div className="infos-compagny_logo-container">
-          <img
-            className="infos-compagny_logo"
-            src={`${urlFile}/${userData?.Logo}`}
-            alt=""
-          />
+          {userData && (
+            <img
+              className="infos-compagny_logo"
+              src={`${urlFile}/${userData?.Logo}`}
+              alt=""
+            />
+          )}
           <div className="borded-img" />
           <div className="borded-img2" />
         </div>

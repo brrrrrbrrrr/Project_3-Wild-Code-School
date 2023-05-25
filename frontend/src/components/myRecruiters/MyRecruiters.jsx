@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
+import "./MyRecruiters.css";
+
 import RecruiterInfos from "../recruiterInfos/RecruiterInfos";
 import useApi from "../../services/useApi";
 import { useUser } from "../../contexts/UserContext";
 
 function MyRecruiters() {
   const api = useApi();
-  const user = useUser();
-  const userId = user.user.id;
+  const { user } = useUser();
+  const userId = user?.id;
 
   const [dataRecruiters, setDatarecruiters] = useState([]);
   useEffect(() => {

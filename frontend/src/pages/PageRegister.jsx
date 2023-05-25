@@ -43,14 +43,15 @@ function PageRegister() {
           </button>
         </div>
       </div>
-
-      {selectForm === "Compagny" ? (
-        <RegisterCompagny />
-      ) : selectForm === "Candidate" ? (
-        <RegisterCandidate />
-      ) : (
-        ""
-      )}
+      <div className="formFullContainer">
+        {selectForm === "Compagny" ? (
+          <RegisterCompagny />
+        ) : selectForm === "Candidate" ? (
+          <RegisterCandidate />
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 }

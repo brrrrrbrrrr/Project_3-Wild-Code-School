@@ -4,6 +4,7 @@ import { useUser } from "../contexts/UserContext";
 import UsersInformations from "../components/usersInformations/UsersInformations";
 import "./PageMyAccount.css";
 import AccountSettings from "../components/accountSettings/AccountSettings";
+import NotFound from "../components/notfound/NotFound";
 
 function PageMyAccount() {
   const [myAccount, setMyAccount] = useState(true);
@@ -23,7 +24,7 @@ function PageMyAccount() {
     setMyAccount(false);
   };
 
-  return (
+  return user ? (
     <div className="pagemyaccount-container">
       <div className="pagemyaccount-container_btn">
         <button
@@ -49,6 +50,8 @@ function PageMyAccount() {
         ""
       )}
     </div>
+  ) : (
+    <NotFound />
   );
 }
 

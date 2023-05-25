@@ -7,6 +7,7 @@ import "./RegisterDefault.css";
 import "../usersInformations/UsersInformations.css";
 import { useUser } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import NotFound from "../notfound/NotFound";
 
 const RegisterRecruiter = () => {
   const navigate = useNavigate();
@@ -104,7 +105,7 @@ const RegisterRecruiter = () => {
     console.warn("Registraichn Data:", formData);
   };
 
-  return (
+  return user ? (
     <>
       {" "}
       {success ? (
@@ -179,7 +180,7 @@ const RegisterRecruiter = () => {
                     type="text"
                     value={gender}
                     onChange={(e) => setGender(e.target.value)}
-                    placeholder="Je suis ..."
+                    placeholder=" Je suis ..."
                     className="form-input_gender-other"
                   />
                 </label>
@@ -328,6 +329,8 @@ const RegisterRecruiter = () => {
         </div>
       )}
     </>
+  ) : (
+    <NotFound />
   );
 };
 

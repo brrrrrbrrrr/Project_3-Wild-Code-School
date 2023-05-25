@@ -26,13 +26,10 @@ function UsersInformations({ user, userParam }) {
   const [picture, setPicture] = useState(null);
   const [validePictureType, setValidPictureType] = useState(false);
   const [resume, setResume] = useState(null);
-  const [showResume, setShowResume] = useState("");
   const [valideResumeType, setValidResumeType] = useState(false);
   const [reload, setReload] = useState(0);
   const [gender, setGender] = useState("");
 
-  console.warn("USER : ", user);
-  console.warn("USER PARAM : ", userParam);
   let userType = "";
   let userId = "";
 
@@ -170,11 +167,13 @@ function UsersInformations({ user, userParam }) {
         <h2 className="users-informations_picture-h2">Photo de profil</h2>
         <div className="rounded-img_container">
           <div className="rounded-image">
-            <img
-              className="users-informations_picture"
-              src={`${urlFile}${userInfos?.picture}`}
-              alt=""
-            />
+            {userInfos?.picture && (
+              <img
+                className="users-informations_picture"
+                src={`${urlFile}${userInfos?.picture}`}
+                alt=""
+              />
+            )}
             <div className="rounded-border" />
             <div className="rounded-border2" />
           </div>
@@ -229,6 +228,7 @@ function UsersInformations({ user, userParam }) {
             <div>
               <div className="form-infos_container">
                 <div className="form-label_gender-container">
+                  <h2 className="form-label_gender-h2">Genre : </h2>
                   <label className="form-label_gender">
                     <input
                       type="radio"

@@ -1,6 +1,5 @@
 .infos-compagny_container {
   width: 100vw;
-  /* border: 1px solid red; */
   height: 100px;
 }
 
@@ -10,8 +9,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  /* border: 3px solid blue; */
 }
 
 .infos-compagny_logo-container {
@@ -49,12 +46,10 @@
 }
 
 .infos-compagny_h1 {
-  /* border: 1px solid green; */
   font-size: 2rem;
   margin-right: 30px;
   display: flex;
   align-items: center;
-
   font-style: italic;
 }
 

@@ -22,11 +22,13 @@ function RecruiterInfos({ recruiter }) {
         <div className="recruiterinfos_img-container">
           <div className="recruiterinfos_img">
             {" "}
-            <img
-              className="recruiterinfos_picture"
-              src={`${urlFile}${recruiter.picture}`}
-              alt=""
-            />
+            {recruiter && (
+              <img
+                className="recruiterinfos_picture"
+                src={`${urlFile}${recruiter.picture}`}
+                alt=""
+              />
+            )}
             <div className="rounded-bord" />
             <div className="rounded-bord2" />
           </div>
