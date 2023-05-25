@@ -38,7 +38,16 @@ const NavBar = () => {
         </div>
         <ul className={openMenuBurger ? " menu-display menu" : "menu"}>
           <li>
-            <NavLink className="navlink-menu" onClick={toggleMenu} to="/">
+            {user?.superAdmin ? (
+              <NavLink onClick={toggleMenu} to="/superadmin">
+                Admin
+              </NavLink>
+            ) : (
+              ""
+            )}
+          </li>
+          <li>
+            <NavLink onClick={toggleMenu} to="/">
               Accueil
             </NavLink>
           </li>

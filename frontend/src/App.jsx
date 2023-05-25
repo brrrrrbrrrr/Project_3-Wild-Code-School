@@ -17,6 +17,7 @@ import PageMyAccount from "./pages/PageMyAccount";
 import PageMyRecruiters from "./pages/PageMyRecruiters";
 
 import RegisterDefault from "./components/register/RegisterDefault";
+import PageSuperAdmin from "./pages/PageSuperAdmin";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/my-account" element={<PageMyAccount />} />
           <Route path="/my-recruiters" element={<PageMyRecruiters />} />
           <Route path="/add-recruiter" element={<RegisterDefault />} />
+          <Route path="/superadmin" element={<PageSuperAdmin />} />
         </Routes>
         <Footer />
       </UserProvider>
