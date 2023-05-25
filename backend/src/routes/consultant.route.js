@@ -16,8 +16,8 @@ router.get("/:id", consultantControllers.read);
 
 router.post(
   "/",
-  // verifyToken,
-  // isConsultantAdmin,
+  verifyToken,
+  isConsultantAdmin,
   consultantControllers.validateConsultantCreationData,
   hashPassword,
   consultantControllers.add

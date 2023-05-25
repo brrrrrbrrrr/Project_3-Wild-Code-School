@@ -13,6 +13,7 @@ import PageDetailsOffer from "./pages/PageDetailsOffer";
 import PageLoginRegister from "./pages/PageLoginRegister";
 import PageRegister from "./pages/PageRegister";
 import PageOffersEmploi from "./pages/PageOffersEmploi";
+import PageSuperAdmin from "./pages/PageSuperAdmin";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/offers/:id" element={<PageDetailsOffer />} />
           <Route path="/connect" element={<PageLoginRegister />} />
           <Route path="/registration" element={<PageRegister />} />
+          <Route path="/superadmin" element={<PageSuperAdmin />} />
         </Routes>
         <Footer />
       </UserProvider>

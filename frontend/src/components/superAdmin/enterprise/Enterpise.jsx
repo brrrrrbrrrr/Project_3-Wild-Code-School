@@ -1,0 +1,35 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable react/function-component-definition */
+
+import { Button } from "@mui/material";
+import "./Enterprise.css";
+
+const Enterprise = ({ enterprise }) => {
+  return (
+    <div className="superadmin-enterprise_container">
+      <div className="superadmin-enterprise_logo">logo</div>
+      <div className="superadmin-enterprise_info-main">
+        <h3 className="superadmin-enterprise_name">{enterprise.name}</h3>
+        <h3 className="superadmin-enterprise_siret">
+          {enterprise.siretNumber}
+        </h3>
+      </div>
+
+      <div className="superadmin-enterprise_buttons-box">
+        <Button id="superadmin-enterprise_button-info" variant="contained">
+          Candidats ()
+        </Button>
+        <Button id="superadmin-enterprise_button-info" variant="contained">
+          Modifier
+        </Button>
+        <Button id="superadmin-enterprise_button-info" variant="contained">
+          Modifier
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default Enterprise;

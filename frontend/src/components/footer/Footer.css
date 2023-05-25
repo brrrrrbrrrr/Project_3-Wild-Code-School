@@ -4,35 +4,32 @@ footer {
   width: 100%;
   background-color: var(--primary-color);
   color: white;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
 }
 
 .footer-icons {
   display: flex;
-  padding-right: 7%;
-}
-
-.footer-icons img {
-  width: 30px;
-  height: 30px;
-  margin-left: 20px;
-}
-
-footer p {
-  flex-grow: 1;
-  text-align: left;
 }
 
 .icon {
   color: var(--background-color);
-
+}
+.icon:not(:last-child) {
   padding-right: 10px;
 }
 .icon:hover,
 .icon:focus {
   color: var(--extra-color);
-
   transition: all 0.07s ease-in-out;
+}
+
+@media screen and (min-width: 768px) {
+  .footer-icons {
+    padding-right: 40px;
+  }
+  .footer-title {
+    padding-left: 40px;
+  }
 }
