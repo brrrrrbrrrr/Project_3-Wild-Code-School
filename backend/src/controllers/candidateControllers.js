@@ -242,17 +242,10 @@ const getCandidateByMailToNext = async (req, res, next) => {
 
 const likeOffer = (req, res) => {
   const offerId = req.params.offerId;
-  console.warn(req.body);
   const { candidateId } = req.body;
   if (!candidateId || !offerId) {
     return res.status(400).send("Missing candidateId or offerId");
   }
-  /* 
-  verifier si candidate deja like un offer
-  suprime le like
-  si il n y a pas like un offer on l'ajoute like
-
-  */
   models.candidate.findLike(candidateId, offerId).then(([rows]) => {
     if (rows[0] == null) {
       models.candidate

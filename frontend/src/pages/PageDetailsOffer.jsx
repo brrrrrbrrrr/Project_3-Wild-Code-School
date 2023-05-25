@@ -16,7 +16,6 @@ export default function PageDetailsOffer() {
       .get(`/offers/${id}`)
       .then((response) => {
         setOffer(response.data);
-        console.warn(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -27,7 +26,7 @@ export default function PageDetailsOffer() {
     <div>
       <DetailsOfferHero offer={offer} />
       <DetailsOfferBody offer={offer} />
-      <DetailsOfferConsultant offer={setOffer} />
+      <DetailsOfferConsultant offer={offer} />
     </div>
   );
 }
