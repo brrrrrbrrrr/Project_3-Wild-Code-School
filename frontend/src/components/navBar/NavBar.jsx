@@ -13,7 +13,7 @@ const NavBar = () => {
   };
 
   const { user } = useUser();
-  // console.warn("user navbar :", user?.superAdmin);
+
   return (
     <nav>
       <div className="navlink-container">
