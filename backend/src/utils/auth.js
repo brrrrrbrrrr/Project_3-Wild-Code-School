@@ -24,7 +24,6 @@ const hashPassword = async (password) => {
 };
 
 const verifyPasswordRecruiter = (req, res) => {
-  console.warn(req.recruiter, req.body.password);
   argon2
     .verify(req.recruiter.password, req.body.password)
     .then((isVerified) => {
@@ -49,7 +48,6 @@ const verifyPasswordRecruiter = (req, res) => {
 };
 
 const verifyPasswordCandidate = (req, res) => {
-  console.warn(req.candidate, req.body.password);
   argon2
     .verify(req.candidate.password, req.body.password)
     .then((isVerified) => {

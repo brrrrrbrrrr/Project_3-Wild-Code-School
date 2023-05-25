@@ -51,9 +51,9 @@
 .signup-invalid {
   display: inline-block;
   color: var(--alert-color);
-  margin-top: 0.3rem;
+  margin-top: 0.1rem;
   font-size: 0.7rem;
-  text-align: end;
+  text-align: start;
 }
 
 .form-btn-container {

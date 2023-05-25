@@ -113,12 +113,12 @@
 }
 
 .form-login_sub-link {
-  color: var(--alert-color);
+  color: var(--second-color);
   margin-left: 0.5rem;
 }
 
 .form-login_errorMsg {
-  margin-bottom: 1.5rem;
+  margin: 1.5rem;
   color: var(--alert-color);
 }
 

@@ -32,7 +32,7 @@ function AccountSettings({ user, userParam }) {
     userId = user.id;
   }
 
-  const PWD_REDEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+  const PWD_REDEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%.]).{8,24}$/;
 
   useEffect(() => {
     const result = PWD_REDEX.test(pass1);
@@ -135,7 +135,8 @@ function AccountSettings({ user, userParam }) {
           <span
             className={validPwd || !pass1 ? "signup-hide" : "signup-invalid"}
           >
-            Mot de passe invalide
+            Doit contenir 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère
+            spécial, 8-24 caractères
           </span>
         </label>
         <label htmlFor="pass2" className="form-label">

@@ -19,7 +19,7 @@ function RegisterCompagny() {
   const [error, setError] = useState();
   const api = useApi();
 
-  const PWD_REDEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+  const PWD_REDEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%.]).{8,24}$/;
   const MAIL_REDEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
 
   useEffect(() => {
@@ -136,6 +136,14 @@ function RegisterCompagny() {
                 onChange={(e) => setPass1(e.target.value)}
                 className="form-input"
               />
+              <span
+                className={
+                  validPwd || !pass1 ? "signup-hide" : "signup-invalid"
+                }
+              >
+                Doit contenir 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère
+                spécial, 8-24 caractères
+              </span>
             </label>
             <label className="form-label">
               Confirmer le mot de passe :
@@ -178,9 +186,7 @@ function RegisterCompagny() {
               >
                 Valider
               </button>
-              <p className="form-signup_errorMsg">
-                {error ? `${error} (mail)` : ""}
-              </p>
+              <p className="form-signup_errorMsg">{error || ""}</p>
             </div>
           </form>
         </div>
