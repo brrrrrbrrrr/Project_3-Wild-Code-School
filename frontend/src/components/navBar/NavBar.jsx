@@ -13,7 +13,7 @@ const NavBar = () => {
   };
 
   const { user } = useUser();
-  // console.warn("user navbar :", { user });
+
   return (
     <nav>
       <div className="navlink-container">
@@ -28,6 +28,15 @@ const NavBar = () => {
           </div>
         </div>
         <ul className={openMenuBurger ? " menu-display menu" : "menu"}>
+          <li>
+            {user?.superAdmin ? (
+              <NavLink onClick={toggleMenu} to="/superadmin">
+                Admin
+              </NavLink>
+            ) : (
+              ""
+            )}
+          </li>
           <li>
             <NavLink onClick={toggleMenu} to="/">
               Accueil
