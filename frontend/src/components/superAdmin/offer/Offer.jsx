@@ -1,12 +1,11 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/function-component-definition */
-
+import PropTypes from "prop-types";
 import { Button } from "@mui/material";
 import "./Offer.css";
 
-const OfferEmploi = ({ offer }) => {
+const Offer = ({ offer }) => {
   return (
     <div className="superadmin-offer_container">
       <div className="superadmin-offer_logo">logo</div>
@@ -35,4 +34,13 @@ const OfferEmploi = ({ offer }) => {
   );
 };
 
-export default OfferEmploi;
+Offer.propTypes = {
+  offer: PropTypes.shape({
+    salary: PropTypes.string.isRequired,
+    job_title: PropTypes.string.isRequired,
+    contract_type: PropTypes.string.isRequired,
+    remote_type: PropTypes.string.isRequired,
+    city_name: PropTypes.string.isRequired,
+  }).isRequired,
+};
+export default Offer;

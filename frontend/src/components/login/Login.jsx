@@ -88,7 +88,6 @@ function Login() {
     api
       .post(loginApi, userLogin)
       .then((res) => {
-        console.warn("warn : ", res.data);
         // Je verifie le contenu de res.data
         let userObject = "";
         if ("candidate" in res.data) {

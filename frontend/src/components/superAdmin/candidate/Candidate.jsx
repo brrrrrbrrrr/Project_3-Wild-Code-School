@@ -1,7 +1,7 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/function-component-definition */
+import PropTypes from "prop-types";
 import { Button } from "@mui/material";
 import "./Candidate.css";
 
@@ -36,5 +36,12 @@ const Candidate = ({ candidate }) => {
     </div>
   );
 };
-
+Candidate.propTypes = {
+  candidate: PropTypes.shape({
+    picture: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    firstname: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
+  }).isRequired,
+};
 export default Candidate;

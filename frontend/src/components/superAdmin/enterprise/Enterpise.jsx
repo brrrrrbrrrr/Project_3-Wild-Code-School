@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/function-component-definition */
-
+import PropTypes from "prop-types";
 import { Button } from "@mui/material";
 import "./Enterprise.css";
 
@@ -30,6 +29,12 @@ const Enterprise = ({ enterprise }) => {
       </div>
     </div>
   );
+};
+Enterprise.propTypes = {
+  enterprise: PropTypes.shape({
+    siretNumber: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Enterprise;
