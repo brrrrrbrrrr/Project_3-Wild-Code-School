@@ -67,7 +67,8 @@ const read = (req, res) => {
       if (rows[0] == null) {
         res.sendStatus(404);
       } else {
-        res.send(rows[0]);
+        const consultant = { ...rows[0], userType: "consultants" };
+        res.send(consultant);
       }
     })
     .catch((err) => {
@@ -109,7 +110,8 @@ const login = (req, res, next) => {
       if (result.length === 0) {
         res.sendStatus(404);
       } else {
-        [req.consultant] = result;
+        const userType = "consultants";
+        req.consultant = { ...result[0], userType };
         next();
       }
     })
@@ -145,7 +147,7 @@ const add = async (req, res) => {
     "..",
     "public",
     "uploads",
-    "recruiter"
+    "consultant"
   );
   const consultantFolder = req.pathFolder;
   const picture = `consultant/${filePicture.filname}`;

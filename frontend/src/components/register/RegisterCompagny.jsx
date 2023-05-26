@@ -39,7 +39,8 @@ function RegisterCompagny() {
     // Vérifie que le fichier est un jpeg ou jpg
     if (
       (fileLogo && fileLogo.type === "image/jpeg") ||
-      fileLogo.type === "image/jpg"
+      fileLogo.type === "image/jpg" ||
+      fileLogo.type === "image/png"
     ) {
       setLogo(fileLogo);
       setValidLogoType(true);
@@ -173,7 +174,7 @@ function RegisterCompagny() {
                   logo || validLogoType ? "signup-hide" : "signup-invalid"
                 }
               >
-                Merci de choisir un fichier .JPEG/JPG
+                Merci de choisir un fichier .JPEG/JPG/PNG
               </span>
             </label>
             <div className="form-btn-container">

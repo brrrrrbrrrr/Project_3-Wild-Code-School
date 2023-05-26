@@ -3,6 +3,9 @@ import "./Account.css";
 import PropTypes from "prop-types";
 
 function Account({ user, newName }) {
+  if (user?.name && !user.firstname) {
+    return <div className="account-container">{user?.name}</div>;
+  }
   if (newName) {
     return <div className="account-container">{newName}</div>;
   }

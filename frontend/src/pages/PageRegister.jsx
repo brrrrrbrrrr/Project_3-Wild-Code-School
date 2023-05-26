@@ -38,7 +38,7 @@ function PageRegister() {
     <div>
       <div className="select-form-btn-container">
         <div className="select-form-btn-column">
-          {selectForm !== "recruiters" && (
+          {!user && selectForm !== "recruiters" && (
             <button
               className={`select-form-btn ${
                 isCompanyActive ? "select-btn-active" : ""
@@ -60,15 +60,17 @@ function PageRegister() {
               Candidat
             </button>
           )}
-          <button
-            className={`select-form-btn ${
-              isConsultantActive ? "select-btn-active" : ""
-            }`}
-            type="button"
-            onClick={handleFormCons}
-          >
-            Consultant
-          </button>
+          {!user && (
+            <button
+              className={`select-form-btn ${
+                isConsultantActive ? "select-btn-active" : ""
+              }`}
+              type="button"
+              onClick={handleFormCons}
+            >
+              Consultant
+            </button>
+          )}
           {selectForm === "recruiters" && (
             <button type="button" className="select-form-btn select-btn-active">
               Recruteur

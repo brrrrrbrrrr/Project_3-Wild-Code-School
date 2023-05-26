@@ -7,13 +7,13 @@ class ConsultantManager extends AbstractManager {
 
   findAll() {
     return this.database.query(
-      `select id, name,firstname, mail, phone, birthday, street, city, postalCode, picture,gender, superAdmin from  ${this.table}`
+      `select id, name,firstname, mail, phone, birthday, street, city, postalCode, picture, superAdmin from  ${this.table}`
     );
   }
 
   find(id) {
     return this.database.query(
-      `select id, name,firstname, mail, phone, birthday, street, city, postalCode, picture,gender, superAdmin  from  ${this.table} where id = ?`,
+      `select id, name,firstname, mail, phone, birthday, street, city, postalCode, picture, gender, superAdmin  from  ${this.table} where id = ?`,
       [id]
     );
   }
