@@ -27,6 +27,7 @@ function RegisterDefault({ selectForm, user }) {
   const [resume, setResume] = useState(null);
   const [contactPreference, setContactPreference] = useState("1");
   const [gender, setGender] = useState("");
+  const [superAdmin, setSuperAdmin] = useState(0);
   const [valideResumeType, setValidResumeType] = useState(false);
   const [validePictureType, setValidPictureType] = useState(false);
   const [error, setError] = useState();
@@ -90,17 +91,20 @@ function RegisterDefault({ selectForm, user }) {
     formData.append("mail", mail);
     formData.append("phone", phone);
     formData.append("password", pass1);
+    formData.append("picture", picture);
+    formData.append("gender", gender);
+
     if (selectForm === "recruiters") {
       formData.append("compagny_id", user?.id);
     }
-
-    formData.append("picture", picture);
-    formData.append("gender", gender);
 
     if (selectForm === "candidates") {
       formData.append("resume", resume);
       formData.append("jobSeeker", jobSeeker);
       formData.append("contactPreference", contactPreference);
+    }
+    if (selectForm === "consultants") {
+      formData.append("superAdmin", superAdmin);
     }
 
     api
@@ -330,6 +334,19 @@ function RegisterDefault({ selectForm, user }) {
                 </select>
               </label>
             )}
+            {selectForm === "consultants" && (
+              <label className="form-label">
+                Admin :
+                <select
+                  value={superAdmin}
+                  onChange={(e) => setSuperAdmin(e.target.value)}
+                  className="form-input"
+                >
+                  <option value={0}>Pas admin</option>
+                  <option value={1}>Admin</option>
+                </select>
+              </label>
+            )}
 
             <label className="form-label">
               Email :
@@ -384,6 +401,7 @@ function RegisterDefault({ selectForm, user }) {
                 Les mots de passe ne correspondent pas
               </span>
             </label>
+            {/* J'utilise plusieur buttons de validation en fonction du formulaire pour changer le disable */}
             <div className="form-btn-container">
               {selectForm === "candidates" ? (
                 <button

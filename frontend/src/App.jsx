@@ -35,6 +35,7 @@ function App() {
           <Route path="/my-recruiters" element={<PageMyRecruiters />} />
           <Route path="/add-recruiter" element={<RegisterDefault />} />
           <Route path="/superadmin" element={<PageSuperAdmin />} />
+          <Route path="create-admin" element={<RegisterDefault />} />
         </Routes>
         <Footer />
       </UserProvider>

@@ -1,9 +1,12 @@
 /* eslint-disable prettier/prettier */
 const router = require("express").Router();
+const multer = require("multer");
 const consultantControllers = require("../controllers/consultantControllers");
+const { storageConsultant } = require("../utils/multerConsultant");
 
+const upload = multer({ storage: storageConsultant });
 const {
-  hashPassword,
+  // hashPassword,
   verifyToken,
   isConsultantAdmin,
 } = require("../utils/authConsultant");
@@ -16,10 +19,11 @@ router.get("/:id", consultantControllers.read);
 
 router.post(
   "/",
-  verifyToken,
-  isConsultantAdmin,
-  consultantControllers.validateConsultantCreationData,
-  hashPassword,
+  // verifyToken,
+  // isConsultantAdmin,
+  upload.single("picture"),
+  // consultantControllers.validateConsultantCreationData,
+  // hashPassword,
   consultantControllers.add
 );
 

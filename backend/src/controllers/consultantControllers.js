@@ -1,6 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const Joi = require("joi").extend(require("@joi/date"));
+const path = require("path");
+const fs = require("fs");
 const models = require("../models");
+const { hashPassword } = require("../utils/auth");
 
 const validateConsultant = (data, forCreation = true) => {
   const presence = forCreation ? "required" : "optional";
@@ -15,7 +18,8 @@ const validateConsultant = (data, forCreation = true) => {
     city: Joi.string().max(45).presence(presence),
     postalCode: Joi.string().max(45).presence(presence),
     picture: Joi.string().max(45).presence("optional"),
-    superAdmin: Joi.boolean().presence(presence),
+    superAdmin: Joi.number().integer().min(0).max(1).presence(presence),
+    gender: Joi.string().max(45).presence(presence),
   }).validate(data, { abortEarly: false }).error;
 };
 
@@ -115,19 +119,97 @@ const login = (req, res, next) => {
     });
 };
 
-const add = (req, res) => {
-  const consultant = req.body;
-
+const add = async (req, res) => {
   // TODO validations (length, format...)
+  // Valider les données avec Joi
+  // Si les données sont valides, continuer le traitement
+  const {
+    name,
+    firstname,
+    mail,
+    phone,
+    birthday,
+    password,
+    street,
+    city,
+    postalCode,
+    valide,
+    superAdmin,
+    gender,
+  } = req.body;
+  const filePicture = req.file;
 
+  const consultantFolderDefault = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "uploads",
+    "recruiter"
+  );
+  const consultantFolder = req.pathFolder;
+  const picture = `consultant/${filePicture.filname}`;
+  const validationError = validateConsultant(req.body);
+  if (validationError) {
+    // Si les données ne sont pas valides, renvoyer une erreur 400
+    res.status(422).json({ error: validationError.message }); // Utiliser validationError.message pour obtenir le message d'erreur
+  }
+  const hashedPassword = await hashPassword(password);
   models.consultant
-    .insert(consultant)
+    .insert({
+      name,
+      firstname,
+      mail,
+      picture,
+      phone,
+      birthday,
+      password: hashedPassword,
+      street,
+      city,
+      postalCode,
+      valide,
+      superAdmin,
+      gender,
+    })
     .then(([result]) => {
-      res.location(`/consultants/${result.insertId}`).sendStatus(201);
+      // Je recupere l'id de mon nouvel utilisateur
+      const idNewUser = result.insertId.toString();
+      // console.log("result :", result);
+      const newFolder = path.join(consultantFolderDefault, idNewUser);
+      fs.renameSync(consultantFolder, newFolder, (err) => {
+        console.warn("rename folder :", err);
+      });
+      // Je recupere le nom des fichiers et j'enleve les caractères spéciaux et je rajoute l'extention
+
+      const extension = filePicture.originalname.split(".").pop();
+      const newOriginalNamePicture = `${filePicture.originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+      const originalNamePicture = path.join(newFolder, newOriginalNamePicture);
+      const fileNamePicture = path.join(newFolder, filePicture.filename);
+      const newFileNamePicture = `uploads/consultant/${idNewUser}/${newOriginalNamePicture}`;
+      fs.renameSync(fileNamePicture, originalNamePicture, (err) => {
+        if (err) {
+          console.warn("erreur Picture :", err);
+        }
+      });
+      models.consultant
+        .updatePicture(newFileNamePicture, idNewUser)
+        .then(() => {
+          console.warn("Update successful");
+          return res.location(`/consultant/${result.insertId}`).sendStatus(201);
+        })
+        .catch((error) => {
+          console.error(error);
+          return res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
-      return res.sendStatus(500);
+      if (err.code === "ER_DUP_ENTRY") {
+        return res.status(409).send("Mail already exists"); // Ajouter le mot-clé 'return' avant d'appeler res.status()
+      }
+      return res.sendStatus(500); // Ajouter le mot-clé 'return' avant d'appeler res.sendStatus()
     });
 };
 
