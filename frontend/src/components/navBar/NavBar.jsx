@@ -21,7 +21,7 @@ const NavBar = () => {
     setActiveAccountMenu(!activeAccountMenu);
   };
 
-  const { user } = useUser();
+  const { user, newName } = useUser();
 
   return (
     <nav>
@@ -78,7 +78,7 @@ const NavBar = () => {
             }
             onClick={handleClick}
           >
-            <Account user={user} />
+            <Account user={user} newName={newName} />
             <li>
               {activeAccountMenu ? (
                 <AccountMenu

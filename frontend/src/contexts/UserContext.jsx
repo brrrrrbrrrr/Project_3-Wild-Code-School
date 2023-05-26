@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-/* eslint-disable react/prop-types */
+
 import { useState, useContext, createContext } from "react";
+import PropTypes from "prop-types";
 // Définir mon contexte utilisateur
 const UserContext = createContext(null);
 
@@ -9,6 +10,7 @@ function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [userParam, setUserParam] = useState(null);
   const [selectForm, setSelectForm] = useState(null);
+  const [newName, setNewName] = useState(null);
 
   return (
     <UserContext.Provider
@@ -19,12 +21,18 @@ function UserProvider({ children }) {
         setUserParam,
         selectForm,
         setSelectForm,
+        newName,
+        setNewName,
       }}
     >
       {children}
     </UserContext.Provider>
   );
 }
+
+UserProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 // Création de mon hook personnalisé
 export const useUser = () => useContext(UserContext);
 // Export du provider

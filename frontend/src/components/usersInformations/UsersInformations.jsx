@@ -6,7 +6,7 @@ import "./UsersInformations.css";
 
 import useApi from "../../services/useApi";
 
-function UsersInformations({ user, userParam }) {
+function UsersInformations({ user, userParam, setNewName }) {
   const api = useApi();
 
   const [userInfos, setUserInfos] = useState({});
@@ -156,6 +156,7 @@ function UsersInformations({ user, userParam }) {
 
       .then((res) => {
         setReload(reload + 1);
+        setNewName(firstname);
         setTimeout(() => {
           setReload(0);
         }, 2000);
@@ -163,7 +164,6 @@ function UsersInformations({ user, userParam }) {
       .catch((err) => {
         console.error(err);
       });
-    console.warn("data", formData);
   };
 
   return reload > 0 ? (
@@ -429,10 +429,12 @@ UsersInformations.propTypes = {
     id: PropTypes.number.isRequired,
     userType: PropTypes.string.isRequired,
   }),
+  setNewName: PropTypes.func,
 };
 
 UsersInformations.defaultProps = {
   userParam: null,
+  setNewName: null,
 };
 
 export default UsersInformations;
