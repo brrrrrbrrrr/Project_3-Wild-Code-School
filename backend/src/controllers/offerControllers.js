@@ -1,4 +1,6 @@
 const joi = require("joi");
+const path = require("path");
+const fs = require("fs");
 const models = require("../models");
 
 const validate = (data, forCreation = true) => {
@@ -7,7 +9,6 @@ const validate = (data, forCreation = true) => {
     .object({
       salary: joi.string().max(45).presence(presence),
       remoteId: joi.number().integer().presence(presence),
-      teamPicture: joi.string().max(45).presence(presence),
       jobOfferPresentation: joi.string().max(1000).presence(presence),
       desiredProfile: joi.string().max(1000).presence(presence),
       recruitmentProcess: joi.string().max(1000).presence(presence),
@@ -25,7 +26,6 @@ const add = (req, res) => {
   const {
     salary,
     remoteId,
-    teamPicture,
     jobOfferPresentation,
     desiredProfile,
     recruitmentProcess,
@@ -37,6 +37,20 @@ const add = (req, res) => {
     contratId,
     jobTitleId,
   } = req.body;
+
+  const fileTeamPicture = req.file;
+
+  const offerFolderDefault = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "uploads",
+    "offer"
+  );
+
+  const offerFolder = req.pathFolder;
+  const teamPicture = `offer/${fileTeamPicture.filename}`;
   const validationError = validate(req.body);
   if (validationError) {
     // Si les données ne sont pas valides, renvoyer une erreur 400
@@ -59,7 +73,53 @@ const add = (req, res) => {
       jobTitleId,
     })
     .then(([result]) => {
-      return res.location(`/offers/${result.insertId}`).sendStatus(201);
+      const idNewOffer = result.insertId.toString();
+      const newFolder = path.join(offerFolderDefault, idNewOffer);
+      fs.renameSync(offerFolder, newFolder, (err) => {
+        console.warn("rename folder :", err);
+      });
+
+      const extension = fileTeamPicture.originalname.split(".").pop();
+      const newOriginalNameTeamPicture = `${fileTeamPicture.originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+      const originalNameTeamPicture = path.join(
+        newFolder,
+        newOriginalNameTeamPicture
+      );
+      const fileNamePicture = path.join(newFolder, fileTeamPicture.filename);
+      const newFileNameTeamPicture = `uploads/offer/${idNewOffer}/${newOriginalNameTeamPicture}`;
+      fs.renameSync(fileNamePicture, originalNameTeamPicture, (err) => {
+        if (err) {
+          console.warn("erreur Picture :", err);
+        }
+      });
+      models.offer
+        .updateTeamPicture(newFileNameTeamPicture, idNewOffer)
+        .then(() => {
+          console.warn("Update successful");
+          return res.location(`/offer/${result.insertId}`).sendStatus(201);
+        })
+        .catch((error) => {
+          console.error(error);
+          return res.sendStatus(500);
+        });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const destroy = (req, res) => {
+  models.offer
+    .delete(req.params.id)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
     })
     .catch((err) => {
       console.error(err);
@@ -239,6 +299,7 @@ const multifilter = (req, res) => {
 
 module.exports = {
   add,
+  destroy,
   browse,
   getjobtitle,
   remotefilter,

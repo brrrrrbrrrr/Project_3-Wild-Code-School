@@ -43,6 +43,13 @@ class OfferManager extends AbstractManager {
     );
   }
 
+  updateTeamPicture(picture, offerId) {
+    return this.database.query(
+      `update ${this.table} set  teamPicture = ? where id = ?`,
+      [picture, offerId]
+    );
+  }
+
   findAll(page, limit) {
     const offset = (page - 1) * limit;
 

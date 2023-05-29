@@ -1,9 +1,13 @@
 const router = require("express").Router();
+const multer = require("multer");
+const { storageOffer } = require("../utils/multerOffer");
 
+const upload = multer({ storage: storageOffer });
 const offerControllers = require("../controllers/offerControllers");
 const candidateControllers = require("../controllers/candidateControllers");
 
-router.post("/", offerControllers.add);
+router.post("/", upload.single("teamPicture"), offerControllers.add);
+router.delete("/:id", offerControllers.destroy);
 router.get("/", offerControllers.browse);
 router.post("/:offerId/like", candidateControllers.likeOffer);
 router.get("/job_title", offerControllers.getjobtitle);
