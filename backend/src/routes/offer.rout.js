@@ -3,6 +3,7 @@ const router = require("express").Router();
 const offerControllers = require("../controllers/offerControllers");
 const candidateControllers = require("../controllers/candidateControllers");
 
+router.post("/", offerControllers.add);
 router.get("/", offerControllers.browse);
 router.post("/:offerId/like", candidateControllers.likeOffer);
 router.get("/job_title", offerControllers.getjobtitle);

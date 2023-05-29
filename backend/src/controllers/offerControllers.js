@@ -1,4 +1,71 @@
+const joi = require("joi");
 const models = require("../models");
+
+const validate = (data, forCreation = true) => {
+  const presence = forCreation ? "required" : "optional";
+  return joi
+    .object({
+      salary: joi.string().max(45).presence(presence),
+      remoteId: joi.number().integer().presence(presence),
+      teamPicture: joi.string().max(45).presence(presence),
+      jobOfferPresentation: joi.string().max(1000).presence(presence),
+      desiredProfile: joi.string().max(1000).presence(presence),
+      recruitmentProcess: joi.string().max(1000).presence(presence),
+      numberOfEmployees: joi.string().max(45).presence(presence),
+      jobTitleDetails: joi.string().max(1000).presence(presence),
+      cityId: joi.number().integer().presence(presence),
+      consultantId: joi.number().integer().presence(presence),
+      recruiterId: joi.number().integer().presence(presence),
+      contratId: joi.number().integer().presence(presence),
+      jobTitleId: joi.number().integer().presence(presence),
+    })
+    .validate(data, { abortEarly: false }).error;
+};
+const add = (req, res) => {
+  const {
+    salary,
+    remoteId,
+    teamPicture,
+    jobOfferPresentation,
+    desiredProfile,
+    recruitmentProcess,
+    numberOfEmployees,
+    jobTitleDetails,
+    cityId,
+    consultantId,
+    recruiterId,
+    contratId,
+    jobTitleId,
+  } = req.body;
+  const validationError = validate(req.body);
+  if (validationError) {
+    // Si les données ne sont pas valides, renvoyer une erreur 400
+    res.status(422).json({ error: validationError.message }); // Utiliser validationError.message pour obtenir le message d'erreur
+  }
+  models.offer
+    .insert({
+      salary,
+      remoteId,
+      teamPicture,
+      jobOfferPresentation,
+      desiredProfile,
+      recruitmentProcess,
+      numberOfEmployees,
+      jobTitleDetails,
+      cityId,
+      consultantId,
+      recruiterId,
+      contratId,
+      jobTitleId,
+    })
+    .then(([result]) => {
+      return res.location(`/offers/${result.insertId}`).sendStatus(201);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
 
 const browse = (req, res) => {
   const { page = 1, limit = 4 } = req.query;
@@ -171,6 +238,7 @@ const multifilter = (req, res) => {
 };
 
 module.exports = {
+  add,
   browse,
   getjobtitle,
   remotefilter,

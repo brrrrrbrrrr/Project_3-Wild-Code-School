@@ -5,6 +5,29 @@ class OfferManager extends AbstractManager {
     super({ table: "offer" });
   }
 
+  insert(offer) {
+    return this.database.query(
+      `insert into ${this.table} (salary, remoteId, teamPicture, jobOfferPresentation, desiredProfile, 
+        recruitmentProcess, numberOfEmployees, jobTitleDetails, cityId, consultantId, recruiterId, contratId, 
+        jobTitleId) values(?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+      [
+        offer.salary,
+        offer.remoteId,
+        offer.teamPicture,
+        offer.jobOfferPresentation,
+        offer.desiredProfile,
+        offer.recruitmentProcess,
+        offer.numberOfEmployees,
+        offer.jobTitleDetails,
+        offer.cityId,
+        offer.consultantId,
+        offer.recruiterId,
+        offer.contratId,
+        offer.jobTitleId,
+      ]
+    );
+  }
+
   find(id) {
     return this.database.query(
       `select offer.*, city.name as cityName, contrat.type as contratType, compagny.Logo, recruiter.postalCode as recruiterPostalCode,
