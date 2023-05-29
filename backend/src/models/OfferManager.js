@@ -28,6 +28,24 @@ class OfferManager extends AbstractManager {
     );
   }
 
+  findMyOffers(id) {
+    return this.database.query(
+      `select offer.*, city.name as city_name, contrat.type as contract_type, compagny.Logo, recruiter.postalCode as recruiterPostalCode,
+  consultant.picture as consultantPicture, consultant.firstname as consultantFirstname, consultant.name as consultantName,  job_title.name AS job_title,
+  contrat.type as contract_type ,re.type AS remote_type
+ from  ${this.table} 
+ join city on city.id=offer.cityId 
+ JOIN remote AS re ON re.id = offer.remoteId
+ join contrat on contrat.id=offer.contratId 
+ join recruiter on recruiter.id=offer.recruiterId
+ join job_title on job_title.id = offer.jobTitleId
+ join compagny on compagny.id =recruiter.compagny_id
+ join consultant on consultant.id=offer.consultantId 
+ where recruiter.id = ?`,
+      [id]
+    );
+  }
+
   find(id) {
     return this.database.query(
       `select offer.*, city.name as cityName, contrat.type as contratType, compagny.Logo, recruiter.postalCode as recruiterPostalCode,
@@ -36,6 +54,7 @@ class OfferManager extends AbstractManager {
       join city on city.id=offer.cityId 
       join contrat on contrat.id=offer.contratId 
       join recruiter on recruiter.id=offer.recruiterId
+      
       join compagny on compagny.id =recruiter.compagny_id
       join consultant on consultant.id=offer.consultantId 
       where offer.id = ?`,

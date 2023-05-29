@@ -127,6 +127,19 @@ const destroy = (req, res) => {
     });
 };
 
+const getMyOffers = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  models.offer
+    .findMyOffers(id)
+    .then(([rows]) => {
+      return res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.sendStatus(500);
+    });
+};
+
 const browse = (req, res) => {
   const { page = 1, limit = 4 } = req.query;
   const { filter, typeFilter } = req.query;
@@ -299,6 +312,7 @@ const multifilter = (req, res) => {
 
 module.exports = {
   add,
+  getMyOffers,
   destroy,
   browse,
   getjobtitle,

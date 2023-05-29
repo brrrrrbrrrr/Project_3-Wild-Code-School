@@ -18,6 +18,7 @@ import PageMyRecruiters from "./pages/PageMyRecruiters";
 
 import RegisterDefault from "./components/register/RegisterDefault";
 import PageSuperAdmin from "./pages/PageSuperAdmin";
+import PageMyOffersEmploi from "./pages/PageMyOffersEmploi";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/add-recruiter" element={<RegisterDefault />} />
           <Route path="/superadmin" element={<PageSuperAdmin />} />
           <Route path="create-admin" element={<RegisterDefault />} />
+          <Route path="/my-offers" element={<PageMyOffersEmploi />} />
         </Routes>
         <Footer />
       </UserProvider>

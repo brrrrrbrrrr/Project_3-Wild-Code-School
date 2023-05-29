@@ -19,7 +19,7 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
           <NavLink>Notifications</NavLink>
         </li>
         <li className="account-menu_li">
-          <NavLink>Mes offres</NavLink>
+          <NavLink to="/my-offers">Mes offres</NavLink>
         </li>
         <li className="account-menu_li">
           {" "}
