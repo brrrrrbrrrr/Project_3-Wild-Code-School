@@ -412,6 +412,9 @@ MODIFY COLUMN picture VARCHAR(150) NULL DEFAULT NULL;
 ALTER TABLE `externatic`.`city` 
 ADD COLUMN `postalCode` VARCHAR(45) NULL AFTER `regionId`; 
 
+ALTER TABLE `externatic`.`message`
+ADD COLUMN `message` VARCHAR(255) NOT NULL AFTER `hour`;
+
 INSERT INTO offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredProfile, recruitmentProcess, numberOfEmployees, jobTitleDetails, cityId, consultantId, recruiterId, contratId, jobTitleId)
  VALUES ("20000", 1, "futur foto", "jobOfferPresentation", "desiredProfile", "Recruitment Process", "23", "Ingénieur réseaux / H/F – Industrie", 1,1,1,2,1),
  ("30000", 2, "teamPic.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "50", "Software Engineer", 2, 1, 1, 3, 2),
