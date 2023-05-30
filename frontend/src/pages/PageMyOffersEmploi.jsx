@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 import useApi from "../services/useApi";
 import OfferEmploi from "../components/offersEmploi/offerEmpoi/OfferEmploi";
@@ -23,9 +24,13 @@ function PageMyOffersEmploi() {
 
   return (
     <div>
-      {myOffers?.map((offer) => {
-        return <OfferEmploi key={offer.id} offer={offer} userId={id} />;
-      })}
+      <Link to="/new-offer">
+        <button type="button">Ajouter une offre</button>
+      </Link>
+
+      {myOffers?.map((offer) => (
+        <OfferEmploi key={offer.id} offer={offer} userId={id} />
+      ))}
     </div>
   );
 }

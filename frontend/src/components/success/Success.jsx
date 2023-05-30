@@ -25,6 +25,13 @@ function Success({ success }) {
       </div>
     );
   }
+  if (success === "successOffer") {
+    return (
+      <div>
+        <section className="success-offer">Offre ajouté !</section>
+      </div>
+    );
+  }
   return null;
 }
 

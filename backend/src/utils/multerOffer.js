@@ -7,7 +7,12 @@ const storageOffer = multer.diskStorage({
   destination(req, file, cb) {
     // On crée un dossier avec l'id du candidat pour l'upload du resume et de la picture
     const uploadFolder = path.join(__dirname, "..", "..", "public", "uploads");
-    const offerFolder = path.join(uploadFolder, "offer", req.body.recruiterId);
+
+    const offerFolder = path.join(
+      uploadFolder,
+      "offer",
+      req.body.recruiterId.toString()
+    );
 
     if (!fs.existsSync(offerFolder)) {
       fs.mkdirSync(offerFolder, { recursive: true });

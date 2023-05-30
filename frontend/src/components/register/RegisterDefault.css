@@ -85,6 +85,11 @@ button:disabled {
   margin: 10rem 0;
 }
 
+.success-offer {
+  text-align: center;
+  margin: 10rem 0;
+}
+
 .registration-succes_msg-connexion {
   color: var(--primary-color);
 }
