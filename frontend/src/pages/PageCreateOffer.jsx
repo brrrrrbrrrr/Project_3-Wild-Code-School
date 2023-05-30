@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useApi from "../services/useApi";
 import { useUser } from "../contexts/UserContext";
 import Success from "../components/success/Success";
+import "./PageCreateOffer.css";
 
 function PageCreateOffer() {
   const navigate = useNavigate();
@@ -127,135 +128,148 @@ function PageCreateOffer() {
       {success ? (
         <Success success={success} />
       ) : (
-        <div>
-          <form onSubmit={handleSubmit}>
-            <label>
-              <select value={city} onChange={(e) => setCity(e.target.value)}>
-                <option value="">Sélectionnez une ville</option>
-                {cityOptions.map((value) => (
-                  <option value={value.id} key={value.id}>
-                    {value.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              <select
-                value={jobTitle}
-                onChange={(e) => setJobTitle(e.target.value)}
-              >
-                <option value="">Sélectionnez un poste</option>
-                {jobTitleOptions.map((value) => (
-                  <option value={value.id} key={value.id}>
-                    {value.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              <select
-                value={contract}
-                onChange={(e) => setContract(e.target.value)}
-              >
-                <option value="">Sélectionnez un contrat</option>
-                {contractOption.map((value) => (
-                  <option value={value.id} key={value.id}>
-                    {value.type}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              <select
-                value={remote}
-                onChange={(e) => setRemote(e.target.value)}
-              >
-                <option value="">Sélectionnez la modalité</option>
-                {remoteOption.map((value) => (
-                  <option value={value.id} key={value.id}>
-                    {value.type}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="form-label">
-              Photo d'équipe :
-              <input
-                type="file"
-                onChange={handleTeamPictureSelect}
-                className="form-input"
-              />
-              <span
-                className={
-                  valideTeamPictureType ? "signup-hide" : "signup-invalid"
-                }
-              >
-                Merci de choisir un fichier .JPEG/JPG/PNG
-              </span>
-            </label>
-            <label className="form-label">
-              Ajoutez des détails sur le titre du poste :
-              <input
-                type="text"
-                value={jobTitleDetails}
-                onChange={(e) => setJobTitleDetails(e.target.value)}
-                className="form-input"
-              />
-            </label>
-            <label className="form-label">
-              Nombre d'employés :
-              <input
-                type="text"
-                value={numberOfEmployees}
-                onChange={(e) => setNumberOfEmployees(e.target.value)}
-                className="form-input"
-              />
-            </label>
-            <label className="form-label">
-              Salaire/mois :
-              <input
-                type="text"
-                value={salary}
-                onChange={(e) => setSalary(e.target.value)}
-                className="form-input"
-              />
-            </label>
-            <label className="form-label">
-              Présentation entreprise / Infos offre :
-              <textarea
-                type="text"
-                value={jobOfferPresentation}
-                onChange={(e) => setJobOfferPresentation(e.target.value)}
-                className="form-input"
-                maxLength={1000}
-                style={{ resize: "none" }}
-              />
-            </label>
-            <label className="form-label">
-              Le profil que nous recherchons :
-              <textarea
-                type="text"
-                value={desiredProfile}
-                onChange={(e) => setDesiredProfile(e.target.value)}
-                className="form-input"
-                maxLength={1000}
-                style={{ resize: "none" }}
-              />
-            </label>
-            <label className="form-label">
-              Le process de recrutement :
-              <textarea
-                type="text"
-                value={recruitmentProcess}
-                onChange={(e) => setRecruitmentProcess(e.target.value)}
-                className="form-input"
-                maxLength={1000}
-                style={{ resize: "none" }}
-              />
-            </label>
-            <button type="submit" className="form-btn">
-              Valider
-            </button>
+        <div className="form-offer_container">
+          <form onSubmit={handleSubmit} className="form-offer">
+            <div className="form-offer_select-container">
+              <label className="form-offer_select-label">
+                <select
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  className="form-offer_select_select"
+                >
+                  <option value="">Sélectionnez une ville</option>
+                  {cityOptions.map((value) => (
+                    <option value={value.id} key={value.id}>
+                      {value.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="form-offer_select-label">
+                <select
+                  value={jobTitle}
+                  onChange={(e) => setJobTitle(e.target.value)}
+                  className="form-offer_select_select"
+                >
+                  <option value="">Sélectionnez un poste</option>
+                  {jobTitleOptions.map((value) => (
+                    <option value={value.id} key={value.id}>
+                      {value.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="form-offer_select-label">
+                <select
+                  value={contract}
+                  onChange={(e) => setContract(e.target.value)}
+                  className="form-offer_select_select"
+                >
+                  <option value="">Sélectionnez un contrat</option>
+                  {contractOption.map((value) => (
+                    <option value={value.id} key={value.id}>
+                      {value.type}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="form-offer_select-label">
+                <select
+                  value={remote}
+                  onChange={(e) => setRemote(e.target.value)}
+                  className="form-offer_select_select"
+                >
+                  <option value="">Sélectionnez la modalité</option>
+                  {remoteOption.map((value) => (
+                    <option value={value.id} key={value.id}>
+                      {value.type}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <div className="form-offer_data-container">
+              <div className="form-offer_data-column">
+                <label className="form-label">
+                  Photo d'équipe :
+                  <input
+                    type="file"
+                    onChange={handleTeamPictureSelect}
+                    className="form-input"
+                  />
+                  <span
+                    className={
+                      valideTeamPictureType ? "signup-hide" : "signup-invalid"
+                    }
+                  >
+                    Merci de choisir un fichier .JPEG/JPG/PNG
+                  </span>
+                </label>
+                <label className="form-label">
+                  Ajoutez des détails sur le titre du poste :
+                  <input
+                    type="text"
+                    value={jobTitleDetails}
+                    onChange={(e) => setJobTitleDetails(e.target.value)}
+                    className="form-input"
+                  />
+                </label>
+                <label className="form-label">
+                  Nombre d'employés :
+                  <input
+                    type="text"
+                    value={numberOfEmployees}
+                    onChange={(e) => setNumberOfEmployees(e.target.value)}
+                    className="form-input"
+                  />
+                </label>
+                <label className="form-label">
+                  Salaire/mois :
+                  <input
+                    type="text"
+                    value={salary}
+                    onChange={(e) => setSalary(e.target.value)}
+                    className="form-input"
+                  />
+                </label>
+                <label className="form-label_data">
+                  Présentation entreprise / Infos offre :
+                  <textarea
+                    type="text"
+                    value={jobOfferPresentation}
+                    onChange={(e) => setJobOfferPresentation(e.target.value)}
+                    className="form-input_textearea"
+                    maxLength={1000}
+                    style={{ resize: "none" }}
+                  />
+                </label>
+                <label className="form-label_data">
+                  Le profil que nous recherchons :
+                  <textarea
+                    type="text"
+                    value={desiredProfile}
+                    onChange={(e) => setDesiredProfile(e.target.value)}
+                    className="form-input_textearea"
+                    maxLength={1000}
+                    style={{ resize: "none" }}
+                  />
+                </label>
+                <label className="form-label_data">
+                  Le process de recrutement :
+                  <textarea
+                    type="text"
+                    value={recruitmentProcess}
+                    onChange={(e) => setRecruitmentProcess(e.target.value)}
+                    className="form-input_textearea"
+                    maxLength={1000}
+                    style={{ resize: "none" }}
+                  />
+                </label>
+                <button type="submit" className="form-btn">
+                  Valider
+                </button>
+              </div>
+            </div>
           </form>
         </div>
       )}
