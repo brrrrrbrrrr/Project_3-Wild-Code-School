@@ -18,6 +18,13 @@ class ConsultantManager extends AbstractManager {
     );
   }
 
+  findById(id) {
+    return this.database.query(
+      `select id, name, firstname, password from ${this.table} where id = ? `,
+      [id]
+    );
+  }
+
   insert(consultant) {
     return this.database.query(
       `insert into ${this.table} (name, firstname, mail, phone, birthday, password, street, city, postalCode, picture,gender, superAdmin) values (?,?,?,?,?,?,?,?,?,?,?,?)`,
@@ -38,11 +45,11 @@ class ConsultantManager extends AbstractManager {
     );
   }
 
-  update(item) {
-    return this.database.query(
-      `update ${this.table} set title = ? where id = ?`,
-      [item.title, item.id]
-    );
+  update(consultant) {
+    return this.database.query(`update ${this.table} set  ? where id = ?`, [
+      consultant,
+      consultant.id,
+    ]);
   }
 
   updatePicture(picture, userId) {
@@ -56,6 +63,13 @@ class ConsultantManager extends AbstractManager {
     return this.database.query(
       `SELECT id, name, firstname, password , superAdmin from ${this.table} where mail = ?`,
       [mail]
+    );
+  }
+
+  updatePassword(password, userId) {
+    return this.database.query(
+      `update ${this.table} set password = ? where id = ?`,
+      [password, userId]
     );
   }
 }

@@ -115,7 +115,7 @@ const add = async (req, res) => {
     .then(([result]) => {
       // Je recupere l'id de mon nouvel utilisateur
       const idNewUser = result.insertId.toString();
-      // console.log("result :", result);
+
       const newFolder = path.join(recruiterFolderDefault, idNewUser);
       fs.renameSync(recruiterFolder, newFolder, (err) => {
         console.warn("rename folder :", err);
