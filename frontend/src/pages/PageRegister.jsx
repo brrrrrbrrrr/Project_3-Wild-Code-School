@@ -2,7 +2,6 @@
 import "./PageRegister.css";
 import React, { useState } from "react";
 import RegisterDefault from "../components/register/RegisterDefault";
-// import RegisterCandidate from "../components/register/RegisterCandidate";
 import RegisterCompagny from "../components/register/RegisterCompagny";
 import { useUser } from "../contexts/UserContext";
 
