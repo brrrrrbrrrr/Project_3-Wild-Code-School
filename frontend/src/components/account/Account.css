@@ -1,0 +1,13 @@
+.account-container {
+  font-size: 20px;
+  transition: 0.5s;
+  color: var(--background-color);
+  cursor: pointer;
+  position: relative;
+  padding: 0px 10px;
+}
+
+.account-container:hover {
+  color: var(--second-color);
+  background-color: var(--menu-color);
+}

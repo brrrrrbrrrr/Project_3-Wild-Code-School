@@ -409,6 +409,18 @@ INSERT INTO remote (type) VALUES ('Présentiel'), ('Présentiel/Télétravail'),
 MODIFY COLUMN resume VARCHAR(150) NULL DEFAULT NULL,
 MODIFY COLUMN picture VARCHAR(150) NULL DEFAULT NULL;
 
+-- Benjamin (10/05)
+ALTER TABLE candidate ADD COLUMN gender VARCHAR(45) NOT NULL;
+
+-- Benjamin(18/05)
+ALTER TABLE recruiter ADD COLUMN gender VARCHAR(45) NOT NULL;
+
+--Benjamin(26/05)
+ALTER TABLE consultant ADD COLUMN gender VARCHAR(45) NOT NULL;
+
+-- Benjamin (24/05)
+ALTER TABLE candidate CHANGE COLUMN postalAdress postalCode varchar(45) NOT NULL;
+
 ALTER TABLE `externatic`.`city` 
 ADD COLUMN `postalCode` VARCHAR(45) NULL AFTER `regionId`; 
 

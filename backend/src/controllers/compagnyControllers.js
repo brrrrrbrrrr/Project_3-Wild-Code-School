@@ -33,6 +33,81 @@ const getCompagny = (req, res) => {
     });
 };
 
+const getMyRecruiters = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const idPayload = req.payload.sub.id;
+
+  if (id === idPayload) {
+    models.compagny
+      .findMyRecruiters(id)
+      .then(([rows]) => {
+        const recruiters = rows.map((recruiter) => ({
+          ...recruiter,
+          userType: "recruiters",
+        }));
+        res.send(recruiters);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
+  } else {
+    res.sendStatus(422);
+  }
+};
+
+const getRecruiter = (req, res) => {
+  const idRecruiter = parseInt(req.params.id, 10);
+  const idCompagny = req.payload.sub.id;
+  models.compagny
+    .findRecruiter(idRecruiter, idCompagny)
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows[0]);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const GetForDeleteRecruiter = (req, res, next) => {
+  const idRecruiter = parseInt(req.params.id, 10);
+  const idCompagny = req.payload.sub.id;
+  models.compagny
+    .findRecruiter(idRecruiter, idCompagny)
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        next();
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const deleteRecruiter = (req, res) => {
+  models.compagny
+    .deleteRcruiter(req.params.id)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.compagny
     .find(parseInt(req.params.id, 10))
@@ -173,7 +248,8 @@ const getUserByEmailWithPasswordAndPassToNext = async (req, res, next) => {
   const result = await models.compagny.getUserByLogin(mail);
   if (result) {
     if (result[0] != null) {
-      req.compagny = { ...result[0] };
+      const userType = "compagny";
+      req.compagny = { ...result[0], userType };
       next();
     } else return res.sendStatus(401);
   } else return res.sendStatus(500);
@@ -186,4 +262,8 @@ module.exports = {
   updateCompagny,
   deleteCompagny,
   getUserByEmailWithPasswordAndPassToNext,
+  getMyRecruiters,
+  getRecruiter,
+  GetForDeleteRecruiter,
+  deleteRecruiter,
 };

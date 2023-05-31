@@ -24,7 +24,6 @@ const hashPassword = async (password) => {
 };
 
 const verifyPasswordRecruiter = (req, res) => {
-  console.warn(req.recruiter, req.body.password);
   argon2
     .verify(req.recruiter.password, req.body.password)
     .then((isVerified) => {
@@ -49,7 +48,6 @@ const verifyPasswordRecruiter = (req, res) => {
 };
 
 const verifyPasswordCandidate = (req, res) => {
-  console.warn(req.candidate, req.body.password);
   argon2
     .verify(req.candidate.password, req.body.password)
     .then((isVerified) => {
@@ -71,6 +69,39 @@ const verifyPasswordCandidate = (req, res) => {
       return res.sendStatus(500);
     });
 };
+
+const verifyPasswordCandidateWithoutToken = (req, res, next) => {
+  argon2
+    .verify(req.candidate.password, req.body.password)
+    .then((isVerified) => {
+      if (isVerified) {
+        next();
+      } else {
+        return res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.sendStatus(500);
+    });
+};
+
+const verifyPasswordRecruiterWithoutToken = (req, res, next) => {
+  argon2
+    .verify(req.recruiter.password, req.body.password)
+    .then((isVerified) => {
+      if (isVerified) {
+        next();
+      } else {
+        return res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.sendStatus(500);
+    });
+};
+
 const verifyToken = (req, res, next) => {
   try {
     const authorizationHeader = req.get("Authorization");
@@ -94,4 +125,6 @@ module.exports = {
   verifyPasswordCandidate,
   verifyPasswordRecruiter,
   verifyToken,
+  verifyPasswordCandidateWithoutToken,
+  verifyPasswordRecruiterWithoutToken,
 };
