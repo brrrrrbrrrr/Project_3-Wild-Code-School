@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./MyRecruiters.css";
 
 import RecruiterInfos from "../recruiterInfos/RecruiterInfos";
 import useApi from "../../services/useApi";

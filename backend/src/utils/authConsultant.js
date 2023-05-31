@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/no-extraneous-dependencies */
 const argon2 = require("argon2");
@@ -21,6 +22,22 @@ const hashPassword = (req, res, next) => {
     .catch((err) => {
       console.error(err);
       res.sendStatus(500);
+    });
+};
+
+const verifyPasswordConsultantWithoutToken = (req, res, next) => {
+  argon2
+    .verify(req.consultant.password, req.body.password)
+    .then((isVerified) => {
+      if (isVerified) {
+        next();
+      } else {
+        return res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.sendStatus(500);
     });
 };
 
@@ -100,4 +117,5 @@ module.exports = {
   verifyPassword,
   verifyToken,
   isConsultantAdmin,
+  verifyPasswordConsultantWithoutToken,
 };

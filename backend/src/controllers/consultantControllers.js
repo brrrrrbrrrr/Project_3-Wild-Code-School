@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable import/no-extraneous-dependencies */
 const Joi = require("joi").extend(require("@joi/date"));
 const path = require("path");
@@ -14,6 +15,7 @@ const validateConsultant = (data, forCreation = true) => {
     phone: Joi.string().max(45).presence(presence),
     birthday: Joi.date().format("YYYY-MM-DD").presence(presence),
     password: Joi.string().max(200).presence(presence),
+    newPassword: Joi.string().max(45).presence("optional"),
     street: Joi.string().max(45).presence(presence),
     city: Joi.string().max(45).presence(presence),
     postalCode: Joi.string().max(45).presence(presence),
@@ -77,26 +79,71 @@ const read = (req, res) => {
     });
 };
 
-const edit = (req, res) => {
-  const item = req.body;
+const getConsultantByIdToNext = async (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
+  const idPayload = req.payload.sub.id;
+  if (id !== idPayload) {
+    return res.sendStatus(401);
+  }
+  const [result] = await models.consultant.findById(id);
+  if (result) {
+    if (result[0] != null) {
+      // eslint-disable-next-line prefer-destructuring
+      req.consultant = result[0];
+      next();
+    } else return res.sendStatus(401);
+  } else return res.sendStatus(500);
+};
 
-  // TODO validations (length, format...)
+const edit = async (req, res) => {
+  const consultant = req.body;
+  const errors = validateConsultant(consultant, false);
+  if (errors) {
+    console.error(errors);
+    return res.status(422).send(errors);
+  }
 
-  item.id = parseInt(req.params.id, 10);
+  if (consultant.password) {
+    const hashedPassword = await hashPassword(req.body.password);
+    consultant.password = hashedPassword;
+  }
 
-  models.item
-    .update(item)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+  consultant.id = parseInt(req.params.id, 10);
+
+  try {
+    const [result] = await models.consultant.update(consultant);
+
+    if (result.affectedRows === 0) {
+      return res.sendStatus(404);
+    }
+    if (req.file) {
+      const filePicture = req.file;
+
+      const extension = filePicture.originalname.split(".").pop();
+      const newOriginalNamePicture = `${filePicture.originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+      const consultantFolder = req.pathFolder;
+      const newFileNamePicture = `uploads/consultant/${req.params.id}/${newOriginalNamePicture}`;
+
+      const originalNamePicture = path.join(
+        consultantFolder,
+        newOriginalNamePicture
+      );
+      const fileNamePicture = path.join(consultantFolder, filePicture.filename);
+
+      fs.renameSync(fileNamePicture, originalNamePicture, (err) => {
+        if (err) {
+          console.warn("erreur Picture :", err);
+        }
+      });
+      await models.consultant.updatePicture(newFileNamePicture, consultant.id);
+    }
+    return res.sendStatus(204);
+  } catch (err) {
+    console.error(err);
+    return res.sendStatus(500);
+  }
 };
 
 const login = (req, res, next) => {
@@ -176,7 +223,7 @@ const add = async (req, res) => {
     .then(([result]) => {
       // Je recupere l'id de mon nouvel utilisateur
       const idNewUser = result.insertId.toString();
-      // console.log("result :", result);
+
       const newFolder = path.join(consultantFolderDefault, idNewUser);
       fs.renameSync(consultantFolder, newFolder, (err) => {
         console.warn("rename folder :", err);
@@ -215,6 +262,32 @@ const add = async (req, res) => {
     });
 };
 
+const editPassword = async (req, res) => {
+  const { newPassword } = req.body;
+  const id = parseInt(req.params.id, 10);
+  const errors = validateConsultant({ newPassword }, false);
+
+  const hashedPassword = await hashPassword(newPassword);
+  if (errors) {
+    console.error(errors);
+    return res.status(422).send(errors);
+  }
+
+  models.consultant
+    .updatePassword(hashedPassword, id)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const destroy = (req, res) => {
   models.consultant
     .delete(req.params.id)
@@ -240,4 +313,6 @@ module.exports = {
   login,
   validateConsultantCreationData,
   validateConsultantLoginData,
+  getConsultantByIdToNext,
+  editPassword,
 };
