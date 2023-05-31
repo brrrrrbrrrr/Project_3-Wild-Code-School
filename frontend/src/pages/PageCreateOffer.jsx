@@ -20,15 +20,30 @@ function PageCreateOffer() {
   const [teamPicture, setTeamPicture] = useState(null);
   const [valideTeamPictureType, setValidPictureType] = useState(false);
   const [jobTitleDetails, setJobTitleDetails] = useState();
+
   const [jobOfferPresentation, setJobOfferPresentation] = useState();
   const [desiredProfile, setDesiredProfile] = useState();
   const [recruitmentProcess, setRecruitmentProcess] = useState();
   const [salary, setSalary] = useState();
+  const [validSalary, setValidSalary] = useState();
   const [numberOfEmployees, setNumberOfEmployees] = useState();
+  const [validNbOfEmployees, setValidNbOfEmployees] = useState(false);
   const [success, setSuccess] = useState();
   const sucessOffer = "successOffer";
   const consultantId = "7";
   const userId = user?.id;
+
+  const numberRegex = /^\d+$/;
+
+  useEffect(() => {
+    const result = numberRegex.test(numberOfEmployees);
+    setValidNbOfEmployees(result);
+  }, [numberOfEmployees]);
+
+  useEffect(() => {
+    const result = numberRegex.test(salary);
+    setValidSalary(result);
+  }, [salary]);
 
   function handleTeamPictureSelect(event) {
     const filePicture = event.target.files[0];
@@ -222,6 +237,15 @@ function PageCreateOffer() {
                     onChange={(e) => setNumberOfEmployees(e.target.value)}
                     className="form-input"
                   />
+                  <span
+                    className={
+                      validNbOfEmployees || !numberOfEmployees
+                        ? "signup-hide"
+                        : "signup-invalid"
+                    }
+                  >
+                    La valeur doit être un chiffre ou un nombre
+                  </span>
                 </label>
                 <label className="form-label">
                   Salaire/mois :
@@ -232,6 +256,13 @@ function PageCreateOffer() {
                     className="form-input"
                   />
                 </label>
+                <span
+                  className={
+                    validSalary || !salary ? "signup-hide" : "signup-invalid"
+                  }
+                >
+                  La valeur doit être un un nombre
+                </span>
                 <label className="form-label_data">
                   Présentation entreprise / Infos offre :
                   <textarea
@@ -265,7 +296,23 @@ function PageCreateOffer() {
                     style={{ resize: "none" }}
                   />
                 </label>
-                <button type="submit" className="form-btn">
+                <button
+                  type="submit"
+                  className="form-btn"
+                  disabled={
+                    !valideTeamPictureType ||
+                    !city ||
+                    !jobTitle ||
+                    !contract ||
+                    !remote ||
+                    !jobTitleDetails ||
+                    !validNbOfEmployees ||
+                    !validSalary ||
+                    !jobOfferPresentation ||
+                    !desiredProfile ||
+                    !recruitmentProcess
+                  }
+                >
                   Valider
                 </button>
               </div>
