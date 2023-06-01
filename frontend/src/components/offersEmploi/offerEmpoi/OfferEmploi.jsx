@@ -3,18 +3,21 @@
 /* eslint-disable react/function-component-definition */
 import { useState } from "react";
 import { HiOutlineStar } from "react-icons/hi";
+import { BsFillChatRightTextFill } from "react-icons/bs";
 import { Button } from "@mui/material";
 import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
 import { useUser } from "../../../contexts/UserContext";
 import useApi from "../../../services/useApi";
 
 const OfferEmploi = ({ offer, userId }) => {
   const [selected, setSelected] = useState(offer.candidateId === userId);
   const user = useUser();
+
   const api = useApi();
+  console.warn(offer);
 
   const handleIconClick = () => {
-    setSelected(!selected);
     api
       .post(`offers/${offer.id}/like`, { candidateId: user.user.id })
 
@@ -30,16 +33,32 @@ const OfferEmploi = ({ offer, userId }) => {
     <div className="offersemploi-offer_container">
       <div className="offersemploi-offer_logo">logo</div>
       <div className="offersemploi-offer_info">
-        <div className="offersemploi-offer_info-main">
-          <h3 className="offersemploi-offer_title">{offer.job_title}</h3>
-          <h3 className="offersemploi-offer_salary">{offer.salary} euro/an</h3>
+        <div>
+          <div className="offersemploi-offer_info-main">
+            <h3 className="offersemploi-offer_title">{offer.job_title}</h3>
+            <h3 className="offersemploi-offer_salary">
+              {offer.salary} euro/an
+            </h3>
+          </div>
+          <div className="offersemploi-offer_info-contract">
+            <h3 className="offersemploi-offer_type-contract">
+              {offer.contract_type}
+            </h3>
+            <h3 className="offersemploi-offer_remote">{offer.remote_type}</h3>
+            <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
+          </div>
         </div>
-        <div className="offersemploi-offer_info-contract">
-          <h3 className="offersemploi-offer_type-contract">
-            {offer.contract_type}
-          </h3>
-          <h3 className="offersemploi-offer_remote">{offer.remote_type}</h3>
-          <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
+        <div className="offersemploi-icon_box">
+          <div>
+            {selected ? (
+              <NavLink to="/messages">
+                <BsFillChatRightTextFill
+                  className="offersemploi-icon_chat"
+                  size={50}
+                />
+              </NavLink>
+            ) : null}
+          </div>
           <div>
             {user.user === null ? (
               ""

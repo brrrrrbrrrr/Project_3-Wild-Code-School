@@ -13,6 +13,7 @@ const NavBar = () => {
   };
 
   const { user } = useUser();
+  console.warn(user);
 
   return (
     <nav>
@@ -28,6 +29,11 @@ const NavBar = () => {
           </div>
         </div>
         <ul className={openMenuBurger ? " menu-display menu" : "menu"}>
+          <li>
+            <NavLink onClick={toggleMenu} to="/messages">
+              Messenger
+            </NavLink>
+          </li>
           <li>
             {user?.superAdmin ? (
               <NavLink onClick={toggleMenu} to="/superadmin">

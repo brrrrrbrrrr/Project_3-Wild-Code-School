@@ -42,7 +42,7 @@
   flex-direction: column;
   align-items: center;
   padding: 30px 15px;
-  height: 310px;
+  height: 350px;
   justify-content: space-between;
 }
 .offersemploi-offer_container:hover,
@@ -109,6 +109,14 @@
   fill: var(--extra-color);
   color: var(--extra-color);
 }
+.offersemploi-icon_chat {
+  color: var(--second-color);
+}
+
+.offersemploi-icon_box {
+  display: flex;
+  justify-content: center;
+}
 
 #offersemploi-offer_button-info-filter {
   border-style: hidden;
@@ -137,7 +145,8 @@
   }
 
   .offersemploi-offer_info {
-    padding-left: 40px;
+    padding-left: 10px;
+    display: flex;
   }
 
   .offersemploi-offer_info-main {
@@ -153,7 +162,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     width: 450px;
   }
@@ -163,6 +172,10 @@
   .offersemploi-offer_remote {
     font-weight: normal;
     font-size: 20px;
+  }
+  .offersemploi-icon_box {
+    display: flex;
+    flex-direction: column;
   }
   #offersemploi-offer_button-info {
     display: none;
