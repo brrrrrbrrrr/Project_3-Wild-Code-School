@@ -5,6 +5,7 @@ import { useState } from "react";
 import { HiOutlineStar } from "react-icons/hi";
 import { Button } from "@mui/material";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { useUser } from "../../../contexts/UserContext";
 import useApi from "../../../services/useApi";
 
@@ -12,6 +13,7 @@ const OfferEmploi = ({ offer, userId }) => {
   const [selected, setSelected] = useState(offer.candidateId === userId);
   const user = useUser();
   const api = useApi();
+  const urlFile = import.meta.env.VITE_APP_URL;
 
   const handleIconClick = () => {
     setSelected(!selected);
@@ -28,7 +30,11 @@ const OfferEmploi = ({ offer, userId }) => {
 
   return (
     <div className="offersemploi-offer_container">
-      <div className="offersemploi-offer_logo">logo</div>
+      <img
+        src={`${urlFile}/${offer.Logo}`}
+        className="offersemploi-offer_logo"
+        alt=""
+      />
       <div className="offersemploi-offer_info">
         <div className="offersemploi-offer_info-main">
           <h3 className="offersemploi-offer_title">{offer.job_title}</h3>
@@ -57,9 +63,12 @@ const OfferEmploi = ({ offer, userId }) => {
           </div>
         </div>
       </div>
-      <Button id="offersemploi-offer_button-info" variant="contained">
-        Plus d'infos
-      </Button>
+
+      <Link to={`/offers/${offer.id}`}>
+        <Button id="offersemploi-offer_button-info" variant="contained">
+          Plus d'infos
+        </Button>
+      </Link>
     </div>
   );
 };
@@ -75,6 +84,7 @@ OfferEmploi.propTypes = {
     city_name: PropTypes.string.isRequired,
     remote_type: PropTypes.string.isRequired,
     numberOfEmployees: PropTypes.string.isRequired,
+    Logo: PropTypes.string.isRequired,
   }).isRequired,
 };
 OfferEmploi.defaultProps = {

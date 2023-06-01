@@ -44,6 +44,7 @@
   padding: 30px 15px;
   height: 310px;
   justify-content: space-between;
+  position: relative;
 }
 .offersemploi-offer_container:hover,
 .offersemploi-offer_container:focus {
@@ -163,8 +164,5 @@
   .offersemploi-offer_remote {
     font-weight: normal;
     font-size: 20px;
-  }
-  #offersemploi-offer_button-info {
-    display: none;
   }
 }

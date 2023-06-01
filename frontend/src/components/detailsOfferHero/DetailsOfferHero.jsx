@@ -5,23 +5,23 @@ import { FiMapPin } from "react-icons/fi";
 import { CgEuro } from "react-icons/cg";
 import { SiReacthookform } from "react-icons/si";
 import "./DetailsOfferHero.css";
-import Logo from "../../assets/logo.png";
-import Bgemployees from "../../assets/bg_employeesbis.jpg";
 
 const DetailsOfferHero = (props) => {
   const { offer } = props;
-
+  const urlFile = import.meta.env.VITE_APP_URL;
   return (
     <div className="detailsOfferHero-container">
       <div
         className="detailsOfferHero-image"
-        style={{ backgroundImage: `url(${Bgemployees})` }}
+        style={{ backgroundImage: `url(${urlFile}/${offer.teamPicture})` }}
       >
-        <img
-          src={Logo}
-          alt="Logo de l'entreprise"
-          className="detailsOfferHero-logo"
-        />
+        {offer?.Logo && (
+          <img
+            src={`${urlFile}/${offer.Logo}`}
+            alt="Logo de l'entreprise"
+            className="detailsOfferHero-logo"
+          />
+        )}
 
         <h2 className="detailsOfferHero-title">{offer.jobTitleDetails}</h2>
         <div className="detailsOfferHero-subtitles">
@@ -53,6 +53,7 @@ DetailsOfferHero.propTypes = {
     contratType: PropTypes.string.isRequired,
     remoteWork: PropTypes.number.isRequired,
     salary: PropTypes.number.isRequired,
+    teamPicture: PropTypes.string.isRequired,
   }).isRequired,
 };
 
