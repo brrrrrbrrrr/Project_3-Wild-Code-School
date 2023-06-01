@@ -1,0 +1,25 @@
+.pagemyaccount-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 4rem 0;
+}
+
+.pagemyaccount-container_btn {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.pagemyaccount-btn {
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+@media screen and (min-width: 768px) {
+  .pagemyaccount-container_btn {
+    width: 50rem;
+  }
+}
