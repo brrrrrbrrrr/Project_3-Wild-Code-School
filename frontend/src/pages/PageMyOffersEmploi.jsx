@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 import useApi from "../services/useApi";
 import OfferEmploi from "../components/offersEmploi/offerEmpoi/OfferEmploi";
+import "./PageMyOffersEmploi.css";
 
 function PageMyOffersEmploi() {
   const api = useApi();
@@ -23,10 +24,14 @@ function PageMyOffersEmploi() {
   }, []);
 
   return (
-    <div>
-      <Link to="/new-offer">
-        <button type="button">Ajouter une offre</button>
-      </Link>
+    <div className="page-my-offers-emploi_container">
+      <div className="page-my-offers-emploi_btn-container">
+        <Link to="/new-offer">
+          <button type="button" className="page-my-offers-emploi_btn">
+            Ajouter une offre
+          </button>
+        </Link>
+      </div>
 
       {myOffers?.map((offer) => (
         <OfferEmploi key={offer.id} offer={offer} userId={id} />

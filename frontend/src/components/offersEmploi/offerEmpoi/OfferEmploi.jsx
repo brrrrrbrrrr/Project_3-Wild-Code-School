@@ -41,7 +41,7 @@ const OfferEmploi = ({ offer, userId }) => {
           <h3 className="offersemploi-offer_remote">{offer.remote_type}</h3>
           <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
           <div>
-            {user.user === null ? (
+            {user.user === null || user?.user.userType !== "candidates" ? (
               ""
             ) : (
               <HiOutlineStar
