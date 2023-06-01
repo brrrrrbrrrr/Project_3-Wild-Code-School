@@ -96,6 +96,25 @@ class OfferManager extends AbstractManager {
     );
   }
 
+  findAllCity(filter) {
+    return this.database.query(
+      `
+  SELECT o.id, o.salary, o.teamPicture, o.jobOfferPresentation, o.desiredProfile, o.recruitmentProcess, o.numberOfEmployees, o.jobTitleDetails, c.name AS city_name, co.Logo, ct.type AS contract_type, j.name AS job_title, re.type AS remote_type
+  FROM offer AS o
+  JOIN city AS c ON c.id = o.cityId
+  JOIN recruiter AS r ON r.id = o.recruiterId
+  JOIN compagny AS co ON co.id = r.compagny_id
+  JOIN contrat AS ct ON ct.id = o.contratId
+  JOIN job_title as j ON j.id = o.jobTitleId
+  JOIN remote AS re ON re.id = o.remoteId
+  WHERE o.cityID = ?
+
+
+`,
+      [filter]
+    );
+  }
+
   findAllFilter() {
     return this.database.query(
       `
@@ -134,6 +153,66 @@ class OfferManager extends AbstractManager {
       join externatic.offer_candidate on offer.Id=offer_candidate.offerId where candidateId=?`,
       [candidateId]
     );
+  }
+
+  getcity() {
+    return this.database.query(`SELECT * FROM city`);
+  }
+
+  getmultifilter(
+    jobmultifilter,
+    remotemultifilter,
+    contractmultifilter,
+    citymultifilter
+  ) {
+    const dependencies = [];
+    let sql = `
+    SELECT o.id, o.salary, o.teamPicture, o.jobOfferPresentation, o.desiredProfile, o.recruitmentProcess, o.numberOfEmployees, o.jobTitleDetails, c.name AS city_name, co.Logo, ct.type AS contract_type, j.name AS job_title, re.type AS remote_type, ofc.candidateId
+    FROM offer AS o
+    JOIN city AS c ON c.id = o.cityId
+    JOIN recruiter AS r ON r.id = o.recruiterId
+    JOIN compagny AS co ON co.id = r.compagny_id
+    JOIN contrat AS ct ON ct.id = o.contratId
+    JOIN job_title as j ON j.id = o.jobTitleId
+    JOIN remote AS re ON re.id = o.remoteId
+    LEFT JOIN offer_candidate as ofc ON o.id = ofc.offerId
+  `;
+    if (!(jobmultifilter === 0)) {
+      sql += ` WHERE o.jobTitleId = ?`;
+      dependencies.push(jobmultifilter);
+    }
+    if (!(remotemultifilter === 0)) {
+      if (!(jobmultifilter === 0)) {
+        sql += ` AND o.remoteId = ?`;
+        dependencies.push(remotemultifilter);
+      } else {
+        sql += ` WHERE o.remoteId = ?`;
+        dependencies.push(remotemultifilter);
+      }
+    }
+    if (!(contractmultifilter === 0)) {
+      if (jobmultifilter === 0 && remotemultifilter === 0) {
+        sql += ` WHERE o.contratID = ?`;
+        dependencies.push(contractmultifilter);
+      } else {
+        sql += ` AND o.contratID = ?`;
+        dependencies.push(contractmultifilter);
+      }
+    }
+    if (!(citymultifilter === 0)) {
+      if (
+        jobmultifilter === 0 &&
+        remotemultifilter === 0 &&
+        contractmultifilter === 0
+      ) {
+        sql += ` WHERE o.cityID = ?`;
+        dependencies.push(citymultifilter);
+      } else {
+        sql += ` AND o.cityID = ?`;
+        dependencies.push(citymultifilter);
+      }
+    }
+    return this.database.query(sql, dependencies);
   }
 }
 

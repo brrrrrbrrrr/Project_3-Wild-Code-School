@@ -54,6 +54,17 @@ const browse = (req, res) => {
             res.sendStatus(500);
           });
         break;
+      case 4:
+        models.offer
+          .findAllCity(filter)
+          .then(([rows]) => {
+            res.send(rows);
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(500);
+          });
+        break;
       default:
         res.sendStatus(422);
     }
@@ -108,6 +119,18 @@ const contractfilter = (req, res) => {
     });
 };
 
+const cityfilter = (req, res) => {
+  models.offer
+    .getcity()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.offer
     .find(parseInt(req.params.id, 10))
@@ -135,6 +158,24 @@ const getLikedOffers = (req, res) => {
       } else {
         res.send(rows);
       }
+    });
+};
+const multifilter = (req, res) => {
+  const {
+    jobmultifilter,
+    remotemultifilter,
+    contractmultifilter,
+    citymultifilter,
+  } = req.query.filter;
+  models.offer
+    .getmultifilter(
+      parseInt(jobmultifilter, 10),
+      parseInt(remotemultifilter, 10),
+      parseInt(contractmultifilter, 10),
+      parseInt(citymultifilter, 10)
+    )
+    .then(([rows]) => {
+      res.send(rows);
     })
     .catch((err) => {
       console.error(err);
@@ -149,4 +190,6 @@ module.exports = {
   contractfilter,
   read,
   getLikedOffers,
+  cityfilter,
+  multifilter,
 };

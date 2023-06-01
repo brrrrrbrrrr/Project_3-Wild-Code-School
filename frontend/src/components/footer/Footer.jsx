@@ -5,7 +5,7 @@ import "./Footer.css";
 function Footer() {
   return (
     <footer>
-      <p>© 2023 Externatic</p>
+      <p className="footer-title">© 2023 Externatic</p>
 
       <div className="footer-icons">
         <span>

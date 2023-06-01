@@ -1,0 +1,57 @@
+.likedoffers-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 1500px;
+  background-color: var(--background-color);
+}
+
+.likedoffers-status {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 250px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.likedoffers-offers {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.likedoffers-button_candidate {
+  border-style: hidden;
+  padding: 10px 15px;
+  background-color: #00b3ff;
+  border-radius: 2px;
+  color: #f1f1e6;
+  cursor: pointer;
+  box-shadow: 2px 2px 7px #00b3ff;
+  width: 200px;
+  height: 50px;
+  font-size: 1.2em;
+}
+
+@media screen and (min-width: 769px) {
+  .likedoffers-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-top: 40px;
+  }
+}
+
+.likedoffers-status {
+  width: 30%;
+}
+
+.likedoffers-offers {
+  width: 70%;
+}

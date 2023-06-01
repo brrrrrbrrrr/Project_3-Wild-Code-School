@@ -1,19 +1,28 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable object-shorthand */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable import/no-extraneous-dependencies */
 import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 import { useState } from "react";
+import AccountMenu from "../accountMenu/AccountMenu";
+import Account from "../account/Account";
 import { useUser } from "../../contexts/UserContext";
 
 const NavBar = () => {
   const [openMenuBurger, setOpenMenuBurger] = useState(false);
+  const [activeAccountMenu, setActiveAccountMenu] = useState(false);
   const toggleMenu = () => {
     setOpenMenuBurger(!openMenuBurger);
   };
 
-  const { user } = useUser();
-  // console.warn("user navbar :", { user });
+  const handleClick = () => {
+    setActiveAccountMenu(!activeAccountMenu);
+  };
+
+  const { user, newName } = useUser();
+
   return (
     <nav>
       <div className="navlink-container">
@@ -29,17 +38,26 @@ const NavBar = () => {
         </div>
         <ul className={openMenuBurger ? " menu-display menu" : "menu"}>
           <li>
+            {user?.superAdmin ? (
+              <NavLink onClick={toggleMenu} to="/superadmin">
+                Admin
+              </NavLink>
+            ) : (
+              ""
+            )}
+          </li>
+          <li>
             <NavLink onClick={toggleMenu} to="/">
               Accueil
             </NavLink>
           </li>
           <li>
-            <NavLink onClick={toggleMenu} to="/offer">
+            <NavLink className="navlink-menu" onClick={toggleMenu} to="/offer">
               Offres d'emploi
             </NavLink>
           </li>
           <li>
-            <NavLink onClick={toggleMenu} to="/propos">
+            <NavLink className="navlink-menu" onClick={toggleMenu} to="/propos">
               A propos
             </NavLink>
           </li>
@@ -51,13 +69,27 @@ const NavBar = () => {
             >
               Se connecter
             </NavLink>
-            <NavLink
-              to="/admin"
-              className={user ? "account-link" : "account-link_hide"}
-            >
-              {user && (user.firstname ? `${user.firstname}` : `${user.name}`)}
-            </NavLink>
           </li>
+          <ul
+            className={
+              user
+                ? "menu-account_ul-container"
+                : "menu-account_ul-container-hide"
+            }
+            onClick={handleClick}
+          >
+            <Account user={user} newName={newName} />
+            <li>
+              {activeAccountMenu ? (
+                <AccountMenu
+                  openMenuBurger={openMenuBurger}
+                  setOpenMenuBurger={setOpenMenuBurger}
+                />
+              ) : (
+                ""
+              )}
+            </li>
+          </ul>
         </ul>
       </div>
     </nav>

@@ -1,8 +1,6 @@
 .select-form-btn-container {
   display: flex;
   justify-content: center;
-  position: relative;
-  margin-top: 2rem;
 }
 
 .select-form-btn-column {

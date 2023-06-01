@@ -1,0 +1,152 @@
+.users-informations_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.users-informations_column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color);
+  width: 100vw;
+  box-shadow: 0px 1px 11px 3px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px 1px 11px 3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 1px 11px 3px rgba(0, 0, 0, 0.75);
+}
+
+.users-informations_h1 {
+  padding: 10px 15px;
+  margin: 20px 0;
+  background-color: white;
+}
+
+.users-informations_picture-h2 {
+  margin: 10px 0;
+}
+
+.rounded-img_container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.rounded-image {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 150px;
+  height: 150px;
+  position: relative;
+}
+
+.users-informations_picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rounded-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 3px solid white; /* couleur du cadre */
+  border-radius: 50%;
+}
+
+.rounded-border2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid var(--primary-color); /* couleur du cadre */
+  border-radius: 50%;
+}
+.form-edit {
+  width: 100%;
+}
+
+.users-informations_files-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.form-label_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-label_resume {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label_gender-container {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-label_gender {
+  width: 150px;
+  padding: 5px 10px;
+  font-size: 0.7rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.form-input_gender {
+  margin: 0 5px;
+}
+
+.span-birthday {
+  font-style: italic;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 5px;
+}
+
+.form-infos_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.resume-download {
+  font-size: 0.7rem;
+  list-style: none;
+  color: rgba(0, 0, 0, 0.616);
+}
+.update-succes_p {
+  text-align: center;
+  margin-top: 5rem;
+}
+@media screen and (min-width: 320px) {
+  .users-informations_files-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  .form-infos_container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .users-informations_column {
+    width: 50rem;
+  }
+}
