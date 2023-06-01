@@ -418,3 +418,12 @@ INSERT INTO offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredP
  ("40000", 1, "teamPicture.png", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "100", "Senior Data Analyst", 3, 1, 1, 1, 3),
  ("25000", 3, "team.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "30", "Marketing Coordinator", 1, 1, 1, 2, 4),
  ("50000", 2, "teamPic.jpeg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "70", "Senior Project Manager", 3, 1, 1, 1, 5);
+
+
+ CREATE TABLE `externatic`.`filter` (
+  `candidateId` INT NOT NULL,
+  `filterType` INT NOT NULL,
+  `filterValue` INT NULL,
+  PRIMARY KEY (`candidateId`, `filterType`));
+
+

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Button from "@mui/material/Button";
+import { ToastContainer, toast } from "react-toastify";
 import { useUser } from "../../contexts/UserContext";
 import useApi from "../../services/useApi";
 import Loader from "../loader/Loader";
@@ -117,6 +118,16 @@ const OffersEmploi = () => {
       contractmultifilter: 0,
       citymultifilter: 0,
     };
+    toast.info("Filtre Réinitialisé !", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
     api
       .get("/offers/filterall", {
         params: {
@@ -136,6 +147,56 @@ const OffersEmploi = () => {
         console.error(error);
         setIsLoading(false);
       });
+  };
+
+  const SaveFilter = () => {
+    const jobfilter = jobRef.current.value;
+    const remotefilter = remoteRef.current.value;
+    const contractfilter = contractRef.current.value;
+    const cityfilter = cityRef.current.value;
+    const Filters = [jobfilter, remotefilter, contractfilter, cityfilter];
+    if (
+      jobfilter === "0" &&
+      remotefilter === "0" &&
+      contractfilter === "0" &&
+      cityfilter === "0"
+    ) {
+      api
+        .post(`/filter`, {
+          candidateId: user.user.id,
+          filters: Filters,
+        })
+        .then(() => {
+          toast.warning("Vous avez désactivé votre filtre", {
+            position: "top-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        });
+    } else {
+      api
+        .post(`/filter`, {
+          candidateId: user.user.id,
+          filters: Filters,
+        })
+        .then(() => {
+          toast.success("Filtre enregistré !", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        });
+    }
   };
 
   const MultiFilter = () => {
@@ -211,6 +272,13 @@ const OffersEmploi = () => {
         >
           Réinitialiser
         </Button>
+        <Button
+          id="offersemploi-offer_button-info-filter"
+          variant="contained"
+          onClick={SaveFilter}
+        >
+          enregistrer le filtre
+        </Button>
       </div>
       <div className="offersemploi-offer_wrapper">
         {offers.map((offer) => {
@@ -230,6 +298,7 @@ const OffersEmploi = () => {
         )}
         <div ref={ref} className="offersemploi-fef_div" />
       </div>
+      <ToastContainer />
     </div>
   );
 };
