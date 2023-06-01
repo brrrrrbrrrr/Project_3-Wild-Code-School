@@ -205,57 +205,59 @@ function PageCreateOffer() {
             </div>
             <div className="form-offer_data-container">
               <div className="form-offer_data-column">
-                <label className="form-label">
-                  Photo d'équipe :
-                  <input
-                    type="file"
-                    onChange={handleTeamPictureSelect}
-                    className="form-input"
-                  />
-                  <span
-                    className={
-                      valideTeamPictureType ? "signup-hide" : "signup-invalid"
-                    }
-                  >
-                    Merci de choisir un fichier .JPEG/JPG/PNG
-                  </span>
-                </label>
-                <label className="form-label">
-                  Ajoutez des détails sur le titre du poste :
-                  <input
-                    type="text"
-                    value={jobTitleDetails}
-                    onChange={(e) => setJobTitleDetails(e.target.value)}
-                    className="form-input"
-                  />
-                </label>
-                <label className="form-label">
-                  Nombre d'employés :
-                  <input
-                    type="text"
-                    value={numberOfEmployees}
-                    onChange={(e) => setNumberOfEmployees(e.target.value)}
-                    className="form-input"
-                  />
-                  <span
-                    className={
-                      validNbOfEmployees || !numberOfEmployees
-                        ? "signup-hide"
-                        : "signup-invalid"
-                    }
-                  >
-                    La valeur doit être un chiffre ou un nombre
-                  </span>
-                </label>
-                <label className="form-label">
-                  Salaire/mois :
-                  <input
-                    type="text"
-                    value={salary}
-                    onChange={(e) => setSalary(e.target.value)}
-                    className="form-input"
-                  />
-                </label>
+                <div className="form-offer_data-1">
+                  <label className="form-label">
+                    Photo d'équipe :
+                    <input
+                      type="file"
+                      onChange={handleTeamPictureSelect}
+                      className="form-input"
+                    />
+                    <span
+                      className={
+                        valideTeamPictureType ? "signup-hide" : "signup-invalid"
+                      }
+                    >
+                      Merci de choisir un fichier .JPEG/JPG/PNG
+                    </span>
+                  </label>
+                  <label className="form-label">
+                    Détails titre de poste :
+                    <input
+                      type="text"
+                      value={jobTitleDetails}
+                      onChange={(e) => setJobTitleDetails(e.target.value)}
+                      className="form-input"
+                    />
+                  </label>
+                  <label className="form-label">
+                    Nombre d'employés :
+                    <input
+                      type="text"
+                      value={numberOfEmployees}
+                      onChange={(e) => setNumberOfEmployees(e.target.value)}
+                      className="form-input"
+                    />
+                    <span
+                      className={
+                        validNbOfEmployees || !numberOfEmployees
+                          ? "signup-hide"
+                          : "signup-invalid"
+                      }
+                    >
+                      La valeur doit être un chiffre ou un nombre
+                    </span>
+                  </label>
+                  <label className="form-label">
+                    Salaire/mois :
+                    <input
+                      type="text"
+                      value={salary}
+                      onChange={(e) => setSalary(e.target.value)}
+                      className="form-input"
+                    />
+                  </label>
+                </div>
                 <span
                   className={
                     validSalary || !salary ? "signup-hide" : "signup-invalid"
