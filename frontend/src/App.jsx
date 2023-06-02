@@ -40,6 +40,7 @@ function App() {
           <Route path="create-admin" element={<RegisterDefault />} />
           <Route path="/my-offers" element={<PageMyOffersEmploi />} />
           <Route path="/new-offer" element={<PageCreateOffer />} />
+          <Route path="/update-offer" element={<PageCreateOffer />} />
         </Routes>
         <Footer />
       </UserProvider>

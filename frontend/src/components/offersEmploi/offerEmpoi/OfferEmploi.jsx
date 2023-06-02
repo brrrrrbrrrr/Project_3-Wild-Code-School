@@ -3,6 +3,7 @@
 /* eslint-disable react/function-component-definition */
 import { useState } from "react";
 import { HiOutlineStar } from "react-icons/hi";
+import { AiTwotoneEdit } from "react-icons/ai";
 import { Button } from "@mui/material";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -46,6 +47,13 @@ const OfferEmploi = ({ offer, userId }) => {
           </h3>
           <h3 className="offersemploi-offer_remote">{offer.remote_type}</h3>
           <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
+          {user?.user?.userType === "recruiters" &&
+            userId === offer.recruiterId && (
+              <Link to="/update-offer">
+                <AiTwotoneEdit size={30} className="offersemploi-con_edit" />
+              </Link>
+            )}
+
           <div>
             {user.user === null || user?.user.userType !== "candidates" ? (
               ""
@@ -85,6 +93,7 @@ OfferEmploi.propTypes = {
     remote_type: PropTypes.string.isRequired,
     numberOfEmployees: PropTypes.string.isRequired,
     Logo: PropTypes.string.isRequired,
+    recruiterId: PropTypes.number.isRequired,
   }).isRequired,
 };
 OfferEmploi.defaultProps = {

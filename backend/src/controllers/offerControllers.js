@@ -140,6 +140,26 @@ const getMyOffers = (req, res) => {
     });
 };
 
+const getMyOfferForUpdate = (req, res, next) => {
+  const recruiterId = req.payload.sub.id;
+  const offerId = parseInt(req.params.id, 10);
+  models.offer
+    .findMyOfferByIdAndRecruiter(offerId, recruiterId)
+    .then(([offer]) => {
+      // Vérifiez si l'offre est vide ou ne contient pas la propriété 'recruiterId'
+      if (!offer || offer.length === 0 || !offer[0].recruiterId) {
+        return res
+          .status(404)
+          .json({ error: "Offre non trouvée ou accès non autorisé" });
+      }
+      return next();
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.sendStatus(500);
+    });
+};
+
 const browse = (req, res) => {
   const { page = 1, limit = 4 } = req.query;
   const { filter, typeFilter } = req.query;
@@ -220,6 +240,55 @@ const browse = (req, res) => {
         console.error(err);
         res.sendStatus(500);
       });
+  }
+};
+
+const edit = async (req, res) => {
+  const offer = req.body;
+  const errors = validate(offer, false);
+  if (errors) {
+    console.error(errors);
+    return res.status(422).send(errors);
+  }
+
+  offer.id = parseInt(req.params.id, 10);
+
+  try {
+    const [result] = await models.offer.update(offer);
+
+    if (result.affectedRows === 0) {
+      return res.sendStatus(404);
+    }
+    if (req.file) {
+      const fileTeamPicture = req.file;
+
+      const extension = fileTeamPicture.originalname.split(".").pop();
+      const newOriginalNameTeamPicture = `${fileTeamPicture.originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+      const offerFolder = req.pathFolder;
+      const newFileNameTeamPicture = `uploads/offer/${req.params.id}/${newOriginalNameTeamPicture}`;
+
+      const originalNamePicture = path.join(
+        offerFolder,
+        newOriginalNameTeamPicture
+      );
+      const fileNameTeamPicture = path.join(
+        offerFolder,
+        fileTeamPicture.filename
+      );
+
+      fs.renameSync(fileNameTeamPicture, originalNamePicture, (err) => {
+        if (err) {
+          console.warn("erreur Picture :", err);
+        }
+      });
+      await models.offer.updateTeamPicture(newFileNameTeamPicture, offer.id);
+    }
+    return res.sendStatus(204);
+  } catch (err) {
+    console.error(err);
+    return res.sendStatus(500);
   }
 };
 
@@ -321,4 +390,6 @@ module.exports = {
   read,
   cityfilter,
   multifilter,
+  edit,
+  getMyOfferForUpdate,
 };

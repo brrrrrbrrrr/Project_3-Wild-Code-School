@@ -46,6 +46,13 @@ class OfferManager extends AbstractManager {
     );
   }
 
+  findMyOfferByIdAndRecruiter(offerId, recruiterId) {
+    return this.database.query(
+      `SELECT * FROM ${this.table} WHERE id = ? AND recruiterId = ? LIMIT 1`,
+      [offerId, recruiterId]
+    );
+  }
+
   find(id) {
     return this.database.query(
       `select offer.*, city.name as cityName, contrat.type as contratType, compagny.Logo, recruiter.postalCode as recruiterPostalCode,
@@ -74,7 +81,7 @@ class OfferManager extends AbstractManager {
 
     return this.database.query(
       `
-  SELECT o.id, o.salary, o.teamPicture, o.jobOfferPresentation, o.desiredProfile, o.recruitmentProcess, o.numberOfEmployees, o.jobTitleDetails, c.name AS city_name, co.Logo, ct.type AS contract_type, j.name AS job_title, re.type AS remote_type, offer_candidate.candidateId
+  SELECT o.id, o.salary, o.teamPicture, o.jobOfferPresentation, o.desiredProfile, o.recruitmentProcess, o.numberOfEmployees, o.jobTitleDetails, c.name AS city_name, co.Logo, ct.type AS contract_type, j.name AS job_title, re.type AS remote_type, offer_candidate.candidateId, r.id as recruiterId
   FROM offer AS o
   JOIN city AS c ON c.id = o.cityId
   JOIN recruiter AS r ON r.id = o.recruiterId
@@ -198,6 +205,13 @@ class OfferManager extends AbstractManager {
 
   getcity() {
     return this.database.query(`SELECT * FROM city`);
+  }
+
+  update(offer) {
+    return this.database.query(`update ${this.table} set ? where id = ?`, [
+      offer,
+      offer.id,
+    ]);
   }
 
   getmultifilter(
