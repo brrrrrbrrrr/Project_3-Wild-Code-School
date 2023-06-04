@@ -167,7 +167,7 @@ const OffersEmploi = () => {
           filters: Filters,
         })
         .then(() => {
-          toast.warning("Vous avez désactivé votre filtre", {
+          toast.warning("Vous avez enlevé votre filtre", {
             position: "top-center",
             autoClose: 4000,
             hideProgressBar: false,
@@ -230,6 +230,62 @@ const OffersEmploi = () => {
       });
   };
 
+  const UpdateFilters = () => {
+    api.get("/filter/update").then((response) => {
+      if (
+        response.body === undefined ||
+        (response.data[0].filterValue === 0 &&
+          response.data[1].filterValue === 0 &&
+          response.data[2].filterValue === 0 &&
+          response.data[3].filterValue === 0)
+      ) {
+        toast.error("Vous n'avez pas de filtre enregistré", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
+        jobRef.current.value = response.data[0].filterValue;
+        remoteRef.current.value = response.data[1].filterValue;
+        contractRef.current.value = response.data[2].filterValue;
+        cityRef.current.value = response.data[3].filterValue;
+        const jobmultifilter = jobRef.current.value;
+        const remotemultifilter = remoteRef.current.value;
+        const contractmultifilter = contractRef.current.value;
+        const citymultifilter = cityRef.current.value;
+        const Filters = {
+          jobmultifilter,
+          remotemultifilter,
+          contractmultifilter,
+          citymultifilter,
+        };
+        api
+          .get("/offers/filterall", {
+            params: {
+              filter: Filters,
+            },
+          })
+          .then((resp) => {
+            const sortedOffers = resp.data.sort((a, b) => b.id - a.id);
+            setOffers([...sortedOffers]);
+            setIsAllLoaded(true);
+            setPage(page + 1);
+            setIsLoading(false);
+            setIsFirstLoad(false);
+          })
+          .catch((error) => {
+            console.error(error);
+            setIsLoading(false);
+          });
+      }
+    });
+  };
+
   return (
     <div className="offersemploi-container">
       <div className="offersemploi-filters">
@@ -278,6 +334,13 @@ const OffersEmploi = () => {
           onClick={SaveFilter}
         >
           enregistrer le filtre
+        </Button>
+        <Button
+          id="offersemploi-offer_button-info-filter"
+          variant="contained"
+          onClick={UpdateFilters}
+        >
+          update
         </Button>
       </div>
       <div className="offersemploi-offer_wrapper">

@@ -61,6 +61,13 @@ class FilterManager extends AbstractManager {
       [candidateId]
     );
   }
+
+  updateUserFilters(candidateId) {
+    return this.database.query(
+      `SELECT filterValue FROM ${this.table} WHERE candidateId = ?`,
+      [candidateId]
+    );
+  }
 }
 
 module.exports = FilterManager;

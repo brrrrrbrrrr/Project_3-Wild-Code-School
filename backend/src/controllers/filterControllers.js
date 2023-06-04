@@ -45,7 +45,20 @@ const compareFilter = (req, res) => {
     });
 };
 
+const updateFilter = (req, res) => {
+  models.filter
+    .updateUserFilters(req.payload.sub.id)
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   addFilter,
   compareFilter,
+  updateFilter,
 };
