@@ -233,7 +233,7 @@ const OffersEmploi = () => {
   const UpdateFilters = () => {
     api.get("/filter/update").then((response) => {
       if (
-        response.body === undefined ||
+        response.data.length === 0 ||
         (response.data[0].filterValue === 0 &&
           response.data[1].filterValue === 0 &&
           response.data[2].filterValue === 0 &&
@@ -277,6 +277,16 @@ const OffersEmploi = () => {
             setPage(page + 1);
             setIsLoading(false);
             setIsFirstLoad(false);
+            toast.info("Filtre mis à jour selon vos critères enregistré ", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
           })
           .catch((error) => {
             console.error(error);
