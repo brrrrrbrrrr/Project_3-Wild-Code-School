@@ -123,8 +123,11 @@
 
 .offersemploi-con_edit {
   position: absolute;
-  top: 0;
-  right: 0;
+  background-color: white;
+  border-radius: 3px;
+  padding: 5px;
+  top: -45px;
+  right: -5px;
   margin: 20px;
 }
 
@@ -142,6 +145,11 @@
     width: 100px;
     font-size: 45px;
     font-weight: 800;
+  }
+
+  .offersemploi-con_edit {
+    top: 0;
+    right: 0;
   }
 
   .offersemploi-offer_info {

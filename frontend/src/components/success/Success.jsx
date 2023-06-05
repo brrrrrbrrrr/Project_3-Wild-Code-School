@@ -32,6 +32,15 @@ function Success({ success }) {
       </div>
     );
   }
+  if (success === "successEditOffer") {
+    return (
+      <div>
+        <section className="success-offer">
+          Offre modifiée avec succès !
+        </section>
+      </div>
+    );
+  }
   return null;
 }
 

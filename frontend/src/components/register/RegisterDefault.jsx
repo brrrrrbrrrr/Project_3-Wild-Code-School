@@ -125,7 +125,6 @@ function RegisterDefault({ selectForm, user }) {
           setError(err.response.data);
         }
       });
-    console.warn("Registraichn Data:", formData);
   };
 
   return (

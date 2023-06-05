@@ -15,6 +15,11 @@ const OfferEmploi = ({ offer, userId }) => {
   const user = useUser();
   const api = useApi();
   const urlFile = import.meta.env.VITE_APP_URL;
+  const { setOfferData } = useUser();
+
+  const handleEditClick = () => {
+    setOfferData(offer);
+  };
 
   const handleIconClick = () => {
     setSelected(!selected);
@@ -50,7 +55,11 @@ const OfferEmploi = ({ offer, userId }) => {
           {user?.user?.userType === "recruiters" &&
             userId === offer.recruiterId && (
               <Link to="/update-offer">
-                <AiTwotoneEdit size={30} className="offersemploi-con_edit" />
+                <AiTwotoneEdit
+                  size={30}
+                  className="offersemploi-con_edit"
+                  onClick={handleEditClick}
+                />
               </Link>
             )}
 

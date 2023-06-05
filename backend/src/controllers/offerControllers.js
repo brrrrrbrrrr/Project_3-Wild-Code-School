@@ -97,7 +97,6 @@ const add = (req, res) => {
       models.offer
         .updateTeamPicture(newFileNameTeamPicture, idNewOffer)
         .then(() => {
-          console.warn("Update successful");
           return res.location(`/offer/${result.insertId}`).sendStatus(201);
         })
         .catch((error) => {

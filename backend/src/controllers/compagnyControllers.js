@@ -182,7 +182,6 @@ const postCompagny = async (req, res) => {
         models.compagny
           .updateFiles(newFileNameLogo, idNewUser)
           .then(() => {
-            console.warn("Update succesful");
             return res
               .location(`/candidates/${result.insertId}`)
               .sendStatus(201);

@@ -20,6 +20,7 @@ import RegisterDefault from "./components/register/RegisterDefault";
 import PageSuperAdmin from "./pages/PageSuperAdmin";
 import PageMyOffersEmploi from "./pages/PageMyOffersEmploi";
 import PageCreateOffer from "./pages/PageCreateOffer";
+import PageUpdateOffer from "./pages/PageUpdateOffer";
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
           <Route path="create-admin" element={<RegisterDefault />} />
           <Route path="/my-offers" element={<PageMyOffersEmploi />} />
           <Route path="/new-offer" element={<PageCreateOffer />} />
-          <Route path="/update-offer" element={<PageCreateOffer />} />
+          <Route path="/update-offer" element={<PageUpdateOffer />} />
         </Routes>
         <Footer />
       </UserProvider>
