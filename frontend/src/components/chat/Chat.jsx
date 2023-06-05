@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import useApi from "../../services/useApi";
 import "./Сhat.css";
+import { useUser } from "../../contexts/UserContext";
 
 function Chat() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [isAutor] = useState(true);
+  const { state } = useLocation();
 
   const api = useApi();
+  const user = useUser();
 
   const getMessages = () => {
     api
-      .get("/messages")
+      .get(`/messages/${state.id}`)
+
       .then((response) => {
-        console.warn(response.data);
         setMessages(response.data);
       })
       .catch((error) => {
@@ -34,20 +39,17 @@ function Chat() {
     const minutes = String(currentDate.getMinutes()).padStart(2, "0");
     const seconds = String(currentDate.getSeconds()).padStart(2, "0");
     const formattedTime = `${hours}:${minutes}:${seconds}`;
-    console.warn(formattedDate);
-    console.warn(formattedTime);
 
     const messageData = {
-      person1: 1,
-      person1REF: "candidate",
-      person2: 2,
-      person2REF: "consultant",
+      candidateId: user.user.id,
+      offerId: state.id,
       date: formattedDate,
       hour: formattedTime,
       message: newMessage,
+      candidateAutor: isAutor,
     };
     api
-      .post("/messages", messageData)
+      .post(`/messages/${state.id}`, messageData)
       .then(() => {
         setNewMessage("");
         getMessages();

@@ -5,31 +5,33 @@ class ChatManager extends AbstractManager {
     super({ table: "message" });
   }
 
-  getAllMessages(id) {
-    return this.database.query(`select * from ${this.table}`, [id]);
+  getAllMessages(offerId, candidateId) {
+    return this.database.query(
+      `select consultant.id, consultant.name, consultant.firstname,
+       message.message, message.date, message.hour,
+        offer.id, message.candidateAutor 
+from message
+inner join offer on message.offerId = offer.id
+inner join consultant on offer.consultantId = consultant.id
+where message.offerId = ?
+and message.candidateId = ?;`,
+      [offerId, candidateId]
+    );
   }
 
   insert(message) {
     return this.database.query(
-      `insert into ${this.table} (consultantId, person1REF, candidateId, person2REF, date, hour, message) values (?,?,?,?,?,?,?)`,
+      `insert into ${this.table} (candidateId, offerId, date, hour, message, candidateAutor) values (?,?,?,?,?,?)`,
       [
-        message.consultantId,
-        message.person1REF,
         message.candidateId,
-        message.person2REF,
+        message.offerId,
         message.date,
         message.hour,
         message.message,
+        message.candidateAutor,
       ]
     );
   }
-
-  // update(message) {
-  //   return this.database.query(
-  //     `update ${this.table} set title = ? where id = ?`,
-  //     [message.title, message.id]
-  //   );
-  // }
 }
 
 module.exports = ChatManager;

@@ -362,13 +362,16 @@ const editPassword = async (req, res) => {
 const likeOffer = (req, res) => {
   const offerId = req.params.offerId;
   const { candidateId } = req.body;
+  const { liked } = req.body;
+
   if (!candidateId || !offerId) {
     return res.status(400).send("Missing candidateId or offerId");
   }
-  models.candidate.findLike(candidateId, offerId).then(([rows]) => {
+  models.candidate.findLike(candidateId, offerId, liked).then(([rows]) => {
     if (rows[0] == null) {
+      // add like
       models.candidate
-        .likeOffer(candidateId, offerId)
+        .likeOffer(candidateId, offerId, liked)
         .then((result) => {
           if (result.affectedRows === 0) {
             return res.sendStatus(404);
@@ -379,8 +382,8 @@ const likeOffer = (req, res) => {
           console.error(error);
           return res.sendStatus(500);
         });
-      // add like
     } else {
+      // suprime like
       models.candidate
         .deleteLike(candidateId, offerId)
         .then((result) => {
@@ -393,7 +396,6 @@ const likeOffer = (req, res) => {
           console.error(error);
           return res.sendStatus(500);
         });
-      // suprime like
     }
   });
 };

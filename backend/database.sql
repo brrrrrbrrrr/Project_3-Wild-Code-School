@@ -424,24 +424,32 @@ ALTER TABLE candidate CHANGE COLUMN postalAdress postalCode varchar(45) NOT NULL
 ALTER TABLE `externatic`.`city` 
 ADD COLUMN `postalCode` VARCHAR(45) NULL AFTER `regionId`; 
 
+
+--Olga
 ALTER TABLE `externatic`.`message`
 ADD COLUMN `message` VARCHAR(255) NOT NULL AFTER `hour`;
 
-
+--Olga
 ALTER TABLE `externatic`.`message` 
-CHANGE COLUMN `person1` `consultantId` INT NOT NULL ,
-CHANGE COLUMN `person2` `candidateId` INT NOT NULL ,
-DROP PRIMARY KEY,
-ADD PRIMARY KEY (`id`, `consultantId`, `candidateId`);
-;
+DROP COLUMN `person2REF`,
+DROP COLUMN `person1REF`,
+ADD COLUMN `candidateAutor` TINYINT NOT NULL AFTER `message`,
+CHANGE COLUMN `person1` `candidateId` INT NOT NULL ,
+CHANGE COLUMN `person2` `offerId` INT NOT NULL ;
 
-
+--Olga
 ALTER TABLE `externatic`.`message` 
-CHANGE COLUMN `consultantId` `person1` INT NOT NULL ,
-CHANGE COLUMN `candidateId` `person2` INT NOT NULL ,
-DROP PRIMARY KEY,
-ADD PRIMARY KEY (`id`);
+ADD INDEX `fk_messege_offer_idx` (`offerId` ASC) VISIBLE;
 ;
+ALTER TABLE `externatic`.`message` 
+ADD CONSTRAINT `fk_messege_offer`
+  FOREIGN KEY (`offerId`)
+  REFERENCES `externatic`.`offer` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+  ALTER TABLE `externatic`.`offer_candidate` 
+ADD COLUMN `liked` TINYINT NOT NULL AFTER `candidateId`;
 
 
 INSERT INTO offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredProfile, recruitmentProcess, numberOfEmployees, jobTitleDetails, cityId, consultantId, recruiterId, contratId, jobTitleId)

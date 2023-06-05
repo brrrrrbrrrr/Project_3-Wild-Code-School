@@ -1,9 +1,13 @@
 const models = require("../models");
 
 const getMessages = (req, res) => {
+  const candidateId = req.payload.sub.id;
+  const offerId = req.params.id;
+  console.warn(candidateId);
   models.message
-    .getAllMessages()
+    .getAllMessages(offerId, candidateId)
     .then(([rows]) => {
+      console.warn(rows);
       res.send(rows);
     })
     .catch((err) => {

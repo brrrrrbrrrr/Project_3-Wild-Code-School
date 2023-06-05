@@ -12,17 +12,20 @@ import useApi from "../../../services/useApi";
 
 const OfferEmploi = ({ offer, userId }) => {
   const [selected, setSelected] = useState(offer.candidateId === userId);
+  const [like, setLike] = useState(offer.liked);
   const user = useUser();
 
   const api = useApi();
   console.warn(offer);
-
   const handleIconClick = () => {
     api
-      .post(`offers/${offer.id}/like`, { candidateId: user.user.id })
-
+      .post(`offers/${offer.id}/like`, {
+        candidateId: user.user.id,
+        liked: !like,
+      })
       .then(() => {
         setSelected(!selected);
+        setLike(!like);
       })
       .catch((error) => {
         console.error(error);
@@ -51,7 +54,7 @@ const OfferEmploi = ({ offer, userId }) => {
         <div className="offersemploi-icon_box">
           <div>
             {selected ? (
-              <NavLink to="/messages">
+              <NavLink to="/messages" state={offer}>
                 <BsFillChatRightTextFill
                   className="offersemploi-icon_chat"
                   size={50}
@@ -94,6 +97,8 @@ OfferEmploi.propTypes = {
     city_name: PropTypes.string.isRequired,
     remote_type: PropTypes.string.isRequired,
     numberOfEmployees: PropTypes.string.isRequired,
+    consultantId: PropTypes.number.isRequired,
+    liked: PropTypes.bool.isRequired,
   }).isRequired,
 };
 OfferEmploi.defaultProps = {

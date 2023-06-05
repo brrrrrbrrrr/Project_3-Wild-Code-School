@@ -5,6 +5,7 @@ const browse = (req, res) => {
   const { filter, typeFilter } = req.query;
   const { allOffers } = req.query;
   const limit2 = parseInt(limit, 10);
+  const { candId } = req.query;
 
   if (allOffers) {
     models.offer
@@ -72,7 +73,7 @@ const browse = (req, res) => {
   // sinon
   else {
     models.offer
-      .findAll(page, limit2)
+      .findAll(page, limit2, candId)
       .then(([rows]) => {
         res.send(rows);
       })
