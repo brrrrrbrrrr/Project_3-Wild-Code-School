@@ -1,0 +1,20 @@
+.PageMyRecruiters-container {
+  background-color: var(--background-color);
+}
+
+.PageMyRecruiters-btn_container {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.PageMyRecruiters-btn {
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+}

@@ -30,6 +30,37 @@ class CompagnyManager extends AbstractManager {
     id from  ${this.table}`);
   }
 
+  deleteRcruiter(id) {
+    return this.database.query(`delete from recruiter where id = ?`, [id]);
+  }
+
+  findMyRecruiters(id) {
+    return this.database.query(
+      `SELECT name, firstname, mail, phone, birthday, street, city, postalCode, valide, picture, compagny_id, gender, id
+      FROM recruiter
+      WHERE compagny_id = ?`,
+      [id]
+    );
+  }
+
+  findRecruiter(idRec, idComp) {
+    return this.database.query(
+      `SELECT name, firstname, mail, phone, birthday, street, city, postalCode, valide, picture, compagny_id, gender, id
+      FROM recruiter
+      WHERE id = ? AND compagny_id = ?`,
+      [idRec, idComp]
+    );
+  }
+
+  deleteRecruiter(idRec, idComp) {
+    return this.database.query(
+      `SELECT name, firstname, mail, phone, birthday, street, city, postalCode, valide, picture, compagny_id, gender, id
+      FROM recruiter
+      WHERE id = ? AND compagny_id = ?`,
+      [idRec, idComp]
+    );
+  }
+
   insertCompagny(compagny) {
     return this.database.query(
       `insert into ${this.table} (siretNumber, name, mail, phone, password, Valide, logo) values (?, ?, ?, ?, ?, ?, ?)`,
@@ -76,7 +107,9 @@ class CompagnyManager extends AbstractManager {
 
   getUserByLogin = (login) => {
     return this.database
-      .query(`SELECT name, password from ${this.table} WHERE mail=?`, [login])
+      .query(`SELECT name,id, password from ${this.table} WHERE mail=?`, [
+        login,
+      ])
       .then(([result]) => result)
       .catch((err) => {
         console.warn(err);

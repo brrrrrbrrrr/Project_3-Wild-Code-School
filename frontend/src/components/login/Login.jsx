@@ -88,7 +88,6 @@ function Login() {
     api
       .post(loginApi, userLogin)
       .then((res) => {
-        console.warn("warn : ", res.data);
         // Je verifie le contenu de res.data
         let userObject = "";
         if ("candidate" in res.data) {
@@ -111,6 +110,7 @@ function Login() {
           api.defaults.headers.authorization = `Bearer ${token}`;
           userObject = recruiter;
         }
+
         // Je met mon object dans mon context user afin de le recuperer partout
         setUser(userObject);
         // Si tout est ok, mon state passe a true, j'utilise ce state pour l'affichage ou non de certaines choses

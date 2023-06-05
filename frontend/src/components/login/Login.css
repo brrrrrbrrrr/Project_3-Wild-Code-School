@@ -5,7 +5,7 @@
 
   justify-content: center;
   width: 100%;
-  margin-top: 5rem;
+  margin: 5rem 0;
 }
 
 .login-column {
@@ -113,18 +113,18 @@
 }
 
 .form-login_sub-link {
-  color: var(--alert-color);
+  color: var(--second-color);
   margin-left: 0.5rem;
 }
 
 .form-login_errorMsg {
-  margin-bottom: 1.5rem;
+  margin: 1.5rem;
   color: var(--alert-color);
 }
 
 .connexion-done {
   text-align: center;
-  margin-top: 10rem;
+  margin: 10rem 0;
 }
 @media screen and (min-width: 768px) {
   .login-column {

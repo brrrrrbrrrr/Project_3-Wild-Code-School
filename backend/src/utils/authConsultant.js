@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/no-extraneous-dependencies */
 const argon2 = require("argon2");
@@ -24,8 +25,23 @@ const hashPassword = (req, res, next) => {
     });
 };
 
+const verifyPasswordConsultantWithoutToken = (req, res, next) => {
+  argon2
+    .verify(req.consultant.password, req.body.password)
+    .then((isVerified) => {
+      if (isVerified) {
+        next();
+      } else {
+        return res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.sendStatus(500);
+    });
+};
+
 const verifyPassword = (req, res) => {
-  console.warn("verify, req.user :", req.consultant);
   argon2
     .verify(req.consultant.password, req.body.password)
     .then((match) => {
@@ -69,7 +85,6 @@ const verifyToken = (req, res, next) => {
     }
 
     req.payload = jwt.verify(token, process.env.JWT_SECRET);
-    console.warn(req.payload);
     next();
   } catch (err) {
     console.error(err);
@@ -79,7 +94,6 @@ const verifyToken = (req, res, next) => {
 
 const isConsultantAdmin = (req, res, next) => {
   try {
-    console.warn(req.payload);
     if (
       !req.payload.sub.isSuperAdmin ||
       req.payload.sub.userType !== "consultant"
@@ -103,4 +117,5 @@ module.exports = {
   verifyPassword,
   verifyToken,
   isConsultantAdmin,
+  verifyPasswordConsultantWithoutToken,
 };

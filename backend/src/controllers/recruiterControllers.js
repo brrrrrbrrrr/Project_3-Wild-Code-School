@@ -2,6 +2,8 @@
 /* eslint-disable camelcase */
 /* eslint-disable import/no-extraneous-dependencies */
 const joi = require("joi");
+const path = require("path");
+const fs = require("fs");
 const models = require("../models");
 const { hashPassword } = require("../utils/auth");
 
@@ -16,10 +18,12 @@ const validate = (data, forCreation = true) => {
       phone: joi.string().max(45).presence(presence),
       birthday: joi.date().iso().presence(presence),
       password: joi.string().max(200).presence(presence),
+      newPassword: joi.string().max(45).presence("optional"),
       street: joi.string().max(45).presence(presence),
       city: joi.string().max(45).presence(presence),
       postalCode: joi.string().max(45).presence(presence),
       valide: joi.number().valid(0, 1).presence("optional"),
+      gender: joi.string().max(45).presence(presence),
     })
     .validate(data, { abortEarly: false }).error;
 };
@@ -28,7 +32,11 @@ const browse = (req, res) => {
   models.recruiter
     .findAll()
     .then(([rows]) => {
-      res.send(rows);
+      const recruiters = rows.map((recruiter) => ({
+        ...recruiter,
+        userType: "recruiters",
+      }));
+      res.send(recruiters); // Inclure la propriété userType dans la réponse
     })
     .catch((err) => {
       console.error(err);
@@ -43,7 +51,8 @@ const read = (req, res) => {
       if (rows[0] == null) {
         res.sendStatus(404);
       } else {
-        res.send(rows[0]);
+        const recruiter = { ...rows[0], userType: "recruiters" };
+        res.send(recruiter);
       }
     })
     .catch((err) => {
@@ -67,8 +76,20 @@ const add = async (req, res) => {
     postalCode,
     valide,
     compagny_id,
+    gender,
   } = req.body;
+  const filePicture = req.file;
 
+  const recruiterFolderDefault = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "uploads",
+    "recruiter"
+  );
+  const recruiterFolder = req.pathFolder;
+  const picture = `recruiter/${filePicture.filname}`;
   const validationError = validate(req.body);
   if (validationError) {
     // Si les données ne sont pas valides, renvoyer une erreur 400
@@ -80,6 +101,7 @@ const add = async (req, res) => {
       name,
       firstname,
       mail,
+      picture,
       phone,
       birthday,
       password: hashedPassword,
@@ -88,9 +110,40 @@ const add = async (req, res) => {
       postalCode,
       valide,
       compagny_id,
+      gender,
     })
-    .then((result) => {
-      res.location(`/items/${result.Id}`).sendStatus(201);
+    .then(([result]) => {
+      // Je recupere l'id de mon nouvel utilisateur
+      const idNewUser = result.insertId.toString();
+
+      const newFolder = path.join(recruiterFolderDefault, idNewUser);
+      fs.renameSync(recruiterFolder, newFolder, (err) => {
+        console.warn("rename folder :", err);
+      });
+      // Je recupere le nom des fichiers et j'enleve les caractères spéciaux et je rajoute l'extention
+
+      const extension = filePicture.originalname.split(".").pop();
+      const newOriginalNamePicture = `${filePicture.originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+      const originalNamePicture = path.join(newFolder, newOriginalNamePicture);
+      const fileNamePicture = path.join(newFolder, filePicture.filename);
+      const newFileNamePicture = `uploads/recruiter/${idNewUser}/${newOriginalNamePicture}`;
+      fs.renameSync(fileNamePicture, originalNamePicture, (err) => {
+        if (err) {
+          console.warn("erreur Picture :", err);
+        }
+      });
+      models.recruiter
+        .updatePicture(newFileNamePicture, idNewUser)
+        .then(() => {
+          console.warn("Update successful");
+          return res.location(`/recruiter/${result.insertId}`).sendStatus(201);
+        })
+        .catch((error) => {
+          console.error(error);
+          return res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
@@ -116,15 +169,87 @@ const destroy = (req, res) => {
       res.sendStatus(500);
     });
 };
-const edit = (req, res) => {
-  const item = req.body;
 
-  // TODO validations (length, format...)
+const getRecruiterByIdToNext = async (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
+  const idPayload = req.payload.sub.id;
+  if (id !== idPayload) {
+    return res.sendStatus(401);
+  }
+  const [result] = await models.recruiter.findById(id);
+  if (result) {
+    if (result[0] != null) {
+      // eslint-disable-next-line prefer-destructuring
+      req.recruiter = result[0];
+      next();
+    } else return res.sendStatus(401);
+  } else return res.sendStatus(500);
+};
 
-  item.id = parseInt(req.params.id, 10);
+const edit = async (req, res) => {
+  const recruiter = req.body;
+  const errors = validate(recruiter, false);
+  if (errors) {
+    console.error(errors);
+    return res.status(422).send(errors);
+  }
+
+  if (recruiter.password) {
+    const hashedPassword = await hashPassword(req.body.password);
+    recruiter.password = hashedPassword;
+  }
+
+  recruiter.id = parseInt(req.params.id, 10);
+
+  try {
+    const [result] = await models.recruiter.update(recruiter);
+
+    if (result.affectedRows === 0) {
+      return res.sendStatus(404);
+    }
+    if (req.file) {
+      const filePicture = req.file;
+
+      const extension = filePicture.originalname.split(".").pop();
+      const newOriginalNamePicture = `${filePicture.originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+      const recruiterFolder = req.pathFolder;
+      const newFileNamePicture = `uploads/recruiter/${req.params.id}/${newOriginalNamePicture}`;
+
+      const originalNamePicture = path.join(
+        recruiterFolder,
+        newOriginalNamePicture
+      );
+      const fileNamePicture = path.join(recruiterFolder, filePicture.filename);
+
+      fs.renameSync(fileNamePicture, originalNamePicture, (err) => {
+        if (err) {
+          console.warn("erreur Picture :", err);
+        }
+      });
+      await models.recruiter.updatePicture(newFileNamePicture, recruiter.id);
+    }
+    return res.sendStatus(204);
+  } catch (err) {
+    console.error(err);
+    return res.sendStatus(500);
+  }
+};
+
+const editPassword = async (req, res) => {
+  const { newPassword } = req.body;
+  const id = parseInt(req.params.id, 10);
+  const errors = validate({ newPassword }, false);
+
+  const hashedPassword = await hashPassword(newPassword);
+  if (errors) {
+    console.error(errors);
+    return res.status(422).send(errors);
+  }
 
   models.recruiter
-    .update(item)
+    .updatePassword(hashedPassword, id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -137,6 +262,7 @@ const edit = (req, res) => {
       res.sendStatus(500);
     });
 };
+
 const getRecruiterByLoginToNext = async (req, res, next) => {
   const { mail } = req.body;
   if (!mail) {
@@ -145,7 +271,8 @@ const getRecruiterByLoginToNext = async (req, res, next) => {
   const result = await models.recruiter.getRecruiterByLogin(mail);
   if (result) {
     if (result[0] != null) {
-      req.recruiter = { ...result[0] };
+      const userType = "recruiters";
+      req.recruiter = { ...result[0], userType };
       next();
     } else return res.sendStatus(401);
   } else return res.sendStatus(500);
@@ -158,4 +285,6 @@ module.exports = {
   destroy,
   getRecruiterByLoginToNext,
   edit,
+  getRecruiterByIdToNext,
+  editPassword,
 };

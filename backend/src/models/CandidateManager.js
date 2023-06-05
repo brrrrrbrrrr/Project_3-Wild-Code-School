@@ -8,14 +8,14 @@ class CandidateManager extends AbstractManager {
 
   insert(candidate) {
     return this.database.query(
-      `insert into ${this.table} (name, firstname, birthday, street, city, postalAdress, mail, phone, password, jobSeeker, picture, resume, contactPreference) values (?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+      `insert into ${this.table} (name, firstname, birthday, street, city, postalCode, mail, phone, password, jobSeeker, picture, resume, contactPreference, gender) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
       [
         candidate.name,
         candidate.firstname,
         candidate.birthday,
         candidate.street,
         candidate.city,
-        candidate.postalAdress,
+        candidate.postalCode,
         candidate.mail,
         candidate.phone,
         candidate.password,
@@ -23,6 +23,7 @@ class CandidateManager extends AbstractManager {
         candidate.picture,
         candidate.resume,
         candidate.contactPreference,
+        candidate.gender,
       ]
     );
   }
@@ -34,11 +35,38 @@ class CandidateManager extends AbstractManager {
     );
   }
 
+  findById(id) {
+    return this.database.query(
+      `select id, name, firstname, password from ${this.table} where id = ? `,
+      [id]
+    );
+  }
+
   update(candidate) {
     return this.database.query(`update ${this.table} set ? where id = ?`, [
       candidate,
       candidate.id,
     ]);
+  }
+  updatePassword(password, userId) {
+    return this.database.query(
+      `update ${this.table} set password = ? where id = ?`,
+      [password, userId]
+    );
+  }
+
+  updatePicture(picture, userId) {
+    return this.database.query(
+      `update ${this.table} set  picture = ? where id = ?`,
+      [picture, userId]
+    );
+  }
+
+  updateResume(resume, userId) {
+    return this.database.query(
+      `update ${this.table} set  resume = ? where id = ?`,
+      [resume, userId]
+    );
   }
 
   updateFiles(resume, picture, userId) {
@@ -50,19 +78,26 @@ class CandidateManager extends AbstractManager {
 
   find(id) {
     return this.database.query(
-      `select id, name, firstname, birthday, street, city, postalAdress, mail, phone, jobSeeker, picture, resume, contactPreference  from  ${this.table} where id = ?`,
+      `select id, name, firstname, birthday, street, city, postalCode, mail, phone, jobSeeker, picture, resume, contactPreference,gender  from  ${this.table} where id = ?`,
       [id]
     );
   }
 
   findAll() {
     return this.database.query(
-      `select id, name, firstname, birthday, street, city, postalAdress, mail, phone, jobSeeker, picture, resume, contactPreference from  ${this.table}`
+      `select id, name, firstname, birthday, street, city, postalCode, mail, phone, jobSeeker, picture, resume, contactPreference, gender from  ${this.table}`
     );
   }
 
   delete(id) {
     return this.database.query(`delete from ${this.table} where id = ?`, [id]);
+  }
+
+  findFiles(id) {
+    return this.database.query(
+      `select id, picture, resume from ${this.table} where id = ?`,
+      [id]
+    );
   }
 
   likeOffer(candidateId, offerId) {
