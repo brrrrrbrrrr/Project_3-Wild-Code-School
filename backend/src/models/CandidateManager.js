@@ -107,6 +107,18 @@ class CandidateManager extends AbstractManager {
     );
   }
 
+  findCandidateStatusOffer(status) {
+    return this.database.query(
+      `SELECT c.id, c.name, c.firstname, c.birthday, c.street, c.city, c.postalCode,
+    c.mail, c.phone, c.jobSeeker, c.picture, c.resume, c.contactPreference,
+    c.gender
+FROM offer_candidate oc
+JOIN ${this.table} c ON c.id = oc.candidateId
+WHERE oc.valide = ?;`,
+      [status]
+    );
+  }
+
   findLike(candidateId, offerId) {
     return this.database.query(
       `select * from offer_candidate where candidateId=? and offerId=?`,

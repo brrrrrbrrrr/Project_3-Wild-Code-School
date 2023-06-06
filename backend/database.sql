@@ -440,4 +440,9 @@ INSERT INTO offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredP
   `filterValue` INT NULL,
   PRIMARY KEY (`candidateId`, `filterType`));
 
+  -- Benjamin (06/06)
+  ALTER TABLE offer_candidate
+ADD COLUMN valide BOOLEAN NOT NULL DEFAULT 0;
+
+
 
