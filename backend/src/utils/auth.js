@@ -116,7 +116,7 @@ const verifyToken = (req, res, next) => {
 
     next();
   } catch (err) {
-    res.sendStatus(500);
+    res.sendStatus(403);
   }
 };
 

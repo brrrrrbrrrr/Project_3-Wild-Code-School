@@ -2,6 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Route, Routes } from "react-router-dom";
 import UserProvider from "./contexts/UserContext";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 
