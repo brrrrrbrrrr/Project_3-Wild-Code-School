@@ -44,6 +44,7 @@
   padding: 30px 15px;
   height: 310px;
   justify-content: space-between;
+  position: relative;
 }
 .offersemploi-offer_container:hover,
 .offersemploi-offer_container:focus {
@@ -120,6 +121,22 @@
   box-shadow: 2px 2px 7px #00b3ff;
 }
 
+.offersemploi-con_edit {
+  position: absolute;
+  background-color: white;
+  border-radius: 3px;
+  padding: 5px;
+  top: -45px;
+  right: -5px;
+  margin: 20px;
+}
+
+.offersemploi-con_edit:hover {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
+    1px 4px 6px rgba(0, 0, 0, 0.16);
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 @media screen and (min-width: 768px) {
   .offersemploi-offer_container {
     width: 650px;
@@ -134,6 +151,11 @@
     width: 100px;
     font-size: 45px;
     font-weight: 800;
+  }
+
+  .offersemploi-con_edit {
+    top: 0;
+    right: 0;
   }
 
   .offersemploi-offer_info {
@@ -163,8 +185,5 @@
   .offersemploi-offer_remote {
     font-weight: normal;
     font-size: 20px;
-  }
-  #offersemploi-offer_button-info {
-    display: none;
   }
 }

@@ -148,7 +148,7 @@ const edit = async (req, res) => {
 
 const login = (req, res, next) => {
   const { mail } = req.body;
-  console.warn("Info authentif : ", mail);
+
   // TODO validations (length, format...)
 
   models.consultant
@@ -245,7 +245,6 @@ const add = async (req, res) => {
       models.consultant
         .updatePicture(newFileNamePicture, idNewUser)
         .then(() => {
-          console.warn("Update successful");
           return res.location(`/consultant/${result.insertId}`).sendStatus(201);
         })
         .catch((error) => {
