@@ -17,7 +17,7 @@ function PageCreateOffer() {
   const [contract, setContract] = useState();
   const [remoteOption, setRemoteOption] = useState([]);
   const [remote, setRemote] = useState();
-  const [teamPicture, setTeamPicture] = useState(null);
+  const [teamPicture, setTeamPicture] = useState("");
   const [valideTeamPictureType, setValidPictureType] = useState(false);
   const [jobTitleDetails, setJobTitleDetails] = useState();
 

@@ -17,7 +17,7 @@ function PageUpdateOffer() {
   const [contract, setContract] = useState();
   const [remoteOption, setRemoteOption] = useState([]);
   const [remote, setRemote] = useState();
-  const [teamPicture, setTeamPicture] = useState(null);
+  const [teamPicture, setTeamPicture] = useState("");
   const [apiTeamPicture, setApiTeamPicture] = useState(null);
   const [valideTeamPictureType, setValidPictureType] = useState(false);
   const [jobTitleDetails, setJobTitleDetails] = useState();
@@ -250,11 +250,13 @@ function PageUpdateOffer() {
             <div className="form-offer_data-container">
               <div className="form-offer_data-column">
                 <div className="form-offer_team-picture-container">
-                  <img
-                    src={`${urlFile}/${apiTeamPicture}`}
-                    className="form-offer_team-picture"
-                    alt="Team"
-                  />
+                  {apiTeamPicture && (
+                    <img
+                      src={`${urlFile}/${apiTeamPicture}`}
+                      className="form-offer_team-picture"
+                      alt="Team"
+                    />
+                  )}
                 </div>
                 <div className="form-offer_data-1">
                   <label className="form-label">
