@@ -201,26 +201,52 @@ const postCompagny = async (req, res) => {
   }
 };
 
-const updateCompagny = (req, res) => {
-  const item = req.body;
+const updateCompagny = async (req, res) => {
+  const compagny = req.body;
+  const errors = validate(compagny, false);
+  if (errors) {
+    console.error(errors);
+    return res.status(422).send(errors);
+  }
 
-  // TODO validations (length, format...)
+  if (compagny.password) {
+    const hashedPassword = await hashPassword(req.body.password);
+    compagny.password = hashedPassword;
+  }
 
-  item.id = parseInt(req.params.id, 10);
+  compagny.id = parseInt(req.params.id, 10);
 
-  models.compagny
-    .updateCompagny(item)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+  try {
+    const [result] = await models.compagny.updateCompagny(compagny);
+
+    if (result.affectedRows === 0) {
+      return res.sendStatus(404);
+    }
+    if (req.file) {
+      const fileLogo = req.file;
+
+      const extension = fileLogo.originalname.split(".").pop();
+      const newOriginalNameLogo = `${fileLogo.originalname
+        .split(".")[0]
+        .replace(/[^a-zA-Z0-9]/g, "")}.${extension}`;
+      const compagnyFolder = req.pathFolder;
+      const newFileNameLogo = `uploads/compagny/${req.params.id}/${newOriginalNameLogo}`;
+
+      const originalNameLogo = path.join(compagnyFolder, newOriginalNameLogo);
+      const fileNameLogo = path.join(compagnyFolder, fileLogo.filename);
+
+      fs.renameSync(fileNameLogo, originalNameLogo, (err) => {
+        if (err) {
+          console.warn("erreur Logo :", err);
+        }
+      });
+      await models.compagny.updateFiles(newFileNameLogo, compagny.id);
+    }
+    return res.sendStatus(204);
+  } catch (err) {
+    console.error(err);
+    return res.sendStatus(500);
+  }
 };
 
 const deleteCompagny = (req, res) => {
