@@ -25,6 +25,22 @@ function Success({ success }) {
       </div>
     );
   }
+  if (success === "successOffer") {
+    return (
+      <div>
+        <section className="success-offer">Offre ajouté !</section>
+      </div>
+    );
+  }
+  if (success === "successEditOffer") {
+    return (
+      <div>
+        <section className="success-offer">
+          Offre modifiée avec succès !
+        </section>
+      </div>
+    );
+  }
   return null;
 }
 

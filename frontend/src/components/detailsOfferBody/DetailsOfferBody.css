@@ -94,7 +94,7 @@
   }
 
   .detailsOfferBody-logo {
-    font-size: 50px;
+    width: 100px;
     font-weight: 800;
     color: wheat;
     padding-bottom: 40px;

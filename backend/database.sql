@@ -421,6 +421,8 @@ ALTER TABLE consultant ADD COLUMN gender VARCHAR(45) NOT NULL;
 -- Benjamin (24/05)
 ALTER TABLE candidate CHANGE COLUMN postalAdress postalCode varchar(45) NOT NULL;
 
+
+
 ALTER TABLE `externatic`.`city` 
 ADD COLUMN `postalCode` VARCHAR(45) NULL AFTER `regionId`; 
 

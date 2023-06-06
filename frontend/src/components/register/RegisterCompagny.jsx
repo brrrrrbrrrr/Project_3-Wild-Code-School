@@ -62,8 +62,7 @@ function RegisterCompagny() {
     formData.append("Logo", logo);
     api
       .post("/compagny", formData)
-      .then((res) => {
-        console.warn(res);
+      .then(() => {
         setSuccess(true);
       })
       .catch((err) => {
@@ -72,7 +71,6 @@ function RegisterCompagny() {
           setError(err.response.data);
         }
       });
-    console.warn("Registraichn Data:", formData);
   };
 
   return (
