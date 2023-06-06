@@ -12,7 +12,8 @@
 .pageSuperAdmin-selected_candidate,
 .pageSuperAdmin-selected_offer,
 .pageSuperAdmin-selected_enterprise,
-.pageSuperAdmin-selected_consultants {
+.pageSuperAdmin-selected_consultants,
+.pageSuperAdmin-selected_recruiter {
   padding-bottom: 10px;
 }
 
@@ -39,7 +40,8 @@
   }
   .pageSuperAdmin-selected_candidate,
   .pageSuperAdmin-selected_offer,
-  .pageSuperAdmin-selected_enterprise {
+  .pageSuperAdmin-selected_enterprise,
+  .pageSuperAdmin-selected_recruiter {
     padding-right: 10px;
   }
 }
