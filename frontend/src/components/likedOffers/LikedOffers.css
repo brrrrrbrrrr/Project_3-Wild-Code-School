@@ -27,14 +27,17 @@
 .likedoffers-button_candidate {
   border-style: hidden;
   padding: 10px 15px;
-  background-color: #00b3ff;
+  background-color: var(--primary-color);
   border-radius: 2px;
   color: #f1f1e6;
   cursor: pointer;
-  box-shadow: 2px 2px 7px #00b3ff;
   width: 200px;
   height: 50px;
   font-size: 1.2em;
+}
+
+.likedoffers-button_candidate.active {
+  background-color: #00b3ff;
 }
 
 @media screen and (min-width: 769px) {

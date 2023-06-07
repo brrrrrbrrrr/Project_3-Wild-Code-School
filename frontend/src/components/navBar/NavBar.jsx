@@ -47,7 +47,7 @@ const NavBar = () => {
             )}
           </li>
           <li>
-            <NavLink onClick={toggleMenu} to="/">
+            <NavLink className="navlink-menu" onClick={toggleMenu} to="/">
               Accueil
             </NavLink>
           </li>

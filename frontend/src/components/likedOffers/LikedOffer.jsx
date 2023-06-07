@@ -19,10 +19,8 @@ const LikedOffer = ({ offer }) => {
         </div>
       </div>
       <div className="likedoffer_status">
-        <h2 className="likedoffer_status-title">STATUS</h2>
-        <h3 className="likedoffer_status-text">
-          En attente de validation par un consultant
-        </h3>
+        <h2 className="likedoffer_status-title">STATUT</h2>
+        <h3 className="likedoffer_status-text"> {offer.offer_status_text}</h3>
       </div>
     </div>
   );
@@ -30,10 +28,11 @@ const LikedOffer = ({ offer }) => {
 LikedOffer.propTypes = {
   offer: PropTypes.shape({
     job_title: PropTypes.string.isRequired,
-    salary: PropTypes.number.isRequired,
+    salary: PropTypes.string.isRequired,
     contrat_type: PropTypes.string.isRequired,
     remote_type: PropTypes.string.isRequired,
     city_name: PropTypes.string.isRequired,
+    offer_status_text: PropTypes.string.isRequired,
   }).isRequired,
 };
 

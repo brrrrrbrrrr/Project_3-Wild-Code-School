@@ -148,10 +148,10 @@ const read = (req, res) => {
 };
 
 const getLikedOffers = (req, res) => {
-  console.warn("getLikedOffers - candidat : ", req.query.candidateId);
+  console.warn("getLikedOffers - candidat payload : ", req.payload.sub.id);
 
   models.offer
-    .findLikedCandidateOffers(parseInt(req.query.candidateId, 10))
+    .findLikedCandidateOffers(parseInt(req.payload.sub.id, 10))
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
@@ -160,6 +160,7 @@ const getLikedOffers = (req, res) => {
       }
     });
 };
+
 const multifilter = (req, res) => {
   const {
     jobmultifilter,

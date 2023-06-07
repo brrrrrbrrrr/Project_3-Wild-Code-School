@@ -149,8 +149,16 @@ class OfferManager extends AbstractManager {
 
   findLikedCandidateOffers(candidateId) {
     return this.database.query(
-      `select offer.* from externatic.offer 
-      join externatic.offer_candidate on offer.Id=offer_candidate.offerId where candidateId=?`,
+      `select offer.salary, offer.jobTitleDetails as job_title, city.name as city_name, 
+         city.postalCode as city_postal_code, remote.type as remote_type, contrat.type as contrat_type, 
+         offer_candidate.offer_statusId as offer_status_id, offer_status.text as offer_status_text
+      from offer 
+      join offer_candidate on offer.id=offer_candidate.offerId 
+      join city on city.id = offer.cityId
+      join remote on remote.id = offer.remoteId
+      join contrat on contrat.id = offer.contratId
+      join offer_status on offer_status.id = offer_candidate.offer_statusId
+      where candidateId=?`,
       [candidateId]
     );
   }
