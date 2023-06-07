@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/function-component-definition */
 import { useEffect, useState } from "react";
-import { useUser } from "../../contexts/UserContext";
 import useApi from "../../services/useApi";
 import LikedOffer from "./LikedOffer";
 import "./LikedOffers.css";
@@ -11,10 +10,8 @@ const LikedOffers = () => {
   const [activeButton, setActiveButton] = useState("en attente"); // Ajout de l'état pour suivre le bouton actif
 
   const api = useApi();
-  const user = useUser();
 
   useEffect(() => {
-    console.warn("user : ", user);
     api
       .get(`/offers/like`)
       .then((response) => {

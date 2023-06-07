@@ -356,8 +356,6 @@ const read = (req, res) => {
 };
 
 const getLikedOffers = (req, res) => {
-  console.warn("getLikedOffers - candidat payload : ", req.payload.sub.id);
-
   models.offer
     .findLikedCandidateOffers(parseInt(req.payload.sub.id, 10))
     .then(([rows]) => {
