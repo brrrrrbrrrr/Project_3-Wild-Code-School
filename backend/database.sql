@@ -387,7 +387,7 @@ INSERT INTO
   city(name, regionId)VALUES("Paris", 1),("Versailles", 1), ("Lyon", 2);
   
 INSERT INTO consultant (name, firstname, mail, phone, birthday, password, street, city, postalCode, picture, superAdmin)
-VALUES ('Dupont', 'Jean', 'jdupont@example.com', '01.23.45.67.89', '1990-01-01', 'monmotdepasse', '123 rue de la Paix', 'Paris', '75001', 'default.jpg', 0);
+VALUES ('Dupont', 'Jean', 'jdupont@example.com', '01.23.45.67.89', '1990-01-01', 'monmotdepasse', '123 rue de la Paix', 'Paris', '75001', 'default.jpg', 1);
 
 INSERT INTO recruiter (name, firstname, mail, phone, birthday, password, street, city, postalCode, valide, compagny_id)
 VALUES ('Doe', 'John', 'johndoe@example.com', '0123456789', '1980-01-01', 'mypassword', '5th Avenue', 'New York', '10001', 1, 2);

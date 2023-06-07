@@ -147,6 +147,18 @@ const read = (req, res) => {
     });
 };
 
+const validcheck = (req, res) => {
+  models.offer
+    .findvalid(parseInt(req.query.valid, 10))
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const multifilter = (req, res) => {
   const {
     jobmultifilter,
@@ -170,6 +182,34 @@ const multifilter = (req, res) => {
     });
 };
 
+const alloffers = (req, res) => {
+  models.offer
+    .findAllFilter()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const updatevalid = (req, res) => {
+  models.offer
+    .updatevalid(req.body.offerId)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   getjobtitle,
@@ -178,4 +218,7 @@ module.exports = {
   read,
   cityfilter,
   multifilter,
+  validcheck,
+  alloffers,
+  updatevalid,
 };
