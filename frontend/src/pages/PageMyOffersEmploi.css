@@ -1,0 +1,24 @@
+.page-my-offers-emploi_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.page-my-offers-emploi_btn_container {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-my-offers-emploi_btn {
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-bottom: 3rem;
+}

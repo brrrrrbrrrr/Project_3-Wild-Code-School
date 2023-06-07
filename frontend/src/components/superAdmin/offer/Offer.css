@@ -105,6 +105,9 @@
     font-size: 18px;
   }
   #offersemploi-offer_button-info {
-    display: none;
+    position: absolute;
+    bottom: -25px;
+    right: 0;
+    width: 140px;
   }
 }

@@ -44,7 +44,8 @@
 .form-input {
   margin-top: 10px;
   padding: 7px;
-  border: 1px solid rgb(231, 224, 224);
+  /* border: 1px solid rgb(231, 224, 224); */
+  border: 1px solid var(--second-color);
   border-radius: 3px;
 }
 
@@ -81,6 +82,11 @@ button:disabled {
 }
 
 .registration-succes_msg {
+  text-align: center;
+  margin: 10rem 0;
+}
+
+.success-offer {
   text-align: center;
   margin: 10rem 0;
 }

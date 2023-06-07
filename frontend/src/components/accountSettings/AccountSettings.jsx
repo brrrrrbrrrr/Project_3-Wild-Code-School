@@ -89,8 +89,7 @@ function AccountSettings({ user, userParam }) {
     };
     api
       .put(verifyPasswordApi, dataPassword)
-      .then((res) => {
-        console.warn(res);
+      .then(() => {
         setSuccess(true);
         setReload(reload + 1);
         setTimeout(() => {

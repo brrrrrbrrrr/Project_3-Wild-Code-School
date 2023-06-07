@@ -45,7 +45,6 @@ const verifyPassword = (req, res) => {
   argon2
     .verify(req.consultant.password, req.body.password)
     .then((match) => {
-      console.warn("match :", match);
       if (match) {
         const payload = {
           sub: {
