@@ -12,7 +12,7 @@ const { verifyToken } = require("../utils/auth");
 const upload = multer({ storage: storageCandidate });
 const edit = multer({ storage: UpdateStorageCandidate });
 router.get("/files/:id", candidateControllers.readFile);
-router.get("/status/:status", candidateControllers.statusOffer);
+
 router.get("/", candidateControllers.browse);
 router.get("/:id", candidateControllers.read);
 router.post(

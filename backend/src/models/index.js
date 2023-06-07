@@ -58,6 +58,11 @@ const FilterManager = require("./FilterManager");
 
 models.filter = new FilterManager();
 models.filter.setDatabase(pool);
+
+const Offercandidate = require("./OffercandidateManager");
+
+models.offercandidate = new Offercandidate();
+models.offercandidate.setDatabase(pool);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 

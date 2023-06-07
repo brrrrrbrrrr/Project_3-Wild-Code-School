@@ -357,19 +357,6 @@ const editPassword = async (req, res) => {
     });
 };
 
-const statusOffer = (req, res) => {
-  const { status } = req.params;
-  models.candidate
-    .findCandidateStatusOffer(status)
-    .then(([rows]) => {
-      res.send(rows);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-};
-
 const likeOffer = (req, res) => {
   const offerId = req.params.offerId;
   const { candidateId } = req.body;
@@ -420,5 +407,4 @@ module.exports = {
   likeOffer,
   getCandidateByIdToNext,
   editPassword,
-  statusOffer,
 };
