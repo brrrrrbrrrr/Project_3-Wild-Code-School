@@ -13,10 +13,10 @@ import useApi from "../../../services/useApi";
 const OfferEmploi = ({ offer, userId }) => {
   const [selected, setSelected] = useState(offer.candidateId === userId);
   const [like, setLike] = useState(offer.liked);
-  const user = useUser();
 
+  const user = useUser();
   const api = useApi();
-  console.warn(offer);
+
   const handleIconClick = () => {
     api
       .post(`offers/${offer.id}/like`, {
@@ -31,6 +31,9 @@ const OfferEmploi = ({ offer, userId }) => {
         console.error(error);
       });
   };
+
+  const isConsultant = user?.user?.userType === "consultants";
+  const isCandidate = user?.user?.userType === "candidates";
 
   return (
     <div className="offersemploi-offer_container">
@@ -53,7 +56,7 @@ const OfferEmploi = ({ offer, userId }) => {
         </div>
         <div className="offersemploi-icon_box">
           <div>
-            {selected ? (
+            {isConsultant || (isCandidate && selected) ? (
               <NavLink to="/messages" state={offer}>
                 <BsFillChatRightTextFill
                   className="offersemploi-icon_chat"
@@ -63,9 +66,7 @@ const OfferEmploi = ({ offer, userId }) => {
             ) : null}
           </div>
           <div>
-            {user.user === null ? (
-              ""
-            ) : (
+            {isCandidate ? (
               <HiOutlineStar
                 className={
                   selected
@@ -75,6 +76,8 @@ const OfferEmploi = ({ offer, userId }) => {
                 onClick={handleIconClick}
                 size={50}
               />
+            ) : (
+              ""
             )}
           </div>
         </div>
@@ -98,7 +101,7 @@ OfferEmploi.propTypes = {
     remote_type: PropTypes.string.isRequired,
     numberOfEmployees: PropTypes.string.isRequired,
     consultantId: PropTypes.number.isRequired,
-    liked: PropTypes.bool.isRequired,
+    liked: PropTypes.bool,
   }).isRequired,
 };
 OfferEmploi.defaultProps = {

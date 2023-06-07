@@ -27,7 +27,7 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
         </li>
         <li className="account-menu_li">
           {" "}
-          <NavLink>Messagerie</NavLink>
+          <NavLink to="/messages">Messagerie</NavLink>
         </li>
         <li className="account-menu_li">
           {" "}

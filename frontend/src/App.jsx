@@ -37,6 +37,7 @@ function App() {
           <Route path="/add-recruiter" element={<RegisterDefault />} />
           <Route path="/superadmin" element={<PageSuperAdmin />} />
           <Route path="/messages" element={<Chatting />} />
+          <Route path="/messagesConsultant" element={<Chatting />} />
           <Route path="create-admin" element={<RegisterDefault />} />
         </Routes>
         <Footer />

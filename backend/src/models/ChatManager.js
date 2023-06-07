@@ -7,10 +7,11 @@ class ChatManager extends AbstractManager {
 
   getAllMessages(offerId, candidateId) {
     return this.database.query(
-      `select consultant.id, consultant.name, consultant.firstname,
-       message.message, message.date, message.hour,
-        offer.id, message.candidateAutor 
+      `select consultant.id, consultant.name, consultant.firstname, consultant.picture,
+       message.message, message.date, message.hour, candidate.picture as pictureCan,
+        offer.id, message.candidateAutor, message.id as messageId
 from message
+inner join candidate on message.candidateId = candidate.id
 inner join offer on message.offerId = offer.id
 inner join consultant on offer.consultantId = consultant.id
 where message.offerId = ?
@@ -30,6 +31,25 @@ and message.candidateId = ?;`,
         message.message,
         message.candidateAutor,
       ]
+    );
+  }
+
+  getContact(offerId) {
+    return this.database.query(
+      `SELECT DISTINCT c.name, c.firstname, c.picture, candidateId 
+      from message
+      join candidate as c
+      on message.candidateId = c.id where message.offerId = ?`,
+      [offerId]
+    );
+  }
+
+  delete(offerId, messageId) {
+    return this.database.query(
+      `DELETE FROM ${this.table} 
+      where offerId = ?
+      and id=?`,
+      [offerId, messageId]
     );
   }
 }
