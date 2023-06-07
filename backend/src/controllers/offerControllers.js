@@ -355,6 +355,18 @@ const read = (req, res) => {
     });
 };
 
+const getLikedOffers = (req, res) => {
+  models.offer
+    .findLikedCandidateOffers(parseInt(req.payload.sub.id, 10))
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows);
+      }
+    });
+};
+
 const multifilter = (req, res) => {
   const {
     jobmultifilter,
@@ -387,6 +399,7 @@ module.exports = {
   remotefilter,
   contractfilter,
   read,
+  getLikedOffers,
   cityfilter,
   multifilter,
   edit,

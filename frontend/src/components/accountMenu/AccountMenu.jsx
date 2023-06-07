@@ -23,6 +23,10 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
         </li>
         <li className="account-menu_li">
           {" "}
+          <NavLink to="like">Mes offres (Laurence)</NavLink>
+        </li>
+        <li className="account-menu_li">
+          {" "}
           <NavLink>Entretiens</NavLink>
         </li>
         <li className="account-menu_li">

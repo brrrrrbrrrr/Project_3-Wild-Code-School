@@ -61,7 +61,6 @@ const DetailsOfferBody = (props) => {
             {offer.recruitmentProcess}
           </p>
         </div>
-
         <button type="button" className="detailsOfferBody-button_candidate">
           Je postule
         </button>

@@ -55,7 +55,7 @@ class OfferManager extends AbstractManager {
 
   find(id) {
     return this.database.query(
-      `select offer.*, city.name as cityName, contrat.type as contratType, compagny.Logo, recruiter.postalCode as recruiterPostalCode,
+      `select offer.*, city.name as cityName, city.postalCode as postalCode, contrat.type as contratType, compagny.Logo, recruiter.postalCode as recruiterPostalCode,
        consultant.picture as consultantPicture, consultant.firstname as consultantFirstname, consultant.name as consultantName
       from  ${this.table} 
       join city on city.id=offer.cityId 
@@ -201,6 +201,22 @@ class OfferManager extends AbstractManager {
 
   getcontract() {
     return this.database.query(`SELECT * FROM contrat`);
+  }
+
+  findLikedCandidateOffers(candidateId) {
+    return this.database.query(
+      `select offer.salary, offer.jobTitleDetails as job_title, city.name as city_name, 
+         city.postalCode as city_postal_code, remote.type as remote_type, contrat.type as contrat_type, 
+         offer_candidate.offer_statusId as offer_status_id, offer_status.text as offer_status_text
+      from offer 
+      join offer_candidate on offer.id=offer_candidate.offerId 
+      join city on city.id = offer.cityId
+      join remote on remote.id = offer.remoteId
+      join contrat on contrat.id = offer.contratId
+      join offer_status on offer_status.id = offer_candidate.offer_statusId
+      where candidateId=?`,
+      [candidateId]
+    );
   }
 
   getcity() {

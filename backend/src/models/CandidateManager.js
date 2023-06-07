@@ -102,8 +102,8 @@ class CandidateManager extends AbstractManager {
 
   likeOffer(candidateId, offerId) {
     return this.database.query(
-      `insert into offer_candidate(candidateId, offerId) values(?,?)`,
-      [candidateId, offerId]
+      `insert into offer_candidate(candidateId, offerId, offer_statusId) values(?,?,?)`,
+      [candidateId, offerId, 1]
     );
   }
 
