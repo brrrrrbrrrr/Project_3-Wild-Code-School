@@ -53,7 +53,7 @@ const PageSuperAdmin = () => {
     setCandidate("");
     setOffer("");
     setConsultant("");
-    setActiveSection("enterprises");
+    setActiveSection("entreprises");
   };
   const handleChangeConsultant = (event) => {
     setConsultant(event.target.value);
@@ -151,7 +151,7 @@ const PageSuperAdmin = () => {
           console.error(error);
         });
     }
-  }, [enterprise]);
+  }, [enterprise, refresh]);
 
   useEffect(() => {
     if (consultant === 10) {
@@ -196,7 +196,7 @@ const PageSuperAdmin = () => {
               onChange={handleChangeOffer}
             >
               <MenuItem value={10}>Toutes les offres</MenuItem>
-              <MenuItem value={20}>Offres validé</MenuItem>
+              <MenuItem value={20}>Offres validées</MenuItem>
               <MenuItem value={30}>Offres en attente</MenuItem>
             </Select>
           </FormControl>
@@ -211,9 +211,9 @@ const PageSuperAdmin = () => {
               label="enterprise"
               onChange={handleChangeEnterprise}
             >
-              <MenuItem value={10}>Enterprises</MenuItem>
-              <MenuItem value={20}>Mes Enterprises</MenuItem>
-              <MenuItem value={30}>En attente</MenuItem>
+              <MenuItem value={10}>Toutes les entreprises</MenuItem>
+              <MenuItem value={20}>Entreprises validées</MenuItem>
+              <MenuItem value={30}>Entreprises en attente</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -238,7 +238,7 @@ const PageSuperAdmin = () => {
       </div>
       <div className="pageSuperAdmin-main_content">
         {activeSection !== null ? (
-          <h2 className="pageSuperAdmin-main_title"> les {activeSection}</h2>
+          <h2 className="pageSuperAdmin-main_title"> Les {activeSection}</h2>
         ) : (
           ""
         )}
@@ -257,9 +257,14 @@ const PageSuperAdmin = () => {
               setRefresh={setRefresh}
             />
           ))}
-        {activeSection === "enterprises" &&
+        {activeSection === "entreprises" &&
           allEnterprises.map((oneEnterprise) => (
-            <Enterprise key={oneEnterprise.id} enterprise={oneEnterprise} />
+            <Enterprise
+              key={oneEnterprise.id}
+              enterprise={oneEnterprise}
+              refresh={refresh}
+              setRefresh={setRefresh}
+            />
           ))}
         {activeSection === "consultants" &&
           consultant === 10 &&

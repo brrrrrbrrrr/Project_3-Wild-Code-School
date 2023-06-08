@@ -45,6 +45,22 @@ const validCompagny = (req, res) => {
     });
 };
 
+const validUpdate = (req, res) => {
+  models.compagny
+    .updatevalid(req.body.compagnyId)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const getMyRecruiters = (req, res) => {
   const id = parseInt(req.params.id, 10);
   const idPayload = req.payload.sub.id;
@@ -304,4 +320,5 @@ module.exports = {
   GetForDeleteRecruiter,
   deleteRecruiter,
   validCompagny,
+  validUpdate,
 };
