@@ -12,6 +12,7 @@ const {
 const upload = multer({ storage: storageCompagny });
 const edit = multer({ storage: UpdateStorageCompagny });
 router.get("/", compagnyControllers.getCompagny);
+router.get("/valid", compagnyControllers.validCompagny);
 router.get("/:id", compagnyControllers.read);
 router.post("/", upload.single("Logo"), compagnyControllers.postCompagny);
 router.put("/:id", edit.single("Logo"), compagnyControllers.updateCompagny);

@@ -97,8 +97,35 @@ const PageSuperAdmin = () => {
         .catch((error) => {
           console.error(error);
         });
+    } else if (enterprise === 20) {
+      api
+        .get("/compagny/valid", {
+          params: {
+            valid: 1,
+          },
+        })
+        .then((response) => {
+          setAllEnterprises(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else if (enterprise === 30) {
+      api
+        .get("/compagny/valid", {
+          params: {
+            valid: 0,
+          },
+        })
+        .then((response) => {
+          setAllEnterprises(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   }, [enterprise]);
+
   useEffect(() => {
     if (consultant === 10) {
       api
@@ -200,7 +227,6 @@ const PageSuperAdmin = () => {
             <Offer key={oneOffer.id} offer={oneOffer} />
           ))}
         {activeSection === "enterprises" &&
-          enterprise === 10 &&
           allEnterprises.map((oneEnterprise) => (
             <Enterprise key={oneEnterprise.id} enterprise={oneEnterprise} />
           ))}

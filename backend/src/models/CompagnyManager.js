@@ -96,6 +96,20 @@ class CompagnyManager extends AbstractManager {
     );
   }
 
+  findvalid(valid) {
+    return this.database.query(
+      `select
+    siretNumber,
+    name,
+    mail,
+    phone,
+    Valide,
+    Logo,
+    id from  ${this.table} WHERE Valide=?`,
+      [valid]
+    );
+  }
+
   getUserByLogin = (login) => {
     return this.database
       .query(`SELECT name,id, password from ${this.table} WHERE mail=?`, [
