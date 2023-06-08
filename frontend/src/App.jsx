@@ -19,6 +19,7 @@ import PageMyRecruiters from "./pages/PageMyRecruiters";
 
 import RegisterDefault from "./components/register/RegisterDefault";
 import PageSuperAdmin from "./pages/PageSuperAdmin";
+import Chatting from "./pages/Chatting";
 import PageLikedOffers from "./pages/PageLikedOffers";
 import PageMyOffersEmploi from "./pages/PageMyOffersEmploi";
 import PageCreateOffer from "./pages/PageCreateOffer";
@@ -40,6 +41,8 @@ function App() {
           <Route path="/my-recruiters" element={<PageMyRecruiters />} />
           <Route path="/add-recruiter" element={<RegisterDefault />} />
           <Route path="/superadmin" element={<PageSuperAdmin />} />
+          <Route path="/messages" element={<Chatting />} />
+          <Route path="/messagesConsultant" element={<Chatting />} />
           <Route path="create-admin" element={<RegisterDefault />} />
           <Route path="/like" element={<PageLikedOffers />} />
           <Route path="/my-offers" element={<PageMyOffersEmploi />} />

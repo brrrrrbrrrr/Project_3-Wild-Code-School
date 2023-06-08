@@ -10,6 +10,10 @@ const login = require("./loginCandidate.route");
 const offer = require("./offer.rout");
 const filter = require("./filter.route");
 
+const message = require("./chatting.route");
+
+router.use("/messages", message);
+
 router.use("/consultants", consultant);
 router.use("/login/consultants", loginConsultant);
 router.use("/candidates", candidate);
