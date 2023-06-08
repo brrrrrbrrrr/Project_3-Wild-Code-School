@@ -1,13 +1,11 @@
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/function-component-definition */
+
 import PropTypes from "prop-types";
 import { Button } from "@mui/material";
-import { ToastContainer } from "react-toastify";
 import useApi from "../../services/useApi";
 import "../superAdmin/offer/Offer.css";
 
-const OfferValid = ({ offer, setRefresh, refresh }) => {
+function OfferValid({ offer, setRefresh, refresh }) {
   const api = useApi();
   const handleValid = () => {
     api
@@ -51,11 +49,10 @@ const OfferValid = ({ offer, setRefresh, refresh }) => {
             Valider
           </Button>
         ) : null}
-        <ToastContainer />
       </div>
     </div>
   );
-};
+}
 
 OfferValid.propTypes = {
   offer: PropTypes.shape({
