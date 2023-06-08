@@ -24,6 +24,7 @@ import PageLikedOffers from "./pages/PageLikedOffers";
 import PageMyOffersEmploi from "./pages/PageMyOffersEmploi";
 import PageCreateOffer from "./pages/PageCreateOffer";
 import PageUpdateOffer from "./pages/PageUpdateOffer";
+import PageValidationOffer from "./pages/PageValidationOffer";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
           <Route path="/my-offers" element={<PageMyOffersEmploi />} />
           <Route path="/new-offer" element={<PageCreateOffer />} />
           <Route path="/update-offer" element={<PageUpdateOffer />} />
+          <Route path="/validate-offer" element={<PageValidationOffer />} />
         </Routes>
         <Footer />
       </UserProvider>
