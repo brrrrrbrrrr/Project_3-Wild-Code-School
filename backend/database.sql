@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `externatic`.`city` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `regionId` INT NOT NULL,
+  `postalCode` VARCHAR(5) NULL,
   PRIMARY KEY (`id`, `regionId`),
   INDEX `fk_city_region1_idx` (`regionId` ASC) VISIBLE,
   CONSTRAINT `fk_city_region1`
@@ -73,7 +74,6 @@ CREATE TABLE IF NOT EXISTS `externatic`.`city` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
 
 -- -----------------------------------------------------
 -- Table `externatic`.`contrat`
@@ -384,7 +384,7 @@ INSERT INTO
   region(name)VALUES("Île-de-France"), ("Rhône-Alpes");
   
   INSERT INTO
-  city(name, regionId)VALUES("Paris", 1),("Versailles", 1), ("Lyon", 2);
+  city(name, regionId, postalCode)VALUES("Paris", 1,"75000"),("Versailles", 1,"78000"), ("Lyon", 2,"69000");
   
 INSERT INTO consultant (name, firstname, mail, phone, birthday, password, street, city, postalCode, picture, superAdmin)
 VALUES ('Dupont', 'Jean', 'jdupont@example.com', '01.23.45.67.89', '1990-01-01', 'monmotdepasse', '123 rue de la Paix', 'Paris', '75001', 'default.jpg', 1);
@@ -415,11 +415,13 @@ ALTER TABLE candidate ADD COLUMN gender VARCHAR(45) NOT NULL;
 -- Benjamin(18/05)
 ALTER TABLE recruiter ADD COLUMN gender VARCHAR(45) NOT NULL;
 
---Benjamin(26/05)
+-- Benjamin(26/05)
 ALTER TABLE consultant ADD COLUMN gender VARCHAR(45) NOT NULL;
 
 -- Benjamin (24/05)
 ALTER TABLE candidate CHANGE COLUMN postalAdress postalCode varchar(45) NOT NULL;
+
+
 
 ALTER TABLE `externatic`.`city` 
 ADD COLUMN `postalCode` VARCHAR(45) NULL AFTER `regionId`; 
@@ -432,6 +434,49 @@ INSERT INTO offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredP
  ("50000", 2, "teamPic.jpeg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "70", "Senior Project Manager", 3, 1, 1, 1, 5);
 
 
+
+-- Laurence (31/05)
+  INSERT INTO candidate
+(`id`,
+`name`,
+`firstname`,
+`birthday`,
+`street`,
+`city`,
+`postalCode`,
+`mail`,
+`phone`,
+`password`,
+`jobSeeker`,
+`picture`,
+`resume`,
+`contactPreference`,
+`gender`
+)
+VALUES
+(1, 'Jean', 'Gabin', '2000-01-10', 'Paul Bert', 'Lyon', '69000', 'Jean.gabin@gmail.com', '0601020304', '$argon2id$v=19$m=65536,t=5,p=1$+NlRs5ZjLo4lx0X2ZY3QpQ$DbFqZGJ0D0ZEmFUmRWWKICyKTyJnz3ZVLlSJ9Mdas/s', '1', 'uploads/candidate/1/Capture.JPG', 'uploads/candidate/1/Lettrededcharge.pdf', '2', 'masculin'),
+(2, 'Ventura', 'Lino', '2000-01-11', 'Gaston Doumer', 'Marseille', '13000', 'lino.ventura@gmail.com', '0605040302', '$argon2id$v=19$m=65536,t=5,p=1$+NlRs5ZjLo4lx0X2ZY3QpQ$DbFqZGJ0D0ZEmFUmRWWKICyKTyJnz3ZVLlSJ9Mdas/s', '1', 'uploads/candidate/1/Capture.JPG', 'uploads/candidate/1/Lettrededcharge.pdf', '2','masculin');
+
+-- Laurence 02/06
+
+CREATE TABLE `externatic`.`offer_status` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `text` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`));
+
+ALTER TABLE `externatic`.`offer_candidate` 
+ADD COLUMN `offer_statusId` INT NOT NULL AFTER `candidateId`,
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (`offerId`, `candidateId`, `offer_statusId`);
+
+-- Laurence 03/06
+
+INSERT INTO offer_status
+(`id`,`text`)
+VALUES
+(1, 'En attente de validation par un consultant'),
+(2,'Validé'),
+(3,'Terminé');
  CREATE TABLE `externatic`.`filter` (
   `candidateId` INT NOT NULL,
   `filterType` INT NOT NULL,

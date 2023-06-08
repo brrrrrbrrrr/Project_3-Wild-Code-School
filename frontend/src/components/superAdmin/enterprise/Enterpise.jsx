@@ -6,9 +6,14 @@ import { Button } from "@mui/material";
 import "./Enterprise.css";
 
 const Enterprise = ({ enterprise }) => {
+  const urlFile = import.meta.env.VITE_APP_URL;
   return (
     <div className="superadmin-enterprise_container">
-      <div className="superadmin-enterprise_logo">logo</div>
+      <img
+        src={`${urlFile}/${enterprise.Logo}`}
+        className="superadmin-enterprise_logo"
+        alt=""
+      />
       <div className="superadmin-enterprise_info-main">
         <h3 className="superadmin-enterprise_name">{enterprise.name}</h3>
         <h3 className="superadmin-enterprise_siret">
@@ -34,6 +39,7 @@ Enterprise.propTypes = {
   enterprise: PropTypes.shape({
     siretNumber: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    Logo: PropTypes.string.isRequired,
   }).isRequired,
 };
 

@@ -77,19 +77,10 @@ class CompagnyManager extends AbstractManager {
   }
 
   updateCompagny(compagny) {
-    return this.database.query(
-      `update set siretNumber = ?, name = ?, mail = ?, phone = ?, password = ?, Valide = ?, logo = ? where id = ?`,
-      [
-        compagny.siretNumber,
-        compagny.name,
-        compagny.mail,
-        compagny.phone,
-        compagny.password,
-        compagny.Valide,
-        compagny.Logo,
-        compagny.id,
-      ]
-    );
+    return this.database.query(`update ${this.table} set ? where id = ?`, [
+      compagny,
+      compagny.id,
+    ]);
   }
 
   updateFiles(logo, userId) {
