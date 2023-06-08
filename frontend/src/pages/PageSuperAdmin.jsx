@@ -230,8 +230,8 @@ const PageSuperAdmin = () => {
               label="consultant"
               onChange={handleChangeConsultant}
             >
-              <MenuItem value={10}>Consultant</MenuItem>
-              <MenuItem value={20}>Mes Consultant</MenuItem>
+              <MenuItem value={10}>Consultants</MenuItem>
+              <MenuItem value={20}>Mes Consultants</MenuItem>
             </Select>
           </FormControl>
         </Box>
