@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import PropTypes from "prop-types";
 import { useUser } from "../../contexts/UserContext";
 import useApi from "../../services/useApi";
 
-/* eslint-disable react/prop-types */
 function MessageContainer({ offerId, contactSelected }) {
   const user = useUser();
   const [messages, setMessages] = useState([]);
@@ -14,7 +14,7 @@ function MessageContainer({ offerId, contactSelected }) {
   const urlFile = import.meta.env.VITE_APP_URL;
 
   const api = useApi();
-  console.warn(messages);
+
   const getMessages = () => {
     api
       .get(`/messages/${offerId}/${contactSelected}`)
@@ -84,9 +84,6 @@ function MessageContainer({ offerId, contactSelected }) {
       sendMessage();
     }
   };
-  // if (!user.user) {
-  //   return null;
-  // }
 
   return (
     <div>
@@ -144,4 +141,10 @@ function MessageContainer({ offerId, contactSelected }) {
     </div>
   );
 }
+
+MessageContainer.propTypes = {
+  offerId: PropTypes.number.isRequired,
+  contactSelected: PropTypes.number.isRequired,
+};
+
 export default MessageContainer;

@@ -16,9 +16,6 @@ function ChatCandidat() {
   const api = useApi();
   const urlFile = import.meta.env.VITE_APP_URL;
 
-  console.warn(messages);
-  console.warn(user);
-
   const getMessages = () => {
     api
       .get(`/messages/${state?.id}`)
@@ -52,7 +49,7 @@ function ChatCandidat() {
     const minutes = String(currentDate.getMinutes()).padStart(2, "0");
     const seconds = String(currentDate.getSeconds()).padStart(2, "0");
     const formattedTime = `${hours}:${minutes}:${seconds}`;
-    console.warn(user.user);
+
     const messageData = {
       candidateId: user.user.id,
       offerId: state.id,

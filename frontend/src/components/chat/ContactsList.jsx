@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/prop-types */
+
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 import useApi from "../../services/useApi";
 
 function ContactsList({ setContactSelected }) {
@@ -17,7 +18,6 @@ function ContactsList({ setContactSelected }) {
     api
       .get(`/messages/chat/${state?.id}`)
       .then((response) => {
-        console.warn(response.data);
         setContacts(response.data);
       })
       .catch((error) => {
@@ -56,5 +56,8 @@ function ContactsList({ setContactSelected }) {
     </div>
   );
 }
+ContactsList.propTypes = {
+  setContactSelected: PropTypes.func.isRequired,
+};
 
 export default ContactsList;

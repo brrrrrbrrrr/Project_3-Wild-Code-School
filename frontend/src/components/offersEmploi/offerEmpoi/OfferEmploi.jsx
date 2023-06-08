@@ -11,7 +11,9 @@ import { useUser } from "../../../contexts/UserContext";
 import useApi from "../../../services/useApi";
 
 const OfferEmploi = ({ offer, userId }) => {
-  const [selected, setSelected] = useState(offer.candidateId === userId);
+  const [selected, setSelected] = useState(
+    offer.candidateId === userId || offer.consultantId === userId
+  );
   const [like, setLike] = useState(offer.liked);
 
   const user = useUser();
@@ -56,7 +58,7 @@ const OfferEmploi = ({ offer, userId }) => {
         </div>
         <div className="offersemploi-icon_box">
           <div>
-            {isConsultant || (isCandidate && selected) ? (
+            {(isConsultant && selected) || (isCandidate && selected) ? (
               <NavLink to="/messages" state={offer}>
                 <BsFillChatRightTextFill
                   className="offersemploi-icon_chat"

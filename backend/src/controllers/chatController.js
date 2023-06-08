@@ -7,7 +7,6 @@ const getMessages = (req, res) => {
   models.message
     .getAllMessages(offerId, candidateId)
     .then(([rows]) => {
-      console.warn(rows);
       res.send(rows);
     })
     .catch((err) => {
@@ -22,7 +21,6 @@ const getMessagesConsultant = (req, res) => {
   models.message
     .getAllMessages(offerId, candidateId)
     .then(([rows]) => {
-      console.warn(rows);
       res.send(rows);
     })
     .catch((err) => {

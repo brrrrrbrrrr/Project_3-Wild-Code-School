@@ -103,7 +103,6 @@ const verifyPasswordRecruiterWithoutToken = (req, res, next) => {
 };
 
 const verifyToken = (req, res, next) => {
-  console.warn("toto");
   try {
     const authorizationHeader = req.get("Authorization");
     if (authorizationHeader === null) {
@@ -117,7 +116,6 @@ const verifyToken = (req, res, next) => {
     console.warn(req.payload);
     next();
   } catch (err) {
-    console.warn(err);
     res.sendStatus(500);
   }
 };
