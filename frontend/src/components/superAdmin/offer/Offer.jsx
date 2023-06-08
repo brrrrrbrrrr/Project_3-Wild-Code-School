@@ -3,9 +3,22 @@
 /* eslint-disable react/function-component-definition */
 import PropTypes from "prop-types";
 import { Button } from "@mui/material";
+import { ToastContainer } from "react-toastify";
+import useApi from "../../../services/useApi";
 import "./Offer.css";
 
-const Offer = ({ offer }) => {
+const Offer = ({ offer, refresh, setRefresh }) => {
+  const api = useApi();
+  const handleValid = () => {
+    api
+      .put(`/offers/valid`, {
+        offerId: offer.id,
+      })
+      .then(() => {
+        setRefresh(!refresh);
+      });
+  };
+
   return (
     <div className="superadmin-offer_container">
       <div className="superadmin-offer_logo">logo</div>
@@ -29,6 +42,16 @@ const Offer = ({ offer }) => {
         <Button id="superadmin-offer_button-info" variant="contained">
           Modifier
         </Button>
+        {offer.valid === 0 ? (
+          <Button
+            id="superadmin-offer_button-info"
+            variant="contained"
+            onClick={handleValid}
+          >
+            Valider
+          </Button>
+        ) : null}
+        <ToastContainer />
       </div>
     </div>
   );
@@ -36,11 +59,15 @@ const Offer = ({ offer }) => {
 
 Offer.propTypes = {
   offer: PropTypes.shape({
+    id: PropTypes.number,
     salary: PropTypes.string.isRequired,
     job_title: PropTypes.string.isRequired,
     contract_type: PropTypes.string.isRequired,
     remote_type: PropTypes.string.isRequired,
     city_name: PropTypes.string.isRequired,
+    valid: PropTypes.number.isRequired,
   }).isRequired,
+  refresh: PropTypes.bool.isRequired,
+  setRefresh: PropTypes.func.isRequired,
 };
 export default Offer;

@@ -30,6 +30,7 @@ const PageSuperAdmin = () => {
   const [allEnterprises, setAllEnterprises] = useState([]);
   const [allConsultant, setAllConsultant] = useState([]);
   const [activeSection, setActiveSection] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
   const api = useApi();
 
@@ -45,7 +46,7 @@ const PageSuperAdmin = () => {
     setCandidate("");
     setEnterprise("");
     setConsultant("");
-    setActiveSection("offers");
+    setActiveSection("offres");
   };
   const handleChangeEnterprise = (event) => {
     setEnterprise(event.target.value);
@@ -78,7 +79,33 @@ const PageSuperAdmin = () => {
   useEffect(() => {
     if (offer === 10) {
       api
-        .get("/offers")
+        .get("/offers/findall")
+        .then((response) => {
+          setAllOffers(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else if (offer === 20) {
+      api
+        .get("/offers/valid", {
+          params: {
+            valid: 1,
+          },
+        })
+        .then((response) => {
+          setAllOffers(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else if (offer === 30) {
+      api
+        .get("/offers/valid", {
+          params: {
+            valid: 0,
+          },
+        })
         .then((response) => {
           setAllOffers(response.data);
         })
@@ -86,7 +113,7 @@ const PageSuperAdmin = () => {
           console.error(error);
         });
     }
-  }, [offer]);
+  }, [offer, refresh]);
   useEffect(() => {
     if (enterprise === 10) {
       api
@@ -141,9 +168,9 @@ const PageSuperAdmin = () => {
               label="Offer"
               onChange={handleChangeOffer}
             >
-              <MenuItem value={10}>Offres</MenuItem>
-              <MenuItem value={20}>Mes Offres</MenuItem>
-              <MenuItem value={30}>En attentte</MenuItem>
+              <MenuItem value={10}>Toutes les offres</MenuItem>
+              <MenuItem value={20}>Offres validé</MenuItem>
+              <MenuItem value={30}>Offres en attente</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -194,10 +221,14 @@ const PageSuperAdmin = () => {
           allCandidates.map((oneCandidate) => (
             <Candidate key={oneCandidate.id} candidate={oneCandidate} />
           ))}
-        {activeSection === "offers" &&
-          offer === 10 &&
+        {activeSection === "offres" &&
           allOffers.map((oneOffer) => (
-            <Offer key={oneOffer.id} offer={oneOffer} />
+            <Offer
+              key={oneOffer.id}
+              offer={oneOffer}
+              refresh={refresh}
+              setRefresh={setRefresh}
+            />
           ))}
         {activeSection === "enterprises" &&
           enterprise === 10 &&

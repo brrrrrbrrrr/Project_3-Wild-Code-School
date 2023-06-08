@@ -355,6 +355,18 @@ const read = (req, res) => {
     });
 };
 
+const validcheck = (req, res) => {
+  models.offer
+    .findvalid(parseInt(req.query.valid, 10))
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const getLikedOffers = (req, res) => {
   models.offer
     .findLikedCandidateOffers(parseInt(req.payload.sub.id, 10))
@@ -390,6 +402,34 @@ const multifilter = (req, res) => {
     });
 };
 
+const alloffers = (req, res) => {
+  models.offer
+    .findAllFilter()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const updatevalid = (req, res) => {
+  models.offer
+    .updatevalid(req.body.offerId)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   add,
   getMyOffers,
@@ -402,6 +442,9 @@ module.exports = {
   getLikedOffers,
   cityfilter,
   multifilter,
+  validcheck,
+  alloffers,
+  updatevalid,
   edit,
   getMyOfferForUpdate,
 };
