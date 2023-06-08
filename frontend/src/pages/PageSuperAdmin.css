@@ -2,6 +2,15 @@
   background-color: var(--background-color);
   height: 100%;
 }
+
+.validation-offer {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .pageSuperAdmin-selected_box {
   padding-top: 20px;
   display: flex;
