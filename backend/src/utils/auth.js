@@ -113,10 +113,10 @@ const verifyToken = (req, res, next) => {
       throw new Error("Authorization header has not the bearer type");
     }
     req.payload = jwt.verify(token, process.env.JWT_SECRET);
-    console.warn(req.payload);
+
     next();
   } catch (err) {
-    res.sendStatus(500);
+    res.sendStatus(403);
   }
 };
 

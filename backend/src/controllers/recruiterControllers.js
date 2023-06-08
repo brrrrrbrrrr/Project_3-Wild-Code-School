@@ -137,7 +137,6 @@ const add = async (req, res) => {
       models.recruiter
         .updatePicture(newFileNamePicture, idNewUser)
         .then(() => {
-          console.warn("Update successful");
           return res.location(`/recruiter/${result.insertId}`).sendStatus(201);
         })
         .catch((error) => {

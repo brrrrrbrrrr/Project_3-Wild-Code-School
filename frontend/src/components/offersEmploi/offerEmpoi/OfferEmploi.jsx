@@ -4,9 +4,10 @@
 import { useState } from "react";
 import { HiOutlineStar } from "react-icons/hi";
 import { BsFillChatRightTextFill } from "react-icons/bs";
-import { Button } from "@mui/material";
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+import { AiTwotoneEdit } from "react-icons/ai";
+import { Button } from "@mui/material";
 import { useUser } from "../../../contexts/UserContext";
 import useApi from "../../../services/useApi";
 
@@ -18,6 +19,12 @@ const OfferEmploi = ({ offer, userId }) => {
 
   const user = useUser();
   const api = useApi();
+  const urlFile = import.meta.env.VITE_APP_URL;
+  const { setOfferData } = useUser();
+
+  const handleEditClick = () => {
+    setOfferData(offer);
+  };
 
   const handleIconClick = () => {
     api
@@ -36,10 +43,15 @@ const OfferEmploi = ({ offer, userId }) => {
 
   const isConsultant = user?.user?.userType === "consultants";
   const isCandidate = user?.user?.userType === "candidates";
+  const isRecrutor = user?.user?.userType === "recruiters";
 
   return (
     <div className="offersemploi-offer_container">
-      <div className="offersemploi-offer_logo">logo</div>
+      <img
+        src={`${urlFile}/${offer.Logo}`}
+        className="offersemploi-offer_logo"
+        alt=""
+      />
       <div className="offersemploi-offer_info">
         <div>
           <div className="offersemploi-offer_info-main">
@@ -54,6 +66,15 @@ const OfferEmploi = ({ offer, userId }) => {
             </h3>
             <h3 className="offersemploi-offer_remote">{offer.remote_type}</h3>
             <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
+            {isRecrutor && (
+              <Link to="/update-offer">
+                <AiTwotoneEdit
+                  size={30}
+                  className="offersemploi-con_edit"
+                  onClick={handleEditClick}
+                />
+              </Link>
+            )}
           </div>
         </div>
         <div className="offersemploi-icon_box">
@@ -84,9 +105,12 @@ const OfferEmploi = ({ offer, userId }) => {
           </div>
         </div>
       </div>
-      <Button id="offersemploi-offer_button-info" variant="contained">
-        Plus d'infos
-      </Button>
+
+      <Link to={`/offers/${offer.id}`}>
+        <Button id="offersemploi-offer_button-info" variant="contained">
+          Plus d'infos
+        </Button>
+      </Link>
     </div>
   );
 };
@@ -104,6 +128,8 @@ OfferEmploi.propTypes = {
     numberOfEmployees: PropTypes.string.isRequired,
     consultantId: PropTypes.number.isRequired,
     liked: PropTypes.bool,
+    Logo: PropTypes.string.isRequired,
+    recruiterId: PropTypes.number.isRequired,
   }).isRequired,
 };
 OfferEmploi.defaultProps = {

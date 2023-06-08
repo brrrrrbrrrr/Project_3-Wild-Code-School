@@ -128,7 +128,6 @@ const edit = async (req, res) => {
 
     if (req.files.resume) {
       const fileResume = req.files.resume;
-      console.warn("fileresume :", fileResume);
 
       const extension = fileResume[0].originalname.split(".").pop();
       const newOriginalNameResume = `${fileResume[0].originalname
@@ -266,7 +265,6 @@ const add = async (req, res) => {
       models.candidate
         .updateFiles(newFileNameResume, newFileNamePicture, idNewUser)
         .then(() => {
-          console.warn("Update successful");
           return res.location(`/candidates/${result.insertId}`).sendStatus(201);
         })
         .catch((error) => {

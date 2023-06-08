@@ -2,6 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Route, Routes } from "react-router-dom";
 import UserProvider from "./contexts/UserContext";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 
@@ -19,6 +20,10 @@ import PageMyRecruiters from "./pages/PageMyRecruiters";
 import RegisterDefault from "./components/register/RegisterDefault";
 import PageSuperAdmin from "./pages/PageSuperAdmin";
 import Chatting from "./pages/Chatting";
+import PageLikedOffers from "./pages/PageLikedOffers";
+import PageMyOffersEmploi from "./pages/PageMyOffersEmploi";
+import PageCreateOffer from "./pages/PageCreateOffer";
+import PageUpdateOffer from "./pages/PageUpdateOffer";
 
 function App() {
   return (
@@ -39,6 +44,10 @@ function App() {
           <Route path="/messages" element={<Chatting />} />
           <Route path="/messagesConsultant" element={<Chatting />} />
           <Route path="create-admin" element={<RegisterDefault />} />
+          <Route path="/like" element={<PageLikedOffers />} />
+          <Route path="/my-offers" element={<PageMyOffersEmploi />} />
+          <Route path="/new-offer" element={<PageCreateOffer />} />
+          <Route path="/update-offer" element={<PageUpdateOffer />} />
         </Routes>
         <Footer />
       </UserProvider>

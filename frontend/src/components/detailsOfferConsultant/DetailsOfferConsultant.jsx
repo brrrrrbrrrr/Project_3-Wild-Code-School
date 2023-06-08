@@ -1,22 +1,24 @@
 /* eslint-disable react/function-component-definition */
 import PropTypes from "prop-types";
 import "./DetailsOfferConsultant.css";
-import PictureConsultant from "../../assets/picture-consultantbis.jpg";
 
 const DetailsOfferConsultant = (props) => {
   const { offer } = props;
-
+  const urlFile = import.meta.env.VITE_APP_URL;
   return (
     <div className="detailsOfferConsultant-container">
       <h2 className="detailsOfferConsultant-title">
         Votre contact pour ce job
       </h2>
       <div className="detailsOfferConsultant-subtitle">
-        <img
-          src={PictureConsultant}
-          alt="consultant"
-          className="detailsOfferConsultant-picture"
-        />
+        {offer?.consultantPicture && (
+          <img
+            src={`${urlFile}/${offer.consultantPicture}`}
+            alt="consultant"
+            className="detailsOfferConsultant-picture"
+          />
+        )}
+
         <div className="detailsOfferConsultant-contact">
           <h2 className="detailsOfferConsultant-identity">
             {offer.consultantFirstname} {offer.consultantName}
