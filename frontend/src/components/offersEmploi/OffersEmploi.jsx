@@ -83,11 +83,13 @@ const OffersEmploi = () => {
   useEffect(() => {
     if ((inView || isFirstLoad) && !isLoading && !isAllLoaded) {
       setIsLoading(true);
+
       api
         .get("/offers", {
           params: {
             page,
             limit: 2,
+            candId: user?.user?.id,
           },
         })
         .then((response) => {

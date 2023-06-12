@@ -43,13 +43,14 @@ const Candidate = ({ candidate }) => {
           <>
             <h3 className="valid-invalid_like">
               Like{" "}
-              {candidate.valide === 1 ? (
+              {candidate.offer_statusId === 2 ? (
                 <span className="valid">validé</span>
               ) : (
                 <span className="invalid">pas validé</span>
               )}
             </h3>
-            {candidate.valide === 0 || candidate.valide === 1 ? (
+            {candidate.offer_statusId === 2 ||
+            candidate.offer_statusId === 1 ? (
               <Link to="/valid-offer-candidate">
                 <Button
                   id="superadmin-candidat_button-info"
@@ -84,7 +85,7 @@ Candidate.propTypes = {
     picture: PropTypes.string.isRequired,
     resume: PropTypes.string.isRequired,
     likeCount: PropTypes.number,
-    valide: PropTypes.number,
+    offer_statusId: PropTypes.number,
 
     name: PropTypes.string.isRequired,
     firstname: PropTypes.string.isRequired,

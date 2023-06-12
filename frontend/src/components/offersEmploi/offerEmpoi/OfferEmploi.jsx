@@ -4,16 +4,19 @@
 import { useState } from "react";
 import { HiOutlineStar } from "react-icons/hi";
 import { AiTwotoneEdit, AiFillCheckCircle } from "react-icons/ai";
+import { BsFillChatRightTextFill } from "react-icons/bs";
+import PropTypes from "prop-types";
+import { NavLink, Link } from "react-router-dom";
 
 import { Button } from "@mui/material";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-
 import { useUser } from "../../../contexts/UserContext";
 import useApi from "../../../services/useApi";
 
 const OfferEmploi = ({ offer, userId, candidateId, validStatus }) => {
-  const [selected, setSelected] = useState(offer.candidateId === userId);
+  const [selected, setSelected] = useState(
+    offer.candidateId === userId || offer.consultantId === userId
+  );
+  const [like, setLike] = useState(offer.liked);
 
   const user = useUser();
   const api = useApi();
@@ -29,12 +32,14 @@ const OfferEmploi = ({ offer, userId, candidateId, validStatus }) => {
   };
 
   const handleIconClick = () => {
-    setSelected(!selected);
     api
-      .post(`offers/${offer.id}/like`, { candidateId: user.user.id })
-
+      .post(`offers/${offer.id}/like`, {
+        candidateId: user.user.id,
+        liked: !like,
+      })
       .then(() => {
         setSelected(!selected);
+        setLike(!like);
       })
       .catch((error) => {
         console.error(error);
@@ -43,11 +48,11 @@ const OfferEmploi = ({ offer, userId, candidateId, validStatus }) => {
 
   const handleValid = () => {
     const updateValue = {
-      valide: 1,
+      offer_statusId: 2,
     };
     api
       .put(
-        `/admin/offer-status/0/candidate/${candidateId}/offer/${offer.id}`,
+        `/admin/offer-status/1/candidate/${candidateId}/offer/${offer.id}`,
         updateValue
       )
       .then(() => {
@@ -57,6 +62,9 @@ const OfferEmploi = ({ offer, userId, candidateId, validStatus }) => {
         console.error(err);
       });
   };
+  const isConsultant = user?.user?.userType === "consultants";
+  const isCandidate = user?.user?.userType === "candidates";
+  const isRecrutor = user?.user?.userType === "recruiters";
 
   return (
     <div className="offersemploi-offer_container">
@@ -66,18 +74,20 @@ const OfferEmploi = ({ offer, userId, candidateId, validStatus }) => {
         alt=""
       />
       <div className="offersemploi-offer_info">
-        <div className="offersemploi-offer_info-main">
-          <h3 className="offersemploi-offer_title">{offer.job_title}</h3>
-          <h3 className="offersemploi-offer_salary">{offer.salary} euro/an</h3>
-        </div>
-        <div className="offersemploi-offer_info-contract">
-          <h3 className="offersemploi-offer_type-contract">
-            {offer.contract_type}
-          </h3>
-          <h3 className="offersemploi-offer_remote">{offer.remote_type}</h3>
-          <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
-          {user?.user?.userType === "recruiters" &&
-            userId === offer.recruiterId && (
+        <div>
+          <div className="offersemploi-offer_info-main">
+            <h3 className="offersemploi-offer_title">{offer.job_title}</h3>
+            <h3 className="offersemploi-offer_salary">
+              {offer.salary} euro/an
+            </h3>
+          </div>
+          <div className="offersemploi-offer_info-contract">
+            <h3 className="offersemploi-offer_type-contract">
+              {offer.contract_type}
+            </h3>
+            <h3 className="offersemploi-offer_remote">{offer.remote_type}</h3>
+            <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
+            {isRecrutor && (
               <Link to="/update-offer">
                 <AiTwotoneEdit
                   size={30}
@@ -86,11 +96,21 @@ const OfferEmploi = ({ offer, userId, candidateId, validStatus }) => {
                 />
               </Link>
             )}
-
+          </div>
+        </div>
+        <div className="offersemploi-icon_box">
           <div>
-            {user.user === null || user?.user.userType !== "candidates" ? (
-              ""
-            ) : (
+            {(isConsultant && selected) || (isCandidate && selected) ? (
+              <NavLink to="/messages" state={offer}>
+                <BsFillChatRightTextFill
+                  className="offersemploi-icon_chat"
+                  size={50}
+                />
+              </NavLink>
+            ) : null}
+          </div>
+          <div>
+            {isCandidate ? (
               <HiOutlineStar
                 className={
                   selected
@@ -100,9 +120,11 @@ const OfferEmploi = ({ offer, userId, candidateId, validStatus }) => {
                 onClick={handleIconClick}
                 size={50}
               />
+            ) : (
+              ""
             )}
 
-            {validStatus === 0 && (
+            {validStatus === 1 && (
               <div className="valid-icon_container">
                 {" "}
                 <h2>Valider ce like </h2>
@@ -139,6 +161,8 @@ OfferEmploi.propTypes = {
     city_name: PropTypes.string.isRequired,
     remote_type: PropTypes.string.isRequired,
     numberOfEmployees: PropTypes.string.isRequired,
+    consultantId: PropTypes.number.isRequired,
+    liked: PropTypes.bool,
     Logo: PropTypes.string.isRequired,
     recruiterId: PropTypes.number.isRequired,
   }).isRequired,

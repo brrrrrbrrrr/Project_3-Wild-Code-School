@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "./UsersInformations.css";
@@ -154,7 +152,7 @@ function UsersInformations({ user, userParam, setNewName }) {
     api
       .put(`/${userType}/${userId}`, formData)
 
-      .then((res) => {
+      .then(() => {
         setReload(reload + 1);
         setNewName(firstname);
         setTimeout(() => {

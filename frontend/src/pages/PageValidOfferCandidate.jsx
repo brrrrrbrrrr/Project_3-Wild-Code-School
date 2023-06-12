@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useUser } from "../contexts/UserContext";
 import Candidate from "../components/superAdmin/candidate/Candidate";
 import OfferEmploi from "../components/offersEmploi/offerEmpoi/OfferEmploi";
 import "./PageMyOffersEmploi";
 import useApi from "../services/useApi";
 import "./PageValidOfferCandidate.css";
-import { toast } from "react-toastify";
 
 function PageValidOfferCandidate() {
   const api = useApi();
@@ -13,7 +13,7 @@ function PageValidOfferCandidate() {
   const [candidateData, setCandidateData] = useState([]);
   const [offerData, setOfferData] = useState([]);
   const [idOffer, setIdOffer] = useState("");
-  const validStatus = candidateWithLike.valide;
+  const validStatus = candidateWithLike.offer_statusId;
   const [name, setName] = useState("");
   const [firstname, setFirstname] = useState("");
 
