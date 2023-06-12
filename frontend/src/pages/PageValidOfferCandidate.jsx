@@ -5,6 +5,7 @@ import OfferEmploi from "../components/offersEmploi/offerEmpoi/OfferEmploi";
 import "./PageMyOffersEmploi";
 import useApi from "../services/useApi";
 import "./PageValidOfferCandidate.css";
+import { toast } from "react-toastify";
 
 function PageValidOfferCandidate() {
   const api = useApi();
@@ -32,8 +33,17 @@ function PageValidOfferCandidate() {
           setIdOffer(undefined);
         }
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   }, [validationStatus]);
 
@@ -48,8 +58,17 @@ function PageValidOfferCandidate() {
 
           setOfferData(offersDatas);
         })
-        .catch((err) => {
-          console.error(err);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     }
   }, [idOffer, validationStatus]);
