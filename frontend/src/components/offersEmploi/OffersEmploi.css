@@ -71,6 +71,21 @@
   font-weight: 600;
 }
 
+.valid-icon_container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: -25px;
+  background-color: white;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.valid-icon {
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
 .offersemploi-offer_city {
   font-weight: 600;
   font-size: 20px;
@@ -165,6 +180,7 @@
   .offersemploi-offer_info-main {
     padding-bottom: 20px;
   }
+
   .offersemploi-offer_title {
     font-size: 20px;
     font-weight: 600;
@@ -185,5 +201,10 @@
   .offersemploi-offer_remote {
     font-weight: normal;
     font-size: 20px;
+  }
+  .valid-icon_container {
+    flex-direction: row;
+    top: -25px;
+    right: 0;
   }
 }

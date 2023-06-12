@@ -82,10 +82,38 @@ const PageSuperAdmin = () => {
   useEffect(() => {
     if (candidate === 10) {
       api
-        .get("/candidates")
+        .get("/admin/offer-status/")
         .then((response) => {
           setAllCandidates(response.data);
         })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [candidate]);
+
+  useEffect(() => {
+    if (candidate === 20) {
+      api
+        .get("/admin/offer-status/1")
+        .then((response) => {
+          setAllCandidates(response.data);
+        })
+
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [candidate]);
+
+  useEffect(() => {
+    if (candidate === 30) {
+      api
+        .get("/admin/offer-status/0")
+        .then((response) => {
+          setAllCandidates(response.data);
+        })
+
         .catch((error) => {
           console.error(error);
         });
@@ -129,6 +157,7 @@ const PageSuperAdmin = () => {
         });
     }
   }, [enterprise]);
+
   useEffect(() => {
     if (consultant === 10) {
       api
@@ -239,6 +268,22 @@ const PageSuperAdmin = () => {
           candidate === 10 &&
           allCandidates.map((oneCandidate) => (
             <Candidate key={oneCandidate.id} candidate={oneCandidate} />
+          ))}
+        {activeSection === "candidates" &&
+          candidate === 20 &&
+          allCandidates.map((oneCandidate) => (
+            <Candidate
+              key={oneCandidate.candidateId}
+              candidate={oneCandidate}
+            />
+          ))}
+        {activeSection === "candidates" &&
+          candidate === 30 &&
+          allCandidates.map((oneCandidate) => (
+            <Candidate
+              key={oneCandidate.candidateId}
+              candidate={oneCandidate}
+            />
           ))}
 
         {activeSection === "offers" &&

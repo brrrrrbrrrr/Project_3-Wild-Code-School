@@ -5,6 +5,50 @@ class OffercandidateManager extends AbstractManager {
     super({ table: "offer_candidate" });
   }
 
+  candidateWithStatus(status, candidateId) {
+    return this.database.query(
+      ` SELECT c.id, c.name, c.firstname, c.birthday, c.street, c.city, c.postalCode,
+  c.mail, c.phone, c.jobSeeker, c.picture, c.resume, c.contactPreference,
+  c.gender, oc.valide, COUNT(oc.offerId) AS likeCount, GROUP_CONCAT(oc.offerId) AS likeOfferIds
+  FROM ${this.table} oc
+  JOIN candidate c ON c.id = oc.candidateId
+  WHERE oc.valide = ? and c.id = ?
+  GROUP BY c.id, c.name, c.firstname, c.birthday, c.street, c.city, c.postalCode,
+  c.mail, c.phone, c.jobSeeker, c.picture, c.resume, c.contactPreference, c.gender, oc.valide;`,
+      [status, candidateId]
+    );
+  }
+
+  countAllCandidates() {
+    return this.database.query(
+      `
+      SELECT c.id, c.name, c.firstname, c.birthday, c.street, c.city, c.postalCode,
+      c.mail, c.phone, c.jobSeeker, c.picture, c.resume, c.contactPreference,
+      c.gender, oc.valide, COUNT(oc.offerId) AS likeCount, GROUP_CONCAT(oc.offerId) AS likeOfferIds
+      FROM ${this.table} oc
+      RIGHT JOIN candidate c ON c.id = oc.candidateId
+      GROUP BY c.id, c.name, c.firstname, c.birthday, c.street, c.city, c.postalCode,
+      c.mail, c.phone, c.jobSeeker, c.picture, c.resume, c.contactPreference, c.gender, oc.valide
+  
+      `
+    );
+  }
+
+  countOfferLikes(status) {
+    return this.database.query(
+      `
+      SELECT c.id, c.name, c.firstname, c.birthday, c.street, c.city, c.postalCode,
+      c.mail, c.phone, c.jobSeeker, c.picture, c.resume, c.contactPreference,
+      c.gender, oc.valide, COUNT(oc.offerId) AS likeCount, GROUP_CONCAT(oc.offerId) AS likeOfferIds
+      FROM ${this.table} oc
+      JOIN candidate c ON c.id = oc.candidateId
+      WHERE oc.valide = ?
+      GROUP BY c.id, c.name, c.firstname, c.birthday, c.street, c.city, c.postalCode,
+      c.mail, c.phone, c.jobSeeker, c.picture, c.resume, c.contactPreference, c.gender, oc.valide;`,
+      [status]
+    );
+  }
+
   findAllOffersStatus(status) {
     return this.database.query(
       `SELECT c.id, c.name, c.firstname, c.birthday, c.street, c.city, c.postalCode,
@@ -41,13 +85,13 @@ WHERE oc.valide = ? AND oc.offerId = ? and c.id = ?;`,
     );
   }
 
-  editOfferStatusWithCandidate(valide, status, offerId, candidateId) {
+  editOfferStatusWithCandidate(valide, status, candidateId, offerId) {
     return this.database.query(
       `UPDATE ${this.table}
       SET valide = ?
-      WHERE valide = ? AND offerId = ? AND candidateId = ?;
+      WHERE valide = ? AND candidateId = ? AND offerId = ?  ;
       `,
-      [valide, status, offerId, candidateId]
+      [valide, status, candidateId, offerId]
     );
   }
 }

@@ -22,6 +22,7 @@ import PageSuperAdmin from "./pages/PageSuperAdmin";
 import PageMyOffersEmploi from "./pages/PageMyOffersEmploi";
 import PageCreateOffer from "./pages/PageCreateOffer";
 import PageUpdateOffer from "./pages/PageUpdateOffer";
+import PageValidOfferCandidate from "./pages/PageValidOfferCandidate";
 
 function App() {
   return (
@@ -43,6 +44,10 @@ function App() {
           <Route path="/my-offers" element={<PageMyOffersEmploi />} />
           <Route path="/new-offer" element={<PageCreateOffer />} />
           <Route path="/update-offer" element={<PageUpdateOffer />} />
+          <Route
+            path="/valid-offer-candidate"
+            element={<PageValidOfferCandidate />}
+          />
         </Routes>
         <Footer />
       </UserProvider>

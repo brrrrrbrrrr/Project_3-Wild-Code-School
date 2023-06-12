@@ -8,10 +8,9 @@ const validate = (data, forCreation = true) => {
   }).validate(data, { abortEarly: false }).error;
 };
 
-const statusAllOffers = (req, res) => {
-  const { status } = req.params;
+const getCountAllCandidates = (req, res) => {
   models.offercandidate
-    .findAllOffersStatus(status)
+    .countAllCandidates()
     .then(([rows]) => {
       if (rows.length === 0) {
         res.sendStatus(404);
@@ -23,13 +22,30 @@ const statusAllOffers = (req, res) => {
     });
 };
 
-const statusOffer = (req, res) => {
-  const { status, offerId } = req.params;
+const getCandidateWithStatus = (req, res) => {
+  const { status, candidateId } = req.params;
   models.offercandidate
-    .findOfferStatus(status, offerId)
+    .candidateWithStatus(status, candidateId)
     .then(([rows]) => {
       if (rows.length === 0) {
-        res.sendStatus(404);
+        res.send([]);
+      } else {
+        res.send(rows);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const countOfferLikes = (req, res) => {
+  const { status } = req.params;
+  models.offercandidate
+    .countOfferLikes(status)
+    .then(([rows]) => {
+      if (rows.length === 0) {
+        res.send([]);
       } else res.send(rows);
     })
     .catch((err) => {
@@ -39,7 +55,7 @@ const statusOffer = (req, res) => {
 };
 
 const editOfferStatusCandidate = (req, res) => {
-  const { status, offerId, candidateId } = req.params;
+  const { status, candidateId, offerId } = req.params;
   const { valide } = req.body;
   const errors = validate({ valide }, false);
   if (errors) {
@@ -47,7 +63,7 @@ const editOfferStatusCandidate = (req, res) => {
     return res.status(422).json({ error: errors.message });
   }
   models.offercandidate
-    .editOfferStatusWithCandidate(valide, status, offerId, candidateId)
+    .editOfferStatusWithCandidate(valide, status, candidateId, offerId)
     .then(() => {
       res.sendStatus(200);
     })
@@ -58,24 +74,9 @@ const editOfferStatusCandidate = (req, res) => {
   return null;
 };
 
-const statusOfferCandidate = (req, res) => {
-  const { status, offerId, candidateId } = req.params;
-  models.offercandidate
-    .findOfferStatusWithCandidate(status, offerId, candidateId)
-    .then(([rows]) => {
-      if (rows.length === 0) {
-        res.sendStatus(404);
-      } else res.send(rows);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-};
-
 module.exports = {
-  statusAllOffers,
-  statusOffer,
+  getCountAllCandidates,
+  getCandidateWithStatus,
   editOfferStatusCandidate,
-  statusOfferCandidate,
+  countOfferLikes,
 };

@@ -2,18 +2,15 @@ const router = require("express").Router();
 const offerCandidateControllers = require("../controllers/offerCandidateControllers");
 
 router.put(
-  "/offer-status/:status/offer/:offerId/candidate/:candidateId",
+  "/offer-status/:status/candidate/:candidateId/offer/:offerId",
   offerCandidateControllers.editOfferStatusCandidate
 );
 
 router.get(
-  "/offer-status/:status/offer/:offerId/candidate/:candidateId",
-  offerCandidateControllers.statusOfferCandidate
+  "/offer-status/:status/candidate/:candidateId",
+  offerCandidateControllers.getCandidateWithStatus
 );
-router.get(
-  "/offer-status/:status/offer/:offerId",
-  offerCandidateControllers.statusOffer
-);
-router.get("/offer-status/:status", offerCandidateControllers.statusAllOffers);
+router.get("/offer-status/:status", offerCandidateControllers.countOfferLikes);
+router.get("/offer-status", offerCandidateControllers.getCountAllCandidates);
 
 module.exports = router;
