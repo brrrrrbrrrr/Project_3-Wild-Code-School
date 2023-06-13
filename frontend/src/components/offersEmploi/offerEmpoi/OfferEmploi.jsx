@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { HiOutlineStar } from "react-icons/hi";
 import { AiTwotoneEdit } from "react-icons/ai";
+import { toast } from "react-toastify";
 import { Button } from "@mui/material";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -29,8 +30,17 @@ const OfferEmploi = ({ offer, userId }) => {
       .then(() => {
         setSelected(!selected);
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   };
 

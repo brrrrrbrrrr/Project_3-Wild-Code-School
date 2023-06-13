@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/function-component-definition */
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import useApi from "../../services/useApi";
 import LikedOffer from "./LikedOffer";
 import "./LikedOffers.css";
@@ -17,8 +18,17 @@ const LikedOffers = () => {
       .then((response) => {
         setOffers(response.data);
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   }, []);
 

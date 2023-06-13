@@ -1,6 +1,7 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-extraneous-dependencies */
 import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import UserProvider from "./contexts/UserContext";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -47,6 +48,7 @@ function App() {
           <Route path="/update-offer" element={<PageUpdateOffer />} />
         </Routes>
         <Footer />
+        <ToastContainer />
       </UserProvider>
     </div>
   );

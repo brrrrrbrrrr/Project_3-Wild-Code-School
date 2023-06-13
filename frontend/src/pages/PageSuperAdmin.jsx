@@ -2,6 +2,7 @@
 
 import { FormControl, InputLabel, Select, MenuItem, Box } from "@mui/material";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Candidate from "../components/superAdmin/candidate/Candidate";
 import Offer from "../components/superAdmin/offer/Offer";
 import Enterprise from "../components/superAdmin/enterprise/Enterpise";
@@ -70,8 +71,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllCandidates(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     }
   }, [candidate]);
@@ -83,8 +93,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllOffers(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     } else if (offer === 20) {
       api
@@ -96,8 +115,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllOffers(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     } else if (offer === 30) {
       api
@@ -109,8 +137,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllOffers(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     }
   }, [offer, refresh]);
@@ -121,8 +158,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllEnterprises(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     }
   }, [enterprise]);
@@ -133,8 +179,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllConsultant(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     }
   }, [consultant]);

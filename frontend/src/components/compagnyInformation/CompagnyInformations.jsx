@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 import useApi from "../../services/useApi";
 import "../usersInformations/UsersInformations.css";
 
@@ -92,8 +93,17 @@ function CompagnyInformations({ user, setNewName }) {
           setReload(0);
         }, 2000);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   };
   return reload > 0 ? (
