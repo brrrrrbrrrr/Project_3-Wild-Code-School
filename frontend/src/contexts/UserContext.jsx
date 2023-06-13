@@ -12,6 +12,8 @@ function UserProvider({ children }) {
   const [selectForm, setSelectForm] = useState(null);
   const [newName, setNewName] = useState(null);
   const [offerData, setOfferData] = useState(null);
+  const [candidateWithLike, setCandidateWithLike] = useState(null);
+  const [validationStatus, setValidationStatus] = useState(0);
 
   return (
     <UserContext.Provider
@@ -26,6 +28,10 @@ function UserProvider({ children }) {
         setNewName,
         offerData,
         setOfferData,
+        candidateWithLike,
+        setCandidateWithLike,
+        validationStatus,
+        setValidationStatus,
       }}
     >
       {children}
