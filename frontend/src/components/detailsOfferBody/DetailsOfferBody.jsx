@@ -4,17 +4,18 @@ import { HiOutlineUserGroup } from "react-icons/hi2";
 import { CgEuro } from "react-icons/cg";
 import { SiReacthookform } from "react-icons/si";
 import "./DetailsOfferBody.css";
+import logo from "../../assets/logo.png";
 
 const DetailsOfferBody = (props) => {
   const { offer } = props;
-  const urlFile = import.meta.env.VITE_APP_URL;
+  // const urlFile = import.meta.env.VITE_APP_URL;
   return (
     <div className="detailsOfferBody-container">
       <div className="detailsOfferBody-left">
         <div className="detailsOfferBody-left_top  detailsOfferBody-textOne ">
           {offer?.Logo && (
             <img
-              src={`${urlFile}/${offer.Logo}`}
+              src={`${logo}`}
               alt="Logo de l'entreprise"
               className="detailsOfferBody-logo"
             />

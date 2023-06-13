@@ -36,23 +36,29 @@ function ContactsList({ setContactSelected }) {
   return (
     <div className="chat-contact_list">
       <h3 className="chat-contact_list-title">contacts</h3>
-      {contacts.map((contact) => (
-        <div
-          className={`chat-contact_list-container ${
-            selectedContact === contact.candidateId ? "active-contact" : ""
-          }`}
-          key={contact.candidateId}
-        >
-          <img
-            src={`${urlFile}${contact.picture}`}
-            className="chat-messenger_box_image"
-            alt={contact.name}
-          />
-          <p onClick={() => selectContact(contact.candidateId)}>
-            {contact.name} {contact.firstname}
-          </p>
-        </div>
-      ))}
+      <div className="chat-contact_list-box">
+        {contacts.map((contact) => (
+          <div
+            className={`chat-contact_list-container ${
+              selectedContact === contact.candidateId ? "active-contact" : ""
+            }`}
+            key={contact.candidateId}
+          >
+            <img
+              src={`${urlFile}${contact.picture}`}
+              className="chat-messenger_box_image"
+              alt={contact.name}
+              onClick={() => selectContact(contact.candidateId)}
+            />
+            <p
+              className="chat-contact_list-name"
+              onClick={() => selectContact(contact.candidateId)}
+            >
+              {contact.name} {contact.firstname}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

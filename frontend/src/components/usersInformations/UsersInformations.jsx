@@ -34,7 +34,7 @@ function UsersInformations({ user, userParam, setNewName }) {
 
   let userType = "";
   let userId = "";
-
+  console.warn(user.userType);
   if (user.userType === "compagny" && userParam.userType === "recruiters") {
     userType = userParam.userType;
   } else {

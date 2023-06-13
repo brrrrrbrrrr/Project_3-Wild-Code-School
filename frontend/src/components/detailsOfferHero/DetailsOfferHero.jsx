@@ -5,19 +5,23 @@ import { FiMapPin } from "react-icons/fi";
 import { CgEuro } from "react-icons/cg";
 import { SiReacthookform } from "react-icons/si";
 import "./DetailsOfferHero.css";
+import teamPicture from "../../assets/bg-image.jpg";
+import logo from "../../assets/logo.png";
 
 const DetailsOfferHero = (props) => {
   const { offer } = props;
-  const urlFile = import.meta.env.VITE_APP_URL;
+  // const urlFile = import.meta.env.VITE_APP_URL;
   return (
     <div className="detailsOfferHero-container">
       <div
         className="detailsOfferHero-image"
-        style={{ backgroundImage: `url(${urlFile}/${offer.teamPicture})` }}
+        // style={{ backgroundImage: `url(${urlFile}/${offer.teamPicture})` }}
+        style={{ backgroundImage: `url(${teamPicture})` }}
       >
         {offer?.Logo && (
           <img
-            src={`${urlFile}/${offer.Logo}`}
+            // src={`${urlFile}/${offer.Logo}`}
+            src={`${logo}`}
             alt="Logo de l'entreprise"
             className="detailsOfferHero-logo"
           />

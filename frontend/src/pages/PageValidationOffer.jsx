@@ -24,17 +24,15 @@ function PageValidationOffer() {
   }, [refresh]);
 
   return (
-    <div className="pageSuperAdmin-container">
-      <div className="pageSuperAdmin-selected_box">
-        {offersValid.map((offerValid) => (
-          <OfferValid
-            key={offerValid.id}
-            offer={offerValid}
-            setRefresh={setRefresh}
-            refresh={refresh}
-          />
-        ))}
-      </div>
+    <div className="pageSuperAdmin-container validation-offer">
+      {offersValid.map((offerValid) => (
+        <OfferValid
+          key={offerValid.id}
+          offer={offerValid}
+          setRefresh={setRefresh}
+          refresh={refresh}
+        />
+      ))}
     </div>
   );
 }
