@@ -33,15 +33,21 @@ function UsersInformations({ user, userParam, setNewName }) {
   let userType = "";
   let userId = "";
 
-  if (user.userType === "compagny" && userParam.userType === "recruiters") {
-    userType = userParam.userType;
+  if (
+    user.userType === "consultants" &&
+    user.superAdmin === 1 &&
+    userParam?.userType === "recruiters"
+  ) {
+    userType = userParam?.userType;
+    userId = userParam?.id;
+  } else if (
+    user.userType === "compagny" &&
+    userParam?.userType === "recruiters"
+  ) {
+    userType = userParam?.userType;
+    userId = userParam?.id;
   } else {
     userType = user.userType;
-  }
-
-  if (user.userType === "compagny" && userParam.userType === "recruiters") {
-    userId = userParam.id;
-  } else {
     userId = user.id;
   }
 
@@ -49,7 +55,6 @@ function UsersInformations({ user, userParam, setNewName }) {
 
   useEffect(() => {
     api
-
       .get(`/${userType}/${userId}`)
       .then((res) => {
         setUserInfos(res.data);
@@ -69,7 +74,7 @@ function UsersInformations({ user, userParam, setNewName }) {
       .catch((err) => {
         console.error(err);
       });
-  }, [reload]);
+  }, [reload, userParam]);
 
   function handlePictureSelect(event) {
     const filePicture = event.target.files[0];
@@ -422,15 +427,17 @@ UsersInformations.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number.isRequired,
     userType: PropTypes.string.isRequired,
-  }).isRequired,
+    superAdmin: PropTypes.number,
+  }),
   userParam: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    userType: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    userType: PropTypes.string,
   }),
   setNewName: PropTypes.func,
 };
 
 UsersInformations.defaultProps = {
+  user: null,
   userParam: null,
   setNewName: null,
 };

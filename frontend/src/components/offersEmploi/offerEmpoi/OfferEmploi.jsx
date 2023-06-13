@@ -1,5 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/function-component-definition */
 import { useState } from "react";
 import { HiOutlineStar } from "react-icons/hi";
 import { AiTwotoneEdit, AiFillCheckCircle } from "react-icons/ai";
@@ -11,7 +9,7 @@ import { Button } from "@mui/material";
 import { useUser } from "../../../contexts/UserContext";
 import useApi from "../../../services/useApi";
 
-const OfferEmploi = ({ offer, userId, candidateId, validStatus }) => {
+function OfferEmploi({ offer, userId, candidateId, validStatus }) {
   const [selected, setSelected] = useState(
     offer.candidateId === userId || offer.consultantId === userId
   );
@@ -145,7 +143,7 @@ const OfferEmploi = ({ offer, userId, candidateId, validStatus }) => {
       </Link>
     </div>
   );
-};
+}
 
 OfferEmploi.propTypes = {
   userId: PropTypes.number,

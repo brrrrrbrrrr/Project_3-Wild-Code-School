@@ -27,7 +27,16 @@ function PageMyAccount() {
   let content = null;
 
   if (selectForm === "myAccount") {
-    if (user.userType === "compagny") {
+    if (user.userType === "compagny" && userParam.userType === "recruiters") {
+      content = (
+        <UsersInformations
+          user={user}
+          userParam={userParam}
+          setNewName={setNewName}
+          newName={newName}
+        />
+      );
+    } else if (user.userType === "compagny") {
       content = <CompagnyInformation user={user} setNewName={setNewName} />;
     } else {
       content = (
@@ -53,13 +62,17 @@ function PageMyAccount() {
         >
           Mon compte
         </button>
-        <button
-          className={`select-form-btn ${myParam ? "select-btn-active" : ""}`}
-          type="button"
-          onClick={handleParam}
-        >
-          Paramètres
-        </button>
+        {user.userType === "compagny" && userParam.userType === "recruiters" ? (
+          ""
+        ) : (
+          <button
+            className={`select-form-btn ${myParam ? "select-btn-active" : ""}`}
+            type="button"
+            onClick={handleParam}
+          >
+            Paramètres
+          </button>
+        )}
       </div>
       <div>{content}</div>
     </div>
