@@ -48,7 +48,7 @@ const OfferEmploi = ({ offer, userId, candidateId, validStatus }) => {
 
   const handleValid = () => {
     const updateValue = {
-      offer_statusId: 2,
+      offerStatusId: 2,
     };
     api
       .put(

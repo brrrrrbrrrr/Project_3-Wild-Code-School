@@ -1,11 +1,10 @@
-/* eslint-disable camelcase */
 const Joi = require("joi").extend(require("@joi/date"));
 const models = require("../models");
 
 const validate = (data, forCreation = true) => {
   const presence = forCreation ? "required" : "optional";
   return Joi.object({
-    offer_statusId: Joi.number().integer().min(0).max(3).presence(presence),
+    offerStatusId: Joi.number().integer().min(0).max(3).presence(presence),
   }).validate(data, { abortEarly: false }).error;
 };
 
@@ -57,14 +56,14 @@ const countOfferLikes = (req, res) => {
 
 const editOfferStatusCandidate = (req, res) => {
   const { status, candidateId, offerId } = req.params;
-  const { offer_statusId } = req.body;
-  const errors = validate({ offer_statusId }, false);
+  const { offerStatusId } = req.body;
+  const errors = validate({ offerStatusId }, false);
   if (errors) {
     console.error(errors);
     return res.status(422).json({ error: errors.message });
   }
   models.offercandidate
-    .editOfferStatusWithCandidate(offer_statusId, status, candidateId, offerId)
+    .editOfferStatusWithCandidate(offerStatusId, status, candidateId, offerId)
     .then(() => {
       res.sendStatus(200);
     })
