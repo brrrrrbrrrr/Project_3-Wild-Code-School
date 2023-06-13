@@ -402,7 +402,10 @@ const PageSuperAdmin = () => {
         {activeSection === "candidates" &&
           candidate === 10 &&
           allCandidates.map((oneCandidate) => (
-            <Candidate key={oneCandidate.id} candidate={oneCandidate} />
+            <Candidate
+              key={`${oneCandidate.id}_${oneCandidate.offer_statusId}`}
+              candidate={oneCandidate}
+            />
           ))}
         {activeSection === "candidates" &&
           candidate === 20 &&
