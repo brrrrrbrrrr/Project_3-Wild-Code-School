@@ -288,6 +288,11 @@ const editPassword = async (req, res) => {
 };
 
 const destroy = (req, res) => {
+  const idPayload = req.payload.sub.id;
+  const { id } = req.params;
+  if (id !== idPayload) {
+    return res.sendStatus(401);
+  }
   models.consultant
     .delete(req.params.id)
     .then(([result]) => {

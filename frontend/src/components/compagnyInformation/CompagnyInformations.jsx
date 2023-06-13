@@ -84,7 +84,6 @@ function CompagnyInformations({ user, setNewName }) {
     });
     api
       .put(`/${userType}/${userId}`, formData)
-
       .then(() => {
         setReload(reload + 1);
         setNewName(name);
@@ -96,6 +95,7 @@ function CompagnyInformations({ user, setNewName }) {
         console.error(err);
       });
   };
+
   return reload > 0 ? (
     <p className="update-succes_p">Mise à jour ...</p>
   ) : (
@@ -167,19 +167,6 @@ function CompagnyInformations({ user, setNewName }) {
           />
         </label>
 
-        <label className="form-label">
-          Logo d'entreprise :
-          <input
-            type="file"
-            onChange={handlePictureSelect}
-            className="form-input"
-          />
-          <span
-            className={logo || validLogoType ? "signup-hide" : "signup-invalid"}
-          >
-            Merci de choisir un fichier .JPEG/JPG/PNG
-          </span>
-        </label>
         <div className="form-btn-container">
           <button type="submit" className="form-btn">
             Valider

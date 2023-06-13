@@ -19,14 +19,17 @@ function AccountSettings({ user, userParam }) {
   const api = useApi();
   let userType = "";
   let userId = "";
+  if (user.userType === "compagny" && userParam === null) {
+    userType = user.userType;
+  }
 
-  if (user.userType === "compagny" && userParam.userType === "recruiters") {
-    userType = userParam.userType;
+  if (user.userType === "compagny" && userParam?.userType === "recruiters") {
+    userType = userParam?.userType;
   } else {
     userType = user.userType;
   }
 
-  if (user.userType === "compagny" && userParam.userType === "recruiters") {
+  if (user.userType === "compagny" && userParam?.userType === "recruiters") {
     userId = userParam.id;
   } else {
     userId = user.id;
@@ -44,7 +47,7 @@ function AccountSettings({ user, userParam }) {
   const handleDelete = () => {
     let refresh = null;
     let deleteAccountApi = "";
-    if (user.userType === "compagny" && userParam.userType === "recruiters") {
+    if (user.userType === "compagny" && userParam?.userType === "recruiters") {
       deleteAccountApi = `${user.userType}/${user.id}/my-recruiters/${userParam.id}`;
       refresh = 0;
     } else {

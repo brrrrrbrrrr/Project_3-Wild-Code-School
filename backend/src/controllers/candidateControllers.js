@@ -284,7 +284,11 @@ const add = async (req, res) => {
 };
 
 const destroy = (req, res) => {
-  const id = parseInt(req.params.id, 10);
+  const idPayload = req.payload.sub.id;
+  const { id } = req.params;
+  if (id !== idPayload) {
+    return res.sendStatus(401);
+  }
   models.candidate
     .delete(id)
     .then(([result]) => {

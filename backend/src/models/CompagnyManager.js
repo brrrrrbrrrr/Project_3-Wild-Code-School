@@ -52,6 +52,13 @@ class CompagnyManager extends AbstractManager {
     );
   }
 
+  findById(id) {
+    return this.database.query(
+      `select id, name, password from ${this.table} where id = ? `,
+      [id]
+    );
+  }
+
   deleteRecruiter(idRec, idComp) {
     return this.database.query(
       `SELECT name, firstname, mail, phone, birthday, street, city, postalCode, valide, picture, compagny_id, gender, id
@@ -73,6 +80,13 @@ class CompagnyManager extends AbstractManager {
         compagny.Valide,
         compagny.Logo,
       ]
+    );
+  }
+
+  updatePassword(password, userId) {
+    return this.database.query(
+      `update ${this.table} set password = ? where id = ?`,
+      [password, userId]
     );
   }
 

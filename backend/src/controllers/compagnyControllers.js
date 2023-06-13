@@ -17,6 +17,7 @@ const validate = (data, forCreation = true) => {
       password: joi.string().max(200).presence(presence),
       Valide: joi.number().valid(0, 1).presence("optional"),
       Logo: joi.string().allow(null, "").presence("optional"),
+      newPassword: joi.string().max(45).presence("optional"),
     })
     .validate(data, { abortEarly: false }).error;
 };
@@ -31,6 +32,22 @@ const getCompagny = (req, res) => {
       console.error(err);
       res.sendStatus(500);
     });
+};
+
+const getCompagnyByIdToNext = async (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
+  const idPayload = req.payload.sub.id;
+  if (id !== idPayload) {
+    return res.sendStatus(401);
+  }
+  const [result] = await models.compagny.findById(id);
+  if (result) {
+    if (result[0] != null) {
+      // eslint-disable-next-line prefer-destructuring
+      req.compagny = result[0];
+      next();
+    } else return res.sendStatus(401);
+  } else return res.sendStatus(500);
 };
 
 const validCompagny = (req, res) => {
@@ -278,8 +295,39 @@ const updateCompagny = async (req, res) => {
 };
 
 const deleteCompagny = (req, res) => {
+  const idPayload = req.payload.sub.id;
+  const { id } = req.params;
+  if (id !== idPayload) {
+    return res.sendStatus(401);
+  }
   models.compagny
     .delete(req.params.id)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const editPassword = async (req, res) => {
+  const { newPassword } = req.body;
+  const id = parseInt(req.params.id, 10);
+  const errors = validate({ newPassword }, false);
+
+  const hashedPassword = await hashPassword(newPassword);
+  if (errors) {
+    console.error(errors);
+    return res.status(422).send(errors);
+  }
+
+  models.compagny
+    .updatePassword(hashedPassword, id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -321,4 +369,6 @@ module.exports = {
   deleteRecruiter,
   validCompagny,
   validUpdate,
+  getCompagnyByIdToNext,
+  editPassword,
 };
