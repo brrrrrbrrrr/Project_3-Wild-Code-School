@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 import useApi from "../services/useApi";
@@ -18,8 +19,17 @@ function PageMyOffersEmploi() {
       .then((res) => {
         setMyOffers(res.data);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   }, []);
 

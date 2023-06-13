@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 import "./UsersInformations.css";
 
 import useApi from "../../services/useApi";
@@ -71,8 +72,17 @@ function UsersInformations({ user, userParam, setNewName }) {
         setContactPreference(res.data.contactPreference);
         setJobSeeker(res.data.jobSeeker);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   }, [reload, userParam]);
 
@@ -164,8 +174,17 @@ function UsersInformations({ user, userParam, setNewName }) {
           setReload(0);
         }, 2000);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   };
 

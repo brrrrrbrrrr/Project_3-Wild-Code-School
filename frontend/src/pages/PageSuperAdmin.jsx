@@ -178,8 +178,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllOffers(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     } else if (offer === 20) {
       api
@@ -234,8 +243,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllEnterprises(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     } else if (enterprise === 20) {
       api
