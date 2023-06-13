@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./AccountSettings.css";
 import PropTypes from "prop-types";
 
@@ -65,8 +66,17 @@ function AccountSettings({ user, userParam }) {
           }
         }, 2000);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   };
 

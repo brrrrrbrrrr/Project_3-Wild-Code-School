@@ -187,7 +187,6 @@ AND o.valide=1
   JOIN contrat AS ct ON ct.id = o.contratId
   JOIN job_title as j ON j.id = o.jobTitleId
   JOIN remote AS re ON re.id = o.remoteId
-  WHERE o.valide=1 
 `
     );
   }

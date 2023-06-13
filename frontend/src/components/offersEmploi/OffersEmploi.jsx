@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Button from "@mui/material/Button";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useUser } from "../../contexts/UserContext";
 import useApi from "../../services/useApi";
 import Loader from "../loader/Loader";
@@ -102,8 +102,17 @@ const OffersEmploi = () => {
           setIsLoading(false);
           setIsFirstLoad(false);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
           setIsLoading(false);
         });
     }
@@ -145,8 +154,17 @@ const OffersEmploi = () => {
         setIsLoading(false);
         setIsFirstLoad(false);
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         setIsLoading(false);
       });
   };
@@ -226,8 +244,17 @@ const OffersEmploi = () => {
         setIsLoading(false);
         setIsFirstLoad(false);
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         setIsLoading(false);
       });
   };
@@ -290,8 +317,17 @@ const OffersEmploi = () => {
               theme: "colored",
             });
           })
-          .catch((error) => {
-            console.error(error);
+          .catch(() => {
+            toast.error("Une erreur s'est produite", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
             setIsLoading(false);
           });
       }
@@ -373,7 +409,6 @@ const OffersEmploi = () => {
         )}
         <div ref={ref} className="offersemploi-fef_div" />
       </div>
-      <ToastContainer />
     </div>
   );
 };

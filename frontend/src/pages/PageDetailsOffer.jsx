@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import useApi from "../services/useApi";
 
 import DetailsOfferHero from "../components/detailsOfferHero/DetailsOfferHero";
@@ -17,8 +18,17 @@ export default function PageDetailsOffer() {
       .then((response) => {
         setOffer(response.data);
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   }, []);
 

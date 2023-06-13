@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import useApi from "../../services/useApi";
 import "./RegisterDefault.css";
 
@@ -66,7 +67,16 @@ function RegisterCompagny() {
         setSuccess(true);
       })
       .catch((err) => {
-        console.error(err);
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         if (err) {
           setError(err.response.data);
         }
