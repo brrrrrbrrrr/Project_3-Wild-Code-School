@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 import useApi from "../../services/useApi";
 import "../usersInformations/UsersInformations.css";
 
@@ -84,7 +85,6 @@ function CompagnyInformations({ user, setNewName }) {
     });
     api
       .put(`/${userType}/${userId}`, formData)
-
       .then(() => {
         setReload(reload + 1);
         setNewName(name);
@@ -92,10 +92,20 @@ function CompagnyInformations({ user, setNewName }) {
           setReload(0);
         }, 2000);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   };
+
   return reload > 0 ? (
     <p className="update-succes_p">Mise à jour ...</p>
   ) : (
@@ -167,19 +177,6 @@ function CompagnyInformations({ user, setNewName }) {
           />
         </label>
 
-        <label className="form-label">
-          Logo d'entreprise :
-          <input
-            type="file"
-            onChange={handlePictureSelect}
-            className="form-input"
-          />
-          <span
-            className={logo || validLogoType ? "signup-hide" : "signup-invalid"}
-          >
-            Merci de choisir un fichier .JPEG/JPG/PNG
-          </span>
-        </label>
         <div className="form-btn-container">
           <button type="submit" className="form-btn">
             Valider

@@ -284,7 +284,11 @@ const add = async (req, res) => {
 };
 
 const destroy = (req, res) => {
-  const id = parseInt(req.params.id, 10);
+  const idPayload = req.payload.sub.id;
+  const { id } = req.params;
+  if (id !== idPayload) {
+    return res.sendStatus(401);
+  }
   models.candidate
     .delete(id)
     .then(([result]) => {
@@ -360,13 +364,16 @@ const editPassword = async (req, res) => {
 const likeOffer = (req, res) => {
   const offerId = req.params.offerId;
   const { candidateId } = req.body;
+  const { liked } = req.body;
+
   if (!candidateId || !offerId) {
     return res.status(400).send("Missing candidateId or offerId");
   }
-  models.candidate.findLike(candidateId, offerId).then(([rows]) => {
+  models.candidate.findLike(candidateId, offerId, liked).then(([rows]) => {
     if (rows[0] == null) {
+      // add like
       models.candidate
-        .likeOffer(candidateId, offerId)
+        .likeOffer(candidateId, offerId, liked)
         .then((result) => {
           if (result.affectedRows === 0) {
             return res.sendStatus(404);
@@ -377,8 +384,8 @@ const likeOffer = (req, res) => {
           console.error(error);
           return res.sendStatus(500);
         });
-      // add like
     } else {
+      // suprime like
       models.candidate
         .deleteLike(candidateId, offerId)
         .then((result) => {
@@ -391,7 +398,6 @@ const likeOffer = (req, res) => {
           console.error(error);
           return res.sendStatus(500);
         });
-      // suprime like
     }
   });
 };

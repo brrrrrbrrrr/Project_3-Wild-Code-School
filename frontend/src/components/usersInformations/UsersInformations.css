@@ -35,6 +35,23 @@
   align-items: center;
 }
 
+.Logo-container {
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Logo-img {
+  border: 2px solid white;
+  overflow: hidden;
+  width: 150px;
+  height: 150px;
+  position: relative;
+}
+
 .rounded-image {
   border-radius: 50%;
   overflow: hidden;

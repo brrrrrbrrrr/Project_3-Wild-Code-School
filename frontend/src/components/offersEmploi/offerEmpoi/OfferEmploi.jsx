@@ -1,38 +1,76 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/function-component-definition */
 import { useState } from "react";
 import { HiOutlineStar } from "react-icons/hi";
-import { AiTwotoneEdit } from "react-icons/ai";
+import { AiTwotoneEdit, AiFillCheckCircle } from "react-icons/ai";
+import { BsFillChatRightTextFill } from "react-icons/bs";
+import { toast } from "react-toastify";
 import { Button } from "@mui/material";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useUser } from "../../../contexts/UserContext";
 import useApi from "../../../services/useApi";
 
-const OfferEmploi = ({ offer, userId }) => {
-  const [selected, setSelected] = useState(offer.candidateId === userId);
+function OfferEmploi({ offer, userId, candidateId, validStatus }) {
+  const [selected, setSelected] = useState(
+    offer.candidateId === userId || offer.consultantId === userId
+  );
+  const [like, setLike] = useState(offer.liked);
+
   const user = useUser();
   const api = useApi();
   const urlFile = import.meta.env.VITE_APP_URL;
-  const { setOfferData } = useUser();
+  const {
+    setOfferData,
+
+    setValidationStatus,
+  } = useUser();
 
   const handleEditClick = () => {
     setOfferData(offer);
   };
 
   const handleIconClick = () => {
-    setSelected(!selected);
     api
-      .post(`offers/${offer.id}/like`, { candidateId: user.user.id })
-
+      .post(`offers/${offer.id}/like`, {
+        candidateId: user.user.id,
+        liked: !like,
+      })
       .then(() => {
         setSelected(!selected);
+        setLike(!like);
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   };
+
+  const handleValid = () => {
+    const updateValue = {
+      offerStatusId: 2,
+    };
+    api
+      .put(
+        `/admin/offer-status/1/candidate/${candidateId}/offer/${offer.id}`,
+        updateValue
+      )
+      .then(() => {
+        setValidationStatus((prevStatus) => prevStatus + 1);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+  const isConsultant = user?.user?.userType === "consultants";
+  const isCandidate = user?.user?.userType === "candidates";
+  const isRecrutor = user?.user?.userType === "recruiters";
 
   return (
     <div className="offersemploi-offer_container">
@@ -42,18 +80,20 @@ const OfferEmploi = ({ offer, userId }) => {
         alt=""
       />
       <div className="offersemploi-offer_info">
-        <div className="offersemploi-offer_info-main">
-          <h3 className="offersemploi-offer_title">{offer.job_title}</h3>
-          <h3 className="offersemploi-offer_salary">{offer.salary} euro/an</h3>
-        </div>
-        <div className="offersemploi-offer_info-contract">
-          <h3 className="offersemploi-offer_type-contract">
-            {offer.contract_type}
-          </h3>
-          <h3 className="offersemploi-offer_remote">{offer.remote_type}</h3>
-          <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
-          {user?.user?.userType === "recruiters" &&
-            userId === offer.recruiterId && (
+        <div>
+          <div className="offersemploi-offer_info-main">
+            <h3 className="offersemploi-offer_title">{offer.job_title}</h3>
+            <h3 className="offersemploi-offer_salary">
+              {offer.salary} euro/an
+            </h3>
+          </div>
+          <div className="offersemploi-offer_info-contract">
+            <h3 className="offersemploi-offer_type-contract">
+              {offer.contract_type}
+            </h3>
+            <h3 className="offersemploi-offer_remote">{offer.remote_type}</h3>
+            <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
+            {isRecrutor && (
               <Link to="/update-offer">
                 <AiTwotoneEdit
                   size={30}
@@ -62,11 +102,21 @@ const OfferEmploi = ({ offer, userId }) => {
                 />
               </Link>
             )}
-
+          </div>
+        </div>
+        <div className="offersemploi-icon_box">
           <div>
-            {user.user === null || user?.user.userType !== "candidates" ? (
-              ""
-            ) : (
+            {(isConsultant && selected) || (isCandidate && selected) ? (
+              <NavLink to="/messages" state={offer}>
+                <BsFillChatRightTextFill
+                  className="offersemploi-icon_chat"
+                  size={50}
+                />
+              </NavLink>
+            ) : null}
+          </div>
+          <div>
+            {isCandidate ? (
               <HiOutlineStar
                 className={
                   selected
@@ -76,6 +126,20 @@ const OfferEmploi = ({ offer, userId }) => {
                 onClick={handleIconClick}
                 size={50}
               />
+            ) : (
+              ""
+            )}
+
+            {validStatus === 1 && (
+              <div className="valid-icon_container">
+                {" "}
+                <h2>Valider ce like </h2>
+                <AiFillCheckCircle
+                  onClick={handleValid}
+                  size={40}
+                  className="valid-icon"
+                />
+              </div>
             )}
           </div>
         </div>
@@ -88,10 +152,12 @@ const OfferEmploi = ({ offer, userId }) => {
       </Link>
     </div>
   );
-};
+}
 
 OfferEmploi.propTypes = {
   userId: PropTypes.number,
+  candidateId: PropTypes.number,
+  validStatus: PropTypes.number,
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
     candidateId: PropTypes.number,
@@ -101,12 +167,17 @@ OfferEmploi.propTypes = {
     city_name: PropTypes.string.isRequired,
     remote_type: PropTypes.string.isRequired,
     numberOfEmployees: PropTypes.string.isRequired,
+    consultantId: PropTypes.number.isRequired,
+    liked: PropTypes.bool,
     Logo: PropTypes.string.isRequired,
     recruiterId: PropTypes.number.isRequired,
   }).isRequired,
 };
+
 OfferEmploi.defaultProps = {
   userId: null,
+  candidateId: null,
+  validStatus: null,
 };
 
 export default OfferEmploi;

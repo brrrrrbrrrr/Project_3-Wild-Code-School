@@ -1,6 +1,7 @@
 /* eslint-disable react/function-component-definition */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import useApi from "../../services/useApi";
 import "./BodyOffers.css";
 
@@ -15,8 +16,17 @@ const BodyOffers = () => {
         const sortedOffers = response.data.sort((a, b) => b.id - a.id);
         setOffers(sortedOffers);
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   }, []);
 
