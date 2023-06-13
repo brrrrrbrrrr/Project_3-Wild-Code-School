@@ -24,7 +24,7 @@ const DetailsOfferConsultant = (props) => {
             {offer.consultantFirstname} {offer.consultantName}
           </h2>
           <h2 className="detailsOfferConsultant-city">
-            Consultant recrutement IT à {offer.cityName}
+            Consultant recrutement IT à {offer.city_name}
           </h2>
         </div>
       </div>
@@ -37,7 +37,7 @@ DetailsOfferConsultant.propTypes = {
     consultantPicture: PropTypes.string,
     consultantFirstname: PropTypes.string,
     consultantName: PropTypes.string,
-    cityName: PropTypes.string,
+    city_name: PropTypes.string,
   }).isRequired,
 };
 

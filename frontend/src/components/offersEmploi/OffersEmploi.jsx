@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/function-component-definition */
+
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Button from "@mui/material/Button";
@@ -10,7 +11,7 @@ import Loader from "../loader/Loader";
 import OfferEmploi from "./offerEmpoi/OfferEmploi";
 import "./OffersEmploi.css";
 
-const OffersEmploi = () => {
+function OffersEmploi() {
   const [offers, setOffers] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -411,6 +412,6 @@ const OffersEmploi = () => {
       </div>
     </div>
   );
-};
+}
 
 export default OffersEmploi;

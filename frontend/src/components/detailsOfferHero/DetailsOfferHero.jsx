@@ -8,6 +8,7 @@ import "./DetailsOfferHero.css";
 
 const DetailsOfferHero = (props) => {
   const { offer } = props;
+
   const urlFile = import.meta.env.VITE_APP_URL;
   return (
     <div className="detailsOfferHero-container">
@@ -26,12 +27,12 @@ const DetailsOfferHero = (props) => {
         <h2 className="detailsOfferHero-title">{offer.jobTitleDetails}</h2>
         <div className="detailsOfferHero-subtitles">
           <h3 className="detailsOfferHero-city detailsOfferHero-subtitle_title">
-            <FiMapPin className="detailsOfferHero-icon" /> {offer.cityName} -
+            <FiMapPin className="detailsOfferHero-icon" /> {offer.city_name} -
             {offer.postalCode}
           </h3>
           <h3 className="detailsOfferHero-contrat detailsOfferHero-subtitle_title">
             <SiReacthookform className="detailsOfferHero-icon" />
-            {offer.contratType}
+            {offer.contrat_type}
             {offer.remoteWork === 1 ? " -Télétravail complet" : ""}
           </h3>
           <h3 className="detailsOfferHero-salary detailsOfferHero-subtitle_title">
@@ -48,10 +49,10 @@ DetailsOfferHero.propTypes = {
   offer: PropTypes.shape({
     Logo: PropTypes.string.isRequired,
     jobTitleDetails: PropTypes.string.isRequired,
-    cityName: PropTypes.string.isRequired,
+    city_name: PropTypes.string.isRequired,
     postalCode: PropTypes.string.isRequired,
     recruiterPostalCode: PropTypes.string.isRequired,
-    contratType: PropTypes.string.isRequired,
+    contrat_type: PropTypes.string.isRequired,
     remoteWork: PropTypes.number.isRequired,
     salary: PropTypes.number.isRequired,
     teamPicture: PropTypes.string.isRequired,
