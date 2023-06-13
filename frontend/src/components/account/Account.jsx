@@ -1,27 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Account.css";
 import PropTypes from "prop-types";
+import useApi from "../../services/useApi";
 
 function Account({ user, newName }) {
-  if (user?.name && !user.firstname) {
-    return <div className="account-container">{user?.name}</div>;
-  }
-  if (newName) {
-    return <div className="account-container">{newName}</div>;
-  }
-  if (user) {
-    return (
-      <div className="account-container">
-        {user.firstname ? `${user.firstname}` : `${user.name}`}
-      </div>
-    );
-  }
+  const [name, setName] = useState("");
+  const api = useApi();
+
+  useEffect(() => {
+    if (user)
+      api.get(`${user?.userType}/${user?.id}`).then((res) => {
+        if (user?.userType === "compagny") {
+          setName(res.data.name);
+        } else {
+          setName(res.data.firstname);
+        }
+      });
+  }, [user, newName]);
+
+  return <div className="account-container">{name}</div>;
 }
 
 Account.propTypes = {
   user: PropTypes.shape({
     firstname: PropTypes.string,
     name: PropTypes.string,
+    userType: PropTypes.string,
+    id: PropTypes.string,
   }),
 
   newName: PropTypes.string,

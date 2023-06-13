@@ -51,6 +51,8 @@ function AccountSettings({ user, userParam }) {
     if (user.userType === "compagny" && userParam?.userType === "recruiters") {
       deleteAccountApi = `${user.userType}/${user.id}/my-recruiters/${userParam.id}`;
       refresh = 0;
+    } else if (user.superAdmin === 1 && userParam?.userType === "recruiters") {
+      deleteAccountApi = `${userParam.userType}/admin/${userParam.id}`;
     } else {
       deleteAccountApi = `${userType}/${userId}`;
       refresh = 1;
@@ -221,6 +223,7 @@ AccountSettings.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number.isRequired,
     userType: PropTypes.string.isRequired,
+    superAdmin: PropTypes.string,
   }).isRequired,
   userParam: PropTypes.shape({
     id: PropTypes.number.isRequired,
