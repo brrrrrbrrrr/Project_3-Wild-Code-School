@@ -1,15 +1,27 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import "./AccountMenu.css";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
+
 import { useUser } from "../../contexts/UserContext";
 
 function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
   const { user, setUserParam } = useUser();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setOpenMenuBurger(!openMenuBurger);
     setUserParam({});
+  };
+
+  const handleLogout = () => {
+    setTimeout(() => {
+      navigate("/");
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 250);
+    }, 500);
   };
 
   return (
@@ -55,7 +67,7 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
         )}
         <li className="account-menu_li">
           {" "}
-          <NavLink>Déconnexion</NavLink>
+          <NavLink onClick={handleLogout}>Déconnexion</NavLink>
         </li>
         <span className="account-menu-close">X</span>
       </ul>
