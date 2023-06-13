@@ -1,5 +1,4 @@
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/function-component-definition */
 import { useState } from "react";
 import { HiOutlineStar } from "react-icons/hi";
