@@ -2,6 +2,15 @@
   background-color: var(--background-color);
   height: 100%;
 }
+
+.validation-offer {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .pageSuperAdmin-selected_box {
   padding-top: 20px;
   display: flex;
@@ -9,10 +18,12 @@
   justify-content: center;
   align-items: center;
 }
+
 .pageSuperAdmin-selected_candidate,
 .pageSuperAdmin-selected_offer,
 .pageSuperAdmin-selected_enterprise,
-.pageSuperAdmin-selected_consultants {
+.pageSuperAdmin-selected_consultants,
+.pageSuperAdmin-selected_recruiter {
   padding-bottom: 10px;
 }
 
@@ -39,7 +50,8 @@
   }
   .pageSuperAdmin-selected_candidate,
   .pageSuperAdmin-selected_offer,
-  .pageSuperAdmin-selected_enterprise {
+  .pageSuperAdmin-selected_enterprise,
+  .pageSuperAdmin-selected_recruiter {
     padding-right: 10px;
   }
 }

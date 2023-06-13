@@ -9,6 +9,11 @@ const candidate = require("./candidate.route");
 const login = require("./loginCandidate.route");
 const offer = require("./offer.rout");
 const filter = require("./filter.route");
+const offerCandidate = require("./offer.candidate.route");
+
+const message = require("./chatting.route");
+
+router.use("/messages", message);
 
 router.use("/consultants", consultant);
 router.use("/login/consultants", loginConsultant);
@@ -20,5 +25,6 @@ router.use("/login/recruiters", loginRecruiter);
 router.use("/compagny", compagny);
 router.use("/login/compagny", loginCompagny);
 router.use("/filter", filter);
+router.use("/admin", offerCandidate);
 
 module.exports = router;

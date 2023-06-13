@@ -9,6 +9,7 @@ import Enterprise from "../components/superAdmin/enterprise/Enterpise";
 import Consultant from "../components/superAdmin/consultant/Consultant";
 import useApi from "../services/useApi";
 import { useUser } from "../contexts/UserContext";
+import RecruiterInfos from "../components/recruiterInfos/RecruiterInfos";
 
 import "./PageSuperAdmin.css";
 
@@ -25,9 +26,11 @@ const PageSuperAdmin = () => {
   const [candidate, setCandidate] = useState("");
   const [offer, setOffer] = useState("");
   const [enterprise, setEnterprise] = useState("");
+  const [recruiter, setRecruiter] = useState("");
   const [consultant, setConsultant] = useState("");
   const [allCandidates, setAllCandidates] = useState([]);
   const [allOffers, setAllOffers] = useState([]);
+  const [allRecruiters, setAllrecruiters] = useState([]);
   const [allEnterprises, setAllEnterprises] = useState([]);
   const [allConsultant, setAllConsultant] = useState([]);
   const [activeSection, setActiveSection] = useState(null);
@@ -41,7 +44,18 @@ const PageSuperAdmin = () => {
     setEnterprise("");
     setConsultant("");
     setActiveSection("candidates");
+    setRecruiter("");
   };
+
+  const handleChangeRecruiter = (event) => {
+    setRecruiter(event.target.value);
+    setCandidate("");
+    setEnterprise("");
+    setConsultant("");
+    setOffer("");
+    setActiveSection("recruiters");
+  };
+
   const handleChangeOffer = (event) => {
     setOffer(event.target.value);
     setCandidate("");
@@ -49,11 +63,13 @@ const PageSuperAdmin = () => {
     setConsultant("");
     setActiveSection("offres");
   };
+
   const handleChangeEnterprise = (event) => {
     setEnterprise(event.target.value);
     setCandidate("");
     setOffer("");
     setConsultant("");
+    setRecruiter("");
     setActiveSection("enterprises");
   };
   const handleChangeConsultant = (event) => {
@@ -61,13 +77,14 @@ const PageSuperAdmin = () => {
     setCandidate("");
     setOffer("");
     setEnterprise("");
+    setRecruiter("");
     setActiveSection("consultants");
   };
 
   useEffect(() => {
     if (candidate === 10) {
       api
-        .get("/candidates")
+        .get("/admin/offer-status/")
         .then((response) => {
           setAllCandidates(response.data);
         })
@@ -85,6 +102,74 @@ const PageSuperAdmin = () => {
         });
     }
   }, [candidate]);
+
+  useEffect(() => {
+    if (candidate === 20) {
+      api
+        .get("/admin/offer-status/2")
+        .then((response) => {
+          setAllCandidates(response.data);
+        })
+
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        });
+    }
+  }, [candidate]);
+
+  useEffect(() => {
+    if (candidate === 30) {
+      api
+        .get("/admin/offer-status/1")
+        .then((response) => {
+          setAllCandidates(response.data);
+        })
+
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        });
+    }
+  }, [candidate]);
+
+  useEffect(() => {
+    if (recruiter === 10) {
+      api
+        .get("/recruiters")
+        .then((response) => {
+          setAllrecruiters(response.data);
+        })
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        });
+    }
+  }, [recruiter]);
 
   useEffect(() => {
     if (offer === 10) {
@@ -170,8 +255,53 @@ const PageSuperAdmin = () => {
             theme: "colored",
           });
         });
+    } else if (enterprise === 20) {
+      api
+        .get("/compagny/valid", {
+          params: {
+            valid: 1,
+          },
+        })
+        .then((response) => {
+          setAllEnterprises(response.data);
+        })
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        });
+    } else if (enterprise === 30) {
+      api
+        .get("/compagny/valid", {
+          params: {
+            valid: 0,
+          },
+        })
+        .then((response) => {
+          setAllEnterprises(response.data);
+        })
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        });
     }
-  }, [enterprise]);
+  }, [enterprise, refresh]);
+
   useEffect(() => {
     if (consultant === 10) {
       api
@@ -213,7 +343,23 @@ const PageSuperAdmin = () => {
             </Select>
           </FormControl>
         </Box>
-        <Box sx={{ width: 200 }} className="pageSuperAdmin-selected_offer">
+        <Box sx={{ width: 200 }} className="pageSuperAdmin-selected_recruiter">
+          <FormControl fullWidth>
+            <InputLabel id="recruiter-label">Recruteurs</InputLabel>
+            <Select
+              labelId="recruiter-label"
+              id="recruiter-select"
+              value={recruiter}
+              label="Recruiter"
+              onChange={handleChangeRecruiter}
+            >
+              <MenuItem value={10}>Recruteur</MenuItem>
+              <MenuItem value={20}>Mes Recruteur</MenuItem>
+              <MenuItem value={30}>En attentte</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+        <Box sx={{ width: 200 }} className="pageSuperAdmin-selected_recruiter">
           <FormControl fullWidth>
             <InputLabel id="offer-label">Offres</InputLabel>
             <Select
@@ -224,7 +370,7 @@ const PageSuperAdmin = () => {
               onChange={handleChangeOffer}
             >
               <MenuItem value={10}>Toutes les offres</MenuItem>
-              <MenuItem value={20}>Offres validé</MenuItem>
+              <MenuItem value={20}>Offres validées</MenuItem>
               <MenuItem value={30}>Offres en attente</MenuItem>
             </Select>
           </FormControl>
@@ -239,9 +385,9 @@ const PageSuperAdmin = () => {
               label="enterprise"
               onChange={handleChangeEnterprise}
             >
-              <MenuItem value={10}>Enterprises</MenuItem>
-              <MenuItem value={20}>Mes Enterprises</MenuItem>
-              <MenuItem value={30}>En attente</MenuItem>
+              <MenuItem value={10}>Toutes les entreprises</MenuItem>
+              <MenuItem value={20}>Entreprises validées</MenuItem>
+              <MenuItem value={30}>Entreprises en attente</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -258,15 +404,15 @@ const PageSuperAdmin = () => {
               label="consultant"
               onChange={handleChangeConsultant}
             >
-              <MenuItem value={10}>Consultant</MenuItem>
-              <MenuItem value={20}>Mes Consultant</MenuItem>
+              <MenuItem value={10}>Consultants</MenuItem>
+              <MenuItem value={20}>Mes Consultants</MenuItem>
             </Select>
           </FormControl>
         </Box>
       </div>
       <div className="pageSuperAdmin-main_content">
         {activeSection !== null ? (
-          <h2 className="pageSuperAdmin-main_title"> les {activeSection}</h2>
+          <h2 className="pageSuperAdmin-main_title"> Les {activeSection}</h2>
         ) : (
           ""
         )}
@@ -276,6 +422,23 @@ const PageSuperAdmin = () => {
           allCandidates.map((oneCandidate) => (
             <Candidate key={oneCandidate.id} candidate={oneCandidate} />
           ))}
+        {activeSection === "candidates" &&
+          candidate === 20 &&
+          allCandidates.map((oneCandidate) => (
+            <Candidate
+              key={oneCandidate.candidateId}
+              candidate={oneCandidate}
+            />
+          ))}
+        {activeSection === "candidates" &&
+          candidate === 30 &&
+          allCandidates.map((oneCandidate) => (
+            <Candidate
+              key={oneCandidate.candidateId}
+              candidate={oneCandidate}
+            />
+          ))}
+
         {activeSection === "offres" &&
           allOffers.map((oneOffer) => (
             <Offer
@@ -285,15 +448,24 @@ const PageSuperAdmin = () => {
               setRefresh={setRefresh}
             />
           ))}
-        {activeSection === "enterprises" &&
-          enterprise === 10 &&
+        {activeSection === "entreprises" &&
           allEnterprises.map((oneEnterprise) => (
-            <Enterprise key={oneEnterprise.id} enterprise={oneEnterprise} />
+            <Enterprise
+              key={oneEnterprise.id}
+              enterprise={oneEnterprise}
+              refresh={refresh}
+              setRefresh={setRefresh}
+            />
           ))}
         {activeSection === "consultants" &&
           consultant === 10 &&
           allConsultant.map((oneConsultant) => (
             <Consultant key={oneConsultant.id} consultant={oneConsultant} />
+          ))}
+        {activeSection === "recruiters" &&
+          recruiter === 10 &&
+          allRecruiters.map((oneRecruiter) => (
+            <RecruiterInfos key={oneRecruiter.id} recruiter={oneRecruiter} />
           ))}
       </div>
     </div>
