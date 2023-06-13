@@ -70,7 +70,7 @@ const PageSuperAdmin = () => {
     setOffer("");
     setConsultant("");
     setRecruiter("");
-    setActiveSection("enterprises");
+    setActiveSection("entreprises");
   };
   const handleChangeConsultant = (event) => {
     setConsultant(event.target.value);
