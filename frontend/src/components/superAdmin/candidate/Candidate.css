@@ -60,6 +60,21 @@
   box-shadow: 2px 2px 7px #00b3ff;
   margin-bottom: 5px;
 }
+.valid {
+  color: var(--primary-color);
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+.invalid {
+  color: var(--alert-color);
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+.valid-invalid_like {
+  text-transform: uppercase;
+}
 
 @media screen and (min-width: 768px) {
   .superadmin-candidat_container {

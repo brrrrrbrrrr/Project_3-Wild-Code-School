@@ -55,13 +55,15 @@ class OfferManager extends AbstractManager {
 
   find(id) {
     return this.database.query(
-      `select offer.*, city.name as cityName, city.postalCode as postalCode, contrat.type as contratType, compagny.Logo, recruiter.postalCode as recruiterPostalCode,
-       consultant.picture as consultantPicture, consultant.firstname as consultantFirstname, consultant.name as consultantName
+      `select offer.*, city.name as city_name, contrat.type as contrat_type, compagny.Logo, recruiter.postalCode as recruiterPostalCode,
+       consultant.picture as consultantPicture, consultant.firstname as consultantFirstname, consultant.name as consultantName, job_title.name AS job_title,
+       re.type AS remote_type, contrat.type as contract_type
       from  ${this.table} 
       join city on city.id=offer.cityId 
       join contrat on contrat.id=offer.contratId 
+      join job_title on job_title.id = offer.jobTitleId
       join recruiter on recruiter.id=offer.recruiterId
-      
+      JOIN remote AS re ON re.id = offer.remoteId
       join compagny on compagny.id =recruiter.compagny_id
       join consultant on consultant.id=offer.consultantId 
       where offer.id = ?`,

@@ -511,3 +511,6 @@ VALUES
   PRIMARY KEY (`candidateId`, `filterType`));
 
 
+
+
+
