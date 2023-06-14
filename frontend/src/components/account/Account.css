@@ -1,5 +1,5 @@
 .account-container {
-  font-size: 20px;
+  font-size: 15px;
   transition: 0.5s;
   color: var(--background-color);
   cursor: pointer;
@@ -10,4 +10,10 @@
 .account-container:hover {
   color: var(--second-color);
   background-color: var(--menu-color);
+}
+
+@media screen and (min-width: 1024px) {
+  .account-container {
+    font-size: 20px;
+  }
 }

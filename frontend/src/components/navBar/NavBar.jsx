@@ -5,7 +5,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { NavLink } from "react-router-dom";
 import "./NavBar.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import AccountMenu from "../accountMenu/AccountMenu";
 import Account from "../account/Account";
 import { useUser } from "../../contexts/UserContext";
@@ -13,8 +13,10 @@ import { useUser } from "../../contexts/UserContext";
 const NavBar = () => {
   const [openMenuBurger, setOpenMenuBurger] = useState(false);
   const [activeAccountMenu, setActiveAccountMenu] = useState(false);
+  const cbRef = useRef();
   const toggleMenu = () => {
     setOpenMenuBurger(!openMenuBurger);
+    cbRef.current.checked = !openMenuBurger;
   };
 
   const handleClick = () => {
@@ -31,14 +33,20 @@ const NavBar = () => {
             <input
               type="checkbox"
               className="toggle-btn"
-              onClick={() => setOpenMenuBurger(!openMenuBurger)}
+              onClick={toggleMenu}
+              ref={cbRef}
             />
             <div className="burger-menu" />
           </div>
         </div>
-        <ul className={openMenuBurger ? " menu-display menu" : "menu"}>
-          <li>
-            {user?.userType === "consultants" ? (
+        <ul className={openMenuBurger ? "menu-display menu" : "menu"}>
+          <li className="nav-bar_title">
+            <NavLink className="navlink-menu" onClick={toggleMenu} to="/">
+              Accueil
+            </NavLink>
+          </li>
+          {user?.userType === "consultants" && user?.superAdmin !== 1 ? (
+            <li className="nav-bar_title">
               <NavLink
                 className="navlink-menu"
                 onClick={toggleMenu}
@@ -46,11 +54,11 @@ const NavBar = () => {
               >
                 Validation des offres
               </NavLink>
-            ) : (
-              ""
-            )}
-          </li>
-          <li>
+            </li>
+          ) : (
+            ""
+          )}
+          <li className="nav-bar_title">
             {user?.superAdmin ? (
               <NavLink
                 className="navlink-menu"
@@ -63,22 +71,18 @@ const NavBar = () => {
               ""
             )}
           </li>
-          <li>
-            <NavLink className="navlink-menu" onClick={toggleMenu} to="/">
-              Accueil
-            </NavLink>
-          </li>
-          <li>
+
+          <li className="nav-bar_title">
             <NavLink className="navlink-menu" onClick={toggleMenu} to="/offer">
               Offres d'emploi
             </NavLink>
           </li>
-          <li>
+          <li className="nav-bar_title">
             <NavLink className="navlink-menu" onClick={toggleMenu} to="/propos">
               A propos
             </NavLink>
           </li>
-          <li>
+          <li className="nav-bar_title">
             <NavLink
               onClick={toggleMenu}
               to="/connect"

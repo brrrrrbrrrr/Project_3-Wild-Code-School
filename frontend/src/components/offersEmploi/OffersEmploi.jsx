@@ -333,6 +333,8 @@ const OffersEmploi = () => {
           <option value="0">City Type</option>
           {cityOptions}
         </select>
+      </div>
+      <div className="offersemploi-filter_buttons">
         <Button
           id="offersemploi-offer_button-info-filter"
           variant="contained"
@@ -355,6 +357,7 @@ const OffersEmploi = () => {
           update
         </Button>
       </div>
+
       <div className="offersemploi-offer_wrapper">
         {offers.map((offer) => {
           return (

@@ -423,8 +423,7 @@ ALTER TABLE candidate CHANGE COLUMN postalAdress postalCode varchar(45) NOT NULL
 
 
 
-ALTER TABLE `externatic`.`city` 
-ADD COLUMN `postalCode` VARCHAR(45) NULL AFTER `regionId`; 
+
 
 
 --Olga

@@ -92,7 +92,7 @@ class OfferManager extends AbstractManager {
   JOIN remote AS re ON re.id = o.remoteId
   join consultant on consultant.id=o.consultantId 
   LEFT JOIN (select offerId, candidateId, liked from offer_candidate where candidateId =?) as offer_candidate on offer_candidate.offerId = o.id
-          
+    WHERE o.valide=1      
   LIMIT ? OFFSET ? 
 
 `,
@@ -112,7 +112,7 @@ class OfferManager extends AbstractManager {
   JOIN job_title as j ON j.id = o.jobTitleId
   JOIN remote AS re ON re.id = o.remoteId
   WHERE o.jobTitleId = ?
-
+AND o.valide=1 
 `,
       [filter]
     );
@@ -130,7 +130,7 @@ class OfferManager extends AbstractManager {
   JOIN job_title as j ON j.id = o.jobTitleId
   JOIN remote AS re ON re.id = o.remoteId
   WHERE o.remoteId = ?
-
+  AND o.valide=1 
 `,
       [filter]
     );
@@ -148,7 +148,7 @@ class OfferManager extends AbstractManager {
   JOIN job_title as j ON j.id = o.jobTitleId
   JOIN remote AS re ON re.id = o.remoteId
   WHERE o.contratID = ?
-
+  AND o.valide=1 
 
 `,
       [filter]
@@ -167,7 +167,7 @@ class OfferManager extends AbstractManager {
   JOIN job_title as j ON j.id = o.jobTitleId
   JOIN remote AS re ON re.id = o.remoteId
   WHERE o.cityID = ?
-
+  AND o.valide=1 
 
 `,
       [filter]
@@ -185,7 +185,7 @@ class OfferManager extends AbstractManager {
   JOIN contrat AS ct ON ct.id = o.contratId
   JOIN job_title as j ON j.id = o.jobTitleId
   JOIN remote AS re ON re.id = o.remoteId
-
+  WHERE o.valide=1 
 `
     );
   }
@@ -252,7 +252,7 @@ class OfferManager extends AbstractManager {
     LEFT JOIN offer_candidate as ofc ON o.id = ofc.offerId
   `;
     if (!(jobmultifilter === 0)) {
-      sql += ` WHERE o.jobTitleId = ?`;
+      sql += ` WHERE o.jobTitleId = ? AND o.valide=1 `;
       dependencies.push(jobmultifilter);
     }
     if (!(remotemultifilter === 0)) {
@@ -260,13 +260,13 @@ class OfferManager extends AbstractManager {
         sql += ` AND o.remoteId = ?`;
         dependencies.push(remotemultifilter);
       } else {
-        sql += ` WHERE o.remoteId = ?`;
+        sql += ` WHERE o.remoteId = ? AND o.valide=1 `;
         dependencies.push(remotemultifilter);
       }
     }
     if (!(contractmultifilter === 0)) {
       if (jobmultifilter === 0 && remotemultifilter === 0) {
-        sql += ` WHERE o.contratID = ?`;
+        sql += ` WHERE o.contratID = ? AND o.valide=1 `;
         dependencies.push(contractmultifilter);
       } else {
         sql += ` AND o.contratID = ?`;
@@ -279,7 +279,7 @@ class OfferManager extends AbstractManager {
         remotemultifilter === 0 &&
         contractmultifilter === 0
       ) {
-        sql += ` WHERE o.cityID = ?`;
+        sql += ` WHERE o.cityID = ? AND o.valide=1 `;
         dependencies.push(citymultifilter);
       } else {
         sql += ` AND o.cityID = ?`;

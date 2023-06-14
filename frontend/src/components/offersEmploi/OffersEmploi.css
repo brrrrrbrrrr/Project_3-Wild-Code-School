@@ -2,6 +2,8 @@
   width: 100%;
   height: 100%;
   background-color: #f1f1e6;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -9,15 +11,26 @@
 
 .offersemploi-filters {
   display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .offersemploi-select {
   display: flex;
   justify-content: space-evenly;
-  margin: 2rem 2rem 0 2rem;
+  margin: 1rem 1rem 0 1rem;
+  width: 200px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+.offersemploi-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .offersemploi-offer_wrapper {
@@ -79,6 +92,13 @@
 .offersemploi-offer_salary {
   font-size: 16px;
 }
+.offersemploi-filter_buttons {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 #offersemploi-offer_button-info {
   border-style: hidden;
@@ -127,6 +147,8 @@
   color: #f1f1e6;
   cursor: pointer;
   box-shadow: 2px 2px 7px #00b3ff;
+  margin-bottom: 10px;
+  width: 200px;
 }
 
 .offersemploi-con_edit {
@@ -146,6 +168,20 @@
 }
 
 @media screen and (min-width: 768px) {
+  .offersemploi-filters {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .offersemploi-select {
+    width: 300px;
+  }
+  .offersemploi-filter_buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 85%;
+  }
   .offersemploi-offer_container {
     width: 650px;
     height: 200px;
