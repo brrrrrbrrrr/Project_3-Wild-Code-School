@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useUser } from "../../contexts/UserContext";
 import useApi from "../../services/useApi";
@@ -10,6 +11,7 @@ function MessageContainer({ offerId, contactSelected }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [isAutor, setIsAutor] = useState(false);
+  const { state } = useLocation();
 
   const urlFile = import.meta.env.VITE_APP_URL;
 
@@ -48,7 +50,6 @@ function MessageContainer({ offerId, contactSelected }) {
     const minutes = String(currentDate.getMinutes()).padStart(2, "0");
     const seconds = String(currentDate.getSeconds()).padStart(2, "0");
     const formattedTime = `${hours}:${minutes}:${seconds}`;
-    console.warn(user.user);
     const messageData = {
       candidateId: contactSelected,
       offerId,
@@ -88,36 +89,54 @@ function MessageContainer({ offerId, contactSelected }) {
   return (
     <div>
       <div className="chat-container">
-        <h2 className="chat-container_title">Messenger</h2>
+        <h2 className="chat-container_title">{state.job_title}</h2>
+        <h2 className="chat-container_title">Messagerie</h2>
         <div className="chat-messenger_box">
           {messages.map((message) => (
-            <div className="chat-messenger_box-line">
+            <div>
               {message.candidateAutor ? (
-                <img
-                  src={`${urlFile}${message.pictureCan}`}
-                  className="chat-messenger_box_image"
-                  alt={message.name}
-                />
+                <div className="chat-messenger_box-line">
+                  <img
+                    src={`${urlFile}${message.pictureCan}`}
+                    className="chat-messenger_box_image"
+                    alt={message.name}
+                  />
+
+                  <div
+                    key={message.messageId}
+                    className="chat-messenger_box-message"
+                  >
+                    {message.message}
+
+                    <RiDeleteBin5Line
+                      className="chat-messenger_box-delete_button"
+                      size={30}
+                      onClick={() => deleteMessage(message.messageId)}
+                    />
+                  </div>
+                </div>
               ) : (
-                <img
-                  src={`${urlFile}${message.picture}`}
-                  className="chat-messenger_box_image"
-                  alt={message.name}
-                />
+                <div className="chat-messenger_box-line_candidate">
+                  <img
+                    src={`${urlFile}${message.picture}`}
+                    className="chat-messenger_box_image"
+                    alt={message.name}
+                  />
+
+                  <div
+                    key={message.messageId}
+                    className="chat-messenger_box-message"
+                  >
+                    {message.message}
+
+                    <RiDeleteBin5Line
+                      className="chat-messenger_box-delete_button"
+                      size={30}
+                      onClick={() => deleteMessage(message.messageId)}
+                    />
+                  </div>
+                </div>
               )}
-
-              <div
-                key={message.messageId}
-                className="chat-messenger_box-message"
-              >
-                {message.message}
-
-                <RiDeleteBin5Line
-                  className="chat-messenger_box-delete_button"
-                  size={30}
-                  onClick={() => deleteMessage(message.messageId)}
-                />
-              </div>
             </div>
           ))}
         </div>
@@ -134,7 +153,7 @@ function MessageContainer({ offerId, contactSelected }) {
             type="button"
             onClick={sendMessage}
           >
-            Send
+            Envoyer
           </button>
         </div>
       </div>

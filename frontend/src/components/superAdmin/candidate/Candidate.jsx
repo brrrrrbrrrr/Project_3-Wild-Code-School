@@ -4,13 +4,15 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Button } from "@mui/material";
+import useApi from "../../../services/useApi";
 import "./Candidate.css";
 
 import { useUser } from "../../../contexts/UserContext";
 
-const Candidate = ({ candidate }) => {
+const Candidate = ({ candidate, refresh, setRefresh }) => {
   const urlFile = import.meta.env.VITE_APP_URL;
   const { setCandidateWithLike } = useUser();
+  const api = useApi();
 
   const handleClick = () => {
     setCandidateWithLike(candidate);
@@ -65,8 +67,16 @@ const Candidate = ({ candidate }) => {
           </>
         ) : (
           <>
-            <Button id="superadmin-candidat_button-info" variant="contained">
-              Suivi
+            <Button
+              id="superadmin-candidat_button-info"
+              variant="contained"
+              onClick={() => {
+                api.delete(`/candidates/admin/${candidate.id}`).then(() => {
+                  setRefresh(!refresh);
+                });
+              }}
+            >
+              Supprimer
             </Button>
             <Button id="superadmin-candidat_button-info" variant="contained">
               Offre
@@ -82,6 +92,7 @@ const Candidate = ({ candidate }) => {
 };
 Candidate.propTypes = {
   candidate: PropTypes.shape({
+    id: PropTypes.number,
     picture: PropTypes.string.isRequired,
     resume: PropTypes.string.isRequired,
     likeCount: PropTypes.number,
@@ -91,5 +102,7 @@ Candidate.propTypes = {
     firstname: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
   }).isRequired,
+  refresh: PropTypes.bool.isRequired,
+  setRefresh: PropTypes.func.isRequired,
 };
 export default Candidate;

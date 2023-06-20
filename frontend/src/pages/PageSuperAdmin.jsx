@@ -61,6 +61,7 @@ const PageSuperAdmin = () => {
     setCandidate("");
     setEnterprise("");
     setConsultant("");
+    setRecruiter("");
     setActiveSection("offres");
   };
 
@@ -101,7 +102,7 @@ const PageSuperAdmin = () => {
           });
         });
     }
-  }, [candidate]);
+  }, [candidate, refresh]);
 
   useEffect(() => {
     if (candidate === 20) {
@@ -124,7 +125,7 @@ const PageSuperAdmin = () => {
           });
         });
     }
-  }, [candidate]);
+  }, [candidate, refresh]);
 
   useEffect(() => {
     if (candidate === 30) {
@@ -169,7 +170,7 @@ const PageSuperAdmin = () => {
           });
         });
     }
-  }, [recruiter]);
+  }, [recruiter, refresh]);
 
   useEffect(() => {
     if (offer === 10) {
@@ -322,7 +323,7 @@ const PageSuperAdmin = () => {
           });
         });
     }
-  }, [consultant]);
+  }, [consultant, refresh]);
 
   return (
     <div className="pageSuperAdmin-container">
@@ -353,9 +354,9 @@ const PageSuperAdmin = () => {
               label="Recruiter"
               onChange={handleChangeRecruiter}
             >
-              <MenuItem value={10}>Recruteur</MenuItem>
-              <MenuItem value={20}>Mes Recruteur</MenuItem>
-              <MenuItem value={30}>En attentte</MenuItem>
+              <MenuItem value={10}>Recruteurs</MenuItem>
+              <MenuItem value={20}>Mes Recruteurs</MenuItem>
+              <MenuItem value={30}>En attente</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -377,7 +378,7 @@ const PageSuperAdmin = () => {
         </Box>
         <Box sx={{ width: 200 }} className="pageSuperAdmin-selected_enterprise">
           <FormControl fullWidth>
-            <InputLabel id="enterprise-label">Enterprises</InputLabel>
+            <InputLabel id="enterprise-label">Entreprises</InputLabel>
             <Select
               labelId="enterprise-label"
               id="enterprise-select"
@@ -423,6 +424,8 @@ const PageSuperAdmin = () => {
             <Candidate
               key={`${oneCandidate.id}_${oneCandidate.offer_statusId}`}
               candidate={oneCandidate}
+              refresh={refresh}
+              setRefresh={setRefresh}
             />
           ))}
         {activeSection === "candidates" &&
@@ -431,6 +434,8 @@ const PageSuperAdmin = () => {
             <Candidate
               key={oneCandidate.candidateId}
               candidate={oneCandidate}
+              refresh={refresh}
+              setRefresh={setRefresh}
             />
           ))}
         {activeSection === "candidates" &&
@@ -439,6 +444,8 @@ const PageSuperAdmin = () => {
             <Candidate
               key={oneCandidate.candidateId}
               candidate={oneCandidate}
+              refresh={refresh}
+              setRefresh={setRefresh}
             />
           ))}
 
@@ -463,12 +470,22 @@ const PageSuperAdmin = () => {
         {activeSection === "consultants" &&
           consultant === 10 &&
           allConsultant.map((oneConsultant) => (
-            <Consultant key={oneConsultant.id} consultant={oneConsultant} />
+            <Consultant
+              key={oneConsultant.id}
+              consultant={oneConsultant}
+              refresh={refresh}
+              setRefresh={setRefresh}
+            />
           ))}
         {activeSection === "recruiters" &&
           recruiter === 10 &&
           allRecruiters.map((oneRecruiter) => (
-            <RecruiterInfos key={oneRecruiter.id} recruiter={oneRecruiter} />
+            <RecruiterInfos
+              key={oneRecruiter.id}
+              recruiter={oneRecruiter}
+              refresh={refresh}
+              setRefresh={setRefresh}
+            />
           ))}
       </div>
     </div>

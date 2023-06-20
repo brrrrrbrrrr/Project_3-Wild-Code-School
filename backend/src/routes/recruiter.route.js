@@ -30,4 +30,6 @@ router.delete(
   isConsultantAdmin,
   recruiterControllers.deleteRecruiter
 );
+router.delete("/admin/:id", verifyToken, recruiterControllers.adminDelete);
+
 module.exports = router;

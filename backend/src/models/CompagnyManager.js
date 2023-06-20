@@ -142,6 +142,12 @@ class CompagnyManager extends AbstractManager {
       [compagnyid]
     );
   }
+
+  deleteadmin(compagnyid) {
+    return this.database.query(`delete from ${this.table} where id = ?`, [
+      compagnyid,
+    ]);
+  }
 }
 
 module.exports = CompagnyManager;

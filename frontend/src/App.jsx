@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import NavBar from "./components/navBar/NavBar";
 import NotFound from "./components/notfound/NotFound";
 import Footer from "./components/footer/Footer";
+
 import PageDetailsOffer from "./pages/PageDetailsOffer";
 import PageLoginRegister from "./pages/PageLoginRegister";
 import PageRegister from "./pages/PageRegister";
@@ -27,6 +28,9 @@ import PageValidOfferCandidate from "./pages/PageValidOfferCandidate";
 import PageValidationOffer from "./pages/PageValidationOffer";
 import PageMyOffers from "./pages/PageMyOffers";
 
+import LegalNotice from "./components/legalnotice/LegalNotice";
+import DataProtection from "./components/dataProtection/DataProtection";
+
 function App() {
   return (
     <div className="App">
@@ -35,7 +39,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/offer" element={<PageOffersEmploi />} />
-          <Route path="/propos" element={<NotFound />} />
           <Route path="/offers/:id" element={<PageDetailsOffer />} />
           <Route path="/connect" element={<PageLoginRegister />} />
           <Route path="/registration" element={<PageRegister />} />
@@ -49,11 +52,14 @@ function App() {
           <Route path="/my-offers" element={<PageMyOffers />} />
           <Route path="/new-offer" element={<PageCreateOffer />} />
           <Route path="/update-offer" element={<PageUpdateOffer />} />
+          <Route path="/legal-notice" element={<LegalNotice />} />
+          <Route path="/data-protection" element={<DataProtection />} />
           <Route
             path="/valid-offer-candidate"
             element={<PageValidOfferCandidate />}
           />
           <Route path="/validate-offer" element={<PageValidationOffer />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
         <Footer />
         <ToastContainer />

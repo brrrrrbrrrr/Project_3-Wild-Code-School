@@ -8,6 +8,15 @@ footer {
   padding: 10px;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+}
+
+.footer-info {
+  margin-left: 10px;
+}
+
+.footer-link {
+  color: white;
 }
 
 .footer-icons {
@@ -26,11 +35,22 @@ footer {
   transition: all 0.07s ease-in-out;
 }
 
+.footer-title,
+.footer-link {
+  font-size: 12px;
+}
 @media screen and (min-width: 768px) {
   .footer-icons {
     padding-right: 40px;
   }
   .footer-title {
     padding-left: 40px;
+  }
+  .footer-info {
+    display: flex;
+    align-items: center;
+  }
+  .footer-link {
+    margin-left: 20px;
   }
 }

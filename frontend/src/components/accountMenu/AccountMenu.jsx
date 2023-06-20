@@ -27,6 +27,12 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
   return (
     <div className="account-menu_container">
       <ul className="account-menu_ul">
+        <li className="account-menu_li">
+          <NavLink>Notifications</NavLink>
+        </li>
+        <li className="account-menu_li">
+          <NavLink to="/my-offers">Ajouter une offre</NavLink>
+        </li>
         {user?.userType === "recruiters" || user?.userType === "candidates" ? (
           <li className="account-menu_li">
             <NavLink to="/my-offers">Mes offres</NavLink>
@@ -34,13 +40,14 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
         ) : (
           ""
         )}
+        <li className="account-menu_li">
+          <NavLink>Entretiens</NavLink>
+        </li>
 
         <li className="account-menu_li">
-          {" "}
           <NavLink to="/messages">Messagerie</NavLink>
         </li>
         <li className="account-menu_li">
-          {" "}
           <NavLink
             onClick={toggleMenu}
             to="/my-account"
@@ -48,7 +55,6 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
               isActive ? "active-menu_account" : ""
             }
           >
-            {" "}
             Mon compte
           </NavLink>
         </li>
@@ -62,6 +68,30 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
               }
             >
               Mes recruteurs
+            </NavLink>
+          </li>
+        )}
+        {user?.userType === "consultants" && user?.superAdmin !== 1 ? (
+          <li className="account-menu_li">
+            <NavLink
+              className="navlink-menu"
+              onClick={toggleMenu}
+              to="/validate-offer"
+            >
+              Validation des offres
+            </NavLink>
+          </li>
+        ) : (
+          ""
+        )}
+        {user?.superAdmin && (
+          <li className="account-menu_li">
+            <NavLink
+              className="navlink-menu"
+              onClick={toggleMenu}
+              to="/superadmin"
+            >
+              Admin
             </NavLink>
           </li>
         )}

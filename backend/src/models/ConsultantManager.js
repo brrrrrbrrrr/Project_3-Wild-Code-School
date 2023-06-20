@@ -72,6 +72,12 @@ class ConsultantManager extends AbstractManager {
       [password, userId]
     );
   }
+
+  deleteadmin(consultantid) {
+    return this.database.query(`delete from ${this.table} where id = ?`, [
+      consultantid,
+    ]);
+  }
 }
 
 module.exports = ConsultantManager;

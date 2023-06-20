@@ -33,11 +33,16 @@ const Enterprise = ({ enterprise, refresh, setRefresh }) => {
       </div>
 
       <div className="superadmin-enterprise_buttons-box">
-        <Button id="superadmin-enterprise_button-info" variant="contained">
-          Candidats ()
-        </Button>
-        <Button id="superadmin-enterprise_button-info" variant="contained">
-          Modifier
+        <Button
+          id="superadmin-enterprise_button-info"
+          variant="contained"
+          onClick={() => {
+            api.delete(`/compagny/admin/${enterprise.id}`).then(() => {
+              setRefresh(!refresh);
+            });
+          }}
+        >
+          Supprimer
         </Button>
         {enterprise.Valide === 0 ? (
           <Button

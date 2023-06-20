@@ -120,6 +120,12 @@ class CandidateManager extends AbstractManager {
       [candidateId, offerId]
     );
   }
+
+  deleteadmin(candidateid) {
+    return this.database.query(`delete from ${this.table} where id = ?`, [
+      candidateid,
+    ]);
+  }
 }
 
 module.exports = CandidateManager;

@@ -23,8 +23,8 @@ nav {
   z-index: 10;
 }
 
-.navlink-menu {
-  font-size: 20px;
+.nav-bar_title {
+  font-size: 15px;
   transition: 0.5s;
 }
 
@@ -125,8 +125,11 @@ nav {
 .menu-account_ul-container-hide {
   display: none;
 }
+.nav-bar_title-display_none {
+  display: none;
+}
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .burger-menu,
   .toggle-btn {
     display: block;
@@ -158,5 +161,11 @@ nav {
   }
   .menu li a {
     margin: 40px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .nav-bar_title {
+    font-size: 20px;
   }
 }
