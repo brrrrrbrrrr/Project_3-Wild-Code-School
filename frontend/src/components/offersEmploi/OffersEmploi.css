@@ -235,7 +235,4 @@
     display: flex;
     flex-direction: column;
   }
-  #offersemploi-offer_button-info {
-    display: none;
-  }
 }

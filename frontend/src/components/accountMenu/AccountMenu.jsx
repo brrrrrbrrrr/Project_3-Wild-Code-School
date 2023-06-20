@@ -19,22 +19,18 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
           <NavLink>Notifications</NavLink>
         </li>
         <li className="account-menu_li">
-          <NavLink to="/my-offers">Mes offres</NavLink>
+          <NavLink to="/my-offers">Ajouter une offre</NavLink>
         </li>
         <li className="account-menu_li">
-          {" "}
-          <NavLink to="like">Mes offres (Laurence)</NavLink>
+          <NavLink to="like">Mes offres</NavLink>
         </li>
         <li className="account-menu_li">
-          {" "}
           <NavLink>Entretiens</NavLink>
         </li>
         <li className="account-menu_li">
-          {" "}
           <NavLink to="/messages">Messagerie</NavLink>
         </li>
         <li className="account-menu_li">
-          {" "}
           <NavLink
             onClick={toggleMenu}
             to="/my-account"
@@ -42,7 +38,6 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
               isActive ? "active-menu_account" : ""
             }
           >
-            {" "}
             Mon compte
           </NavLink>
         </li>
@@ -59,8 +54,31 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
             </NavLink>
           </li>
         )}
+        {user?.userType === "consultants" && user?.superAdmin !== 1 ? (
+          <li className="account-menu_li">
+            <NavLink
+              className="navlink-menu"
+              onClick={toggleMenu}
+              to="/validate-offer"
+            >
+              Validation des offres
+            </NavLink>
+          </li>
+        ) : (
+          ""
+        )}
+        {user?.superAdmin && (
+          <li className="account-menu_li">
+            <NavLink
+              className="navlink-menu"
+              onClick={toggleMenu}
+              to="/superadmin"
+            >
+              Admin
+            </NavLink>
+          </li>
+        )}
         <li className="account-menu_li">
-          {" "}
           <NavLink>Déconnexion</NavLink>
         </li>
         <span className="account-menu-close">X</span>

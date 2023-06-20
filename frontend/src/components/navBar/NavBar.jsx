@@ -45,41 +45,10 @@ const NavBar = () => {
               Accueil
             </NavLink>
           </li>
-          {user?.userType === "consultants" && user?.superAdmin !== 1 ? (
-            <li className="nav-bar_title">
-              <NavLink
-                className="navlink-menu"
-                onClick={toggleMenu}
-                to="/validate-offer"
-              >
-                Validation des offres
-              </NavLink>
-            </li>
-          ) : (
-            ""
-          )}
-          <li className="nav-bar_title">
-            {user?.superAdmin ? (
-              <NavLink
-                className="navlink-menu"
-                onClick={toggleMenu}
-                to="/superadmin"
-              >
-                Admin
-              </NavLink>
-            ) : (
-              ""
-            )}
-          </li>
 
           <li className="nav-bar_title">
             <NavLink className="navlink-menu" onClick={toggleMenu} to="/offer">
               Offres d'emploi
-            </NavLink>
-          </li>
-          <li className="nav-bar_title">
-            <NavLink className="navlink-menu" onClick={toggleMenu} to="/propos">
-              A propos
             </NavLink>
           </li>
           <li className="nav-bar_title">
