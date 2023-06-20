@@ -1,17 +1,24 @@
 /* eslint-disable react/function-component-definition */
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import useApi from "../../services/useApi";
+import { useUser } from "../../contexts/UserContext";
 import "./BodyOffers.css";
+import BodyOffer from "./BodyOffer";
 
 const BodyOffers = () => {
   const [offers, setOffers] = useState([]);
+
   const api = useApi();
+  const user = useUser();
 
   useEffect(() => {
     api
-      .get("/offers")
+      .get("/offers", {
+        params: {
+          candId: user?.user?.id,
+        },
+      })
       .then((response) => {
         const sortedOffers = response.data.sort((a, b) => b.id - a.id);
         setOffers(sortedOffers);
@@ -35,16 +42,7 @@ const BodyOffers = () => {
       <h2 className="bodyoffers-title">Les dernières offres</h2>
       <div className="bodyoffers-offer_wrapper">
         {offers.slice(0, 4).map((offer) => (
-          <div className="bodyoffers-offer_container" key={offer.id}>
-            <h3 className="bodyoffers-offer_title">{offer.jobTitleDetails}</h3>
-            <h3 className="bodyoffers-offer_city">{offer.city_name}</h3>
-            <h3 className="bodyoffers-offer_salary">{offer.salary} euro/an</h3>
-            <Link to={`/offers/${offer.id}`}>
-              <button type="button" className="bodyoffers-offer_button-info">
-                Plus d'infos
-              </button>
-            </Link>
-          </div>
+          <BodyOffer key={offer.id} offer={offer} userId={user?.user?.id} />
         ))}
       </div>
     </div>
