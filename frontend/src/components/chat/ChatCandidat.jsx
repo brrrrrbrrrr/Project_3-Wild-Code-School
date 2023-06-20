@@ -89,7 +89,7 @@ function ChatCandidat() {
     <div>
       <div className="chat-container">
         <h2 className="chat-container_title">{state.job_title}</h2>
-        <h2 className="chat-container_title">Messenger</h2>
+        <h2 className="chat-container_title">Messagerie</h2>
         {messages.slice(0, 1).map((message) => (
           <h2 key={message.messageId} className="chat-container_title">
             avec votre consultant {message.firstname} {message.name}
@@ -157,7 +157,7 @@ function ChatCandidat() {
             type="button"
             onClick={sendMessage}
           >
-            Send
+            Envoyer
           </button>
         </div>
       </div>

@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import NavBar from "./components/navBar/NavBar";
 import NotFound from "./components/notfound/NotFound";
 import Footer from "./components/footer/Footer";
+
 import PageDetailsOffer from "./pages/PageDetailsOffer";
 import PageLoginRegister from "./pages/PageLoginRegister";
 import PageRegister from "./pages/PageRegister";
@@ -26,6 +27,9 @@ import PageUpdateOffer from "./pages/PageUpdateOffer";
 import PageValidOfferCandidate from "./pages/PageValidOfferCandidate";
 import PageValidationOffer from "./pages/PageValidationOffer";
 import PageMyOffers from "./pages/PageMyOffers";
+
+import LegalNotice from "./components/legalnotice/LegalNotice";
+import DataProtection from "./components/dataProtection/DataProtection";
 
 function App() {
   return (
@@ -48,6 +52,8 @@ function App() {
           <Route path="/my-offers" element={<PageMyOffers />} />
           <Route path="/new-offer" element={<PageCreateOffer />} />
           <Route path="/update-offer" element={<PageUpdateOffer />} />
+          <Route path="/legal-notice" element={<LegalNotice />} />
+          <Route path="/data-protection" element={<DataProtection />} />
           <Route
             path="/valid-offer-candidate"
             element={<PageValidOfferCandidate />}

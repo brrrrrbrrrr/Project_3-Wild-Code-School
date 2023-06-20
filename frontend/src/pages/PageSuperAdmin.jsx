@@ -354,9 +354,9 @@ const PageSuperAdmin = () => {
               label="Recruiter"
               onChange={handleChangeRecruiter}
             >
-              <MenuItem value={10}>Recruteur</MenuItem>
-              <MenuItem value={20}>Mes Recruteur</MenuItem>
-              <MenuItem value={30}>En attentte</MenuItem>
+              <MenuItem value={10}>Recruteurs</MenuItem>
+              <MenuItem value={20}>Mes Recruteurs</MenuItem>
+              <MenuItem value={30}>En attente</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -378,7 +378,7 @@ const PageSuperAdmin = () => {
         </Box>
         <Box sx={{ width: 200 }} className="pageSuperAdmin-selected_enterprise">
           <FormControl fullWidth>
-            <InputLabel id="enterprise-label">Enterprises</InputLabel>
+            <InputLabel id="enterprise-label">Entreprises</InputLabel>
             <Select
               labelId="enterprise-label"
               id="enterprise-select"
