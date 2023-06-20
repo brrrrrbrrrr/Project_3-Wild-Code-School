@@ -42,12 +42,6 @@ function OfferValid({ offer, setRefresh, refresh }) {
       </div>
 
       <div className="superadmin-offer_buttons-box">
-        {/* <Button id="superadmin-offer_button-info" variant="contained">
-          Candidats ()
-        </Button>
-        <Button id="superadmin-offer_button-info" variant="contained">
-          Modifier
-        </Button> */}
         {offer.valid === 0 ? (
           <Button
             id="superadmin-offer_button-info"
