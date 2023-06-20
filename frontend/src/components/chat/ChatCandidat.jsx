@@ -15,7 +15,6 @@ function ChatCandidat() {
 
   const api = useApi();
   const urlFile = import.meta.env.VITE_APP_URL;
-
   const getMessages = () => {
     api
       .get(`/messages/${state?.id}`)
@@ -89,35 +88,59 @@ function ChatCandidat() {
   return (
     <div>
       <div className="chat-container">
+        <h2 className="chat-container_title">{state.job_title}</h2>
         <h2 className="chat-container_title">Messagerie</h2>
+        {messages.slice(0, 1).map((message) => (
+          <h2 key={message.messageId} className="chat-container_title">
+            avec votre consultant {message.firstname} {message.name}
+          </h2>
+        ))}
         <div className="chat-messenger_box">
           {messages.map((message) => (
-            <div className="chat-messenger_box-line">
+            <div>
               {message.candidateAutor ? (
-                <img
-                  src={`${urlFile}${message.pictureCan}`}
-                  className="chat-messenger_box_image"
-                  alt={message.name}
-                />
-              ) : (
-                <img
-                  src={`${urlFile}${message.picture}`}
-                  className="chat-messenger_box_image"
-                  alt={message.name}
-                />
-              )}
+                <div className="chat-messenger_box-line_candidate">
+                  <img
+                    src={`${urlFile}${message.pictureCan}`}
+                    className="chat-messenger_box_image"
+                    alt={message.name}
+                  />
 
-              <div
-                key={message.messageId}
-                className="chat-messenger_box-message"
-              >
-                {message.message}
-                <RiDeleteBin5Line
-                  className="chat-messenger_box-delete_button"
-                  size={30}
-                  onClick={() => deleteMessage(message.messageId)}
-                />
-              </div>
+                  <div
+                    key={message.messageId}
+                    className="chat-messenger_box-message"
+                  >
+                    {message.message}
+
+                    <RiDeleteBin5Line
+                      className="chat-messenger_box-delete_button"
+                      size={30}
+                      onClick={() => deleteMessage(message.messageId)}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="chat-messenger_box-line">
+                  <img
+                    src={`${urlFile}${message.picture}`}
+                    className="chat-messenger_box_image"
+                    alt={message.name}
+                  />
+
+                  <div
+                    key={message.messageId}
+                    className="chat-messenger_box-message"
+                  >
+                    {message.message}
+
+                    <RiDeleteBin5Line
+                      className="chat-messenger_box-delete_button"
+                      size={30}
+                      onClick={() => deleteMessage(message.messageId)}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>

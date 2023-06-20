@@ -39,7 +39,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/offer" element={<PageOffersEmploi />} />
-          <Route path="/propos" element={<NotFound />} />
           <Route path="/offers/:id" element={<PageDetailsOffer />} />
           <Route path="/connect" element={<PageLoginRegister />} />
           <Route path="/registration" element={<PageRegister />} />
@@ -60,6 +59,7 @@ function App() {
             element={<PageValidOfferCandidate />}
           />
           <Route path="/validate-offer" element={<PageValidationOffer />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
         <Footer />
         <ToastContainer />

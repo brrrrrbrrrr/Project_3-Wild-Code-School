@@ -16,7 +16,7 @@ const DetailsOfferBody = (props) => {
             <img
               src={`${urlFile}/${offer.Logo}`}
               alt="Logo de l'entreprise"
-              className="detailsOfferBody-logo"
+              className="detailsOfferHero-logo"
             />
           )}
 
