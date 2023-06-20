@@ -12,7 +12,6 @@ function MessageContainer({ offerId, contactSelected }) {
   const [newMessage, setNewMessage] = useState("");
   const [isAutor, setIsAutor] = useState(false);
   const { state } = useLocation();
-  console.warn(state);
 
   const urlFile = import.meta.env.VITE_APP_URL;
 
@@ -51,7 +50,6 @@ function MessageContainer({ offerId, contactSelected }) {
     const minutes = String(currentDate.getMinutes()).padStart(2, "0");
     const seconds = String(currentDate.getSeconds()).padStart(2, "0");
     const formattedTime = `${hours}:${minutes}:${seconds}`;
-    console.warn(user.user);
     const messageData = {
       candidateId: contactSelected,
       offerId,

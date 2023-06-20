@@ -4,7 +4,6 @@ import "./DetailsOfferConsultant.css";
 
 const DetailsOfferConsultant = (props) => {
   const { offer } = props;
-  console.warn(offer);
   const urlFile = import.meta.env.VITE_APP_URL;
   return (
     <div className="detailsOfferConsultant-container">

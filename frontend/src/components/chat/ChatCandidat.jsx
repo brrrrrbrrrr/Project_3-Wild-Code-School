@@ -15,7 +15,6 @@ function ChatCandidat() {
 
   const api = useApi();
   const urlFile = import.meta.env.VITE_APP_URL;
-  console.warn(messages);
   const getMessages = () => {
     api
       .get(`/messages/${state?.id}`)
