@@ -93,7 +93,7 @@ function OfferEmploi({ offer, userId, candidateId, validStatus }) {
             </h3>
             <h3 className="offersemploi-offer_remote">{offer.remote_type}</h3>
             <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
-            {isRecrutor && (
+            {isRecrutor && offer.recruiterId === user?.user?.id && (
               <Link to="/update-offer">
                 <AiTwotoneEdit
                   size={30}
