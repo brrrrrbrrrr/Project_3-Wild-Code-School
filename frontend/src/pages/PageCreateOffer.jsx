@@ -31,7 +31,7 @@ function PageCreateOffer() {
   const [validNbOfEmployees, setValidNbOfEmployees] = useState(false);
   const [success, setSuccess] = useState();
   const sucessOffer = "successOffer";
-  const consultantId = "7";
+  const consultantId = "1";
   const userId = user?.id;
 
   const numberRegex = /^\d+$/;

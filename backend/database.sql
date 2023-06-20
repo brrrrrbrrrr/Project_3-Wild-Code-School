@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `externatic`.`compagny` (
   `mail` VARCHAR(45) NOT NULL,
   `phone` VARCHAR(45) NOT NULL,
   `password` VARCHAR(200) NOT NULL,
-  `Valide` TINYINT(1) NULL DEFAULT '0',
+ `Valide` TINYINT(1) NOT NULL DEFAULT '0',
   `Logo` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
@@ -387,3 +387,4 @@ VALUES
 (1, 'En attente de validation par un consultant'),
 (2,'Validé'),
 (3,'Terminé');
+

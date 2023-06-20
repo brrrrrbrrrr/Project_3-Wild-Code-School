@@ -4,8 +4,10 @@ import PropTypes from "prop-types";
 import { Button } from "@mui/material";
 import useApi from "../../services/useApi";
 import "../superAdmin/offer/Offer.css";
+import "../offersEmploi/OffersEmploi.css";
 
 function OfferValid({ offer, setRefresh, refresh }) {
+  const urlFile = import.meta.env.VITE_APP_URL;
   const api = useApi();
   const handleValid = () => {
     api
@@ -19,7 +21,13 @@ function OfferValid({ offer, setRefresh, refresh }) {
 
   return (
     <div className="superadmin-offer_container">
-      <div className="superadmin-offer_logo">logo</div>
+      <div className="superadmin-offer_logo">
+        <img
+          src={`${urlFile}${offer.Logo}`}
+          alt="logo"
+          className="offersemploi-offer_logo"
+        />
+      </div>
 
       <div className="superadmin-offer_info-main">
         <h3 className="superadmin-offer_title">{offer.job_title}</h3>
@@ -34,12 +42,12 @@ function OfferValid({ offer, setRefresh, refresh }) {
       </div>
 
       <div className="superadmin-offer_buttons-box">
-        <Button id="superadmin-offer_button-info" variant="contained">
+        {/* <Button id="superadmin-offer_button-info" variant="contained">
           Candidats ()
         </Button>
         <Button id="superadmin-offer_button-info" variant="contained">
           Modifier
-        </Button>
+        </Button> */}
         {offer.valid === 0 ? (
           <Button
             id="superadmin-offer_button-info"
@@ -57,6 +65,7 @@ function OfferValid({ offer, setRefresh, refresh }) {
 OfferValid.propTypes = {
   offer: PropTypes.shape({
     id: PropTypes.number,
+    Logo: PropTypes.string,
     salary: PropTypes.string.isRequired,
     job_title: PropTypes.string.isRequired,
     contract_type: PropTypes.string.isRequired,
