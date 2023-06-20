@@ -343,7 +343,7 @@ function OffersEmploi() {
           ref={jobRef}
           onChange={() => MultiFilter()}
         >
-          <option value="0">Job Title</option>
+          <option value="0">Type d'emploi</option>
           {jobTitleOptions}
         </select>
         <select
@@ -351,7 +351,7 @@ function OffersEmploi() {
           ref={remoteRef}
           onChange={() => MultiFilter()}
         >
-          <option value="0">Remote Type</option>
+          <option value="0">Mode de travail</option>
           {remoteOptions}
         </select>
         <select
@@ -359,7 +359,7 @@ function OffersEmploi() {
           ref={contractRef}
           onChange={() => MultiFilter()}
         >
-          <option value="0">Contract Type</option>
+          <option value="0">Type de contrat</option>
           {contractOptions}
         </select>
         <select
@@ -367,7 +367,7 @@ function OffersEmploi() {
           ref={cityRef}
           onChange={() => MultiFilter()}
         >
-          <option value="0">City Type</option>
+          <option value="0">Ville</option>
           {cityOptions}
         </select>
         <Button
@@ -389,7 +389,7 @@ function OffersEmploi() {
           variant="contained"
           onClick={UpdateFilters}
         >
-          update
+          Sauvegarder ma recherche
         </Button>
       </div>
       <div className="offersemploi-offer_wrapper">
