@@ -84,7 +84,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 15px;
     line-height: 1.5;
   }
 
@@ -112,7 +111,8 @@
 
   .detailsOfferBody-left_bottom {
     background-color: white;
-    padding-top: 100px;
+    padding-top: 50px;
+    text-align: center;
   }
 }
 
