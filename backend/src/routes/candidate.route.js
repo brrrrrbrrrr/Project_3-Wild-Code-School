@@ -52,4 +52,6 @@ router.delete(
   candidateControllers.destroy
 );
 
+router.delete("/admin/:id", verifyToken, candidateControllers.adminDelete);
+
 module.exports = router;

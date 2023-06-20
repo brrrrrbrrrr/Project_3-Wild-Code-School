@@ -282,6 +282,22 @@ const getRecruiterByLoginToNext = async (req, res, next) => {
   } else return res.sendStatus(500);
 };
 
+const adminDelete = (req, res) => {
+  models.recruiter
+    .deleteadmin(req.params.id)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
@@ -291,4 +307,5 @@ module.exports = {
   edit,
   getRecruiterByIdToNext,
   editPassword,
+  adminDelete,
 };

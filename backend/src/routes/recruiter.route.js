@@ -23,4 +23,6 @@ router.delete(
   recruiterControllers.getRecruiterByIdToNext,
   recruiterControllers.destroy
 );
+router.delete("/admin/:id", verifyToken, recruiterControllers.adminDelete);
+
 module.exports = router;

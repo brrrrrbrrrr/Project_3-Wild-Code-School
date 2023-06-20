@@ -352,12 +352,12 @@ INSERT INTO job_title (name) VALUES ('Assistant Manager'), ('Développeur Web'),
 
 INSERT INTO remote (type) VALUES ('Présentiel'), ('Présentiel/Télétravail'), ('Télétravail');
 
-INSERT INTO offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredProfile, recruitmentProcess, numberOfEmployees, jobTitleDetails, cityId, consultantId, recruiterId, contratId, jobTitleId)
- VALUES ("20000", 1, "futur foto", "jobOfferPresentation", "desiredProfile", "Recruitment Process", "23", "Ingénieur réseaux / H/F – Industrie", 1,1,1,2,1),
- ("30000", 2, "teamPic.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "50", "Software Engineer", 2, 1, 1, 3, 2),
- ("40000", 1, "teamPicture.png", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "100", "Senior Data Analyst", 3, 1, 1, 1, 3),
- ("25000", 3, "team.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "30", "Marketing Coordinator", 1, 1, 1, 2, 4),
- ("50000", 2, "teamPic.jpeg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "70", "Senior Project Manager", 3, 1, 1, 1, 5);
+INSERT INTO offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredProfile, recruitmentProcess, numberOfEmployees, jobTitleDetails, cityId, consultantId, recruiterId, contratId, jobTitleId, valide)
+ VALUES ("20000", 1, "futur foto", "jobOfferPresentation", "desiredProfile", "Recruitment Process", "23", "Ingénieur réseaux / H/F – Industrie", 1,1,1,2,1,1),
+ ("30000", 2, "teamPic.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "50", "Software Engineer", 2, 1, 1, 3, 2, 1),
+ ("40000", 1, "teamPicture.png", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "100", "Senior Data Analyst", 3, 1, 1, 1, 3, 1),
+ ("25000", 3, "team.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "30", "Marketing Coordinator", 1, 1, 1, 2, 4, 1),
+ ("50000", 2, "teamPic.jpeg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "70", "Senior Project Manager", 3, 1, 1, 1, 5, 1);
 
 
   INSERT INTO candidate

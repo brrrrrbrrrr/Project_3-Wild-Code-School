@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useUser } from "../../contexts/UserContext";
 import useApi from "../../services/useApi";
 
@@ -24,10 +24,6 @@ const filterAlert = () => {
       }
     });
   }, []);
-  return (
-    <div className="filterAlert-Container">
-      <ToastContainer />
-    </div>
-  );
+  return <div className="filterAlert-Container" />;
 };
 export default filterAlert;
