@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./AccountSettings.css";
 import PropTypes from "prop-types";
 
@@ -19,14 +20,17 @@ function AccountSettings({ user, userParam }) {
   const api = useApi();
   let userType = "";
   let userId = "";
+  if (user.userType === "compagny" && userParam === null) {
+    userType = user.userType;
+  }
 
-  if (user.userType === "compagny" && userParam.userType === "recruiters") {
-    userType = userParam.userType;
+  if (user.userType === "compagny" && userParam?.userType === "recruiters") {
+    userType = userParam?.userType;
   } else {
     userType = user.userType;
   }
 
-  if (user.userType === "compagny" && userParam.userType === "recruiters") {
+  if (user.userType === "compagny" && userParam?.userType === "recruiters") {
     userId = userParam.id;
   } else {
     userId = user.id;
@@ -44,7 +48,7 @@ function AccountSettings({ user, userParam }) {
   const handleDelete = () => {
     let refresh = null;
     let deleteAccountApi = "";
-    if (user.userType === "compagny" && userParam.userType === "recruiters") {
+    if (user.userType === "compagny" && userParam?.userType === "recruiters") {
       deleteAccountApi = `${user.userType}/${user.id}/my-recruiters/${userParam.id}`;
       refresh = 0;
     } else {
@@ -65,8 +69,17 @@ function AccountSettings({ user, userParam }) {
           }
         }, 2000);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   };
 

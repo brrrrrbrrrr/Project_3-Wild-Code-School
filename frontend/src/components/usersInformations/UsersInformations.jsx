@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 import "./UsersInformations.css";
 
 import useApi from "../../services/useApi";
@@ -34,16 +33,22 @@ function UsersInformations({ user, userParam, setNewName }) {
 
   let userType = "";
   let userId = "";
-  console.warn(user.userType);
-  if (user.userType === "compagny" && userParam.userType === "recruiters") {
-    userType = userParam.userType;
+
+  if (
+    user.userType === "consultants" &&
+    user.superAdmin === 1 &&
+    userParam?.userType === "recruiters"
+  ) {
+    userType = userParam?.userType;
+    userId = userParam?.id;
+  } else if (
+    user.userType === "compagny" &&
+    userParam?.userType === "recruiters"
+  ) {
+    userType = userParam?.userType;
+    userId = userParam?.id;
   } else {
     userType = user.userType;
-  }
-
-  if (user.userType === "compagny" && userParam.userType === "recruiters") {
-    userId = userParam.id;
-  } else {
     userId = user.id;
   }
 
@@ -51,7 +56,6 @@ function UsersInformations({ user, userParam, setNewName }) {
 
   useEffect(() => {
     api
-
       .get(`/${userType}/${userId}`)
       .then((res) => {
         setUserInfos(res.data);
@@ -68,10 +72,19 @@ function UsersInformations({ user, userParam, setNewName }) {
         setContactPreference(res.data.contactPreference);
         setJobSeeker(res.data.jobSeeker);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
-  }, [reload]);
+  }, [reload, userParam]);
 
   function handlePictureSelect(event) {
     const filePicture = event.target.files[0];
@@ -154,15 +167,24 @@ function UsersInformations({ user, userParam, setNewName }) {
     api
       .put(`/${userType}/${userId}`, formData)
 
-      .then((res) => {
+      .then(() => {
         setReload(reload + 1);
         setNewName(firstname);
         setTimeout(() => {
           setReload(0);
         }, 2000);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   };
 
@@ -424,15 +446,17 @@ UsersInformations.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number.isRequired,
     userType: PropTypes.string.isRequired,
-  }).isRequired,
+    superAdmin: PropTypes.number,
+  }),
   userParam: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    userType: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    userType: PropTypes.string,
   }),
   setNewName: PropTypes.func,
 };
 
 UsersInformations.defaultProps = {
+  user: null,
   userParam: null,
   setNewName: null,
 };

@@ -1,17 +1,15 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/function-component-definition */
 import { useState } from "react";
 import { HiOutlineStar } from "react-icons/hi";
+import { AiTwotoneEdit, AiFillCheckCircle } from "react-icons/ai";
 import { BsFillChatRightTextFill } from "react-icons/bs";
+import { toast } from "react-toastify";
+import { Button } from "@mui/material";
 import PropTypes from "prop-types";
 import { NavLink, Link } from "react-router-dom";
-import { AiTwotoneEdit } from "react-icons/ai";
-import { Button } from "@mui/material";
 import { useUser } from "../../../contexts/UserContext";
 import useApi from "../../../services/useApi";
 
-const OfferEmploi = ({ offer, userId }) => {
+function OfferEmploi({ offer, userId, candidateId, validStatus }) {
   const [selected, setSelected] = useState(
     offer.candidateId === userId || offer.consultantId === userId
   );
@@ -20,7 +18,11 @@ const OfferEmploi = ({ offer, userId }) => {
   const user = useUser();
   const api = useApi();
   const urlFile = import.meta.env.VITE_APP_URL;
-  const { setOfferData } = useUser();
+  const {
+    setOfferData,
+
+    setValidationStatus,
+  } = useUser();
 
   const handleEditClick = () => {
     setOfferData(offer);
@@ -36,11 +38,36 @@ const OfferEmploi = ({ offer, userId }) => {
         setSelected(!selected);
         setLike(!like);
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   };
 
+  const handleValid = () => {
+    const updateValue = {
+      offerStatusId: 2,
+    };
+    api
+      .put(
+        `/admin/offer-status/1/candidate/${candidateId}/offer/${offer.id}`,
+        updateValue
+      )
+      .then(() => {
+        setValidationStatus((prevStatus) => prevStatus + 1);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
   const isConsultant = user?.user?.userType === "consultants";
   const isCandidate = user?.user?.userType === "candidates";
   const isRecrutor = user?.user?.userType === "recruiters";
@@ -102,6 +129,18 @@ const OfferEmploi = ({ offer, userId }) => {
             ) : (
               ""
             )}
+
+            {validStatus === 1 && (
+              <div className="valid-icon_container">
+                {" "}
+                <h2>Valider ce like </h2>
+                <AiFillCheckCircle
+                  onClick={handleValid}
+                  size={40}
+                  className="valid-icon"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -113,10 +152,12 @@ const OfferEmploi = ({ offer, userId }) => {
       </Link>
     </div>
   );
-};
+}
 
 OfferEmploi.propTypes = {
   userId: PropTypes.number,
+  candidateId: PropTypes.number,
+  validStatus: PropTypes.number,
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
     candidateId: PropTypes.number,
@@ -132,8 +173,11 @@ OfferEmploi.propTypes = {
     recruiterId: PropTypes.number.isRequired,
   }).isRequired,
 };
+
 OfferEmploi.defaultProps = {
   userId: null,
+  candidateId: null,
+  validStatus: null,
 };
 
 export default OfferEmploi;

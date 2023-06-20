@@ -20,8 +20,8 @@ function Account({ user, newName }) {
 
 Account.propTypes = {
   user: PropTypes.shape({
-    firstname: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    firstname: PropTypes.string,
+    name: PropTypes.string,
   }),
 
   newName: PropTypes.string,

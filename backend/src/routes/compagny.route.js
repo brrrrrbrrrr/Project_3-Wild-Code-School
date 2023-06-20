@@ -17,7 +17,7 @@ router.put("/valid", compagnyControllers.validUpdate);
 router.get("/:id", compagnyControllers.read);
 router.post("/", upload.single("Logo"), compagnyControllers.postCompagny);
 router.put("/:id", edit.single("Logo"), compagnyControllers.updateCompagny);
-router.delete("/:id", compagnyControllers.deleteCompagny);
+router.delete("/:id", verifyToken, compagnyControllers.deleteCompagny);
 
 router.get(
   "/:id/my-recruiters",

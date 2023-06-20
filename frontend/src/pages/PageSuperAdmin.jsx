@@ -2,12 +2,14 @@
 
 import { FormControl, InputLabel, Select, MenuItem, Box } from "@mui/material";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Candidate from "../components/superAdmin/candidate/Candidate";
 import Offer from "../components/superAdmin/offer/Offer";
 import Enterprise from "../components/superAdmin/enterprise/Enterpise";
 import Consultant from "../components/superAdmin/consultant/Consultant";
 import useApi from "../services/useApi";
 import { useUser } from "../contexts/UserContext";
+import RecruiterInfos from "../components/recruiterInfos/RecruiterInfos";
 
 import "./PageSuperAdmin.css";
 
@@ -24,9 +26,11 @@ const PageSuperAdmin = () => {
   const [candidate, setCandidate] = useState("");
   const [offer, setOffer] = useState("");
   const [enterprise, setEnterprise] = useState("");
+  const [recruiter, setRecruiter] = useState("");
   const [consultant, setConsultant] = useState("");
   const [allCandidates, setAllCandidates] = useState([]);
   const [allOffers, setAllOffers] = useState([]);
+  const [allRecruiters, setAllrecruiters] = useState([]);
   const [allEnterprises, setAllEnterprises] = useState([]);
   const [allConsultant, setAllConsultant] = useState([]);
   const [activeSection, setActiveSection] = useState(null);
@@ -40,7 +44,18 @@ const PageSuperAdmin = () => {
     setEnterprise("");
     setConsultant("");
     setActiveSection("candidates");
+    setRecruiter("");
   };
+
+  const handleChangeRecruiter = (event) => {
+    setRecruiter(event.target.value);
+    setCandidate("");
+    setEnterprise("");
+    setConsultant("");
+    setOffer("");
+    setActiveSection("recruiters");
+  };
+
   const handleChangeOffer = (event) => {
     setOffer(event.target.value);
     setCandidate("");
@@ -48,11 +63,13 @@ const PageSuperAdmin = () => {
     setConsultant("");
     setActiveSection("offres");
   };
+
   const handleChangeEnterprise = (event) => {
     setEnterprise(event.target.value);
     setCandidate("");
     setOffer("");
     setConsultant("");
+    setRecruiter("");
     setActiveSection("entreprises");
   };
   const handleChangeConsultant = (event) => {
@@ -60,21 +77,99 @@ const PageSuperAdmin = () => {
     setCandidate("");
     setOffer("");
     setEnterprise("");
+    setRecruiter("");
     setActiveSection("consultants");
   };
 
   useEffect(() => {
     if (candidate === 10) {
       api
-        .get("/candidates")
+        .get("/admin/offer-status/")
         .then((response) => {
           setAllCandidates(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     }
   }, [candidate]);
+
+  useEffect(() => {
+    if (candidate === 20) {
+      api
+        .get("/admin/offer-status/2")
+        .then((response) => {
+          setAllCandidates(response.data);
+        })
+
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        });
+    }
+  }, [candidate]);
+
+  useEffect(() => {
+    if (candidate === 30) {
+      api
+        .get("/admin/offer-status/1")
+        .then((response) => {
+          setAllCandidates(response.data);
+        })
+
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        });
+    }
+  }, [candidate]);
+
+  useEffect(() => {
+    if (recruiter === 10) {
+      api
+        .get("/recruiters")
+        .then((response) => {
+          setAllrecruiters(response.data);
+        })
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        });
+    }
+  }, [recruiter]);
 
   useEffect(() => {
     if (offer === 10) {
@@ -83,8 +178,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllOffers(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     } else if (offer === 20) {
       api
@@ -96,8 +200,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllOffers(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     } else if (offer === 30) {
       api
@@ -109,8 +222,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllOffers(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     }
   }, [offer, refresh]);
@@ -121,8 +243,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllEnterprises(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     } else if (enterprise === 20) {
       api
@@ -134,8 +265,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllEnterprises(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     } else if (enterprise === 30) {
       api
@@ -147,8 +287,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllEnterprises(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     }
   }, [enterprise, refresh]);
@@ -160,8 +309,17 @@ const PageSuperAdmin = () => {
         .then((response) => {
           setAllConsultant(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          toast.error("Une erreur s'est produite", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     }
   }, [consultant]);
@@ -185,7 +343,23 @@ const PageSuperAdmin = () => {
             </Select>
           </FormControl>
         </Box>
-        <Box sx={{ width: 200 }} className="pageSuperAdmin-selected_offer">
+        <Box sx={{ width: 200 }} className="pageSuperAdmin-selected_recruiter">
+          <FormControl fullWidth>
+            <InputLabel id="recruiter-label">Recruteurs</InputLabel>
+            <Select
+              labelId="recruiter-label"
+              id="recruiter-select"
+              value={recruiter}
+              label="Recruiter"
+              onChange={handleChangeRecruiter}
+            >
+              <MenuItem value={10}>Recruteur</MenuItem>
+              <MenuItem value={20}>Mes Recruteur</MenuItem>
+              <MenuItem value={30}>En attentte</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+        <Box sx={{ width: 200 }} className="pageSuperAdmin-selected_recruiter">
           <FormControl fullWidth>
             <InputLabel id="offer-label">Offres</InputLabel>
             <Select
@@ -246,8 +420,28 @@ const PageSuperAdmin = () => {
         {activeSection === "candidates" &&
           candidate === 10 &&
           allCandidates.map((oneCandidate) => (
-            <Candidate key={oneCandidate.id} candidate={oneCandidate} />
+            <Candidate
+              key={`${oneCandidate.id}_${oneCandidate.offer_statusId}`}
+              candidate={oneCandidate}
+            />
           ))}
+        {activeSection === "candidates" &&
+          candidate === 20 &&
+          allCandidates.map((oneCandidate) => (
+            <Candidate
+              key={oneCandidate.candidateId}
+              candidate={oneCandidate}
+            />
+          ))}
+        {activeSection === "candidates" &&
+          candidate === 30 &&
+          allCandidates.map((oneCandidate) => (
+            <Candidate
+              key={oneCandidate.candidateId}
+              candidate={oneCandidate}
+            />
+          ))}
+
         {activeSection === "offres" &&
           allOffers.map((oneOffer) => (
             <Offer
@@ -270,6 +464,11 @@ const PageSuperAdmin = () => {
           consultant === 10 &&
           allConsultant.map((oneConsultant) => (
             <Consultant key={oneConsultant.id} consultant={oneConsultant} />
+          ))}
+        {activeSection === "recruiters" &&
+          recruiter === 10 &&
+          allRecruiters.map((oneRecruiter) => (
+            <RecruiterInfos key={oneRecruiter.id} recruiter={oneRecruiter} />
           ))}
       </div>
     </div>

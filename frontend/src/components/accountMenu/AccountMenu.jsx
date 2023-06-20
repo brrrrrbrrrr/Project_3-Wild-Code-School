@@ -5,11 +5,11 @@ import { NavLink } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
 
 function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
-  const { user } = useUser();
-  const userInfo = user;
+  const { user, setUserParam } = useUser();
 
   const toggleMenu = () => {
     setOpenMenuBurger(!openMenuBurger);
+    setUserParam({});
   };
 
   return (
@@ -21,12 +21,17 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
         <li className="account-menu_li">
           <NavLink to="/my-offers">Ajouter une offre</NavLink>
         </li>
-        <li className="account-menu_li">
-          <NavLink to="like">Mes offres</NavLink>
-        </li>
+        {user?.userType === "recruiters" || user?.userType === "candidates" ? (
+          <li className="account-menu_li">
+            <NavLink to="/my-offers">Mes offres</NavLink>
+          </li>
+        ) : (
+          ""
+        )}
         <li className="account-menu_li">
           <NavLink>Entretiens</NavLink>
         </li>
+
         <li className="account-menu_li">
           <NavLink to="/messages">Messagerie</NavLink>
         </li>
@@ -41,7 +46,7 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
             Mon compte
           </NavLink>
         </li>
-        {userInfo.userType === "compagny" && (
+        {user?.userType === "compagny" && (
           <li className="account-menu_li">
             <NavLink
               onClick={toggleMenu}
