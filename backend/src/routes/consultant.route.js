@@ -50,4 +50,6 @@ router.delete(
   consultantControllers.destroy
 );
 
+router.delete("/admin/:id", verifyToken, consultantControllers.adminDelete);
+
 module.exports = router;

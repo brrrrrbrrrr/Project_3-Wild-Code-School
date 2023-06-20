@@ -3,10 +3,12 @@
 /* eslint-disable react/function-component-definition */
 import PropTypes from "prop-types";
 import { Button } from "@mui/material";
+import useApi from "../../../services/useApi";
 import "./Consultant.css";
 
-const Consultant = ({ consultant }) => {
+const Consultant = ({ consultant, refresh, setRefresh }) => {
   const urlFile = import.meta.env.VITE_APP_URL;
+  const api = useApi();
 
   return (
     <div className="superadmin-consultant_container">
@@ -23,14 +25,16 @@ const Consultant = ({ consultant }) => {
         <h3 className="superadmin-consultant_city">{consultant.city}</h3>
       </div>
       <div className="superadmin-consultant_buttons-box">
-        <Button id="superadmin-consultant_button-info" variant="contained">
-          Candidats ()
-        </Button>
-        <Button id="superadmin-consultant_button-info" variant="contained">
-          Offre ()
-        </Button>
-        <Button id="superadmin-consultant_button-info" variant="contained">
-          Modifier
+        <Button
+          id="superadmin-consultant_button-info"
+          variant="contained"
+          onClick={() => {
+            api.delete(`/consultants/admin/${consultant.id}`).then(() => {
+              setRefresh(!refresh);
+            });
+          }}
+        >
+          Supprimer
         </Button>
       </div>
     </div>
@@ -38,11 +42,14 @@ const Consultant = ({ consultant }) => {
 };
 Consultant.propTypes = {
   consultant: PropTypes.shape({
+    id: PropTypes.number,
     picture: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     firstname: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
   }).isRequired,
+  refresh: PropTypes.bool.isRequired,
+  setRefresh: PropTypes.func.isRequired,
 };
 
 export default Consultant;
