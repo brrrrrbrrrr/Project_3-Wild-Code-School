@@ -27,6 +27,7 @@
   height: 190px;
   width: 190px;
   background-color: gray;
+  object-fit: cover;
 }
 
 .detailsOfferConsultant-identity {
