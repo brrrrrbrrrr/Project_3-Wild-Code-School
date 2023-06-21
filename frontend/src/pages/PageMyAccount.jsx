@@ -36,6 +36,15 @@ function PageMyAccount() {
           newName={newName}
         />
       );
+    } else if (user.superAdmin === 1 && userParam.userType === "recruiters") {
+      content = (
+        <UsersInformations
+          user={user}
+          userParam={userParam}
+          setNewName={setNewName}
+          newName={newName}
+        />
+      );
     } else if (user.userType === "compagny") {
       content = <CompagnyInformation user={user} setNewName={setNewName} />;
     } else {
@@ -48,8 +57,12 @@ function PageMyAccount() {
         />
       );
     }
-  } else if (selectForm === "myParam") {
+  }
+  if (selectForm === "myParam") {
     content = <AccountSettings user={user} userParam={userParam} />;
+    if (user.superAdmin === 1 && userParam.userType === "recruiters") {
+      content = <AccountSettings user={user} userParam={userParam} />;
+    }
   }
 
   return user ? (

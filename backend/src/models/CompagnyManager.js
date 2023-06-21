@@ -70,14 +70,14 @@ class CompagnyManager extends AbstractManager {
 
   insertCompagny(compagny) {
     return this.database.query(
-      `insert into ${this.table} (siretNumber, name, mail, phone, password, Valide, logo) values (?, ?, ?, ?, ?, ?, ?)`,
+      `insert into ${this.table} (siretNumber, name, mail, phone, password,  logo) values (?, ?, ?, ?, ?, ?)`,
       [
         compagny.siretNumber,
         compagny.name,
         compagny.mail,
         compagny.phone,
         compagny.password,
-        compagny.Valide,
+
         compagny.Logo,
       ]
     );
