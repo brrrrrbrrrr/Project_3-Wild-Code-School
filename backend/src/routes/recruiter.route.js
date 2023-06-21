@@ -5,6 +5,7 @@ const {
   storageRecruiter,
   UpdateStorageRecruiter,
 } = require("../utils/multerRecruiter");
+const { isConsultantAdmin } = require("../utils/authConsultant");
 
 const { verifyToken } = require("../utils/auth");
 const recruiterControllers = require("../controllers/recruiterControllers");
@@ -23,4 +24,12 @@ router.delete(
   recruiterControllers.getRecruiterByIdToNext,
   recruiterControllers.destroy
 );
+router.delete(
+  "/admin/:id",
+  verifyToken,
+  isConsultantAdmin,
+  recruiterControllers.deleteRecruiter
+);
+router.delete("/admin/:id", verifyToken, recruiterControllers.adminDelete);
+
 module.exports = router;

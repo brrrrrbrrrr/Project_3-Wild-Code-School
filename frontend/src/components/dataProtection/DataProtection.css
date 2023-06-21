@@ -1,0 +1,42 @@
+.dataprotection-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}
+
+.dataprotection-title {
+  color: var(--alert-color);
+}
+
+.dataprotection-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.dataprotection-text {
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: justify;
+  margin-top: 20px;
+  max-width: 700px;
+}
+
+@media (max-width: 768px) {
+  .dataprotection-container {
+    padding: 20px;
+  }
+
+  .dataprotection-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .dataprotection-text {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+}

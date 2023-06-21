@@ -2,11 +2,13 @@ import React from "react";
 import "./RecruiterInfos.css";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import useApi from "../../services/useApi";
 import { useUser } from "../../contexts/UserContext";
 
 const urlFile = import.meta.env.VITE_APP_URL;
+const api = useApi();
 
-function RecruiterInfos({ recruiter }) {
+function RecruiterInfos({ recruiter, refresh, setRefresh }) {
   const { setUserParam } = useUser();
 
   const handleClick = () => {
@@ -46,8 +48,16 @@ function RecruiterInfos({ recruiter }) {
           </div>
 
           <div className="recruiterinfos_btn-container">
-            <button type="button" className="recruiterinfos_btn">
-              Offres
+            <button
+              type="button"
+              className="recruiterinfos_btn"
+              onClick={() => {
+                api.delete(`/recruiters/admin/${recruiter.id}`).then(() => {
+                  setRefresh(!refresh);
+                });
+              }}
+            >
+              Supprimer
             </button>
             <Link to="/my-account">
               <button
@@ -66,12 +76,15 @@ function RecruiterInfos({ recruiter }) {
 }
 RecruiterInfos.propTypes = {
   recruiter: PropTypes.shape({
+    id: PropTypes.number,
     picture: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     firstname: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
     phone: PropTypes.string.isRequired,
   }).isRequired,
+  refresh: PropTypes.bool.isRequired,
+  setRefresh: PropTypes.func.isRequired,
 };
 
 export default RecruiterInfos;

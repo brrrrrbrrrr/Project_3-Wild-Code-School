@@ -42,6 +42,11 @@ function PageMyOffersEmploi() {
           </button>
         </Link>
       </div>
+      <div className="page-my-offers-emploi_msg-container">
+        <p className="page-my-offers-emploi_msg-content">
+          Vos offres doivent être validées par un consultant pour être visible
+        </p>
+      </div>
 
       {myOffers?.map((offer) => (
         <OfferEmploi key={offer.id} offer={offer} userId={id} />

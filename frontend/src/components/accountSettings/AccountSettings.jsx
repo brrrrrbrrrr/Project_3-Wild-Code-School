@@ -51,6 +51,8 @@ function AccountSettings({ user, userParam }) {
     if (user.userType === "compagny" && userParam?.userType === "recruiters") {
       deleteAccountApi = `${user.userType}/${user.id}/my-recruiters/${userParam.id}`;
       refresh = 0;
+    } else if (user.superAdmin === 1 && userParam?.userType === "recruiters") {
+      deleteAccountApi = `${userParam.userType}/admin/${userParam.id}`;
     } else {
       deleteAccountApi = `${userType}/${userId}`;
       refresh = 1;
@@ -121,7 +123,7 @@ function AccountSettings({ user, userParam }) {
     <div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="passInit" className="form-label">
-          Mot de passe actuelle :
+          Mot de passe actuel :
           <input
             type="password"
             id="passInit"
@@ -131,7 +133,7 @@ function AccountSettings({ user, userParam }) {
           />
           <span className={success ? "signup-hide" : "signup-invalid"}>
             {" "}
-            Mauvais mot de passe
+            Mot de passe incorrect
           </span>
         </label>
 
@@ -152,7 +154,7 @@ function AccountSettings({ user, userParam }) {
           </span>
         </label>
         <label htmlFor="pass2" className="form-label">
-          Confirmer le mot nouveau de passe :
+          Confirmer le nouveau mot de passe :
           <input
             type="password"
             id="pass2"
@@ -221,6 +223,7 @@ AccountSettings.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number.isRequired,
     userType: PropTypes.string.isRequired,
+    superAdmin: PropTypes.string,
   }).isRequired,
   userParam: PropTypes.shape({
     id: PropTypes.number.isRequired,

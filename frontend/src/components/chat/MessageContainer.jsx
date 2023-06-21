@@ -90,7 +90,7 @@ function MessageContainer({ offerId, contactSelected }) {
     <div>
       <div className="chat-container">
         <h2 className="chat-container_title">{state.job_title}</h2>
-        <h2 className="chat-container_title">Messenger</h2>
+        <h2 className="chat-container_title">Messagerie</h2>
         <div className="chat-messenger_box">
           {messages.map((message) => (
             <div>
@@ -153,7 +153,7 @@ function MessageContainer({ offerId, contactSelected }) {
             type="button"
             onClick={sendMessage}
           >
-            Send
+            Envoyer
           </button>
         </div>
       </div>

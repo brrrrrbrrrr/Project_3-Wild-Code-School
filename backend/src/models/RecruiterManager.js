@@ -115,6 +115,12 @@ class RecruiterManager extends AbstractManager {
       [password, userId]
     );
   }
+
+  deleteadmin(recruiterid) {
+    return this.database.query(`delete from ${this.table} where id = ?`, [
+      recruiterid,
+    ]);
+  }
 }
 
 module.exports = RecruiterManager;
