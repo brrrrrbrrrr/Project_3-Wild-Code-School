@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import useApi from "../services/useApi";
+import { useUser } from "../contexts/UserContext";
 
 import DetailsOfferHero from "../components/detailsOfferHero/DetailsOfferHero";
 import DetailsOfferBody from "../components/detailsOfferBody/DetailsOfferBody";
@@ -11,6 +12,7 @@ export default function PageDetailsOffer() {
   const { id } = useParams();
   const [offer, setOffer] = useState({});
   const api = useApi();
+  const user = useUser();
 
   useEffect(() => {
     api
@@ -35,7 +37,7 @@ export default function PageDetailsOffer() {
   return (
     <div>
       <DetailsOfferHero offer={offer} />
-      <DetailsOfferBody offer={offer} />
+      <DetailsOfferBody offer={offer} userId={user?.user?.id} />
       <DetailsOfferConsultant offer={offer} />
     </div>
   );

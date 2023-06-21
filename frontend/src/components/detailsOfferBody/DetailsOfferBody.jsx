@@ -1,13 +1,55 @@
 /* eslint-disable react/function-component-definition */
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { HiOutlineUserGroup } from "react-icons/hi2";
+import { HiOutlineStar } from "react-icons/hi";
+import { BsFillChatRightTextFill } from "react-icons/bs";
+import { toast } from "react-toastify";
+import { NavLink } from "react-router-dom";
 import { CgEuro } from "react-icons/cg";
 import { SiReacthookform } from "react-icons/si";
+import { useUser } from "../../contexts/UserContext";
+import useApi from "../../services/useApi";
 import "./DetailsOfferBody.css";
 
 const DetailsOfferBody = (props) => {
-  const { offer } = props;
+  const { offer, userId } = props;
   const urlFile = import.meta.env.VITE_APP_URL;
+
+  const [selected, setSelected] = useState(
+    offer.candidateId === userId || offer.consultantId === userId
+  );
+  const [like, setLike] = useState(offer.liked);
+
+  const user = useUser();
+  const api = useApi();
+
+  const handleIconClick = () => {
+    api
+      .post(`offers/${offer.id}/like`, {
+        candidateId: user.user.id,
+        liked: !like,
+      })
+      .then(() => {
+        setSelected(!selected);
+        setLike(!like);
+      })
+      .catch(() => {
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      });
+  };
+
+  const isConsultant = user?.user?.userType === "consultants";
+  const isCandidate = user?.user?.userType === "candidates";
   return (
     <div className="detailsOfferBody-container">
       <div className="detailsOfferBody-left">
@@ -28,7 +70,7 @@ const DetailsOfferBody = (props) => {
 
         <div className="detailsOfferBody-left_bottom  detailsOfferBody-textOne">
           <h2 className="detailsOfferBody-poste">LE POSTE</h2>
-          <h3 className="detailsOfferBody-jobTitle">{offer.jobTitleDetails}</h3>
+          <h3 className="detailsOfferBody-jobTitle">{offer.job_title}</h3>
           <h3 className="detailsOfferBody-contrat detailsOfferBody-subtitle  ">
             <SiReacthookform className="detailsOfferBody-icon" />
             {offer.contrat_type}
@@ -61,18 +103,47 @@ const DetailsOfferBody = (props) => {
             {offer.recruitmentProcess}
           </p>
         </div>
-        <button type="button" className="detailsOfferBody-button_candidate">
-          Je postule
-        </button>
+        <div className="bodyoffers-icon_box">
+          <div>
+            {(isConsultant && selected) || (isCandidate && selected) ? (
+              <NavLink to="/messages" state={offer}>
+                <BsFillChatRightTextFill
+                  className="offersemploi-icon_chat"
+                  size={50}
+                />
+              </NavLink>
+            ) : null}
+          </div>
+          <div>
+            {isCandidate ? (
+              <HiOutlineStar
+                className={
+                  selected
+                    ? "offersemploi-icon_star-selected"
+                    : "offersemploi-icon_star"
+                }
+                onClick={handleIconClick}
+                size={50}
+              />
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 DetailsOfferBody.propTypes = {
+  userId: PropTypes.number,
   offer: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     Logo: PropTypes.string.isRequired,
-    jobTitleDetails: PropTypes.string.isRequired,
+    candidateId: PropTypes.number,
+    job_title: PropTypes.string.isRequired,
+    consultantId: PropTypes.number.isRequired,
+    liked: PropTypes.bool,
     contrat_type: PropTypes.string.isRequired,
     remote: PropTypes.number.isRequired,
     numberOfEmployees: PropTypes.string.isRequired,
@@ -81,6 +152,9 @@ DetailsOfferBody.propTypes = {
     desiredProfile: PropTypes.string.isRequired,
     recruitmentProcess: PropTypes.string.isRequired,
   }).isRequired,
+};
+DetailsOfferBody.defaultProps = {
+  userId: null,
 };
 
 export default DetailsOfferBody;
