@@ -155,26 +155,12 @@ const add = async (req, res) => {
 
 const destroy = (req, res) => {
   const idPayload = req.payload.sub.id;
-  const { id } = req.params;
+  const id = parseInt(req.params.id, 10);
+
   if (id !== idPayload) {
     return res.sendStatus(401);
   }
-  models.recruiter
-    .delete(req.params.id)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-};
 
-const deleteRecruiter = (req, res) => {
   models.recruiter
     .delete(req.params.id)
     .then(([result]) => {
@@ -323,6 +309,5 @@ module.exports = {
   edit,
   getRecruiterByIdToNext,
   editPassword,
-  deleteRecruiter,
   adminDelete,
 };

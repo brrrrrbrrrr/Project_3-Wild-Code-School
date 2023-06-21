@@ -27,12 +27,11 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
   return (
     <div className="account-menu_container">
       <ul className="account-menu_ul">
-        <li className="account-menu_li">
-          <NavLink>Notifications</NavLink>
-        </li>
-        <li className="account-menu_li">
-          <NavLink to="/my-offers">Ajouter une offre</NavLink>
-        </li>
+        {user?.userType === "recruiters" && (
+          <li className="account-menu_li">
+            <NavLink to="/my-offers">Ajouter une offre</NavLink>
+          </li>
+        )}
         {user?.userType === "recruiters" || user?.userType === "candidates" ? (
           <li className="account-menu_li">
             <NavLink to="/my-offers">Mes offres</NavLink>
@@ -40,13 +39,7 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
         ) : (
           ""
         )}
-        <li className="account-menu_li">
-          <NavLink>Entretiens</NavLink>
-        </li>
 
-        <li className="account-menu_li">
-          <NavLink to="/messages">Messagerie</NavLink>
-        </li>
         <li className="account-menu_li">
           <NavLink
             onClick={toggleMenu}
