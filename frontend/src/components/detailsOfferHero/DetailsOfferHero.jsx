@@ -13,7 +13,11 @@ const DetailsOfferHero = (props) => {
     <div className="detailsOfferHero-container">
       <div
         className="detailsOfferHero-image"
-        style={{ backgroundImage: `url(${urlFile}/${offer.teamPicture})` }}
+        style={{
+          backgroundImage: offer?.teamPicture
+            ? `url(${urlFile}/${offer.teamPicture})`
+            : null,
+        }}
       >
         {offer?.Logo && (
           <img
@@ -46,7 +50,7 @@ const DetailsOfferHero = (props) => {
 
 DetailsOfferHero.propTypes = {
   offer: PropTypes.shape({
-    Logo: PropTypes.string.isRequired,
+    Logo: PropTypes.string,
     jobTitleDetails: PropTypes.string.isRequired,
     city_name: PropTypes.string.isRequired,
     postalCode: PropTypes.string.isRequired,
@@ -55,7 +59,10 @@ DetailsOfferHero.propTypes = {
     remoteWork: PropTypes.number.isRequired,
     salary: PropTypes.number.isRequired,
     teamPicture: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
+};
+DetailsOfferHero.defaultProps = {
+  offer: null,
 };
 
 export default DetailsOfferHero;

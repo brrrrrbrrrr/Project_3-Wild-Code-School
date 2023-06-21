@@ -43,7 +43,7 @@ const PageSuperAdmin = () => {
     setOffer("");
     setEnterprise("");
     setConsultant("");
-    setActiveSection("candidates");
+    setActiveSection("candidats.es");
     setRecruiter("");
   };
 
@@ -53,7 +53,7 @@ const PageSuperAdmin = () => {
     setEnterprise("");
     setConsultant("");
     setOffer("");
-    setActiveSection("recruiters");
+    setActiveSection("recruteurs.euses");
   };
 
   const handleChangeOffer = (event) => {
@@ -79,7 +79,7 @@ const PageSuperAdmin = () => {
     setOffer("");
     setEnterprise("");
     setRecruiter("");
-    setActiveSection("consultants");
+    setActiveSection("consultants.es");
   };
 
   useEffect(() => {
@@ -338,8 +338,8 @@ const PageSuperAdmin = () => {
               label="Candidate"
               onChange={handleChangeCandidate}
             >
-              <MenuItem value={10}>Candidats</MenuItem>
-              <MenuItem value={20}>Mes Candidats</MenuItem>
+              <MenuItem value={10}>Candidats.es</MenuItem>
+              <MenuItem value={20}>Mes candidats.es</MenuItem>
               <MenuItem value={30}>En attente</MenuItem>
             </Select>
           </FormControl>
@@ -354,8 +354,8 @@ const PageSuperAdmin = () => {
               label="Recruiter"
               onChange={handleChangeRecruiter}
             >
-              <MenuItem value={10}>Recruteurs</MenuItem>
-              <MenuItem value={20}>Mes Recruteurs</MenuItem>
+              <MenuItem value={10}>Recruteurs.euses</MenuItem>
+              <MenuItem value={20}>Mes recruteurs.euses</MenuItem>
               <MenuItem value={30}>En attente</MenuItem>
             </Select>
           </FormControl>
@@ -405,8 +405,8 @@ const PageSuperAdmin = () => {
               label="consultant"
               onChange={handleChangeConsultant}
             >
-              <MenuItem value={10}>Consultants</MenuItem>
-              <MenuItem value={20}>Mes Consultants</MenuItem>
+              <MenuItem value={10}>Consultants.es</MenuItem>
+              <MenuItem value={20}>Mes consultants.es</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -418,7 +418,7 @@ const PageSuperAdmin = () => {
           ""
         )}
 
-        {activeSection === "candidates" &&
+        {activeSection === "candidats.es" &&
           candidate === 10 &&
           allCandidates.map((oneCandidate) => (
             <Candidate
@@ -428,7 +428,7 @@ const PageSuperAdmin = () => {
               setRefresh={setRefresh}
             />
           ))}
-        {activeSection === "candidates" &&
+        {activeSection === "candidats.es" &&
           candidate === 20 &&
           allCandidates.map((oneCandidate) => (
             <Candidate
@@ -438,7 +438,7 @@ const PageSuperAdmin = () => {
               setRefresh={setRefresh}
             />
           ))}
-        {activeSection === "candidates" &&
+        {activeSection === "candidats.es" &&
           candidate === 30 &&
           allCandidates.map((oneCandidate) => (
             <Candidate
@@ -467,7 +467,7 @@ const PageSuperAdmin = () => {
               setRefresh={setRefresh}
             />
           ))}
-        {activeSection === "consultants" &&
+        {activeSection === "consultants.es" &&
           consultant === 10 &&
           allConsultant.map((oneConsultant) => (
             <Consultant
@@ -477,7 +477,7 @@ const PageSuperAdmin = () => {
               setRefresh={setRefresh}
             />
           ))}
-        {activeSection === "recruiters" &&
+        {activeSection === "recruteurs.euses" &&
           recruiter === 10 &&
           allRecruiters.map((oneRecruiter) => (
             <RecruiterInfos

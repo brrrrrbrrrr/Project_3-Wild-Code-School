@@ -111,9 +111,18 @@ function AccountSettings({ user, userParam }) {
           setReload(0);
         }, 2000);
       })
-      .catch((err) => {
+      .catch(() => {
         setSuccess(false);
-        console.warn(err);
+        toast.error("Une erreur s'est produite", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   };
 
@@ -226,8 +235,8 @@ AccountSettings.propTypes = {
     superAdmin: PropTypes.string,
   }).isRequired,
   userParam: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    userType: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    userType: PropTypes.string,
   }),
 };
 

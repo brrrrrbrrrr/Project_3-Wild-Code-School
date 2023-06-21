@@ -111,8 +111,7 @@ function RegisterDefault({ selectForm, user }) {
     api
 
       .post(`/${selectForm}`, formData)
-      .then((res) => {
-        console.warn(res);
+      .then(() => {
         setSuccess(selectForm);
         if (selectForm === "recruiters") {
           setTimeout(() => {

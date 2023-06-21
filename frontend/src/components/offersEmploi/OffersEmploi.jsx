@@ -3,6 +3,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
+import { BiReset } from "react-icons/bi";
+import { TfiSave } from "react-icons/tfi";
+import { TbReload } from "react-icons/tb";
 import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
 import { useUser } from "../../contexts/UserContext";
@@ -377,22 +380,29 @@ function OffersEmploi() {
           variant="contained"
           onClick={resetFilters}
         >
-          Réinitialiser
+          Réinitialiser le filtre
+          <BiReset size={25} />
         </Button>
-        <Button
-          id="offersemploi-offer_button-info-filter"
-          variant="contained"
-          onClick={SaveFilter}
-        >
-          enregistrer le filtre
-        </Button>
-        <Button
-          id="offersemploi-offer_button-info-filter"
-          variant="contained"
-          onClick={UpdateFilters}
-        >
-          Sauvegarder ma recherche
-        </Button>
+        {user?.user?.userType === "candidates" && (
+          <>
+            <Button
+              id="offersemploi-offer_button-info-filter"
+              variant="contained"
+              onClick={SaveFilter}
+            >
+              Enregistrer le filtre
+              <TfiSave size={25} />
+            </Button>
+            <Button
+              id="offersemploi-offer_button-info-filter"
+              variant="contained"
+              onClick={UpdateFilters}
+            >
+              Charger le dernier filtre
+              <TbReload size={25} />
+            </Button>
+          </>
+        )}
       </div>
 
       <div className="offersemploi-offer_wrapper">

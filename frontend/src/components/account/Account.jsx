@@ -26,7 +26,7 @@ Account.propTypes = {
     firstname: PropTypes.string,
     name: PropTypes.string,
     userType: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.number,
   }),
 
   newName: PropTypes.string,

@@ -167,17 +167,18 @@ OfferEmploi.propTypes = {
     city_name: PropTypes.string.isRequired,
     remote_type: PropTypes.string.isRequired,
     numberOfEmployees: PropTypes.string.isRequired,
-    consultantId: PropTypes.number.isRequired,
+    consultantId: PropTypes.number,
     liked: PropTypes.bool,
     Logo: PropTypes.string.isRequired,
-    recruiterId: PropTypes.number.isRequired,
-  }).isRequired,
+    recruiterId: PropTypes.number,
+  }),
 };
 
 OfferEmploi.defaultProps = {
   userId: null,
   candidateId: null,
   validStatus: null,
+  offer: null,
 };
 
 export default OfferEmploi;

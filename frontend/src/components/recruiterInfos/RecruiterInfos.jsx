@@ -54,7 +54,7 @@ function RecruiterInfos({ recruiter, refresh, setRefresh }) {
           <div className="delete-modal_container">
             <div className="delete-modal_column">
               <h2 className="delete-modal_h2">
-                Voulez vous vraiment supprimer votre compte ?
+                Voulez vous vraiment supprimer ce compte ?
               </h2>
               <button
                 className="delete-modal_btn btn-yes"

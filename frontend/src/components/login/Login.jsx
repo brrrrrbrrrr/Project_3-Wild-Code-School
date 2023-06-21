@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import React, { useRef, useState } from "react";
 import useApi from "../../services/useApi";
 import { useUser } from "../../contexts/UserContext";
@@ -120,7 +121,16 @@ function Login() {
         }, 2000);
       })
       .catch((err) => {
-        console.warn(err);
+        toast.error("Mot de passe ou identifiant incorrect", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
 
         // Je traite et renvoi les erreurs
         let errorMsg = "";
