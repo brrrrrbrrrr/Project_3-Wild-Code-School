@@ -1,0 +1,10 @@
+.notfound-container {
+  text-align: center;
+  padding-top: 100px;
+}
+
+.notfound-title {
+  font-size: 30px;
+  color: var(--primary-color);
+  font-weight: 600;
+}

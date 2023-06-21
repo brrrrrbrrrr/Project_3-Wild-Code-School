@@ -7,19 +7,19 @@ function Footer() {
   return (
     <footer>
       <p className="footer-title">© 2023 Externatic</p>
+
       <div className="footer-info">
-        <h4>
+        <h4 className="footer-info-item">
           <Link to="/legal-notice" className="footer-link">
             Mentions légales
           </Link>
         </h4>
-        <h4>
+        <h4 className="footer-info-item">
           <Link to="/data-protection" className="footer-link">
             Protection des données
           </Link>
         </h4>
       </div>
-
       <div className="footer-icons">
         <span>
           <span className="icon">
