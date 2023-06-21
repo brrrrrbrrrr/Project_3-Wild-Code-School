@@ -7,7 +7,7 @@
 }
 
 .dataprotection-title {
-  color: #aa4269;
+  color: var(--alert-color);
 }
 
 .dataprotection-title {
