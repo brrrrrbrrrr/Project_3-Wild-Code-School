@@ -355,8 +355,6 @@ const PageSuperAdmin = () => {
               onChange={handleChangeRecruiter}
             >
               <MenuItem value={10}>Recruteurs</MenuItem>
-              <MenuItem value={20}>Mes Recruteurs</MenuItem>
-              <MenuItem value={30}>En attente</MenuItem>
             </Select>
           </FormControl>
         </Box>
