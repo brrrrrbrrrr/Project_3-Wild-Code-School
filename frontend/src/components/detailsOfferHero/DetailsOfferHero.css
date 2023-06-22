@@ -14,6 +14,7 @@
   align-items: center;
   justify-content: space-around;
   position: relative;
+  top: -50px;
 }
 
 .detailsOfferHero-image::before {

@@ -341,6 +341,7 @@ const cityfilter = (req, res) => {
 };
 
 const read = (req, res) => {
+  // const { candId } = req.params;
   const { candId } = req.query;
 
   models.offer
@@ -357,7 +358,6 @@ const read = (req, res) => {
       res.sendStatus(500);
     });
 };
-
 const validcheck = (req, res) => {
   models.offer
     .findvalid(parseInt(req.query.valid, 10))

@@ -8,6 +8,7 @@ import useApi from "../services/useApi";
 import "./PageValidOfferCandidate.css";
 
 function PageValidOfferCandidate() {
+  const { user } = useUser();
   const api = useApi();
   const { candidateWithLike, validationStatus } = useUser();
   const [candidateData, setCandidateData] = useState([]);
@@ -50,7 +51,13 @@ function PageValidOfferCandidate() {
   useEffect(() => {
     if (idOffer) {
       const offerIds = idOffer.split(",").map(Number);
-      const requests = offerIds.map((offerId) => api.get(`/offers/${offerId}`));
+      const requests = offerIds.map((offerId) =>
+        api.get(`/offers/${offerId}`, {
+          params: {
+            candId: user?.id,
+          },
+        })
+      );
 
       Promise.all(requests)
         .then((responses) => {

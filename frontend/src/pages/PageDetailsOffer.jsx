@@ -37,7 +37,6 @@ export default function PageDetailsOffer() {
         });
       });
   }, []);
-
   return (
     <div>
       <DetailsOfferHero offer={offer} />
