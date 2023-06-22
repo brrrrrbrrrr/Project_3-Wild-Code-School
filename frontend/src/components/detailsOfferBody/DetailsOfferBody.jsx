@@ -35,7 +35,6 @@ const DetailsOfferBody = (props) => {
         liked: !like,
       })
       .then(() => {
-        setSelected(!selected);
         setLike(!like);
         setSelected(!selected);
       })
@@ -55,6 +54,7 @@ const DetailsOfferBody = (props) => {
 
   const isConsultant = user?.user?.userType === "consultants";
   const isCandidate = user?.user?.userType === "candidates";
+
   return (
     <div className="detailsOfferBody-container">
       <div className="detailsOfferBody-left">

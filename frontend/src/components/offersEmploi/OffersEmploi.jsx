@@ -148,6 +148,7 @@ function OffersEmploi() {
         params: {
           allOffers: "marchestp",
           filter: Filters,
+          candId: user?.user?.id,
         },
       })
       .then((response) => {
