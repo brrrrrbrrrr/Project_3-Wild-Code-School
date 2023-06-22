@@ -357,7 +357,6 @@ const read = (req, res) => {
       res.sendStatus(500);
     });
 };
-
 const validcheck = (req, res) => {
   models.offer
     .findvalid(parseInt(req.query.valid, 10))
