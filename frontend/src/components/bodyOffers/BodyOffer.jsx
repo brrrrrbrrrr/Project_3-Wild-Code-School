@@ -99,7 +99,7 @@ const BodyOffer = ({ offer, userId }) => {
           </button>
         </Link>
       ) : (
-        <Link to="/connect" oncClick={handleClick} onClick={handleClick}>
+        <Link to="/connect" onClick={handleClick}>
           <button type="button" className="bodyoffers-offer_button-info">
             Plus d'infos
           </button>

@@ -232,7 +232,7 @@ AccountSettings.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number,
     userType: PropTypes.string,
-    superAdmin: PropTypes.string,
+    superAdmin: PropTypes.number,
   }),
   userParam: PropTypes.shape({
     id: PropTypes.number,

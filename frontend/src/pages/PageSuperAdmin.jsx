@@ -339,8 +339,6 @@ const PageSuperAdmin = () => {
               onChange={handleChangeCandidate}
             >
               <MenuItem value={10}>Candidats.es</MenuItem>
-              <MenuItem value={20}>Mes candidats.es</MenuItem>
-              <MenuItem value={30}>En attente</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -404,7 +402,6 @@ const PageSuperAdmin = () => {
               onChange={handleChangeConsultant}
             >
               <MenuItem value={10}>Consultants.es</MenuItem>
-              <MenuItem value={20}>Mes consultants.es</MenuItem>
             </Select>
           </FormControl>
         </Box>
