@@ -218,9 +218,9 @@ CREATE TABLE IF NOT EXISTS `externatic`.`offer` (
   `salary` VARCHAR(45) NOT NULL,
   `valide` TINYINT NOT NULL DEFAULT '0',
   `teamPicture` VARCHAR(355) NOT NULL,
-  `jobOfferPresentation` VARCHAR(1000) NOT NULL,
-  `desiredProfile` VARCHAR(1000) NOT NULL,
-  `recruitmentProcess` VARCHAR(1000) NOT NULL,
+ `jobOfferPresentation` TEXT NOT NULL,
+  `desiredProfile` TEXT NOT NULL,
+  `recruitmentProcess` TEXT NOT NULL,
   `numberOfEmployees` VARCHAR(45) NULL DEFAULT NULL,
   `jobTitleDetails` VARCHAR(45) NULL DEFAULT NULL,
   `cityId` INT NOT NULL,
@@ -350,13 +350,13 @@ INSERT INTO
   city(name, regionId, postalCode)VALUES("Paris", 1,"75000"),("Versailles", 1,"78000"), ("Lyon", 2,"69000");
   
 INSERT INTO consultant (name, firstname, mail, phone, birthday, password, street, city, postalCode, picture, superAdmin, gender)
-VALUES ('Dupont', 'Jean', 'jdupont@example.com', '01.23.45.67.89', '1990-01-01', 'monmotdepasse', '123 rue de la Paix', 'Paris', '75001', '/default/Consultant/femme.png', 1, 'male'),
+VALUES ('Dupont', 'Jean', 'jdupont@example.com', '01.23.45.67.89', '1990-01-01', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '123 rue de la Paix', 'Paris', '75001', '/default/Consultant/femme.png', 0, 'male'),
 ('Exter', 'Natic', 'externatic@gmail.com', '0123456789', '1990-01-01', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '123 rue du externatic', 'Paris', '75001', '/default/Candidat/favicon.png', 1, 'male');
 
 INSERT INTO recruiter (name, firstname, mail, phone, birthday, password, street, city, postalCode, valide, compagny_id, gender, picture)
-VALUES ('Doe', 'John', 'johndoe@example.com', '0123456789', '1980-01-01', 'mypassword', '5th Avenue', 'New York', '10001', 1, 2, 'male', '/default/Consultant/marie.jpg'),
-  ('Marie', 'Joe', 'mariejoe@example.com', '0123456789', '1980-01-01', 'mypassword', '5th Avenue', 'New York', '10001', 1, 1, 'male', '/default/Consultant/femme.png'),
-  ('Patrick', 'Parent', 'patrickparent@example.com', '0123456789', '1980-01-01', 'mypassword', '5th Avenue', 'New York', '10001', 1, 3, 'male', '/default/Consultant/jo.jpg'),
+VALUES ('Doe', 'John', 'johndoe@example.com', '0123456789', '1980-01-01', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '5th Avenue', 'New York', '10001', 1, 2, 'male', '/default/Consultant/marie.jpg'),
+  ('Marie', 'Joe', 'mariejoe@example.com', '0123456789', '1980-01-01', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '5th Avenue', 'New York', '10001', 1, 1, 'male', '/default/Consultant/femme.png'),
+  ('Patrick', 'Parent', 'patrickparent@example.com', '0123456789', '1980-01-01', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '5th Avenue', 'New York', '10001', 1, 3, 'male', '/default/Consultant/jo.jpg'),
   ('Exter', 'Natic', 'externatic@gmail.com', '0123456789', '1980-01-01', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '5th Avenue', 'New York', '10001', 1, 4, 'male', '/default/Candidat/favicon.png');
 
 INSERT INTO contrat (type) VALUES ('CDI'), ('CDD'), ('Stage'), ('Alternance');

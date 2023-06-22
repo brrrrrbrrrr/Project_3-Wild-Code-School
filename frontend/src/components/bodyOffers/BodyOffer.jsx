@@ -78,11 +78,20 @@ const BodyOffer = ({ offer, userId }) => {
           )}
         </div>
       </div>
-      <Link to={`/offers/${offer.id}`}>
-        <button type="button" className="bodyoffers-offer_button-info">
-          Plus d'infos
-        </button>
-      </Link>
+
+      {user?.user ? (
+        <Link to={`/offers/${offer.id}`}>
+          <button type="button" className="bodyoffers-offer_button-info">
+            Plus d'infos
+          </button>
+        </Link>
+      ) : (
+        <Link to="/connect">
+          <button type="button" className="bodyoffers-offer_button-info">
+            Plus d'infos
+          </button>
+        </Link>
+      )}
     </div>
   );
 };

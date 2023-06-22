@@ -110,7 +110,7 @@ function ChatCandidat() {
                   />
 
                   <div
-                    key={message.messageId}
+                    key={`${message.messageId}_${message.offerId}`}
                     className="chat-messenger_box-message"
                   >
                     {message.message}
@@ -131,7 +131,7 @@ function ChatCandidat() {
                   />
 
                   <div
-                    key={message.messageId}
+                    key={`${message.messageId}_${message.offerId}`}
                     className="chat-messenger_box-message"
                   >
                     {message.message}

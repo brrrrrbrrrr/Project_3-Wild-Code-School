@@ -148,7 +148,7 @@ DetailsOfferBody.propTypes = {
     candidateId: PropTypes.number,
     job_title: PropTypes.string,
     consultantId: PropTypes.number,
-    liked: PropTypes.bool,
+    liked: PropTypes.number,
     contrat_type: PropTypes.string,
     remote: PropTypes.number,
     numberOfEmployees: PropTypes.string,

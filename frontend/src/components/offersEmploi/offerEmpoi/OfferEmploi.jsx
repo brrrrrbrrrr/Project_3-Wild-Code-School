@@ -145,11 +145,19 @@ function OfferEmploi({ offer, userId, candidateId, validStatus }) {
         </div>
       </div>
 
-      <Link to={`/offers/${offer.id}`}>
-        <Button id="offersemploi-offer_button-info" variant="contained">
-          Plus d'infos
-        </Button>
-      </Link>
+      {user?.user ? (
+        <Link to={`/offers/${offer.id}`}>
+          <Button id="offersemploi-offer_button-info" variant="contained">
+            Plus d'infos
+          </Button>
+        </Link>
+      ) : (
+        <Link to="/connect">
+          <Button id="offersemploi-offer_button-info" variant="contained">
+            Plus d'infos
+          </Button>
+        </Link>
+      )}
     </div>
   );
 }
