@@ -1,5 +1,5 @@
 /* eslint-disable react/function-component-definition */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import { HiOutlineStar } from "react-icons/hi";
@@ -19,9 +19,11 @@ const DetailsOfferBody = (props) => {
   const [like, setLike] = useState(offer.liked);
   const [selected, setSelected] = useState(false);
 
-  if (offer?.candidateId === userId || offer?.consultantId === userId) {
-    setSelected(true);
-  }
+  useEffect(() => {
+    if (offer?.candidateId === userId || offer?.consultantId === userId) {
+      setSelected(true);
+    }
+  }, [offer, userId]);
 
   const user = useUser();
   const api = useApi();
