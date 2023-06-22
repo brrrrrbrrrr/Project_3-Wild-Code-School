@@ -23,7 +23,7 @@ const DetailsOfferHero = (props) => {
           />
         )}
 
-        <h2 className="detailsOfferHero-title">{offer.jobTitleDetails}</h2>
+        <h2 className="detailsOfferHero-title">{offer.job_title}</h2>
         <div className="detailsOfferHero-subtitles">
           <h3 className="detailsOfferHero-city detailsOfferHero-subtitle_title">
             <FiMapPin className="detailsOfferHero-icon" /> {offer.city_name} -
@@ -47,7 +47,7 @@ const DetailsOfferHero = (props) => {
 DetailsOfferHero.propTypes = {
   offer: PropTypes.shape({
     Logo: PropTypes.string.isRequired,
-    jobTitleDetails: PropTypes.string.isRequired,
+    job_title: PropTypes.string.isRequired,
     city_name: PropTypes.string.isRequired,
     postalCode: PropTypes.string.isRequired,
     recruiterPostalCode: PropTypes.string.isRequired,
