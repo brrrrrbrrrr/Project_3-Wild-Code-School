@@ -44,7 +44,7 @@ function PageMyOffersEmploi() {
       </div>
       <div className="page-my-offers-emploi_msg-container">
         <p className="page-my-offers-emploi_msg-content">
-          Vos offres doivent être validées par un consultant pour être visible
+          Vos offres doivent être validées par un consultant pour être visibles
         </p>
       </div>
 
