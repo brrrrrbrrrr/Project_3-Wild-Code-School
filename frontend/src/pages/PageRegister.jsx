@@ -56,7 +56,7 @@ function PageRegister() {
               type="button"
               onClick={handleFormCand}
             >
-              Candidat
+              Candidat.e
             </button>
           )}
           {!user && (
@@ -67,12 +67,12 @@ function PageRegister() {
               type="button"
               onClick={handleFormCons}
             >
-              Consultant
+              Consultant.e
             </button>
           )}
           {selectForm === "recruiters" && (
             <button type="button" className="select-form-btn select-btn-active">
-              Recruteur
+              Recruteur.euse
             </button>
           )}
         </div>

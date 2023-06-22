@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `externatic`.`recruiter` (
   `city` VARCHAR(45) NOT NULL,
   `postalCode` VARCHAR(45) NOT NULL,
   `valide` TINYINT NOT NULL DEFAULT '0',
-  `picture` VARCHAR(45) NULL DEFAULT NULL,
+  `picture` VARCHAR(200) NULL DEFAULT NULL,
   `compagny_id` INT NOT NULL,
   `gender` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`, `compagny_id`),
@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `externatic`.`offer` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `salary` VARCHAR(45) NOT NULL,
   `valide` TINYINT NOT NULL DEFAULT '0',
-  `teamPicture` VARCHAR(45) NOT NULL,
+  `teamPicture` VARCHAR(355) NOT NULL,
   `jobOfferPresentation` VARCHAR(1000) NOT NULL,
   `desiredProfile` VARCHAR(1000) NOT NULL,
   `recruitmentProcess` VARCHAR(1000) NOT NULL,
@@ -311,7 +311,7 @@ INSERT INTO
     'Fuse',
     'Fuse@fuse.fr',
     '0745985623',
-    'Fusee',
+    '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA',
     '1',
     'default/Entreprise/fuse.png'
   ),
@@ -320,7 +320,7 @@ INSERT INTO
     'Instagram',
     'instagram@meta.com',
     '0687456985',
-    'Instagram',
+    '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA',
     '1',
     'default/Entreprise/instagram.png'
   ),
@@ -329,7 +329,7 @@ INSERT INTO
     'Lorem',
     'Lorem@ipsum.com',
     '0958461235',
-    'Lorem',
+    '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA',
     '1',
     'default/Entreprise/lorem.png'
   ),
@@ -391,9 +391,9 @@ INSERT INTO offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredP
 `gender`
 )
 VALUES
-(1, 'Jean', 'Gabin', '2000-01-10', 'Paul Bert', 'Lyon', '69000', 'Jean.gabin@gmail.com', '0601020304', '$argon2id$v=19$m=65536,t=5,p=1$+NlRs5ZjLo4lx0X2ZY3QpQ$DbFqZGJ0D0ZEmFUmRWWKICyKTyJnz3ZVLlSJ9Mdas/s', '1', '/default/Candidat/chatgpt.jpg', 'uploads/default/Candidat/BenjaminCV2.pdf', '2', 'masculin'),
-(2, 'Benjamin', 'Chaillan', '2000-01-11', 'Gaston Doumer', 'Marseille', '13000', 'benjaminChaillan@gmail.com', '0605040302', '$argon2id$v=19$m=65536,t=5,p=1$+NlRs5ZjLo4lx0X2ZY3QpQ$DbFqZGJ0D0ZEmFUmRWWKICyKTyJnz3ZVLlSJ9Mdas/s', '1', 'default/Candidat/Benjamin.png', 'uploads/candidate/1/Lettrededcharge.pdf', '2','masculin'),
-(3, 'Exter', 'Natic', '2000-01-10', 'Externarue', 'Lyon', '69000', 'externatic@gmail.com', '0601020304', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '1', '/default/Candidat/favicon.png', 'uploads/default/Candidat/BenjaminCV2.pdf', '2', 'masculin');
+(1, 'Jean', 'Gabin', '2000-01-10', 'Paul Bert', 'Lyon', '69000', 'Jean.gabin@gmail.com', '0601020304', '$argon2id$v=19$m=65536,t=5,p=1$+NlRs5ZjLo4lx0X2ZY3QpQ$DbFqZGJ0D0ZEmFUmRWWKICyKTyJnz3ZVLlSJ9Mdas/s', '1', '/default/Candidat/chatgpt.jpg', '/default/Candidat/BenjaminCV2.pdf', '2', 'masculin'),
+(2, 'Benjamin', 'Chaillan', '2000-01-11', 'Gaston Doumer', 'Marseille', '13000', 'benjaminChaillan@gmail.com', '0605040302', '$argon2id$v=19$m=65536,t=5,p=1$+NlRs5ZjLo4lx0X2ZY3QpQ$DbFqZGJ0D0ZEmFUmRWWKICyKTyJnz3ZVLlSJ9Mdas/s', '1', 'default/Candidat/Benjamin.png', '/candidate/1/Lettrededcharge.pdf', '2','masculin'),
+(3, 'Exter', 'Natic', '2000-01-10', 'Externarue', 'Lyon', '69000', 'externatic@gmail.com', '0601020304', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '1', '/default/Candidat/favicon.png', '/default/Candidat/BenjaminCV2.pdf', '2', 'masculin');
 
 INSERT INTO offer_status
 (`id`,`text`)

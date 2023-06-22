@@ -170,7 +170,7 @@ function Login() {
                   className={getMenuItemClassName(candidates)}
                   onClick={handleClickCandidates}
                 >
-                  Candidat
+                  Candidat.e
                 </li>
                 <li
                   className={getMenuItemClassName(compagnys)}
@@ -182,13 +182,13 @@ function Login() {
                   className={getMenuItemClassName(recruiters)}
                   onClick={handleClickRecruiter}
                 >
-                  Recruteur
+                  Recruteur.euse
                 </li>
                 <li
                   className={getMenuItemClassName(consultants)}
                   onClick={handleClickConsultants}
                 >
-                  Consultant
+                  Consultant.e
                 </li>
               </ul>
             </div>
