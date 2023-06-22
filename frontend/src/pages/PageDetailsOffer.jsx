@@ -16,7 +16,11 @@ export default function PageDetailsOffer() {
 
   useEffect(() => {
     api
-      .get(`/offers/${id}`)
+      .get(`/offers/${id}`, {
+        params: {
+          candId: user?.user?.id,
+        },
+      })
       .then((response) => {
         setOffer(response.data);
       })

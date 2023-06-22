@@ -91,7 +91,10 @@ function ChatCandidat() {
         <h2 className="chat-container_title">{state.job_title}</h2>
         <h2 className="chat-container_title">Messagerie</h2>
         {messages.slice(0, 1).map((message) => (
-          <h2 key={message.messageId} className="chat-container_title">
+          <h2
+            key={`${message.messageId}_${message.offerId}`}
+            className="chat-container_title"
+          >
             avec votre consultant {message.firstname} {message.name}
           </h2>
         ))}

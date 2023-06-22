@@ -341,8 +341,9 @@ const cityfilter = (req, res) => {
 };
 
 const read = (req, res) => {
+  const { candId } = req.query;
   models.offer
-    .find(parseInt(req.params.id, 10))
+    .find(parseInt(candId, 10), parseInt(req.params.id, 10))
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
@@ -381,6 +382,7 @@ const getLikedOffers = (req, res) => {
 };
 
 const multifilter = (req, res) => {
+  const { candId } = req.query;
   const {
     jobmultifilter,
     remotemultifilter,
@@ -392,7 +394,8 @@ const multifilter = (req, res) => {
       parseInt(jobmultifilter, 10),
       parseInt(remotemultifilter, 10),
       parseInt(contractmultifilter, 10),
-      parseInt(citymultifilter, 10)
+      parseInt(citymultifilter, 10),
+      parseInt(candId, 10)
     )
     .then(([rows]) => {
       res.send(rows);
