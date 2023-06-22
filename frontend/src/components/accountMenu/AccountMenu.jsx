@@ -27,11 +27,6 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
   return (
     <div className="account-menu_container">
       <ul className="account-menu_ul">
-        {user?.userType === "recruiters" && (
-          <li className="account-menu_li">
-            <NavLink to="/my-offers">Ajouter une offre</NavLink>
-          </li>
-        )}
         {user?.userType === "recruiters" || user?.userType === "candidates" ? (
           <li className="account-menu_li">
             <NavLink to="/my-offers">Mes offres</NavLink>
