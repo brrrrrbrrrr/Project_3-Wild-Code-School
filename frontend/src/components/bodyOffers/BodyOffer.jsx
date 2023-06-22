@@ -43,6 +43,19 @@ const BodyOffer = ({ offer, userId }) => {
       });
   };
 
+  const handleClick = () => {
+    toast.info("Veuillez vous connecter", {
+      position: "top-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
   const isConsultant = user?.user?.userType === "consultants";
   const isCandidate = user?.user?.userType === "candidates";
 
@@ -86,7 +99,7 @@ const BodyOffer = ({ offer, userId }) => {
           </button>
         </Link>
       ) : (
-        <Link to="/connect">
+        <Link to="/connect" oncClick={handleClick} onClick={handleClick}>
           <button type="button" className="bodyoffers-offer_button-info">
             Plus d'infos
           </button>

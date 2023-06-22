@@ -51,6 +51,18 @@ function OfferEmploi({ offer, userId, candidateId, validStatus }) {
         });
       });
   };
+  const handleClick = () => {
+    toast.info("Veuillez vous connecter", {
+      position: "top-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
 
   const handleValid = () => {
     const updateValue = {
@@ -153,7 +165,11 @@ function OfferEmploi({ offer, userId, candidateId, validStatus }) {
         </Link>
       ) : (
         <Link to="/connect">
-          <Button id="offersemploi-offer_button-info" variant="contained">
+          <Button
+            id="offersemploi-offer_button-info"
+            variant="contained"
+            onClick={handleClick}
+          >
             Plus d'infos
           </Button>
         </Link>

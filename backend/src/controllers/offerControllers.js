@@ -342,6 +342,7 @@ const cityfilter = (req, res) => {
 
 const read = (req, res) => {
   const { candId } = req.query;
+
   models.offer
     .find(parseInt(candId, 10), parseInt(req.params.id, 10))
     .then(([rows]) => {

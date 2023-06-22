@@ -245,7 +245,7 @@ AND o.valide=1
     const dependencies = [];
     let sql = `
     SELECT o.id, o.salary, o.teamPicture, o.jobOfferPresentation, o.desiredProfile, o.recruitmentProcess, o.numberOfEmployees, o.jobTitleDetails,
-   c.name AS city_name, co.Logo, ct.type AS contract_type, j.name AS job_title, re.type AS remote_type, offer_candidate.liked, offer_candidate.candidateId, consultant.id as consultantId, r.id as recruiterId
+   c.name AS city_name, co.Logo, ct.type AS contract_type, j.name AS job_title, re.type AS remote_type, consultant.id as consultantId, r.id as recruiterId
   FROM offer AS o
   JOIN city AS c ON c.id = o.cityId
   JOIN recruiter AS r ON r.id = o.recruiterId
@@ -254,9 +254,15 @@ AND o.valide=1
   JOIN job_title as j ON j.id = o.jobTitleId
   JOIN remote AS re ON re.id = o.remoteId
   join consultant on consultant.id=o.consultantId 
-  LEFT JOIN (select offerId, candidateId, liked from offer_candidate where candidateId =?) as offer_candidate on offer_candidate.offerId = o.id
+  
  
   `;
+
+    if (candidateId.isNaN) {
+      sql += ` LEFT JOIN (select offerId, candidateId, liked from offer_candidate where candidateId = ?) as offer_candidate on offer_candidate.offerId = o.id `;
+      dependencies.push(candidateId);
+    }
+
     if (!(jobmultifilter === 0)) {
       sql += ` WHERE o.jobTitleId = ? AND o.valide=1 `;
       dependencies.push(jobmultifilter);
@@ -292,7 +298,7 @@ AND o.valide=1
         dependencies.push(citymultifilter);
       }
     }
-    dependencies.push(candidateId);
+
     return this.database.query(sql, dependencies);
   }
 
