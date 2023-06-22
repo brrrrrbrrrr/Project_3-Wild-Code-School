@@ -60,14 +60,19 @@ OfferValid.propTypes = {
   offer: PropTypes.shape({
     id: PropTypes.number,
     Logo: PropTypes.string,
-    salary: PropTypes.string.isRequired,
-    job_title: PropTypes.string.isRequired,
-    contract_type: PropTypes.string.isRequired,
-    remote_type: PropTypes.string.isRequired,
-    city_name: PropTypes.string.isRequired,
-    valid: PropTypes.number.isRequired,
-  }).isRequired,
-  refresh: PropTypes.bool.isRequired,
-  setRefresh: PropTypes.func.isRequired,
+    salary: PropTypes.string,
+    job_title: PropTypes.string,
+    contract_type: PropTypes.string,
+    remote_type: PropTypes.string,
+    city_name: PropTypes.string,
+    valid: PropTypes.number,
+  }),
+  refresh: PropTypes.bool,
+  setRefresh: PropTypes.func,
+};
+OfferValid.defaultProps = {
+  offer: null,
+  refresh: null,
+  setRefresh: null,
 };
 export default OfferValid;

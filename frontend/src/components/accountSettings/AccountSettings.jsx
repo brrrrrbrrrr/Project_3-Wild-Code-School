@@ -230,10 +230,10 @@ function AccountSettings({ user, userParam }) {
 
 AccountSettings.propTypes = {
   user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    userType: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    userType: PropTypes.string,
     superAdmin: PropTypes.string,
-  }).isRequired,
+  }),
   userParam: PropTypes.shape({
     id: PropTypes.number,
     userType: PropTypes.string,
@@ -242,6 +242,7 @@ AccountSettings.propTypes = {
 
 AccountSettings.defaultProps = {
   userParam: null,
+  user: null,
 };
 
 export default AccountSettings;

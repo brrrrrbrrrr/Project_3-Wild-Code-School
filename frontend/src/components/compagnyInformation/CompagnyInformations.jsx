@@ -188,14 +188,15 @@ function CompagnyInformations({ user, setNewName }) {
 }
 CompagnyInformations.propTypes = {
   user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    userType: PropTypes.string.isRequired,
-  }).isRequired,
+    id: PropTypes.number,
+    userType: PropTypes.string,
+  }),
 
   setNewName: PropTypes.func,
 };
 CompagnyInformations.defaultProps = {
   setNewName: null,
+  user: null,
 };
 
 export default CompagnyInformations;

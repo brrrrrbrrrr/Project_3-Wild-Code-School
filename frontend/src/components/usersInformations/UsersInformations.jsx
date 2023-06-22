@@ -444,8 +444,8 @@ function UsersInformations({ user, userParam, setNewName }) {
 }
 UsersInformations.propTypes = {
   user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    userType: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    userType: PropTypes.string,
     superAdmin: PropTypes.number,
   }),
   userParam: PropTypes.shape({

@@ -60,13 +60,18 @@ const Enterprise = ({ enterprise, refresh, setRefresh }) => {
 Enterprise.propTypes = {
   enterprise: PropTypes.shape({
     id: PropTypes.number,
-    siretNumber: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    Logo: PropTypes.string.isRequired,
-    Valide: PropTypes.number.isRequired,
-  }).isRequired,
-  refresh: PropTypes.bool.isRequired,
-  setRefresh: PropTypes.func.isRequired,
+    siretNumber: PropTypes.string,
+    name: PropTypes.string,
+    Logo: PropTypes.string,
+    Valide: PropTypes.number,
+  }),
+  refresh: PropTypes.bool,
+  setRefresh: PropTypes.func,
+};
+Enterprise.defaultProps = {
+  enterprise: null,
+  refresh: null,
+  setRefresh: null,
 };
 
 export default Enterprise;

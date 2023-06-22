@@ -141,16 +141,22 @@ const Candidate = ({ candidate, refresh, setRefresh }) => {
 Candidate.propTypes = {
   candidate: PropTypes.shape({
     id: PropTypes.number,
-    picture: PropTypes.string.isRequired,
-    resume: PropTypes.string.isRequired,
+    picture: PropTypes.string,
+    resume: PropTypes.string,
     likeCount: PropTypes.number,
     offer_statusId: PropTypes.number,
 
-    name: PropTypes.string.isRequired,
-    firstname: PropTypes.string.isRequired,
-    city: PropTypes.string.isRequired,
-  }).isRequired,
-  refresh: PropTypes.bool.isRequired,
-  setRefresh: PropTypes.func.isRequired,
+    name: PropTypes.string,
+    firstname: PropTypes.string,
+    city: PropTypes.string,
+  }),
+  refresh: PropTypes.bool,
+  setRefresh: PropTypes.func,
+};
+
+Candidate.defaultProps = {
+  candidate: null,
+  refresh: null,
+  setRefresh: null,
 };
 export default Candidate;

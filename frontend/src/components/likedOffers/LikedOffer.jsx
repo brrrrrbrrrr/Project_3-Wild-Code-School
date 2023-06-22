@@ -27,13 +27,16 @@ const LikedOffer = ({ offer }) => {
 };
 LikedOffer.propTypes = {
   offer: PropTypes.shape({
-    job_title: PropTypes.string.isRequired,
-    salary: PropTypes.string.isRequired,
-    contrat_type: PropTypes.string.isRequired,
-    remote_type: PropTypes.string.isRequired,
-    city_name: PropTypes.string.isRequired,
-    offer_status_text: PropTypes.string.isRequired,
-  }).isRequired,
+    job_title: PropTypes.string,
+    salary: PropTypes.string,
+    contrat_type: PropTypes.string,
+    remote_type: PropTypes.string,
+    city_name: PropTypes.string,
+    offer_status_text: PropTypes.string,
+  }),
+};
+LikedOffer.defaultProps = {
+  offer: null,
 };
 
 export default LikedOffer;

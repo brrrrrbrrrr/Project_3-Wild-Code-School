@@ -90,23 +90,24 @@ const BodyOffer = ({ offer, userId }) => {
 BodyOffer.propTypes = {
   userId: PropTypes.number,
   offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     candidateId: PropTypes.number,
-    job_title: PropTypes.string.isRequired,
-    salary: PropTypes.string.isRequired,
-    contract_type: PropTypes.string.isRequired,
-    city_name: PropTypes.string.isRequired,
-    remote_type: PropTypes.string.isRequired,
-    numberOfEmployees: PropTypes.string.isRequired,
-    consultantId: PropTypes.number.isRequired,
+    job_title: PropTypes.string,
+    salary: PropTypes.string,
+    contract_type: PropTypes.string,
+    city_name: PropTypes.string,
+    remote_type: PropTypes.string,
+    numberOfEmployees: PropTypes.string,
+    consultantId: PropTypes.number,
     liked: PropTypes.number,
-    Logo: PropTypes.string.isRequired,
-    recruiterId: PropTypes.number.isRequired,
-  }).isRequired,
+    Logo: PropTypes.string,
+    recruiterId: PropTypes.number,
+  }),
 };
 
 BodyOffer.defaultProps = {
   userId: null,
+  offer: null,
 };
 
 export default BodyOffer;

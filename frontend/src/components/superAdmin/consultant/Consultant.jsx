@@ -43,13 +43,17 @@ const Consultant = ({ consultant, refresh, setRefresh }) => {
 Consultant.propTypes = {
   consultant: PropTypes.shape({
     id: PropTypes.number,
-    picture: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    firstname: PropTypes.string.isRequired,
-    city: PropTypes.string.isRequired,
-  }).isRequired,
-  refresh: PropTypes.bool.isRequired,
-  setRefresh: PropTypes.func.isRequired,
+    picture: PropTypes.string,
+    name: PropTypes.string,
+    firstname: PropTypes.string,
+    city: PropTypes.string,
+  }),
+  refresh: PropTypes.bool,
+  setRefresh: PropTypes.func,
 };
-
+Consultant.defaultProps = {
+  consultant: null,
+  refresh: null,
+  setRefresh: null,
+};
 export default Consultant;
