@@ -16,10 +16,12 @@ const DetailsOfferBody = (props) => {
   const { offer, userId } = props;
   const urlFile = import.meta.env.VITE_APP_URL;
 
-  const [selected, setSelected] = useState(
-    offer.candidateId === userId || offer.consultantId === userId
-  );
   const [like, setLike] = useState(offer.liked);
+  const [selected, setSelected] = useState(false);
+
+  if (offer?.candidateId === userId || offer?.consultantId === userId) {
+    setSelected(true);
+  }
 
   const user = useUser();
   const api = useApi();
@@ -33,6 +35,7 @@ const DetailsOfferBody = (props) => {
       .then(() => {
         setSelected(!selected);
         setLike(!like);
+        setSelected(!selected);
       })
       .catch(() => {
         toast.error("Une erreur s'est produite", {
