@@ -8,6 +8,7 @@ import "./DetailsOfferHero.css";
 
 const DetailsOfferHero = (props) => {
   const { offer } = props;
+
   const urlFile = import.meta.env.VITE_APP_URL;
   return (
     <div className="detailsOfferHero-container">

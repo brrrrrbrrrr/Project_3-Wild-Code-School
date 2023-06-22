@@ -99,7 +99,7 @@ BodyOffer.propTypes = {
     remote_type: PropTypes.string.isRequired,
     numberOfEmployees: PropTypes.string.isRequired,
     consultantId: PropTypes.number.isRequired,
-    liked: PropTypes.bool,
+    liked: PropTypes.number,
     Logo: PropTypes.string.isRequired,
     recruiterId: PropTypes.number.isRequired,
   }).isRequired,
