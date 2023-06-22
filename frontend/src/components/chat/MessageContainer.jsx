@@ -162,8 +162,12 @@ function MessageContainer({ offerId, contactSelected }) {
 }
 
 MessageContainer.propTypes = {
-  offerId: PropTypes.number.isRequired,
-  contactSelected: PropTypes.number.isRequired,
+  offerId: PropTypes.number,
+  contactSelected: PropTypes.number,
+};
+MessageContainer.defaultProps = {
+  offerId: null,
+  contactSelected: null,
 };
 
 export default MessageContainer;

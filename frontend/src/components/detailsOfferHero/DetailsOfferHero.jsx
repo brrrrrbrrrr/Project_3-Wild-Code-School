@@ -8,12 +8,17 @@ import "./DetailsOfferHero.css";
 
 const DetailsOfferHero = (props) => {
   const { offer } = props;
+
   const urlFile = import.meta.env.VITE_APP_URL;
   return (
     <div className="detailsOfferHero-container">
       <div
         className="detailsOfferHero-image"
-        style={{ backgroundImage: `url(${urlFile}/${offer.teamPicture})` }}
+        style={{
+          backgroundImage: offer?.teamPicture
+            ? `url(${urlFile}/${offer.teamPicture})`
+            : null,
+        }}
       >
         {offer?.Logo && (
           <img
@@ -46,16 +51,20 @@ const DetailsOfferHero = (props) => {
 
 DetailsOfferHero.propTypes = {
   offer: PropTypes.shape({
-    Logo: PropTypes.string.isRequired,
-    job_title: PropTypes.string.isRequired,
-    city_name: PropTypes.string.isRequired,
-    postalCode: PropTypes.string.isRequired,
-    recruiterPostalCode: PropTypes.string.isRequired,
-    contrat_type: PropTypes.string.isRequired,
-    remoteWork: PropTypes.number.isRequired,
-    salary: PropTypes.number.isRequired,
-    teamPicture: PropTypes.string.isRequired,
-  }).isRequired,
+    Logo: PropTypes.string,
+    job_title: PropTypes.string,
+    jobTitleDetails: PropTypes.string,
+    city_name: PropTypes.string,
+    postalCode: PropTypes.string,
+    recruiterPostalCode: PropTypes.string,
+    contrat_type: PropTypes.string,
+    remoteWork: PropTypes.number,
+    salary: PropTypes.string,
+    teamPicture: PropTypes.string,
+  }),
+};
+DetailsOfferHero.defaultProps = {
+  offer: null,
 };
 
 export default DetailsOfferHero;

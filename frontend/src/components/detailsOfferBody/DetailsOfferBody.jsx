@@ -1,5 +1,5 @@
 /* eslint-disable react/function-component-definition */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import { HiOutlineStar } from "react-icons/hi";
@@ -17,11 +17,13 @@ const DetailsOfferBody = (props) => {
   const urlFile = import.meta.env.VITE_APP_URL;
 
   const [like, setLike] = useState(offer.liked);
+  const [selected, setSelected] = useState(false);
 
-  let selected = false;
-  if (offer?.candidateId === userId || offer?.consultantId === userId) {
-    selected = true;
-  }
+  useEffect(() => {
+    if (offer?.candidateId === userId || offer?.consultantId === userId) {
+      setSelected(true);
+    }
+  }, [offer, userId]);
 
   const user = useUser();
   const api = useApi();
@@ -34,6 +36,7 @@ const DetailsOfferBody = (props) => {
       })
       .then(() => {
         setLike(!like);
+        setSelected(!selected);
       })
       .catch(() => {
         toast.error("Une erreur s'est produite", {
@@ -140,23 +143,24 @@ const DetailsOfferBody = (props) => {
 DetailsOfferBody.propTypes = {
   userId: PropTypes.number,
   offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    Logo: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    Logo: PropTypes.string,
     candidateId: PropTypes.number,
-    job_title: PropTypes.string.isRequired,
-    consultantId: PropTypes.number.isRequired,
-    liked: PropTypes.bool,
-    contrat_type: PropTypes.string.isRequired,
-    remote: PropTypes.number.isRequired,
-    numberOfEmployees: PropTypes.string.isRequired,
-    salary: PropTypes.number.isRequired,
-    jobOfferPresentation: PropTypes.string.isRequired,
-    desiredProfile: PropTypes.string.isRequired,
-    recruitmentProcess: PropTypes.string.isRequired,
-  }).isRequired,
+    job_title: PropTypes.string,
+    consultantId: PropTypes.number,
+    liked: PropTypes.number,
+    contrat_type: PropTypes.string,
+    remote: PropTypes.number,
+    numberOfEmployees: PropTypes.string,
+    salary: PropTypes.string,
+    jobOfferPresentation: PropTypes.string,
+    desiredProfile: PropTypes.string,
+    recruitmentProcess: PropTypes.string,
+  }),
 };
 DetailsOfferBody.defaultProps = {
   userId: null,
+  offer: null,
 };
 
 export default DetailsOfferBody;

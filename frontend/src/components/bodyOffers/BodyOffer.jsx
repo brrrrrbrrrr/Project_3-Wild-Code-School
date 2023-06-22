@@ -43,6 +43,19 @@ const BodyOffer = ({ offer, userId }) => {
       });
   };
 
+  const handleClick = () => {
+    toast.info("Veuillez vous connecter", {
+      position: "top-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
   const isConsultant = user?.user?.userType === "consultants";
   const isCandidate = user?.user?.userType === "candidates";
 
@@ -78,11 +91,20 @@ const BodyOffer = ({ offer, userId }) => {
           )}
         </div>
       </div>
-      <Link to={`/offers/${offer.id}`}>
-        <button type="button" className="bodyoffers-offer_button-info">
-          Plus d'infos
-        </button>
-      </Link>
+
+      {user?.user ? (
+        <Link to={`/offers/${offer.id}`}>
+          <button type="button" className="bodyoffers-offer_button-info">
+            Plus d'infos
+          </button>
+        </Link>
+      ) : (
+        <Link to="/connect" oncClick={handleClick} onClick={handleClick}>
+          <button type="button" className="bodyoffers-offer_button-info">
+            Plus d'infos
+          </button>
+        </Link>
+      )}
     </div>
   );
 };
@@ -90,23 +112,24 @@ const BodyOffer = ({ offer, userId }) => {
 BodyOffer.propTypes = {
   userId: PropTypes.number,
   offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     candidateId: PropTypes.number,
-    job_title: PropTypes.string.isRequired,
-    salary: PropTypes.string.isRequired,
-    contract_type: PropTypes.string.isRequired,
-    city_name: PropTypes.string.isRequired,
-    remote_type: PropTypes.string.isRequired,
-    numberOfEmployees: PropTypes.string.isRequired,
-    consultantId: PropTypes.number.isRequired,
-    liked: PropTypes.bool,
-    Logo: PropTypes.string.isRequired,
-    recruiterId: PropTypes.number.isRequired,
-  }).isRequired,
+    job_title: PropTypes.string,
+    salary: PropTypes.string,
+    contract_type: PropTypes.string,
+    city_name: PropTypes.string,
+    remote_type: PropTypes.string,
+    numberOfEmployees: PropTypes.string,
+    consultantId: PropTypes.number,
+    liked: PropTypes.number,
+    Logo: PropTypes.string,
+    recruiterId: PropTypes.number,
+  }),
 };
 
 BodyOffer.defaultProps = {
   userId: null,
+  offer: null,
 };
 
 export default BodyOffer;

@@ -51,6 +51,18 @@ function OfferEmploi({ offer, userId, candidateId, validStatus }) {
         });
       });
   };
+  const handleClick = () => {
+    toast.info("Veuillez vous connecter", {
+      position: "top-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
 
   const handleValid = () => {
     const updateValue = {
@@ -145,11 +157,23 @@ function OfferEmploi({ offer, userId, candidateId, validStatus }) {
         </div>
       </div>
 
-      <Link to={`/offers/${offer.id}`}>
-        <Button id="offersemploi-offer_button-info" variant="contained">
-          Plus d'infos
-        </Button>
-      </Link>
+      {user?.user ? (
+        <Link to={`/offers/${offer.id}`}>
+          <Button id="offersemploi-offer_button-info" variant="contained">
+            Plus d'infos
+          </Button>
+        </Link>
+      ) : (
+        <Link to="/connect">
+          <Button
+            id="offersemploi-offer_button-info"
+            variant="contained"
+            onClick={handleClick}
+          >
+            Plus d'infos
+          </Button>
+        </Link>
+      )}
     </div>
   );
 }
@@ -159,25 +183,26 @@ OfferEmploi.propTypes = {
   candidateId: PropTypes.number,
   validStatus: PropTypes.number,
   offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     candidateId: PropTypes.number,
-    job_title: PropTypes.string.isRequired,
-    salary: PropTypes.string.isRequired,
-    contract_type: PropTypes.string.isRequired,
-    city_name: PropTypes.string.isRequired,
-    remote_type: PropTypes.string.isRequired,
-    numberOfEmployees: PropTypes.string.isRequired,
-    consultantId: PropTypes.number.isRequired,
-    liked: PropTypes.bool,
-    Logo: PropTypes.string.isRequired,
-    recruiterId: PropTypes.number.isRequired,
-  }).isRequired,
+    job_title: PropTypes.string,
+    salary: PropTypes.string,
+    contract_type: PropTypes.string,
+    city_name: PropTypes.string,
+    remote_type: PropTypes.string,
+    numberOfEmployees: PropTypes.string,
+    consultantId: PropTypes.number,
+    liked: PropTypes.number,
+    Logo: PropTypes.string,
+    recruiterId: PropTypes.number,
+  }),
 };
 
 OfferEmploi.defaultProps = {
   userId: null,
   candidateId: null,
   validStatus: null,
+  offer: null,
 };
 
 export default OfferEmploi;

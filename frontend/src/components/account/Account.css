@@ -4,12 +4,24 @@
   color: var(--background-color);
   cursor: pointer;
   position: relative;
-  padding: 0px 10px;
+  padding: 10px;
+  overflow: hidden;
 }
 
-.account-container:hover {
-  color: var(--second-color);
-  background-color: var(--menu-color);
+.account-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  width: 10px;
+  height: 2px;
+  background-color: var(--background-color);
+  transition: 0.5s;
+}
+
+.account-container:hover::after {
+  width: 100%;
+  transition-delay: 0.1s;
 }
 
 @media screen and (min-width: 1024px) {

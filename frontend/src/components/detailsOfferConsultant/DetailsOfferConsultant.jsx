@@ -38,7 +38,10 @@ DetailsOfferConsultant.propTypes = {
     consultantFirstname: PropTypes.string,
     consultantName: PropTypes.string,
     city_name: PropTypes.string,
-  }).isRequired,
+  }),
+};
+DetailsOfferConsultant.defaultProps = {
+  offer: null,
 };
 
 export default DetailsOfferConsultant;

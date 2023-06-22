@@ -285,7 +285,7 @@ const add = async (req, res) => {
 
 const destroy = (req, res) => {
   const idPayload = req.payload.sub.id;
-  const { id } = req.params;
+  const id = parseInt(req.params.id, 10);
   if (id !== idPayload) {
     return res.sendStatus(401);
   }

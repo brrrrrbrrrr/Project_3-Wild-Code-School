@@ -1,13 +1,15 @@
 .account-menu_container {
   position: absolute;
-  margin-top: 40px;
+  margin-top: 20px;
+  margin-right: 20px;
+  right: 50px;
 }
 
 .account-menu_ul {
   background-color: #134068ae;
   padding: 10px;
   transition: all 0.3s;
-
+  font-size: 15px;
   border-radius: 5px;
 }
 

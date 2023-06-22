@@ -342,6 +342,7 @@ const cityfilter = (req, res) => {
 
 const read = (req, res) => {
   const { candId } = req.query;
+
   models.offer
     .find(parseInt(candId, 10), parseInt(req.params.id, 10))
     .then(([rows]) => {
@@ -373,11 +374,15 @@ const getLikedOffers = (req, res) => {
   models.offer
     .findLikedCandidateOffers(parseInt(req.payload.sub.id, 10))
     .then(([rows]) => {
-      if (rows[0] == null) {
-        res.sendStatus(404);
+      if (rows.length === 0) {
+        res.send([]);
       } else {
         res.send(rows);
       }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
     });
 };
 

@@ -1,7 +1,9 @@
 nav {
-  position: relative;
+  position: fixed;
+  top: 0;
+  z-index: 500;
   width: 100%;
-  height: 80px;
+  height: 50px;
   display: flex;
   background-color: var(--primary-color);
   justify-content: flex-end;
@@ -26,6 +28,7 @@ nav {
 .nav-bar_title {
   font-size: 15px;
   transition: 0.5s;
+  padding: 10px;
 }
 
 .menu a {
@@ -33,7 +36,6 @@ nav {
 }
 
 .navlink-menu:hover {
-  color: var(--second-color);
   background-color: var(--menu-color);
 }
 
@@ -50,7 +52,7 @@ nav {
 }
 
 .burger-menu {
-  position: relative;
+  position: absolute;
   width: 26px;
   height: 4px;
   background-color: white;
@@ -89,6 +91,7 @@ nav {
   z-index: 9999;
   cursor: pointer;
   opacity: 0;
+  border: 1px solid red;
 }
 
 /*Animation de la croix, disparition de la barre du milieu*/
@@ -161,6 +164,11 @@ nav {
   }
   .menu li a {
     margin: 40px;
+  }
+  nav {
+    position: fixed;
+    z-index: 500;
+    height: 50px;
   }
 }
 

@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `externatic`.`recruiter` (
   `city` VARCHAR(45) NOT NULL,
   `postalCode` VARCHAR(45) NOT NULL,
   `valide` TINYINT NOT NULL DEFAULT '0',
-  `picture` VARCHAR(45) NULL DEFAULT NULL,
+  `picture` VARCHAR(200) NULL DEFAULT NULL,
   `compagny_id` INT NOT NULL,
   `gender` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`, `compagny_id`),
@@ -311,7 +311,7 @@ INSERT INTO
     'Fuse',
     'Fuse@fuse.fr',
     '0745985623',
-    'Fusee',
+    '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA',
     '1',
     'default/Entreprise/fuse.png'
   ),
@@ -320,7 +320,7 @@ INSERT INTO
     'Instagram',
     'instagram@meta.com',
     '0687456985',
-    'Instagram',
+    '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA',
     '1',
     'default/Entreprise/instagram.png'
   ),
@@ -329,7 +329,7 @@ INSERT INTO
     'Lorem',
     'Lorem@ipsum.com',
     '0958461235',
-    'Lorem',
+    '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA',
     '1',
     'default/Entreprise/lorem.png'
   ),
@@ -350,13 +350,13 @@ INSERT INTO
   city(name, regionId, postalCode)VALUES("Paris", 1,"75000"),("Versailles", 1,"78000"), ("Lyon", 2,"69000");
   
 INSERT INTO consultant (name, firstname, mail, phone, birthday, password, street, city, postalCode, picture, superAdmin, gender)
-VALUES ('Dupont', 'Jean', 'jdupont@example.com', '01.23.45.67.89', '1990-01-01', 'monmotdepasse', '123 rue de la Paix', 'Paris', '75001', '/default/Consultant/femme.png', 1, 'male'),
+VALUES ('Dupont', 'Jean', 'jdupont@example.com', '01.23.45.67.89', '1990-01-01', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '123 rue de la Paix', 'Paris', '75001', '/default/Consultant/femme.png', 0, 'male'),
 ('Exter', 'Natic', 'externatic@gmail.com', '0123456789', '1990-01-01', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '123 rue du externatic', 'Paris', '75001', '/default/Candidat/favicon.png', 1, 'male');
 
 INSERT INTO recruiter (name, firstname, mail, phone, birthday, password, street, city, postalCode, valide, compagny_id, gender, picture)
-VALUES ('Doe', 'John', 'johndoe@example.com', '0123456789', '1980-01-01', 'mypassword', '5th Avenue', 'New York', '10001', 1, 2, 'male', '/default/Consultant/marie.jpg'),
-  ('Marie', 'Joe', 'mariejoe@example.com', '0123456789', '1980-01-01', 'mypassword', '5th Avenue', 'New York', '10001', 1, 1, 'male', '/default/Consultant/femme.png'),
-  ('Patrick', 'Parent', 'patrickparent@example.com', '0123456789', '1980-01-01', 'mypassword', '5th Avenue', 'New York', '10001', 1, 3, 'male', '/default/Consultant/jo.jpg'),
+VALUES ('Doe', 'John', 'johndoe@example.com', '0123456789', '1980-01-01', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '5th Avenue', 'New York', '10001', 1, 2, 'male', '/default/Consultant/marie.jpg'),
+  ('Marie', 'Joe', 'mariejoe@example.com', '0123456789', '1980-01-01', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '5th Avenue', 'New York', '10001', 1, 1, 'male', '/default/Consultant/femme.png'),
+  ('Patrick', 'Parent', 'patrickparent@example.com', '0123456789', '1980-01-01', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '5th Avenue', 'New York', '10001', 1, 3, 'male', '/default/Consultant/jo.jpg'),
   ('Exter', 'Natic', 'externatic@gmail.com', '0123456789', '1980-01-01', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '5th Avenue', 'New York', '10001', 1, 4, 'male', '/default/Candidat/favicon.png');
 
 INSERT INTO contrat (type) VALUES ('CDI'), ('CDD'), ('Stage'), ('Alternance');
@@ -456,9 +456,9 @@ Le Directeur Général de CCM Benchmark", "70", "Senior Project Manager", 3, 1, 
 `gender`
 )
 VALUES
-(1, 'Jean', 'Gabin', '2000-01-10', 'Paul Bert', 'Lyon', '69000', 'Jean.gabin@gmail.com', '0601020304', '$argon2id$v=19$m=65536,t=5,p=1$+NlRs5ZjLo4lx0X2ZY3QpQ$DbFqZGJ0D0ZEmFUmRWWKICyKTyJnz3ZVLlSJ9Mdas/s', '1', '/default/Candidat/chatgpt.jpg', 'uploads/default/Candidat/BenjaminCV2.pdf', '2', 'masculin'),
-(2, 'Benjamin', 'Chaillan', '2000-01-11', 'Gaston Doumer', 'Marseille', '13000', 'benjaminChaillan@gmail.com', '0605040302', '$argon2id$v=19$m=65536,t=5,p=1$+NlRs5ZjLo4lx0X2ZY3QpQ$DbFqZGJ0D0ZEmFUmRWWKICyKTyJnz3ZVLlSJ9Mdas/s', '1', 'default/Candidat/Benjamin.png', 'uploads/candidate/1/Lettrededcharge.pdf', '2','masculin'),
-(3, 'Exter', 'Natic', '2000-01-10', 'Externarue', 'Lyon', '69000', 'externatic@gmail.com', '0601020304', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '1', '/default/Candidat/favicon.png', 'uploads/default/Candidat/BenjaminCV2.pdf', '2', 'masculin');
+(1, 'Jean', 'Gabin', '2000-01-10', 'Paul Bert', 'Lyon', '69000', 'Jean.gabin@gmail.com', '0601020304', '$argon2id$v=19$m=65536,t=5,p=1$+NlRs5ZjLo4lx0X2ZY3QpQ$DbFqZGJ0D0ZEmFUmRWWKICyKTyJnz3ZVLlSJ9Mdas/s', '1', '/default/Candidat/chatgpt.jpg', '/default/Candidat/BenjaminCV2.pdf', '2', 'masculin'),
+(2, 'Benjamin', 'Chaillan', '2000-01-11', 'Gaston Doumer', 'Marseille', '13000', 'benjaminChaillan@gmail.com', '0605040302', '$argon2id$v=19$m=65536,t=5,p=1$+NlRs5ZjLo4lx0X2ZY3QpQ$DbFqZGJ0D0ZEmFUmRWWKICyKTyJnz3ZVLlSJ9Mdas/s', '1', 'default/Candidat/Benjamin.png', '/candidate/1/Lettrededcharge.pdf', '2','masculin'),
+(3, 'Exter', 'Natic', '2000-01-10', 'Externarue', 'Lyon', '69000', 'externatic@gmail.com', '0601020304', '$argon2id$v=19$m=65536,t=5,p=1$IsNJthLBR1c+C1GPrLR2KA$WLTaTCEOl8miqI7zoC4a4XSCUe5ys3Frm993R1L0wQA', '1', '/default/Candidat/favicon.png', '/default/Candidat/BenjaminCV2.pdf', '2', 'masculin');
 
 INSERT INTO offer_status
 (`id`,`text`)

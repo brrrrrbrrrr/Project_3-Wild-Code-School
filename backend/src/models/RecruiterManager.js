@@ -116,6 +116,12 @@ class RecruiterManager extends AbstractManager {
     );
   }
 
+  delete(recruiterid) {
+    return this.database.query(`delete from ${this.table} where id = ?`, [
+      recruiterid,
+    ]);
+  }
+
   deleteadmin(recruiterid) {
     return this.database.query(`delete from ${this.table} where id = ?`, [
       recruiterid,
