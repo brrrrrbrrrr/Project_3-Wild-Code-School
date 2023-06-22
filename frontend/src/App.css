@@ -43,7 +43,8 @@ h6 {
 }
 html,
 body {
-  margin: 0;
+  margin-top: 50px;
+  /* margin: 0; */
   background-color: var(--background-color);
 
   line-height: 1;
