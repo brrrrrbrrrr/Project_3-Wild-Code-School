@@ -16,13 +16,17 @@ export default function PageDetailsOffer() {
 
   useEffect(() => {
     api
-      .get(`/offers/${id}`)
+      .get(`/offers/${id}`, {
+        params: {
+          candId: user?.user?.id,
+        },
+      })
       .then((response) => {
         setOffer(response.data);
       })
       .catch(() => {
         toast.error("Une erreur s'est produite", {
-          position: "top-center",
+          position: "top-left",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,

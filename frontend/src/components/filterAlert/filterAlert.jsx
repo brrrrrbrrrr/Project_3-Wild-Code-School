@@ -12,7 +12,7 @@ const filterAlert = () => {
       const value = response.data[0].offerNumber;
       if (value !== 0 && value !== -1) {
         toast.info(`il y a ${value} offre selon vos critères disponible`, {
-          position: "top-center",
+          position: "top-left",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,

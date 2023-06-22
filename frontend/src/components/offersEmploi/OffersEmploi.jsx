@@ -105,7 +105,7 @@ function OffersEmploi() {
         })
         .catch(() => {
           toast.error("Une erreur s'est produite", {
-            position: "top-center",
+            position: "top-left",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -131,7 +131,7 @@ function OffersEmploi() {
       citymultifilter: 0,
     };
     toast.info("Filtre Réinitialisé !", {
-      position: "top-center",
+      position: "top-left",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -145,6 +145,7 @@ function OffersEmploi() {
         params: {
           allOffers: "marchestp",
           filter: Filters,
+          candId: user?.user?.id,
         },
       })
       .then((response) => {
@@ -157,7 +158,7 @@ function OffersEmploi() {
       })
       .catch(() => {
         toast.error("Une erreur s'est produite", {
-          position: "top-center",
+          position: "top-left",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -189,7 +190,7 @@ function OffersEmploi() {
         })
         .then(() => {
           toast.warning("Vous avez enlevé votre filtre", {
-            position: "top-center",
+            position: "ttop-left",
             autoClose: 4000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -207,7 +208,7 @@ function OffersEmploi() {
         })
         .then(() => {
           toast.success("Filtre enregistré !", {
-            position: "top-center",
+            position: "top-left",
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -247,7 +248,7 @@ function OffersEmploi() {
       })
       .catch(() => {
         toast.error("Une erreur s'est produite", {
-          position: "top-center",
+          position: "top-left",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -270,7 +271,7 @@ function OffersEmploi() {
           response.data[3].filterValue === 0)
       ) {
         toast.error("Vous n'avez pas de filtre enregistré", {
-          position: "top-center",
+          position: "top-left",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -308,7 +309,7 @@ function OffersEmploi() {
             setIsLoading(false);
             setIsFirstLoad(false);
             toast.info("Filtre mis à jour selon vos critères enregistré ", {
-              position: "top-center",
+              position: "top-left",
               autoClose: 3000,
               hideProgressBar: false,
               closeOnClick: true,
@@ -320,7 +321,7 @@ function OffersEmploi() {
           })
           .catch(() => {
             toast.error("Une erreur s'est produite", {
-              position: "top-center",
+              position: "top-left",
               autoClose: 5000,
               hideProgressBar: false,
               closeOnClick: true,

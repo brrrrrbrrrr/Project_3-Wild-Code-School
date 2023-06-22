@@ -20,7 +20,7 @@ const LikedOffers = () => {
       })
       .catch(() => {
         toast.error("Une erreur s'est produite", {
-          position: "top-center",
+          position: "top-left",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -86,7 +86,10 @@ const LikedOffers = () => {
       </div>
       <div className="likedoffers-offers">
         {filteredOffers.map((offer) => (
-          <LikedOffer key={offer.id} offer={offer} />
+          <LikedOffer
+            key={`${offer.id}_${offer.offer_status_id}`}
+            offer={offer}
+          />
         ))}
       </div>
     </div>
