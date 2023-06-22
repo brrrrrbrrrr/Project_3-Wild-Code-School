@@ -9,9 +9,9 @@ const validate = (data, forCreation = true) => {
     .object({
       salary: joi.string().max(45).presence(presence),
       remoteId: joi.number().integer().presence(presence),
-      jobOfferPresentation: joi.string().max(1000).presence(presence),
-      desiredProfile: joi.string().max(1000).presence(presence),
-      recruitmentProcess: joi.string().max(1000).presence(presence),
+      jobOfferPresentation: joi.string().max(2000).presence(presence),
+      desiredProfile: joi.string().max(2000).presence(presence),
+      recruitmentProcess: joi.string().max(2000).presence(presence),
       numberOfEmployees: joi.string().max(45).presence(presence),
       jobTitleDetails: joi.string().max(1000).presence(presence),
       cityId: joi.number().integer().presence(presence),

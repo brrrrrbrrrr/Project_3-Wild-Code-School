@@ -217,10 +217,10 @@ CREATE TABLE IF NOT EXISTS `externatic`.`offer` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `salary` VARCHAR(45) NOT NULL,
   `valide` TINYINT NOT NULL DEFAULT '0',
-  `teamPicture` VARCHAR(355) NOT NULL,
- `jobOfferPresentation` TEXT NOT NULL,
-  `desiredProfile` TEXT NOT NULL,
-  `recruitmentProcess` TEXT NOT NULL,
+  `teamPicture` VARCHAR(255) NOT NULL,
+  `jobOfferPresentation` VARCHAR(2000) NOT NULL,
+  `desiredProfile` VARCHAR(2000) NOT NULL,
+  `recruitmentProcess` VARCHAR(2000) NOT NULL,
   `numberOfEmployees` VARCHAR(45) NULL DEFAULT NULL,
   `jobTitleDetails` VARCHAR(45) NULL DEFAULT NULL,
   `cityId` INT NOT NULL,
@@ -366,11 +366,76 @@ INSERT INTO job_title (name) VALUES ('Assistant Manager'), ('Développeur Web'),
 INSERT INTO remote (type) VALUES ('Présentiel'), ('Présentiel/Télétravail'), ('Télétravail');
 
 INSERT INTO offer (salary, remoteId, teamPicture, jobOfferPresentation, desiredProfile, recruitmentProcess, numberOfEmployees, jobTitleDetails, cityId, consultantId, recruiterId, contratId, jobTitleId, valide)
- VALUES ("20000", 1, "default/Offre/laptop.jpg", "jobOfferPresentation", "desiredProfile", "Recruitment Process", "23", "Ingénieur réseaux / H/F – Industrie", 1,1,1,2,1,1),
- ("30000", 2, "default/Offre/meeting.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "50", "Software Engineer", 2, 1, 2, 3, 2, 1),
- ("40000", 1, "default/Offre/start-up.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "100", "Senior Data Analyst", 3, 1, 1, 1, 3, 1),
- ("25000", 3, "default/Offre/meeting.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "30", "Marketing Coordinator", 1, 1, 3, 2, 4, 1),
- ("50000", 2, "default/Offre/laptop.jpg", "Job Offer Presentation", "Desired Profile", "Recruitment Process", "70", "Senior Project Manager", 3, 1, 2, 1, 5, 1);
+ VALUES ("20000", 1, "default/Offre/laptop.jpg", "Mais qui est ELCIA ? Un éditeur de logiciels et solutions SaaS. Une vraie pépite tech française !🚀
+Leur petit plus ? Pionnier et n°1 en France sur le marché de la Menuiserie et Fermeture de l’habitat. Leur fondateur est tombé dedans quand il était petit !
+Leur devise ? « Simplifier la vie des Menuisiers » grâce à des applications cloud innovantes où l’UX est au cœur des développements 👨‍💻
+ELCIA & ISIA ? 2 Teams, 1 Groupe : la Team ELCIA développe des solutions de chiffrage et gestion commerciale pour les installateurs (ProDevis) et la Team ISIA, un ERP verticalisé pour la gestion des usines des industriels (Diapason).", "Curieux(se), créatif(ve) et force de proposition, vous rejoindrez ELCIA pour travailler sur les technologies .NET orientés Web (C#, ASP.NET MVC et Core, API REST, Xamarin, microservices) dans un contexte de développement articulé autour d’Azure : Azure DevOps, Pipelines CI/CD, Tests, Infrastructure PaaS et laaS.
+De formation Bac+2 minimum, vous idéalement possédez plusieurs expériences réussies dans le développement orienté web idéalement sur les technologies suivantes : GIT, C#, ASP.NET MVC et/ou Core, API REST, HTML/WCF, CSS3/JavaScript, SQL.
+Vous maitrisez les notions relatives à la programmation orientée objet et les mécanismes mis en jeu lors du développement web.
+Le poste est également ouvert à des profils juniors souhaitant s’investir et monter en compétences sur nos projets et nos technologies !", "· 1 premier échange avec notre Chargée de recrutement
+· 1 premier entretien avec un développeur Sénior, le Responsable de l’équipe Dev et la Chargée de recrutement
+· 1 dernier entretien avec nos DRH et DG
+", "23", "Ingénieur réseaux / H/F – Industrie", 1,1,1,2,1,1),
+ ("30000", 2, "default/Offre/meeting.jpg", "Et si les entreprises avaient des collaborateurs vraiment bien informés, engagés, et influents sur les réseaux sociaux ?
+C’est le défi que Sociabble a décidé de relever en 2014 en lançant une plateforme SAAS de communication interne, d’Employee Advocacy et d’Employee Engagement. 8 ans plus tard Sociabble est utilisé dans plus de 180 pays par des entreprises comme Coca-cola, L’Occitane, Allianz, Publicis Groupe, Criteo et Vinci Energies.
+L’entreprise, internationale depuis son premier jour, met à disposition de ses équipes des bureaux à Paris, à Lyon, New-York et Mumbai.
+Sociabble a été fondée par deux pionniers de l’Internet, Jean-Louis Bénard et Laurent Gauthier, entrepreneurs et investisseurs depuis plus de 25 ans, qui ont construit l’entreprise en implémentant les meilleures pratiques des entreprises SAAS, tout en développant une culture de bootstrapping. Sociabble est identifiée par les analystes américains comme l’une des meilleures solutions sur son marché.", "Vous êtes ingénieur(e) et avez déjà au moins une expérience significative réussie en développement software dans le monde des éditeurs SAAS  (solutions pour le marketing, la communication ou les RH idéalement) 
+Vous avez de l’expérience en développement backend C# et frontend Javascript
+L’agilité, l’intérêt pour l’innovation et le cloud, l’envie de progresser tous les jours, la rigueur et la bonne humeur sont indispensables pour intégrer l’équipe R&D
+Vous savez faire preuve d’autonomie et d’initiative sur les tâches qui vous sont confiées
+Vous avez un niveau d'anglais professionnel (>B2) 
+", "Call 30 minutes – Camille, Talent Acquisition Specialist
+Entretien 1h – Stéphane, CTO
+Un Test technique pourra également avoir lieu lors de l'entretien. 
+", "50", "Software Engineer", 2, 1, 2, 3, 2, 1),
+ ("40000", 1, "default/Offre/start-up.jpg", "Indy, c'est la comptabilité repensée pour les indépendants.
+Depuis 2016, Indy propose aux indépendants une application vraiment simple et un service client aux petits soins, le tout à prix accessibles.
+Indy multiplie chaque année sa croissance par 3 et aujourd'hui plus de 60 000 indépendants automatisent leur comptabilité avec notre solution.
+Notre croissance exceptionnelle s’appuie sur deux piliers fondamentaux : un produit intuitif et bien pensé, et une importance très forte accordée à la qualité de notre service client.
+En 4 ans, nous avons levé 46 millions d’euros auprès d’investisseurs prestigieux tels que Kerala, Alven et Singular.
+", "👉 Si pour toi les valeurs d’humilité, d’attention, de passion et de perfection veulent réellement dire quelque chose.
+👉 Tu as plus de 10 ans d'expérience sur du développement web et avec une forte envie de travailler sur du javascript NodeJS & VueJS.
+👉 Tu es passionné·e par les technos web et tu es toujours en train d’en découvrir de nouvelles.
+👉 Tu es convaincu·e de l’importance des tests pour le développement d’une app sur le long terme.
+👉 Tu sais expliquer de manière simple et synthétique.
+👉 Bonus : Connaître AWS est un plus.
+", "👉 Premier call de présentation & Entretien avec Baptiste ou Manon, nos TAM. Le but est, d’un côté, d’en savoir plus sur toi, et de l’autre, que nous puissions en dire plus sur ce que l’on fait ici.
+👉 Test technique à faire chez toi
+👉 Debrief de ton test avec 2 membres de l'équipe tech. Vous reviendrez sur ton test et discuterez de l’environnement technique d’Indy.
+👉 Entretien inversé, c’est toi qui poses toutes tes questions à un de nos développeurs
+👉 Rencontre avec deux autres fondateurs, Pablo à la technique et Côme notre CEO.
+Les 2 derniers entretiens se font sur une seule session.
+Si tu veux en savoir plus sur l'expérience candidat chez Indy voici un podcast réalisé par Baptiste.
+", "100", "Senior Data Analyst", 3, 1, 1, 1, 3, 1),
+ ("25000", 3, "default/Offre/meeting.jpg", "Solinum est une start-up associative à but non lucratif qui développe des solutions innovantes de lutte contre la pauvreté.
+Dans le cadre de ses missions, Solinum propose différents outils utilisant l’innovation pour lutter contre la pauvreté. Son projet principal, Soliguide, permet d’orienter les publics en situation de précarité vers tous les services utiles dont ils pourraient avoir besoin - de l’urgence sociale (alimentation, hygiène, santé,..) à l’insertion socio-professionnelle. Il s’agit de la plus grande base de données de la solidarité en France, regroupant plus de 65 000 services référencés et ayant permis 1.8 millions de recherches en 2022.
+L’association a mis l’évaluation d’impact social au cœur de son projet, en réalisant des études régulières, objectives et rigoureuses. Fin 2022, une évaluation a été réalisée sur 25 départements avec une méthodologie SROI (Social Return On Investment). Les impacts observés pour le projets sont par exemple qu’1 euro investi sur Soliguide c’est 1,93€ de valeur sociale créée.", "Nous recherchons d’abord et avant tout une personne qui saura mettre ses compétences au service de l’équipe et du projet. Chez Solinum, toutes nos actions sont orientées impact et équipe ! En tant que membre plus jeune de l’équipe, nous t’accompagnerons pour t’aider à monter en compétence rapidement.
+Tu maîtrises au moins un langage de programmation ;
+Tu maîtrises HTML, CSS et Javascript ;
+Tu maîtrises au moins un système de base de données ;
+Tu maîtrises un gestionnaire de code source (e.g. git) ;
+Tu es une personne rigoureuse et exigeante ;
+Tu as une forte appétence pour l’innovation et l’expérimentation ;
+Tu as une grande capacité d’adaptation ;
+L’esprit d’équipe est ton mojo ;
+", "Call 30 minutes – Camille, Talent Acquisition Specialist
+Entretien 1h – Stéphane, CTO
+Un Test technique pourra également avoir lieu lors de l'entretien. ", "30", "Marketing Coordinator", 1, 1, 3, 2, 4, 1),
+ ("50000", 2, "default/Offre/laptop.jpg", "AlumnForce est la solution web et mobile (SaaS) destinée à toutes les formations et associations qui souhaitent bâtir un réseau social professionnel dynamique pour leurs membres, étudiants, diplômés, enseignants et recruteurs.
+AlumnForce est leader en France, reconnue comme experte dans le développement des réseaux sociaux universitaires et gère aujourd’hui plus de 4 500 000 comptes sur plus de 300 réseaux, en France, et 14 autres pays (HEC Alumni, Centraliens, ESSEC, AX Polytechnique, Universités, IAE, Sciences Po, SNCF, PWC, ADECCO, RENAULT, ENGIE …)
+Leur mission est de fédérer les membres d’une même organisation sur un réseau communautaire de confiance.
+Leur mission principale est de favoriser l’entraide et les échanges entre les membres de la communauté afin de trouver le job, le conseil ou l’opportunité de leurs rêves !", "Vous avez un profil de développeur confirmé en JS et souhaitez continuer à progresser en technique
+Vous avez d’excellentes capacités de conception technique.
+Vous maîtrisez node.js aussi bien que les mécaniques internes des navigateurs et le js vanilla
+Vous êtes autonome et doté de bonnes capacités de communication
+Points appréciés:
+Vous aimez partager vos connaissances
+Docker, y compris en production
+Expérience chez un éditeur pure player
+Sites à fortes charges", "Après un premier échange téléphonique, vous serez invité à passer un test technique d’environ 1h/1h30 sur votre PC. Si celui-ci est concluant vous entrerez dans un cycle de 3 entretiens, aucours desquels vous rencontrerez:
+Votre futur manager (Responsable framework JS) ainsi que le VP Engineering
+Le CTO
+Le Directeur Général de CCM Benchmark", "70", "Senior Project Manager", 3, 1, 2, 1, 5, 1);
 
 
   INSERT INTO candidate

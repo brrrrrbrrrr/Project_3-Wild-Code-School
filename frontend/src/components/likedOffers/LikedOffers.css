@@ -3,7 +3,6 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  min-height: 1500px;
   background-color: var(--background-color);
 }
 

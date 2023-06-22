@@ -20,7 +20,7 @@ const LikedOffers = () => {
       })
       .catch(() => {
         toast.error("Une erreur s'est produite", {
-          position: "top-center",
+          position: "top-left",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -70,8 +70,8 @@ const LikedOffers = () => {
           }`}
           onClick={() => handleButtonClick("valide")}
         >
-          Validé ({offers.filter((offer) => offer.offer_status_id === 2).length}
-          )
+          Validée(s) (
+          {offers.filter((offer) => offer.offer_status_id === 2).length})
         </button>
         <button
           type="button"
@@ -80,13 +80,16 @@ const LikedOffers = () => {
           }`}
           onClick={() => handleButtonClick("termine")}
         >
-          Terminé (
+          Terminée(s) (
           {offers.filter((offer) => offer.offer_status_id === 3).length})
         </button>
       </div>
       <div className="likedoffers-offers">
         {filteredOffers.map((offer) => (
-          <LikedOffer key={offer.id} offer={offer} />
+          <LikedOffer
+            key={`${offer.id}_${offer.offer_status_id}`}
+            offer={offer}
+          />
         ))}
       </div>
     </div>

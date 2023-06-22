@@ -73,7 +73,7 @@ function AccountSettings({ user, userParam }) {
       })
       .catch(() => {
         toast.error("Une erreur s'est produite", {
-          position: "top-center",
+          position: "top-left",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
