@@ -70,8 +70,8 @@ const LikedOffers = () => {
           }`}
           onClick={() => handleButtonClick("valide")}
         >
-          Validé ({offers.filter((offer) => offer.offer_status_id === 2).length}
-          )
+          Validée(s) (
+          {offers.filter((offer) => offer.offer_status_id === 2).length})
         </button>
         <button
           type="button"
@@ -80,7 +80,7 @@ const LikedOffers = () => {
           }`}
           onClick={() => handleButtonClick("termine")}
         >
-          Terminé (
+          Terminée(s) (
           {offers.filter((offer) => offer.offer_status_id === 3).length})
         </button>
       </div>

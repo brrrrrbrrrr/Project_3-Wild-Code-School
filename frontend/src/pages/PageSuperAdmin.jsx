@@ -43,7 +43,7 @@ const PageSuperAdmin = () => {
     setOffer("");
     setEnterprise("");
     setConsultant("");
-    setActiveSection("candidates");
+    setActiveSection("candidats");
     setRecruiter("");
   };
 
@@ -53,7 +53,7 @@ const PageSuperAdmin = () => {
     setEnterprise("");
     setConsultant("");
     setOffer("");
-    setActiveSection("recruiters");
+    setActiveSection("recruteurs");
   };
 
   const handleChangeOffer = (event) => {
@@ -416,7 +416,7 @@ const PageSuperAdmin = () => {
           ""
         )}
 
-        {activeSection === "candidates" &&
+        {activeSection === "candidats" &&
           candidate === 10 &&
           allCandidates.map((oneCandidate) => (
             <Candidate
@@ -426,7 +426,7 @@ const PageSuperAdmin = () => {
               setRefresh={setRefresh}
             />
           ))}
-        {activeSection === "candidates" &&
+        {activeSection === "candidats" &&
           candidate === 20 &&
           allCandidates.map((oneCandidate) => (
             <Candidate
@@ -436,7 +436,7 @@ const PageSuperAdmin = () => {
               setRefresh={setRefresh}
             />
           ))}
-        {activeSection === "candidates" &&
+        {activeSection === "candidats" &&
           candidate === 30 &&
           allCandidates.map((oneCandidate) => (
             <Candidate
@@ -475,7 +475,7 @@ const PageSuperAdmin = () => {
               setRefresh={setRefresh}
             />
           ))}
-        {activeSection === "recruiters" &&
+        {activeSection === "recruteurs" &&
           recruiter === 10 &&
           allRecruiters.map((oneRecruiter) => (
             <RecruiterInfos
