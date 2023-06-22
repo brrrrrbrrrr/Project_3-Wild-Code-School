@@ -393,7 +393,7 @@ function UsersInformations({ user, userParam, setNewName }) {
                   />
                 </label>
                 <label className="form-label">
-                  Date de naissance :{" "}
+                  Date de naissance :
                   <input
                     type="date"
                     value={birthday}

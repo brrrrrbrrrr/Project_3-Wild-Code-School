@@ -72,7 +72,7 @@ function AccountMenu({ setOpenMenuBurger, openMenuBurger }) {
         ) : (
           ""
         )}
-        {user?.superAdmin && (
+        {user?.superAdmin === 1 && (
           <li className="account-menu_li">
             <NavLink
               className="navlink-menu"
