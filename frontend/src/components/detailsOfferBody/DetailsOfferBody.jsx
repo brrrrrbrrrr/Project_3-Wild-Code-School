@@ -138,23 +138,24 @@ const DetailsOfferBody = (props) => {
 DetailsOfferBody.propTypes = {
   userId: PropTypes.number,
   offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    Logo: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    Logo: PropTypes.string,
     candidateId: PropTypes.number,
-    job_title: PropTypes.string.isRequired,
-    consultantId: PropTypes.number.isRequired,
+    job_title: PropTypes.string,
+    consultantId: PropTypes.number,
     liked: PropTypes.bool,
-    contrat_type: PropTypes.string.isRequired,
-    remote: PropTypes.number.isRequired,
-    numberOfEmployees: PropTypes.string.isRequired,
-    salary: PropTypes.number.isRequired,
-    jobOfferPresentation: PropTypes.string.isRequired,
-    desiredProfile: PropTypes.string.isRequired,
-    recruitmentProcess: PropTypes.string.isRequired,
-  }).isRequired,
+    contrat_type: PropTypes.string,
+    remote: PropTypes.number,
+    numberOfEmployees: PropTypes.string,
+    salary: PropTypes.string,
+    jobOfferPresentation: PropTypes.string,
+    desiredProfile: PropTypes.string,
+    recruitmentProcess: PropTypes.string,
+  }),
 };
 DetailsOfferBody.defaultProps = {
   userId: null,
+  offer: null,
 };
 
 export default DetailsOfferBody;

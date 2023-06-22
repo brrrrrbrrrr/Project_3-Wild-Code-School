@@ -52,14 +52,14 @@ const DetailsOfferHero = (props) => {
 DetailsOfferHero.propTypes = {
   offer: PropTypes.shape({
     Logo: PropTypes.string,
-    jobTitleDetails: PropTypes.string.isRequired,
-    city_name: PropTypes.string.isRequired,
-    postalCode: PropTypes.string.isRequired,
-    recruiterPostalCode: PropTypes.string.isRequired,
-    contrat_type: PropTypes.string.isRequired,
-    remoteWork: PropTypes.number.isRequired,
-    salary: PropTypes.number.isRequired,
-    teamPicture: PropTypes.string.isRequired,
+    jobTitleDetails: PropTypes.string,
+    city_name: PropTypes.string,
+    postalCode: PropTypes.string,
+    recruiterPostalCode: PropTypes.string,
+    contrat_type: PropTypes.string,
+    remoteWork: PropTypes.number,
+    salary: PropTypes.string,
+    teamPicture: PropTypes.string,
   }),
 };
 DetailsOfferHero.defaultProps = {
