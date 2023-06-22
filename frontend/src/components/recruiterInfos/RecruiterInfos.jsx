@@ -113,11 +113,6 @@ function RecruiterInfos({ recruiter, refresh, setRefresh }) {
                   type="button"
                   className="recruiterinfos_btn"
                   onClick={handleModal}
-                  // onClick={() => {
-                  //   api.delete(`/recruiters/admin/${recruiter.id}`).then(() => {
-                  //     setRefresh(!refresh);
-                  //   });
-                  // }}
                 >
                   Supprimer
                 </button>
