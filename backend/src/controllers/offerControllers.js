@@ -341,7 +341,6 @@ const cityfilter = (req, res) => {
 };
 
 const read = (req, res) => {
-  // const { candId } = req.params;
   const { candId } = req.query;
 
   models.offer
