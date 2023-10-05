@@ -82,7 +82,7 @@ function OfferEmploi({ offer, userId, candidateId, validStatus }) {
   };
   const isConsultant = user?.user?.userType === "consultants";
   const isCandidate = user?.user?.userType === "candidates";
-  const isRecrutor = user?.user?.userType === "recruiters";
+  const isRecruiter = user?.user?.userType === "recruiters";
 
   return (
     <div className="offersemploi-offer_container">
@@ -105,7 +105,7 @@ function OfferEmploi({ offer, userId, candidateId, validStatus }) {
             </h3>
             <h3 className="offersemploi-offer_remote">{offer.remote_type}</h3>
             <h3 className="offersemploi-offer_city">{offer.city_name}</h3>
-            {isRecrutor && offer.recruiterId === user?.user?.id && (
+            {isRecruiter && offer.recruiterId === user?.user?.id && (
               <Link to="/update-offer">
                 <AiTwotoneEdit
                   size={30}

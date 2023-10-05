@@ -345,6 +345,7 @@ const read = (req, res) => {
 
   models.offer
     .find(parseInt(candId, 10), parseInt(req.params.id, 10))
+
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);

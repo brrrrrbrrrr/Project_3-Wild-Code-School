@@ -8,6 +8,7 @@ import "./Offer.css";
 
 const Offer = ({ offer, refresh, setRefresh }) => {
   const urlFile = import.meta.env.VITE_APP_URL;
+
   const api = useApi();
   const handleValid = () => {
     api
@@ -22,11 +23,14 @@ const Offer = ({ offer, refresh, setRefresh }) => {
   return (
     <div className="superadmin-offer_container">
       <div className="superadmin-offer_logo">
-        <img
-          src={`${urlFile}${offer.Logo}`}
-          alt="logo"
-          className="offersemploi-offer_logo"
-        />
+        {offer?.Logo && (
+          <img
+            src={`${urlFile}${offer?.Logo}`}
+            // src="http://localhost:5006/default/Entreprise/lorem.png"
+            alt="logo"
+            className="offersemploi-offer_logo"
+          />
+        )}
       </div>
 
       <div className="superadmin-offer_info-main">

@@ -55,9 +55,12 @@ class OfferManager extends AbstractManager {
 
   find(candidateId, id) {
     return this.database.query(
-      `select offer.*, city.name as city_name, contrat.type as contrat_type, compagny.Logo, recruiter.postalCode as recruiterPostalCode,
-       consultant.picture as consultantPicture, consultant.firstname as consultantFirstname, consultant.name as consultantName, job_title.name AS job_title,
-       re.type AS remote_type, contrat.type as contract_type, offer_candidate.liked, offer_candidate.candidateId
+      `select offer.*, city.name as city_name, contrat.type as contrat_type, 
+      compagny.Logo, recruiter.postalCode as recruiterPostalCode,
+       consultant.picture as consultantPicture, consultant.firstname as consultantFirstname,
+        consultant.name as consultantName, job_title.name AS job_title,
+       re.type AS remote_type, contrat.type as contract_type, offer_candidate.liked,
+        offer_candidate.candidateId
       from  ${this.table} 
       join city on city.id=offer.cityId 
       join contrat on contrat.id=offer.contratId 
@@ -66,7 +69,8 @@ class OfferManager extends AbstractManager {
       JOIN remote AS re ON re.id = offer.remoteId
       join compagny on compagny.id =recruiter.compagny_id
       join consultant on consultant.id=offer.consultantId 
-      LEFT JOIN (select offerId, candidateId, liked from offer_candidate where candidateId =?) as offer_candidate on offer_candidate.offerId = offer.id
+      LEFT JOIN (select offerId, candidateId, liked from offer_candidate where candidateId =?)
+       as offer_candidate on offer_candidate.offerId = offer.id
       where offer.id = ?`,
       [candidateId, id]
     );
@@ -84,8 +88,9 @@ class OfferManager extends AbstractManager {
 
     return this.database.query(
       `
-    SELECT o.id, o.salary, o.teamPicture, o.jobOfferPresentation, o.desiredProfile, o.recruitmentProcess, o.numberOfEmployees, o.jobTitleDetails,
-   c.name AS city_name, co.Logo, ct.type AS contract_type, j.name AS job_title, re.type AS remote_type, offer_candidate.liked, offer_candidate.candidateId, consultant.id as consultantId, r.id as recruiterId
+    SELECT o.id, o.salary, o.teamPicture, o.jobOfferPresentation, o.desiredProfile, o.recruitmentProcess, o.numberOfEmployees,
+    o.jobTitleDetails, c.name AS city_name, co.Logo, ct.type AS contract_type, j.name AS job_title, re.type AS remote_type,
+    offer_candidate.liked, offer_candidate.candidateId, consultant.id as consultantId, r.id as recruiterId
   FROM offer AS o
   JOIN city AS c ON c.id = o.cityId
   JOIN recruiter AS r ON r.id = o.recruiterId
@@ -94,7 +99,8 @@ class OfferManager extends AbstractManager {
   JOIN job_title as j ON j.id = o.jobTitleId
   JOIN remote AS re ON re.id = o.remoteId
   join consultant on consultant.id=o.consultantId 
-  LEFT JOIN (select offerId, candidateId, liked from offer_candidate where candidateId =?) as offer_candidate on offer_candidate.offerId = o.id
+  LEFT JOIN (select offerId, candidateId, liked from offer_candidate where candidateId =?)
+   as offer_candidate on offer_candidate.offerId = o.id
   WHERE o.valide=1   
   LIMIT ? OFFSET ? 
 

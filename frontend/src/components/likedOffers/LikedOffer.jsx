@@ -8,7 +8,8 @@ const LikedOffer = ({ offer }) => {
   return (
     <div className="likedoffer_container">
       <div className="likedoffer_info-main">
-        <h3 className="likedoffer_title">{offer.job_title}</h3>
+        {/* <h3 className="likedoffer_title">{offer.job_title}</h3> */}
+        <h3 className="likedoffer_title">Développeur Jeux Videos</h3>
         <div className="likedoffer_city-remote">
           <h3 className="likedoffer_city">{offer.city_name}</h3>
           <h3 className="likedoffer_remote">{offer.remote_type}</h3>
