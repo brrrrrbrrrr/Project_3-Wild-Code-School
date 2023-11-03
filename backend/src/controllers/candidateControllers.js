@@ -200,7 +200,7 @@ const add = async (req, res) => {
 
     res.status(422).json({ error: errors.message });
   }
-  const hashedPassword = await hashPassword(req.body.password);
+  const hashedPassword = await hashPassword(password);
 
   models.candidate
     .insert({

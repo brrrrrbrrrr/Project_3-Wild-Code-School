@@ -15,9 +15,10 @@ const edit = multer({ storage: UpdateStorageRecruiter });
 
 router.get("/", recruiterControllers.browse);
 router.get("/:id", recruiterControllers.read);
-// Route protégé
+
 router.put("/:id", edit.single("picture"), recruiterControllers.edit);
 router.post("/", upload.single("picture"), recruiterControllers.add);
+// Route protégé
 router.delete(
   "/:id",
   verifyToken,
