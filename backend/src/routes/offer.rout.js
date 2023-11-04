@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const multer = require("multer");
-const { verifyToken } = require("../utils/auth");
+const { verifyToken, isRecruiter } = require("../utils/auth");
 
 const { storageOffer, UpdateStorageOffer } = require("../utils/multerOffer");
 
@@ -14,6 +14,7 @@ const { isConsultantAdmin } = require("../utils/authConsultant");
 router.post(
   "/",
   verifyToken,
+  isRecruiter,
   upload.single("teamPicture"),
   offerControllers.add
 );
