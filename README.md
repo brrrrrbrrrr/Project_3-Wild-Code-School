@@ -1,3 +1,9 @@
+## Infos 
+
+This is my third project at Wild Code School (Full-Stack). I used REACT for front-end, NODE and MySQL for back-end.
+
+---------------------------------------- TEMPLATE ---------------------------------------
+
 ## Concept
 
 This template is meant to serve as a foundation for every P2/P3 following the React-Express-MySQL stack, as learned in Wild Code School.
