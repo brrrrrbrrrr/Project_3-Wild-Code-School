@@ -25,7 +25,7 @@ const Offer = ({ offer, refresh, setRefresh }) => {
       <div className="superadmin-offer_logo">
         {offer?.Logo && (
           <img
-            src={`${urlFile}${offer?.Logo}`}
+            src={`${urlFile}/${offer?.Logo}`}
             // src="http://localhost:5006/default/Entreprise/lorem.png"
             alt="logo"
             className="offersemploi-offer_logo"
