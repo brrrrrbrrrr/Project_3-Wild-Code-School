@@ -29,7 +29,11 @@ const verifyPasswordRecruiter = (req, res) => {
     .then((isVerified) => {
       if (isVerified) {
         const payload = {
-          sub: { id: req.recruiter.id, name: req.recruiter.name },
+          sub: {
+            id: req.recruiter.id,
+            name: req.recruiter.name,
+            userType: "recruiters",
+          },
         };
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: "2h",
@@ -128,7 +132,6 @@ const verifyToken = (req, res, next) => {
       throw new Error("Authorization header has not the bearer type");
     }
     req.payload = jwt.verify(token, process.env.JWT_SECRET);
-
     next();
   } catch (err) {
     res.sendStatus(403);
