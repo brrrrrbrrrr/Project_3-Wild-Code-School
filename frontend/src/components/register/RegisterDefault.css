@@ -1,0 +1,151 @@
+.form-container {
+  display: flex;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 10rem;
+}
+
+.full {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  margin: 1rem 1rem;
+}
+.form-signup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--background-color);
+  border-radius: 3px;
+  margin: 0 1rem;
+  box-shadow: 0px 1px 11px 3px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px 1px 11px 3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 1px 11px 3px rgba(0, 0, 0, 0.75);
+  align-items: center;
+}
+
+.form-label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+  margin: 1rem 0.5rem;
+  width: 80%;
+  height: 5rem;
+}
+
+.signup-hide {
+  display: none;
+  overflow: visible;
+}
+
+.form-input {
+  margin-top: 10px;
+  padding: 7px;
+  /* border: 1px solid rgb(231, 224, 224); */
+  border: 1px solid var(--second-color);
+  border-radius: 3px;
+}
+
+.signup-invalid {
+  display: inline-block;
+  color: var(--alert-color);
+  margin-top: 0.1rem;
+  font-size: 0.7rem;
+  text-align: start;
+}
+
+.form-btn-container {
+  width: 100%;
+  text-align: center;
+}
+
+button:disabled {
+  background-color: #aa42685d;
+  color: white;
+}
+
+.form-btn {
+  padding: 5px 10px;
+  background-color: var(--alert-color);
+  color: white;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.form-signup_errorMsg {
+  margin-bottom: 1.5rem;
+  color: var(--alert-color);
+}
+
+.registration-succes_msg {
+  text-align: center;
+  margin: 10rem 0;
+}
+
+.success-offer {
+  text-align: center;
+  margin: 10rem 0;
+}
+
+.registration-succes_msg-connexion {
+  color: var(--primary-color);
+}
+
+.form-label_gender {
+  margin: 1rem 0.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-input_gender-other {
+  padding: 7px;
+  width: 100%;
+}
+
+.form-input_gender {
+  height: 50px;
+  width: 20px;
+}
+
+.form-label_gender-h2 {
+  width: 100%;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-label_gender-h2_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (min-width: 320px) {
+  .form-label {
+    width: 15rem;
+  }
+  .form-signup {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .form-signup {
+    width: 50rem;
+  }
+  .form-container {
+    justify-content: center;
+  }
+}

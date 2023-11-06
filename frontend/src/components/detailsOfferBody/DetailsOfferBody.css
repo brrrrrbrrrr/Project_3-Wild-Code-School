@@ -1,0 +1,143 @@
+.detailsOfferBody-right {
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.detailsOfferBody-text {
+  background-color: var(--background-color);
+  min-height: 200px;
+  min-width: 320px;
+  margin-bottom: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  line-height: 1.5;
+}
+
+.detailsOfferBody-title {
+  font-size: 25px;
+  font-weight: 500;
+  padding-bottom: 10px;
+}
+
+.detailsOfferBody-paragraph {
+  text-align: justify;
+}
+
+.detailsOfferBody-button_candidate {
+  border-style: hidden;
+  padding: 10px 15px;
+  background-color: #00b3ff;
+  border-radius: 5px;
+  color: #f1f1e6;
+  cursor: pointer;
+  box-shadow: 2px 2px 7px #00b3ff;
+  width: 150px;
+  font-size: 1.2em;
+}
+
+@media screen and (max-width: 768px) {
+  .detailsOfferBody-left {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .detailsOfferBody-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+  }
+
+  .detailsOfferBody-right {
+    width: 65%;
+  }
+
+  .detailsOfferBody-left {
+    width: 33%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .detailsOfferBody-textOne {
+    background-color: var(--background-color);
+    height: 300px;
+    width: 300px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.5;
+  }
+
+  .detailsOfferBody-left_top {
+    border-bottom: 1px solid black;
+    background-color: white;
+  }
+
+  .detailsOfferBody-logo {
+    width: 100px;
+    font-weight: 800;
+    color: wheat;
+    padding-bottom: 40px;
+  }
+
+  .detailsOfferBody-icon {
+    padding-right: 5px;
+  }
+
+  .detailsOfferBody-desiredProfile,
+  .detailsOfferBody-employee {
+    padding-bottom: 50px;
+    font-size: 1.3em;
+  }
+
+  .detailsOfferBody-left_bottom {
+    background-color: white;
+    padding-top: 50px;
+    text-align: center;
+  }
+}
+
+.detailsOfferBody-poste {
+  font-size: 30px;
+  font-weight: 400;
+  padding-bottom: 40px;
+}
+
+.detailsOfferBody-jobTitle,
+.detailsOfferBody-contrat,
+.detailsOfferBody-salary {
+  padding-bottom: 50px;
+  font-size: 1.3em;
+}
+
+.detailsOfferBody-subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  justify-content: left;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.detailsOfferBody-button_candidate {
+  width: 300px;
+  height: 50px;
+}

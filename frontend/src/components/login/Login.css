@@ -1,0 +1,144 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: center;
+  width: 100%;
+  margin: 5rem 0;
+}
+
+.login-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.connexion-h2 {
+  text-align: center;
+  margin: 2rem 2rem;
+}
+
+.connexion-h2-unselect {
+  color: var(--alert-color);
+}
+
+.input-login-form {
+  border: 1px solid black;
+  height: 30px;
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.login-label {
+  margin: 1rem 0;
+}
+
+.select-container {
+  display: flex;
+
+  width: 20rem;
+}
+
+.ul-choice {
+  margin-top: 2rem;
+  cursor: pointer;
+
+  height: 5rem;
+}
+
+.li-choice:hover {
+  color: var(--primary-color);
+}
+
+.li-choice_active {
+  color: var(--primary-color);
+}
+
+.li-choice_hidden {
+  display: none;
+}
+
+.form-login {
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.form-login_container {
+  width: 20rem;
+}
+
+.connexion-btn-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.connexion-btn {
+  font-size: 1rem;
+  padding: 10px 15px;
+  border-radius: 3px;
+  background-color: #134068a2;
+  color: var(--background-color);
+}
+
+.connexion-btn:hover {
+  cursor: pointer;
+  background-color: var(--primary-color);
+}
+
+.connexion-btn-disable {
+  font-size: 1rem;
+  padding: 10px 15px;
+  border-radius: 3px;
+  background-color: #134068a2;
+  color: var(--background-color);
+}
+
+.login-label {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-login_sub-container {
+  margin-top: 1.5rem;
+}
+
+.form-login_sub-link {
+  color: var(--second-color);
+  margin-left: 0.5rem;
+}
+
+.form-login_errorMsg {
+  margin: 1.5rem;
+  color: var(--alert-color);
+}
+
+.connexion-done {
+  text-align: center;
+  margin: 10rem 0;
+}
+@media screen and (min-width: 768px) {
+  .login-column {
+    width: 30rem;
+    box-shadow: 0px 1px 11px 3px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 1px 11px 3px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 11px 3px rgba(0, 0, 0, 0.75);
+    border-radius: 1rem;
+  }
+
+  .form-login_sub-container {
+    display: flex;
+    justify-content: flex-end;
+
+    width: 30rem;
+  }
+}

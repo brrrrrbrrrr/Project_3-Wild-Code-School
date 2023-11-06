@@ -1,0 +1,57 @@
+.pageSuperAdmin-container {
+  background-color: var(--background-color);
+  height: 100%;
+}
+
+.validation-offer {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pageSuperAdmin-selected_box {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pageSuperAdmin-selected_candidate,
+.pageSuperAdmin-selected_offer,
+.pageSuperAdmin-selected_enterprise,
+.pageSuperAdmin-selected_consultants,
+.pageSuperAdmin-selected_recruiter {
+  padding-bottom: 10px;
+}
+
+.pageSuperAdmin-main_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 100px;
+  padding-top: 20px;
+}
+
+.pageSuperAdmin-main_title {
+  color: var(--primary-color);
+  padding: 15px 0;
+  font-weight: 600;
+  font-size: 20px;
+  opacity: 0.7;
+}
+
+@media screen and (min-width: 768px) {
+  .pageSuperAdmin-selected_box {
+    flex-direction: row;
+  }
+  .pageSuperAdmin-selected_candidate,
+  .pageSuperAdmin-selected_offer,
+  .pageSuperAdmin-selected_enterprise,
+  .pageSuperAdmin-selected_recruiter {
+    padding-right: 10px;
+  }
+}

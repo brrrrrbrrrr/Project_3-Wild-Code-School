@@ -1,0 +1,179 @@
+nav {
+  position: fixed;
+  top: 0;
+  z-index: 500;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  background-color: var(--primary-color);
+  justify-content: flex-end;
+  align-items: center;
+  transition: 0.5s;
+}
+
+.navlink-container {
+  display: flex;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-around;
+  width: 60vw;
+  height: 100%;
+  z-index: 10;
+}
+
+.nav-bar_title {
+  font-size: 15px;
+  transition: 0.5s;
+  padding: 10px;
+}
+
+.menu a {
+  color: var(--background-color);
+}
+
+.navlink-menu:hover {
+  background-color: var(--menu-color);
+}
+
+.burger-container {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  height: 30px;
+  width: 30px;
+}
+
+.checkbox-container {
+  position: relative;
+}
+
+.burger-menu {
+  position: absolute;
+  width: 26px;
+  height: 4px;
+  background-color: white;
+  border-radius: 8px;
+  z-index: 999;
+  transition: 0.5s;
+}
+
+.burger-menu:before,
+.burger-menu:after {
+  content: "";
+  position: absolute;
+  height: 4px;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  transition: 0.5s;
+}
+
+.burger-menu:before {
+  top: -10px;
+  width: 20px;
+}
+
+.burger-menu:after {
+  top: 10px;
+  width: 20px;
+}
+
+.toggle-btn {
+  position: absolute;
+  top: -15px;
+  right: -5px;
+  width: 40px;
+  height: 40px;
+  z-index: 9999;
+  cursor: pointer;
+  opacity: 0;
+  border: 1px solid red;
+}
+
+/*Animation de la croix, disparition de la barre du milieu*/
+
+.navlink-container input:checked ~ .burger-menu {
+  background-color: transparent;
+}
+
+.navlink-container input:checked ~ .burger-menu:before {
+  top: 0;
+  transform: rotate(-45deg);
+  width: 30px;
+}
+
+.navlink-container input:checked ~ .burger-menu:after {
+  top: 0;
+  transform: rotate(45deg);
+  width: 30px;
+}
+
+.navlink-container input:checked ~ .menu {
+  right: 0;
+}
+
+.burger-menu,
+.toggle-btn {
+  display: none;
+}
+
+.connexion-hide {
+  display: none;
+}
+
+.menu-account_ul-container-hide {
+  display: none;
+}
+.nav-bar_title-display_none {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .burger-menu,
+  .toggle-btn {
+    display: block;
+  }
+
+  .menu {
+    justify-content: start;
+    flex-direction: column;
+    background-color: var(--primary-color);
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: -80vw;
+    width: 70vw;
+    height: 100%;
+    padding-top: 80px;
+    transition: 0.5s;
+  }
+
+  .menu-display {
+    right: 0;
+    width: 100vw;
+  }
+
+  .menu li {
+    width: 100%;
+    margin: 20px;
+    text-align: center;
+  }
+  .menu li a {
+    margin: 40px;
+  }
+  nav {
+    position: fixed;
+    z-index: 500;
+    height: 50px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .nav-bar_title {
+    font-size: 20px;
+  }
+}

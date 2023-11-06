@@ -29,13 +29,46 @@ pool.getConnection().catch(() => {
 
 const models = {};
 
-const ItemManager = require("./ItemManager");
+const ConsultantManager = require("./ConsultantManager");
 
-models.item = new ItemManager();
-models.item.setDatabase(pool);
+models.consultant = new ConsultantManager();
+models.consultant.setDatabase(pool);
 
+const RecruiterManager = require("./RecruiterManager");
+
+models.recruiter = new RecruiterManager();
+models.recruiter.setDatabase(pool);
+
+const CompagnyManager = require("./CompagnyManager");
+
+models.compagny = new CompagnyManager();
+models.compagny.setDatabase(pool);
+
+const CandidateManager = require("./CandidateManager");
+
+models.candidate = new CandidateManager();
+models.candidate.setDatabase(pool);
+
+const OfferManager = require("./OfferManager");
+
+models.offer = new OfferManager();
+models.offer.setDatabase(pool);
+
+const FilterManager = require("./FilterManager");
+
+models.filter = new FilterManager();
+models.filter.setDatabase(pool);
+
+const Offercandidate = require("./OffercandidateManager");
+
+models.offercandidate = new Offercandidate();
+models.offercandidate.setDatabase(pool);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
+const ChatManager = require("./ChatManager");
+
+models.message = new ChatManager();
+models.message.setDatabase(pool);
 
 const handler = {
   get(obj, prop) {
