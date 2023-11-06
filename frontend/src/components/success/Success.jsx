@@ -28,7 +28,7 @@ function Success({ success }) {
   if (success === "successOffer") {
     return (
       <div>
-        <section className="success-offer">Offre ajouté !</section>
+        <section className="success-offer">Offre ajoutée !</section>
       </div>
     );
   }

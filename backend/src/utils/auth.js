@@ -135,6 +135,19 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+const isRecruiter = (req, res, next) => {
+  try {
+    if (req.payload.sub.userType !== "recruiters") {
+      res.status(401).send("You must be a recruiter to perform this operation");
+    } else {
+      next();
+    }
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   hashPassword,
   verifyPasswordCandidate,
@@ -143,4 +156,5 @@ module.exports = {
   verifyPasswordCandidateWithoutToken,
   verifyPasswordRecruiterWithoutToken,
   verifyPasswordCompagnyWithoutToken,
+  isRecruiter,
 };

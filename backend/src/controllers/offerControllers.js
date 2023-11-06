@@ -141,6 +141,7 @@ const getMyOffers = (req, res) => {
 
 const getMyOfferForUpdate = (req, res, next) => {
   const recruiterId = req.payload.sub.id;
+  // const recruiterId = 4;
   const offerId = parseInt(req.params.id, 10);
   models.offer
     .findMyOfferByIdAndRecruiter(offerId, recruiterId)
@@ -151,6 +152,7 @@ const getMyOfferForUpdate = (req, res, next) => {
           .status(404)
           .json({ error: "Offre non trouvée ou accès non autorisé" });
       }
+
       return next();
     })
     .catch((err) => {
@@ -345,6 +347,7 @@ const read = (req, res) => {
 
   models.offer
     .find(parseInt(candId, 10), parseInt(req.params.id, 10))
+
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);

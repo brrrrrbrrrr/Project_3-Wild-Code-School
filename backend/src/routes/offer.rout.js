@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const multer = require("multer");
-const { verifyToken } = require("../utils/auth");
+const { verifyToken, isRecruiter } = require("../utils/auth");
 
 const { storageOffer, UpdateStorageOffer } = require("../utils/multerOffer");
 
@@ -9,14 +9,17 @@ const edit = multer({ storage: UpdateStorageOffer });
 const offerControllers = require("../controllers/offerControllers");
 const candidateControllers = require("../controllers/candidateControllers");
 
+const { isConsultantAdmin } = require("../utils/authConsultant");
+
 router.post(
   "/",
   verifyToken,
+  isRecruiter,
   upload.single("teamPicture"),
   offerControllers.add
 );
 router.get("/recruiters/:id", verifyToken, offerControllers.getMyOffers);
-router.delete("/:id", offerControllers.destroy);
+router.delete("/:id", verifyToken, isConsultantAdmin, offerControllers.destroy);
 router.get("/", offerControllers.browse);
 router.get("/valid", offerControllers.validcheck);
 router.get("/findall", offerControllers.alloffers);

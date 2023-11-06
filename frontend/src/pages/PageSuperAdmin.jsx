@@ -338,7 +338,9 @@ const PageSuperAdmin = () => {
               label="Candidate"
               onChange={handleChangeCandidate}
             >
-              <MenuItem value={10}>Candidats.es</MenuItem>
+              <MenuItem value={10}>Candidats.es (tous)</MenuItem>
+              <MenuItem value={20}>Candidats.es (like validé)</MenuItem>
+              <MenuItem value={30}>Candidats.es (like en attente)</MenuItem>
             </Select>
           </FormControl>
         </Box>
